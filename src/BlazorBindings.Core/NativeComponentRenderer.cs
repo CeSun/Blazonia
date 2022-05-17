@@ -71,9 +71,8 @@ namespace BlazorBindings.Core
 
                     _componentIdToAdapter[componentId] = rootAdapter;
 
-                    await SetParameterArguments(component, parameters);
-
-                    await RenderRootComponentAsync(componentId).ConfigureAwait(false);
+                    var parameterView = parameters?.Count > 0 ? ParameterView.FromDictionary(parameters) : ParameterView.Empty;
+                    await RenderRootComponentAsync(componentId, parameterView).ConfigureAwait(false);
                     return component;
                 }).ConfigureAwait(false);
             }
@@ -153,22 +152,6 @@ namespace BlazorBindings.Core
             var result = new NativeComponentAdapter(this, physicalParent);
             _componentIdToAdapter[componentId] = result;
             return result;
-        }
-
-        internal static async Task SetParameterArguments(IComponent component, Dictionary<string, object> arguments)
-        {
-            if (component == null)
-            {
-                throw new ArgumentNullException(nameof(component));
-            }
-            if (arguments == null || arguments.Count == 0)
-            {
-                //parameters will often be null. e.g. if you navigate with no parameters or when creating a root component.
-                return;
-            }
-
-            var parameterView = ParameterView.FromDictionary(arguments);
-            await component.SetParametersAsync(parameterView);
         }
     }
 }
