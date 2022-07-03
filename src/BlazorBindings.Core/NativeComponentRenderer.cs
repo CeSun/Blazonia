@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BlazorBindings.Core
@@ -106,20 +105,16 @@ namespace BlazorBindings.Core
             for (var i = 0; i < numDisposedComponents; i++)
             {
                 var disposedComponentId = renderBatch.DisposedComponentIDs.Array[i];
-                if (_componentIdToAdapter.TryGetValue(disposedComponentId, out var adapter))
+                if (_componentIdToAdapter.Remove(disposedComponentId, out var adapter))
                 {
-                    _componentIdToAdapter.Remove(disposedComponentId);
                     (adapter as IDisposable)?.Dispose();
                 }
             }
 
             var numDisposeEventHandlers = renderBatch.DisposedEventHandlerIDs.Count;
-            if (numDisposeEventHandlers != 0)
+            for (var i = 0; i < numDisposeEventHandlers; i++)
             {
-                for (var i = 0; i < numDisposeEventHandlers; i++)
-                {
-                    DisposeEvent(renderBatch.DisposedEventHandlerIDs.Array[i]);
-                }
+                DisposeEvent(renderBatch.DisposedEventHandlerIDs.Array[i]);
             }
 
             return Task.CompletedTask;
