@@ -259,7 +259,7 @@ namespace BlazorBindings.Core
             ref var frame = ref frames[frameIndex];
             var elementName = frame.ElementName;
             var elementHandlerFactory = ElementHandlerRegistry.ElementHandlers[elementName];
-            var elementHandler = elementHandlerFactory.CreateElementHandler(new ElementHandlerFactoryContext(Renderer, _closestPhysicalParent, _targetComponent));
+            var elementHandler = elementHandlerFactory(Renderer, _closestPhysicalParent, _targetComponent);
 
             if (_targetComponent is NativeControlComponentBase componentInstance)
             {
