@@ -54,6 +54,10 @@ namespace BlazorBindings.Maui.Elements
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Shell.UnselectedColor",
                 (element, value) => MC.Shell.SetUnselectedColor(element, AttributeHelper.StringToColor(value)));
 
+            ElementHandlerRegistry.RegisterPropertyContentHandler<Shell>(nameof(FlyoutHeader),
+                renderer => new ContentPropertyHandler<MC.Shell>(
+                    (shell, valueElement) => shell.FlyoutHeader = valueElement));
+
             ElementHandlerRegistry.RegisterPropertyContentHandler<Shell>(nameof(ItemTemplate),
                 (renderer, _, component) => new DataTemplatePropertyHandler<MC.Shell, MC.BaseShellItem>(component,
                     (shell, dataTemplate) => MC.Shell.SetItemTemplate(shell, dataTemplate)));
@@ -86,23 +90,12 @@ namespace BlazorBindings.Maui.Elements
             await NativeControl.GoToAsync(state, animate).ConfigureAwait(true);
         }
 
-        protected override RenderFragment GetChildContent() => RenderChildContent;
-
-        private void RenderChildContent(RenderTreeBuilder builder)
-        {
-            if (FlyoutHeader != null)
-            {
-                builder.OpenComponent<ShellFlyoutHeader>(1);
-                builder.AddAttribute(0, nameof(ChildContent), FlyoutHeader);
-                builder.CloseComponent();
-            }
-
-            builder.AddContent(2, ChildContent);
-        }
+        protected override RenderFragment GetChildContent() => ChildContent;
 
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(Shell), nameof(FlyoutHeader), FlyoutHeader);
             RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(ItemTemplate), ItemTemplate);
             RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(MenuItemTemplate), MenuItemTemplate);
         }
