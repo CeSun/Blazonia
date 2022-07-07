@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements
@@ -38,7 +38,7 @@ namespace BlazorBindings.Maui.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(Page), nameof(ToolbarItems), ToolbarItems);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(Page), ToolbarItems);
         }
 
         partial void RenderAdditionalAttributes(AttributesBuilder builder)

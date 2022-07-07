@@ -6,12 +6,14 @@ using BlazorBindings.Maui.Elements.DataTemplates;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.Maui
 {
     public static class RenderTreeBuilderHelper
     {
-        public static void AddContentProperty(RenderTreeBuilder builder, int sequence, Type containingType, string propertyName, RenderFragment content)
+        public static void AddContentProperty(RenderTreeBuilder builder, int sequence, Type containingType, RenderFragment content,
+            [CallerArgumentExpression("content")] string propertyName = null)
         {
             if (builder is null)
             {
@@ -38,7 +40,8 @@ namespace BlazorBindings.Maui
             }
         }
 
-        public static void AddDataTemplateProperty<T>(RenderTreeBuilder builder, int sequence, Type containingType, string propertyName, RenderFragment<T> template)
+        public static void AddDataTemplateProperty<T>(RenderTreeBuilder builder, int sequence, Type containingType, RenderFragment<T> template,
+            [CallerArgumentExpression("template")] string propertyName = null)
         {
             if (builder is null)
             {

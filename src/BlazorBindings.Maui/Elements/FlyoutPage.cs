@@ -16,8 +16,8 @@ namespace BlazorBindings.Maui.Elements
 
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(FlyoutPage), nameof(Flyout), Flyout);
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(FlyoutPage), nameof(Detail), Detail);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(FlyoutPage), Flyout);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(FlyoutPage), Detail);
         }
 
         static partial void RegisterAdditionalHandlers()

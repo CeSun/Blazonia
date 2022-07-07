@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements
@@ -45,8 +45,8 @@ namespace BlazorBindings.Maui.Elements
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
 
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(StructuredItemsView<T>), nameof(Header), Header);
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(StructuredItemsView<T>), nameof(Footer), Footer);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(StructuredItemsView<T>), Header);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(StructuredItemsView<T>), Footer);
         }
     }
 }

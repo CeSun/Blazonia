@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections.Generic;
 using M = Microsoft.Maui;
 using MC = Microsoft.Maui.Controls;
@@ -69,8 +69,8 @@ namespace BlazorBindings.Maui.Elements
 
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
-            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(ItemsView<T>), nameof(ItemTemplate), ItemTemplate);
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(ItemsView<T>), nameof(EmptyView), EmptyView);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(ItemsView<T>), ItemTemplate);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(ItemsView<T>), EmptyView);
         }
     }
 }

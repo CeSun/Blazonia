@@ -32,7 +32,7 @@ namespace BlazorBindings.Maui.Elements
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
 
-            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(BaseShellItem), nameof(ItemTemplate), ItemTemplate);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(BaseShellItem), ItemTemplate);
         }
     }
 }

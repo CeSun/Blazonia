@@ -95,9 +95,9 @@ namespace BlazorBindings.Maui.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(Shell), nameof(FlyoutHeader), FlyoutHeader);
-            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(ItemTemplate), ItemTemplate);
-            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(MenuItemTemplate), MenuItemTemplate);
+            RenderTreeBuilderHelper.AddContentProperty(builder, sequence++, typeof(Shell), FlyoutHeader);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), ItemTemplate);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), MenuItemTemplate);
         }
     }
 }
