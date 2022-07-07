@@ -1,9 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using BlazorBindings.Core;
+using BlazorBindings.Maui.Elements.Handlers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using BlazorBindings.Core;
 using System;
 using System.Threading.Tasks;
 using MC = Microsoft.Maui.Controls;
@@ -52,9 +53,19 @@ namespace BlazorBindings.Maui.Elements
 
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Shell.UnselectedColor",
                 (element, value) => MC.Shell.SetUnselectedColor(element, AttributeHelper.StringToColor(value)));
+
+            ElementHandlerRegistry.RegisterPropertyContentHandler<Shell>(nameof(ItemTemplate),
+                (renderer, _, component) => new DataTemplatePropertyHandler<MC.Shell, MC.BaseShellItem>(component,
+                    (shell, dataTemplate) => MC.Shell.SetItemTemplate(shell, dataTemplate)));
+
+            ElementHandlerRegistry.RegisterPropertyContentHandler<Shell>(nameof(MenuItemTemplate),
+                (renderer, _, component) => new DataTemplatePropertyHandler<MC.Shell, MC.BaseShellItem>(component,
+                    (shell, dataTemplate) => MC.Shell.SetMenuItemTemplate(shell, dataTemplate)));
         }
 
         [Parameter] public RenderFragment FlyoutHeader { get; set; }
+        [Parameter] public RenderFragment<MC.BaseShellItem> ItemTemplate { get; set; }
+        [Parameter] public RenderFragment<MC.BaseShellItem> MenuItemTemplate { get; set; }
 
         [Parameter] public EventCallback<MC.ShellNavigatedEventArgs> OnNavigated { get; set; }
         [Parameter] public EventCallback<MC.ShellNavigatingEventArgs> OnNavigating { get; set; }
@@ -87,6 +98,13 @@ namespace BlazorBindings.Maui.Elements
             }
 
             builder.AddContent(2, ChildContent);
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(ItemTemplate), ItemTemplate);
+            RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(Shell), nameof(MenuItemTemplate), MenuItemTemplate);
         }
     }
 }

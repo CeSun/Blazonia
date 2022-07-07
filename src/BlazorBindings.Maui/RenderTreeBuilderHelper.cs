@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using BlazorBindings.Maui.Elements;
 using BlazorBindings.Maui.Elements.DataTemplates;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System;
 
 namespace BlazorBindings.Maui
@@ -49,14 +49,17 @@ namespace BlazorBindings.Maui
                 throw new ArgumentNullException(nameof(containingType));
             }
 
-            builder.OpenRegion(sequence);
+            if (template != null)
+            {
+                builder.OpenRegion(sequence);
 
-            builder.OpenComponent<DataTemplateItemsComponent<T>>(0);
-            builder.AddAttribute(1, nameof(DataTemplateItemsComponent<T>.ElementName), GetElementName(containingType, propertyName));
-            builder.AddAttribute(2, nameof(DataTemplateItemsComponent<T>.Template), template);
-            builder.CloseComponent();
+                builder.OpenComponent<DataTemplateItemsComponent<T>>(0);
+                builder.AddAttribute(1, nameof(DataTemplateItemsComponent<T>.ElementName), GetElementName(containingType, propertyName));
+                builder.AddAttribute(2, nameof(DataTemplateItemsComponent<T>.Template), template);
+                builder.CloseComponent();
 
-            builder.CloseRegion();
+                builder.CloseRegion();
+            }
         }
 
         private static string GetElementName(Type containingType, string propertyName)
