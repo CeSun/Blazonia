@@ -52,8 +52,6 @@ namespace BlazorBindings.Maui.Elements.Handlers
 
         bool IMauiElementHandler.IsParented() => _parentWebView is not null;
 
-        bool IMauiElementHandler.IsParentedTo(Microsoft.Maui.Controls.Element parent) => parent.Equals(_parentWebView);
-
         void IMauiElementHandler.SetParent(Microsoft.Maui.Controls.Element parent)
         {
             // This should never get called. Instead, INonChildContainerElement.SetParent() implemented

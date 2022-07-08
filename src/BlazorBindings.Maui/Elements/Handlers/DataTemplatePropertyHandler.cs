@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.Maui.Controls;
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.DataTemplates;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Maui.Controls;
 using System;
 using MC = Microsoft.Maui.Controls;
 
@@ -47,7 +47,6 @@ namespace BlazorBindings.Maui.Elements.Handlers
 
         MC.Element IMauiElementHandler.ElementControl => null;
         bool IMauiElementHandler.IsParented() => false;
-        bool IMauiElementHandler.IsParentedTo(MC.Element parent) => false;
 
         void IMauiElementHandler.SetParent(MC.Element parent)
         {

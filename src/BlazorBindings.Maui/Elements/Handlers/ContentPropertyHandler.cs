@@ -50,7 +50,6 @@ namespace BlazorBindings.Maui.Elements.Handlers
 
         MC.Element IMauiElementHandler.ElementControl => null;
         bool IMauiElementHandler.IsParented() => false;
-        bool IMauiElementHandler.IsParentedTo(MC.Element parent) => false;
 
         void IMauiElementHandler.SetParent(MC.Element parent)
         {
