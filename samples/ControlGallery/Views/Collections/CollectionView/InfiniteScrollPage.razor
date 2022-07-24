@@ -3,26 +3,34 @@
 @page "/collectionviewplayground/infinite-scroll"
 
 <ContentPage Title="Infinite scroll">
-    <CollectionView ItemsSource="_intItems"
-                    RemainingItemsThreshold="2"
-                    OnRemainingItemsThresholdReached="LoadItems">
-        <Header>
-            <Label Text="Scroll to load more items." />
-        </Header>
+    <RefreshView OnRefreshing="RefreshItems">
+        <CollectionView ItemsSource="_intItems"
+                        RemainingItemsThreshold="2"
+                        OnRemainingItemsThresholdReached="LoadItems">
+            <Header>
+                <Label Text="Scroll to load more items." />
+            </Header>
 
-        <ItemTemplate>
-            <Item Value="@context" />
-        </ItemTemplate>
+            <ItemTemplate>
+                <Item Value="@context" />
+            </ItemTemplate>
 
-        <Footer>
-            <ActivityIndicator IsRunning="_loading" />
-        </Footer>
-    </CollectionView>
+            <Footer>
+                <ActivityIndicator IsRunning="_loading" />
+            </Footer>
+        </CollectionView>
+    </RefreshView>
 </ContentPage>
 
 @code {
-    ObservableCollection<int> _intItems = new ObservableCollection<int>(Enumerable.Range(1, 20));
+    ObservableCollection<int> _intItems = new(Enumerable.Range(1, 20));
     bool _loading;
+
+    async Task RefreshItems()
+    {
+        await Task.Delay(1000);
+        _intItems = new(Enumerable.Range(_intItems.Min() + 5, 20));
+    }
 
     async Task LoadItems()
     {
