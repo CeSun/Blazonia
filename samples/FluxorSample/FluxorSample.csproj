@@ -51,11 +51,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Store\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\src\BlazorBindings.Maui\BlazorBindings.Maui.csproj" />
+	  <ProjectReference Include="..\..\src\BlazorBindings.Maui\BlazorBindings.Maui.csproj" />
 	</ItemGroup>
 
 </Project>

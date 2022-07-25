@@ -1,5 +1,6 @@
 ﻿using Fluxor;
 using FluxorSample.Data;
+using IDispatcher = Fluxor.IDispatcher;
 
 namespace FluxorSample.Store.WeatherUseCase
 {
