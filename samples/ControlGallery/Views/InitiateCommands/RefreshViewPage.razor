@@ -1,9 +1,9 @@
 ﻿@page "/controls/refreshviews"
 
 <ContentPage Title="RefreshView">
-    <RefreshView @bind-IsRefreshing="_isRefreshing" OnRefreshing="Refresh" BackgroundColor="Colors.Yellow" HorizontalOptions="LayoutOptions.Center">
-        <ScrollView BackgroundColor="Colors.Pink">
-            <VerticalStackLayout BackgroundColor="Colors.AliceBlue">
+    <RefreshView @bind-IsRefreshing="_isRefreshing" OnRefreshing="Refresh" HorizontalOptions="LayoutOptions.Center">
+        <ScrollView>
+            <VerticalStackLayout>
                 <Label>Last refresh time: @_refreshTime</Label>
                 <Label>Page was refreshed @_refreshCount times.</Label>
                 <Button OnClick="TriggerRefresh" Text="Trigger refresh" />
