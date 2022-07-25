@@ -25,8 +25,14 @@ namespace BlazorBindings.Maui.Elements.Handlers
 
                     if (RefreshingEventHandlerId != default)
                     {
-                        await renderer.DispatchEventAsync(RefreshingEventHandlerId, null, e);
-                        RefreshViewControl.IsRefreshing = false;
+                        try
+                        {
+                            await renderer.DispatchEventAsync(RefreshingEventHandlerId, null, e);
+                        }
+                        finally
+                        {
+                            RefreshViewControl.IsRefreshing = false;
+                        }
                     }
                 });
             };
