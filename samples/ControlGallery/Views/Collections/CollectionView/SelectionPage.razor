@@ -1,19 +1,23 @@
 ﻿@page "/collectionviewplayground/selection"
 
 <ContentPage Title="Selection">
-    <StackLayout>
-        <Button Text="Select Random" OnClick="SelectRandom" />
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Button Text="Select Random"
+                OnClick="SelectRandom"
+                Grid.Row="0" />
 
-        <Label Text=@($"Selected Items: {(_selectedItems == null ? "" : string.Join(", ", _selectedItems))}") />
+        <Label Text=@($"Selected Items: {(_selectedItems == null ? "" : string.Join(", ", _selectedItems))}")
+               Grid.Row="1" />
 
         <CollectionView ItemsSource="_intItems"
                         SelectionMode="SelectionMode.Multiple"
-                        @bind-SelectedItems="_selectedItems">
+                        @bind-SelectedItems="_selectedItems"
+                        Grid.Row="2">
             <ItemTemplate>
                 <Item Value="@context" />
             </ItemTemplate>
         </CollectionView>
-    </StackLayout>
+    </Grid>
 </ContentPage>
 
 @code {
