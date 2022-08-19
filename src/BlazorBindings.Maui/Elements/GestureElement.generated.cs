@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -13,23 +12,13 @@ namespace BlazorBindings.Maui.Elements
     {
         static GestureElement()
         {
-            ElementHandlerRegistry.RegisterElementHandler<GestureElement>(
-                renderer => new GestureElementHandler(renderer, new MC.GestureElement()));
-
             RegisterAdditionalHandlers();
         }
 
-        public new MC.GestureElement NativeControl => (ElementHandler as GestureElementHandler)?.GestureElementControl;
+        public new MC.GestureElement NativeControl => (MC.GestureElement)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
-        {
-            base.RenderAttributes(builder);
+        protected override MC.Element CreateNativeElement() => new MC.GestureElement();
 
-
-            RenderAdditionalAttributes(builder);
-        }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder);
 
         static partial void RegisterAdditionalHandlers();
     }

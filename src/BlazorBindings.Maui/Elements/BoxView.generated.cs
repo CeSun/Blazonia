@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Maui;
@@ -15,34 +14,40 @@ namespace BlazorBindings.Maui.Elements
     {
         static BoxView()
         {
-            ElementHandlerRegistry.RegisterElementHandler<BoxView>(
-                renderer => new BoxViewHandler(renderer, new MC.BoxView()));
-
             RegisterAdditionalHandlers();
         }
 
         [Parameter] public Color Color { get; set; }
-        [Parameter] public CornerRadius? CornerRadius { get; set; }
+        [Parameter] public CornerRadius CornerRadius { get; set; }
 
-        public new MC.BoxView NativeControl => (ElementHandler as BoxViewHandler)?.BoxViewControl;
+        public new MC.BoxView NativeControl => (MC.BoxView)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
+        protected override MC.Element CreateNativeElement() => new MC.BoxView();
+
+        protected override void HandleParameter(string name, object value)
         {
-            base.RenderAttributes(builder);
-
-            if (Color != null)
+            switch (name)
             {
-                builder.AddAttribute(nameof(Color), AttributeHelper.ColorToString(Color));
-            }
-            if (CornerRadius != null)
-            {
-                builder.AddAttribute(nameof(CornerRadius), AttributeHelper.CornerRadiusToString(CornerRadius.Value));
-            }
+                case nameof(Color):
+                    if (!Equals(Color, value))
+                    {
+                        Color = (Color)value;
+                        NativeControl.Color = Color;
+                    }
+                    break;
+                case nameof(CornerRadius):
+                    if (!Equals(CornerRadius, value))
+                    {
+                        CornerRadius = (CornerRadius)value;
+                        NativeControl.CornerRadius = CornerRadius;
+                    }
+                    break;
 
-            RenderAdditionalAttributes(builder);
+                default:
+                    base.HandleParameter(name, value);
+                    break;
+            }
         }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder);
 
         static partial void RegisterAdditionalHandlers();
     }

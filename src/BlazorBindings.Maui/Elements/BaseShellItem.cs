@@ -5,11 +5,12 @@ using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements
 {
-    public partial class BaseShellItem : NavigableElement
+    public partial class BaseShellItem : NavigableElement, IMauiElementHandler
     {
         static partial void RegisterAdditionalHandlers()
         {
@@ -18,21 +19,22 @@ namespace BlazorBindings.Maui.Elements
                     (shellItem, dataTemplate) => MC.Shell.SetItemTemplate(shellItem, dataTemplate)));
         }
 
-        [Parameter] public EventCallback OnAppearing { get; set; }
-        [Parameter] public EventCallback OnDisappearing { get; set; }
         [Parameter] public RenderFragment<MC.BaseShellItem> ItemTemplate { get; set; }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder)
-        {
-            builder.AddAttribute("onappearing", OnAppearing);
-            builder.AddAttribute("ondisappearing", OnDisappearing);
-        }
 
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
 
             RenderTreeBuilderHelper.AddDataTemplateProperty(builder, sequence++, typeof(BaseShellItem), ItemTemplate);
+        }
+
+        void IMauiElementHandler.SetParent(MC.Element parent)
+        {
+            if (NativeControl.Parent == null)
+            {
+                // The Parent should already be set
+                throw new InvalidOperationException("Shouldn't need to set parent here...");
+            }
         }
     }
 }

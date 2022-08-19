@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
@@ -16,23 +15,28 @@ namespace BlazorBindings.Maui.Elements
             RegisterAdditionalHandlers();
         }
 
-        [Parameter] public double? Spacing { get; set; }
+        [Parameter] public double Spacing { get; set; }
 
-        public new MC.StackBase NativeControl => (ElementHandler as StackBaseHandler)?.StackBaseControl;
+        public new MC.StackBase NativeControl => (MC.StackBase)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
+
+        protected override void HandleParameter(string name, object value)
         {
-            base.RenderAttributes(builder);
-
-            if (Spacing != null)
+            switch (name)
             {
-                builder.AddAttribute(nameof(Spacing), AttributeHelper.DoubleToString(Spacing.Value));
+                case nameof(Spacing):
+                    if (!Equals(Spacing, value))
+                    {
+                        Spacing = (double)value;
+                        NativeControl.Spacing = Spacing;
+                    }
+                    break;
+
+                default:
+                    base.HandleParameter(name, value);
+                    break;
             }
-
-            RenderAdditionalAttributes(builder);
         }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder);
 
         static partial void RegisterAdditionalHandlers();
     }

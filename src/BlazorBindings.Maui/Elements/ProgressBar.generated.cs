@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
@@ -14,34 +13,40 @@ namespace BlazorBindings.Maui.Elements
     {
         static ProgressBar()
         {
-            ElementHandlerRegistry.RegisterElementHandler<ProgressBar>(
-                renderer => new ProgressBarHandler(renderer, new MC.ProgressBar()));
-
             RegisterAdditionalHandlers();
         }
 
-        [Parameter] public double? Progress { get; set; }
+        [Parameter] public double Progress { get; set; }
         [Parameter] public Color ProgressColor { get; set; }
 
-        public new MC.ProgressBar NativeControl => (ElementHandler as ProgressBarHandler)?.ProgressBarControl;
+        public new MC.ProgressBar NativeControl => (MC.ProgressBar)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
+        protected override MC.Element CreateNativeElement() => new MC.ProgressBar();
+
+        protected override void HandleParameter(string name, object value)
         {
-            base.RenderAttributes(builder);
-
-            if (Progress != null)
+            switch (name)
             {
-                builder.AddAttribute(nameof(Progress), AttributeHelper.DoubleToString(Progress.Value));
-            }
-            if (ProgressColor != null)
-            {
-                builder.AddAttribute(nameof(ProgressColor), AttributeHelper.ColorToString(ProgressColor));
-            }
+                case nameof(Progress):
+                    if (!Equals(Progress, value))
+                    {
+                        Progress = (double)value;
+                        NativeControl.Progress = Progress;
+                    }
+                    break;
+                case nameof(ProgressColor):
+                    if (!Equals(ProgressColor, value))
+                    {
+                        ProgressColor = (Color)value;
+                        NativeControl.ProgressColor = ProgressColor;
+                    }
+                    break;
 
-            RenderAdditionalAttributes(builder);
+                default:
+                    base.HandleParameter(name, value);
+                    break;
+            }
         }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder);
 
         static partial void RegisterAdditionalHandlers();
     }

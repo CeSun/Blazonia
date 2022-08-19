@@ -1,16 +1,15 @@
-﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
 using Microsoft.AspNetCore.Components;
+using System.Diagnostics;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements
 {
-    public partial class ShellContent : BaseShellItem, IMauiContainerElementHandler
+    public partial class TabbedPage : Page, IMauiContainerElementHandler
     {
-#pragma warning disable CA1721 // Property names should not match get methods
         [Parameter] public RenderFragment ChildContent { get; set; }
-#pragma warning restore CA1721 // Property names should not match get methods
 
         protected override RenderFragment GetChildContent() => ChildContent;
 
@@ -29,20 +28,27 @@ namespace BlazorBindings.Maui.Elements
 
         void IMauiContainerElementHandler.AddChild(MC.Element child, int physicalSiblingIndex)
         {
-            NativeControl.Content = child;
+            var childAsPage = child as MC.Page;
+
+            if (physicalSiblingIndex <= NativeControl.Children.Count)
+            {
+                NativeControl.Children.Insert(physicalSiblingIndex, childAsPage);
+            }
+            else
+            {
+                Debug.WriteLine($"WARNING: {nameof(NativeControl)} called with {nameof(physicalSiblingIndex)}={physicalSiblingIndex}, but TabbedPageControl.Children.Count={NativeControl.Children.Count}");
+                NativeControl.Children.Add(childAsPage);
+            }
         }
 
         int IMauiContainerElementHandler.GetChildIndex(MC.Element child)
         {
-            return child == NativeControl.Content ? 0 : -1;
+            return NativeControl.Children.IndexOf(child as MC.Page);
         }
 
         void IMauiContainerElementHandler.RemoveChild(MC.Element child)
         {
-            if (NativeControl.Content == child)
-            {
-                NativeControl.Content = null;
-            }
+            NativeControl.Children.Remove(child as MC.Page);
         }
     }
 }

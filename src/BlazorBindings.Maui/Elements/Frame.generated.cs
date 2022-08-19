@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
@@ -14,39 +13,48 @@ namespace BlazorBindings.Maui.Elements
     {
         static Frame()
         {
-            ElementHandlerRegistry.RegisterElementHandler<Frame>(
-                renderer => new FrameHandler(renderer, new MC.Frame()));
-
             RegisterAdditionalHandlers();
         }
 
         [Parameter] public Color BorderColor { get; set; }
-        [Parameter] public float? CornerRadius { get; set; }
-        [Parameter] public bool? HasShadow { get; set; }
+        [Parameter] public float CornerRadius { get; set; }
+        [Parameter] public bool HasShadow { get; set; }
 
-        public new MC.Frame NativeControl => (ElementHandler as FrameHandler)?.FrameControl;
+        public new MC.Frame NativeControl => (MC.Frame)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
+        protected override MC.Element CreateNativeElement() => new MC.Frame();
+
+        protected override void HandleParameter(string name, object value)
         {
-            base.RenderAttributes(builder);
+            switch (name)
+            {
+                case nameof(BorderColor):
+                    if (!Equals(BorderColor, value))
+                    {
+                        BorderColor = (Color)value;
+                        NativeControl.BorderColor = BorderColor;
+                    }
+                    break;
+                case nameof(CornerRadius):
+                    if (!Equals(CornerRadius, value))
+                    {
+                        CornerRadius = (float)value;
+                        NativeControl.CornerRadius = CornerRadius;
+                    }
+                    break;
+                case nameof(HasShadow):
+                    if (!Equals(HasShadow, value))
+                    {
+                        HasShadow = (bool)value;
+                        NativeControl.HasShadow = HasShadow;
+                    }
+                    break;
 
-            if (BorderColor != null)
-            {
-                builder.AddAttribute(nameof(BorderColor), AttributeHelper.ColorToString(BorderColor));
+                default:
+                    base.HandleParameter(name, value);
+                    break;
             }
-            if (CornerRadius != null)
-            {
-                builder.AddAttribute(nameof(CornerRadius), AttributeHelper.SingleToString(CornerRadius.Value));
-            }
-            if (HasShadow != null)
-            {
-                builder.AddAttribute(nameof(HasShadow), HasShadow.Value);
-            }
-
-            RenderAdditionalAttributes(builder);
         }
-
-        partial void RenderAdditionalAttributes(AttributesBuilder builder);
 
         static partial void RegisterAdditionalHandlers();
     }

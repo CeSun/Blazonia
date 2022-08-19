@@ -18,15 +18,16 @@ namespace BlazorBindings.Maui.Elements
         }
 
         [Parameter] public RenderFragment Background { get; set; }
-        [Parameter] public EventCallback<MC.FocusEventArgs> OnFocused { get; set; }
-        [Parameter] public EventCallback OnSizeChanged { get; set; }
-        [Parameter] public EventCallback<MC.FocusEventArgs> OnUnfocused { get; set; }
 
-        partial void RenderAdditionalAttributes(AttributesBuilder builder)
+        protected override bool HandleAdditionalParameter(string name, object value)
         {
-            builder.AddAttribute("onfocused", OnFocused);
-            builder.AddAttribute("onsizechanged", OnSizeChanged);
-            builder.AddAttribute("onunfocused", OnUnfocused);
+            if (name == nameof(Background))
+            {
+                Background = (RenderFragment)value;
+                return true;
+            }
+
+            return base.HandleAdditionalParameter(name, value);
         }
 
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)

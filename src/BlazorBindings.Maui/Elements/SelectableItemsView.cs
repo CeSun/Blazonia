@@ -2,9 +2,9 @@
 // Licensed under the MIT license.
 
 using Microsoft.AspNetCore.Components;
-using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
+using Microsoft.Maui.Controls;
 using System.Collections.Generic;
+using System.Linq;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements
@@ -16,35 +16,84 @@ namespace BlazorBindings.Maui.Elements
         [Parameter] public IList<object> SelectedItems { get; set; }
 #pragma warning restore CA2227 // Collection properties should be read only
         [Parameter] public object SelectedItem { get; set; }
-        [Parameter] public MC.SelectionMode? SelectionMode { get; set; }
+        [Parameter] public MC.SelectionMode SelectionMode { get; set; }
 
         [Parameter] public EventCallback<MC.SelectionChangedEventArgs> OnSelectionChanged { get; set; }
         [Parameter] public EventCallback<IList<object>> SelectedItemsChanged { get; set; }
         [Parameter] public EventCallback<object> SelectedItemChanged { get; set; }
 
-        public new MC.SelectableItemsView NativeControl => (ElementHandler as SelectableItemsViewHandler)?.SelectableItemsViewControl;
+        public new MC.SelectableItemsView NativeControl => (MC.SelectableItemsView)((Element)this).NativeControl;
 
-        protected override void RenderAttributes(AttributesBuilder builder)
+        protected override MC.Element CreateNativeElement() => new MC.SelectableItemsView();
+
+        protected override void HandleParameter(string name, object value)
         {
-            base.RenderAttributes(builder);
-
-            if (SelectedItems != null)
+            switch (name)
             {
-                builder.AddAttribute(nameof(SelectedItems), AttributeHelper.ObjectToDelegate(SelectedItems));
-            }
+                case nameof(SelectedItems):
+                    if (!Equals(SelectedItems, value))
+                    {
+                        SelectedItems = (IList<object>)value;
 
-            if (SelectedItem != null)
-            {
-                builder.AddAttribute(nameof(SelectedItem), AttributeHelper.ObjectToDelegate(SelectedItem));
-            }
-            if (SelectionMode != null)
-            {
-                builder.AddAttribute(nameof(SelectionMode), (int)SelectionMode.Value);
-            }
+                        // Don't assign value if lists content is equal. Otherwise leads to infinite loop when binded. 
+                        if (!Enumerable.SequenceEqual(NativeControl.SelectedItems, SelectedItems))
+                        {
+                            NativeControl.SelectedItems = SelectedItems;
+                        }
+                    }
+                    break;
+                case nameof(SelectedItem):
+                    if (!Equals(SelectedItem, value))
+                    {
+                        SelectedItem = value;
+                        NativeControl.SelectedItem = SelectedItem;
+                    }
+                    break;
+                case nameof(SelectionMode):
+                    if (!Equals(SelectionMode, value))
+                    {
+                        SelectionMode = (MC.SelectionMode)value;
+                        NativeControl.SelectionMode = SelectionMode;
+                    }
+                    break;
 
-            builder.AddAttribute("onselectionchanged", OnSelectionChanged);
-            builder.AddAttribute("onselecteditemchanged", EventCallback.Factory.Create<ChangeEventArgs>(this, e => SelectedItemChanged.InvokeAsync(e.Value)));
-            builder.AddAttribute("onselecteditemschanged", EventCallback.Factory.Create<ChangeEventArgs>(this, e => SelectedItemsChanged.InvokeAsync((IList<object>)e.Value)));
+                case nameof(OnSelectionChanged):
+                    if (!Equals(OnSelectionChanged, value))
+                    {
+                        void NativeControlSelectionChanged(object sender, SelectionChangedEventArgs e) => OnSelectionChanged.InvokeAsync(e);
+
+                        OnSelectionChanged = (EventCallback<MC.SelectionChangedEventArgs>)value;
+                        NativeControl.SelectionChanged -= NativeControlSelectionChanged;
+                        NativeControl.SelectionChanged += NativeControlSelectionChanged;
+                    }
+                    break;
+
+                case nameof(SelectedItemsChanged):
+                    if (!Equals(SelectedItemsChanged, value))
+                    {
+                        void NativeControlSelectionChanged(object sender, SelectionChangedEventArgs e) => SelectedItemsChanged.InvokeAsync(NativeControl.SelectedItems);
+
+                        SelectedItemsChanged = (EventCallback<IList<object>>)value;
+                        NativeControl.SelectionChanged -= NativeControlSelectionChanged;
+                        NativeControl.SelectionChanged += NativeControlSelectionChanged;
+                    }
+                    break;
+
+                case nameof(SelectedItemChanged):
+                    if (!Equals(SelectedItemChanged, value))
+                    {
+                        void NativeControlSelectionChanged(object sender, SelectionChangedEventArgs e) => SelectedItemChanged.InvokeAsync(NativeControl.SelectedItem);
+
+                        SelectedItemChanged = (EventCallback<object>)value;
+                        NativeControl.SelectionChanged -= NativeControlSelectionChanged;
+                        NativeControl.SelectionChanged += NativeControlSelectionChanged;
+                    }
+                    break;
+
+                default:
+                    base.HandleParameter(name, value);
+                    break;
+            }
         }
     }
 }

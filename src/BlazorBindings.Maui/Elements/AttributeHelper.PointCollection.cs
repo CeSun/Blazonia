@@ -3,6 +3,8 @@
 
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Graphics;
+using System;
 
 namespace BlazorBindings.Maui.Elements
 {
@@ -10,14 +12,16 @@ namespace BlazorBindings.Maui.Elements
     {
         private static readonly PointCollectionConverter _pointCollectionConverter = new();
 
-        public static string PointCollectionToString(PointCollection pointCollection)
+        public static PointCollection StringToPointCollection(object value)
         {
-            return _pointCollectionConverter.ConvertToInvariantString(pointCollection);
-        }
-
-        public static PointCollection StringToPointCollection(object pointCollectionString)
-        {
-            return (PointCollection)_pointCollectionConverter.ConvertFromInvariantString((string)pointCollectionString);
+            return value switch
+            {
+                null => null,
+                PointCollection pointCollection => pointCollection,
+                Point[] pointArray => (PointCollection)pointArray,
+                string str => (PointCollection)_pointCollectionConverter.ConvertFromInvariantString(str),
+                _ => throw new ArgumentException("Cannot convert value to PointCollection.", nameof(value))
+            };
         }
     }
 }

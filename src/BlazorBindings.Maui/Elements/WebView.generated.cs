@@ -4,40 +4,41 @@
 using BlazorBindings.Core;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
-    public partial class Grid : Layout
+    public partial class WebView : View
     {
-        static Grid()
+        static WebView()
         {
             RegisterAdditionalHandlers();
         }
 
-        [Parameter] public double ColumnSpacing { get; set; }
-        [Parameter] public double RowSpacing { get; set; }
+        [Parameter] public CookieContainer Cookies { get; set; }
+        [Parameter] public MC.WebViewSource Source { get; set; }
 
-        public new MC.Grid NativeControl => (MC.Grid)((Element)this).NativeControl;
+        public new MC.WebView NativeControl => (MC.WebView)((Element)this).NativeControl;
 
-        protected override MC.Element CreateNativeElement() => new MC.Grid();
+        protected override MC.Element CreateNativeElement() => new MC.WebView();
 
         protected override void HandleParameter(string name, object value)
         {
             switch (name)
             {
-                case nameof(ColumnSpacing):
-                    if (!Equals(ColumnSpacing, value))
+                case nameof(Cookies):
+                    if (!Equals(Cookies, value))
                     {
-                        ColumnSpacing = (double)value;
-                        NativeControl.ColumnSpacing = ColumnSpacing;
+                        Cookies = (CookieContainer)value;
+                        NativeControl.Cookies = Cookies;
                     }
                     break;
-                case nameof(RowSpacing):
-                    if (!Equals(RowSpacing, value))
+                case nameof(Source):
+                    if (!Equals(Source, value))
                     {
-                        RowSpacing = (double)value;
-                        NativeControl.RowSpacing = RowSpacing;
+                        Source = (MC.WebViewSource)value;
+                        NativeControl.Source = Source;
                     }
                     break;
 
