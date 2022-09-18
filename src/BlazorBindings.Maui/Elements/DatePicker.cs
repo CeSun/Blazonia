@@ -19,30 +19,21 @@ namespace BlazorBindings.Maui.Elements
                     if (!Equals(Date, value))
                     {
                         Date = (DateOnly?)value;
-
-                        NativeControl.Date = Date != null
-                            ? Date.Value.ToDateTime(TimeOnly.MinValue)
-                            : (DateTime)MC.DatePicker.DateProperty.DefaultValue;
+                        NativeControl.Date = Date?.ToDateTime(TimeOnly.MinValue) ?? (DateTime)MC.DatePicker.DateProperty.DefaultValue;
                     }
                     return true;
                 case nameof(MaximumDate):
                     if (!Equals(MaximumDate, value))
                     {
                         MaximumDate = (DateOnly?)value;
-
-                        NativeControl.MaximumDate = MaximumDate != null
-                            ? MaximumDate.Value.ToDateTime(TimeOnly.MinValue)
-                            : (DateTime)MC.DatePicker.MaximumDateProperty.DefaultValue;
+                        NativeControl.MaximumDate = MaximumDate?.ToDateTime(TimeOnly.MinValue) ?? (DateTime)MC.DatePicker.MaximumDateProperty.DefaultValue;
                     }
                     return true;
                 case nameof(MinimumDate):
                     if (!Equals(MinimumDate, value))
                     {
                         MinimumDate = (DateOnly?)value;
-
-                        NativeControl.MinimumDate = MinimumDate != null
-                            ? MinimumDate.Value.ToDateTime(TimeOnly.MinValue)
-                            : (DateTime)MC.DatePicker.MinimumDateProperty.DefaultValue;
+                        NativeControl.MinimumDate = MinimumDate?.ToDateTime(TimeOnly.MinValue) ?? (DateTime)MC.DatePicker.MinimumDateProperty.DefaultValue;
                     }
                     return true;
                 case nameof(DateChanged):

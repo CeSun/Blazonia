@@ -28,9 +28,7 @@ namespace BlazorBindings.Maui.Elements
                     if (!Equals(Time, value))
                     {
                         Time = (TimeOnly?)value;
-                        NativeControl.Time = Time != null
-                            ? Time.Value.ToTimeSpan()
-                            : (TimeSpan)MC.TimePicker.TimeProperty.DefaultValue;
+                        NativeControl.Time = Time?.ToTimeSpan() ?? (TimeSpan)MC.TimePicker.TimeProperty.DefaultValue;
                     }
                     return true;
                 case nameof(TimeChanged):
