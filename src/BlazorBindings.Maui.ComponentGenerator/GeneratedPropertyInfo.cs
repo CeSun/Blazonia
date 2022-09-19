@@ -168,8 +168,12 @@ namespace ComponentWrapperGenerator
 
         private static bool IsPublicProperty(IPropertySymbol propertyInfo)
         {
-            return propertyInfo.GetMethod?.DeclaredAccessibility == Accessibility.Public && IsBrowsable(propertyInfo) && !propertyInfo.IsIndexer;
+            return propertyInfo.GetMethod?.DeclaredAccessibility == Accessibility.Public
+                && IsBrowsable(propertyInfo)
+                && !propertyInfo.IsIndexer
+                && !IsObsolete(propertyInfo);
         }
+
         private static bool IsBrowsable(ISymbol propInfo)
         {
             // [EditorBrowsable(EditorBrowsableState.Never)]
@@ -180,6 +184,11 @@ namespace ComponentWrapperGenerator
         private static bool HasPublicSetter(IPropertySymbol propertyInfo)
         {
             return propertyInfo.SetMethod?.DeclaredAccessibility == Accessibility.Public;
+        }
+
+        private static bool IsObsolete(ISymbol symbol)
+        {
+            return symbol.GetAttributes().Any(a => a.AttributeClass.Name == nameof(ObsoleteAttribute));
         }
 
         private static readonly List<string> DisallowedComponentTypes = new()

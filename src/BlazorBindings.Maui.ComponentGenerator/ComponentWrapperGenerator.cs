@@ -270,6 +270,11 @@ namespace {componentNamespace}
                 return typeName;
             }
 
+            if (type.ContainingType != null)
+            {
+                return $"{GetTypeNameAndAddNamespace(type.ContainingType, usings)}.{FormatTypeName(type, usings)}";
+            }
+
             // Check if there's a 'using' already. If so, check if it has an alias. If not, add a new 'using'.
             var namespaceAlias = string.Empty;
 
