@@ -10,12 +10,12 @@ using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Handlers
 {
-    public class DataTemplatePropertyHandler<TElementType> : IMauiContainerElementHandler, INonChildContainerElement
+    public class ControlTemplatePropertyHandler<TElementType> : IMauiContainerElementHandler, INonChildContainerElement
     {
         private readonly ControlTemplateItemsComponent _controlTemplateItemsComponent;
-        private readonly Action<TElementType, DataTemplate> _setPropertyAction;
+        private readonly Action<TElementType, ControlTemplate> _setPropertyAction;
 
-        public DataTemplatePropertyHandler(IComponent controlTemplateItemsComponent, Action<TElementType, DataTemplate> setPropertyAction)
+        public ControlTemplatePropertyHandler(IComponent controlTemplateItemsComponent, Action<TElementType, ControlTemplate> setPropertyAction)
         {
             _controlTemplateItemsComponent = (ControlTemplateItemsComponent)controlTemplateItemsComponent;
             _setPropertyAction = setPropertyAction;
@@ -24,8 +24,8 @@ namespace BlazorBindings.Maui.Elements.Handlers
         public void SetParent(object parentElement)
         {
             var parent = (TElementType)parentElement;
-            var dataTemplate = new MbbDataTemplate(_controlTemplateItemsComponent);
-            _setPropertyAction(parent, dataTemplate);
+            var controlTemplate = new MbbControlTemplate(_controlTemplateItemsComponent);
+            _setPropertyAction(parent, controlTemplate);
         }
 
         public void Remove()

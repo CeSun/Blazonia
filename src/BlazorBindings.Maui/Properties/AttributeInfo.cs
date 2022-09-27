@@ -53,8 +53,10 @@ using System.Runtime.CompilerServices;
     PropertyChangedEvents = new[] { nameof(RefreshView.IsRefreshing) })]
 [assembly: GenerateComponent(typeof(ScrollView))]
 [assembly: GenerateComponent(typeof(Shadow))]
-[assembly: GenerateComponent(typeof(Shell))]
-[assembly: GenerateComponent(typeof(ShellContent))]
+[assembly: GenerateComponent(typeof(Shell),
+    Exclude = new[] { nameof(Shell.ItemTemplate), nameof(Shell.MenuItemTemplate), nameof(Shell.FlyoutContentTemplate), nameof(Shell.FlyoutFooterTemplate), nameof(Shell.FlyoutHeaderTemplate) })]
+[assembly: GenerateComponent(typeof(ShellContent),
+    Exclude = new[] { nameof(ShellContent.ContentTemplate) })]
 [assembly: GenerateComponent(typeof(ShellGroupItem))]
 [assembly: GenerateComponent(typeof(ShellItem))]
 [assembly: GenerateComponent(typeof(ShellSection))]
@@ -68,7 +70,7 @@ using System.Runtime.CompilerServices;
 [assembly: GenerateComponent(typeof(Tab))]
 [assembly: GenerateComponent(typeof(TabBar))]
 [assembly: GenerateComponent(typeof(TabbedPage))]
-[assembly: GenerateComponent(typeof(TemplatedPage))]
+[assembly: GenerateComponent(typeof(TemplatedPage), Exclude = new[] { nameof(TemplatedPage.ControlTemplate) })]
 [assembly: GenerateComponent(typeof(TemplatedView))]
 [assembly: GenerateComponent(typeof(TimePicker), Exclude = new[] { nameof(TimePicker.Time) })]
 [assembly: GenerateComponent(typeof(ToolbarItem))]
