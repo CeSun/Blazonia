@@ -10,6 +10,7 @@ namespace BlazorBindings.Maui.ComponentGenerator
         private static readonly string[] ContentTypes = new[]
         {
             "Microsoft.Maui.IView",
+            "Microsoft.Maui.Controls.View",
             "Microsoft.Maui.Controls.BaseMenuItem",
             "Microsoft.Maui.Controls.ControlTemplate",
             "Microsoft.Maui.Controls.DataTemplate",
