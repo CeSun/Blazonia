@@ -34,7 +34,7 @@ namespace BlazorBindings.Maui
             }
 
             var (element, componentTask) = await elementComponentTask;
-            SetChildContent(parent, element);
+            await SetChildContent(parent, element);
             return (TComponent)await componentTask;
         }
 
@@ -67,10 +67,13 @@ namespace BlazorBindings.Maui
             return (container.Elements[0], addComponentTask);
         }
 
-        private static void SetChildContent(MC.Element parent, MC.Element child)
+        private static Task SetChildContent(MC.Element parent, MC.Element child)
         {
             switch (parent)
             {
+                case MC.NavigationPage page:
+                    return page.PushAsync(Cast<MC.Page>(child));
+
                 case MC.Application application:
                     application.MainPage = Cast<MC.Page>(child);
                     break;
@@ -108,6 +111,8 @@ namespace BlazorBindings.Maui
                 default:
                     throw new InvalidOperationException($"Renderer doesn't support {parent?.GetType()?.Name} as a parent element.");
             };
+
+            return Task.CompletedTask;
 
             static T Cast<T>(MC.Element e) where T : MC.Element => e as T
                 ?? throw new InvalidOperationException($"{typeof(T).Name} element expected, but {e?.GetType()?.Name} found.");
