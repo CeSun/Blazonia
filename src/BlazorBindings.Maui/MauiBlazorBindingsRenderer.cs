@@ -24,13 +24,16 @@ namespace BlazorBindings.Maui
 
         public async Task<TComponent> AddComponent<TComponent>(MC.Element parent, Dictionary<string, object> parameters = null) where TComponent : IComponent
         {
-            if (parent is MC.Application app)
+            var elementComponentTask = GetElementFromRenderedComponent(typeof(TComponent), parameters);
+
+            if (!elementComponentTask.IsCompleted && parent is MC.Application app)
             {
-                // MAUI requires the Application to have the MainPage. Renderer, however, populates this property asynchroniously.
+                // MAUI requires the Application to have the MainPage. If rendering task is not completed synchroniously,
+                // we need to set MainPage to something.
                 app.MainPage ??= new MC.ContentPage();
             }
 
-            var (element, componentTask) = await GetElementFromRenderedComponent(typeof(TComponent), parameters);
+            var (element, componentTask) = await elementComponentTask;
             SetChildContent(parent, element);
             return (TComponent)await componentTask;
         }
