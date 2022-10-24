@@ -52,8 +52,6 @@ namespace BlazorBindings.Maui.Elements.Handlers
         MC.Element IMauiElementHandler.ElementControl => null;
         object IElementHandler.TargetElement => null;
         void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
-        bool IMauiElementHandler.IsParented() => false;
-        void IMauiElementHandler.SetParent(MC.Element parent) { }
         void INonPhysicalChild.SetParent(object parentElement) { }
         void INonPhysicalChild.Remove() { }
     }
