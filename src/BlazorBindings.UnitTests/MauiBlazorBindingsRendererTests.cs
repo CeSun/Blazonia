@@ -2,6 +2,7 @@
 using BlazorBindings.UnitTests.Components;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MC = Microsoft.Maui.Controls;
 
@@ -37,6 +38,7 @@ namespace BlazorBindings.UnitTests
         [TestCase(typeof(MC.TabbedPage))]
         [TestCase(typeof(MC.Shell))]
         [TestCase(typeof(MC.ShellContent))]
+        [TestCase(typeof(MC.ShellSection))]
         public async Task RenderToExistingControl_PageContent(Type containerType)
         {
             var control = (MC.Element)Activator.CreateInstance(containerType);
@@ -45,6 +47,17 @@ namespace BlazorBindings.UnitTests
 
             var content = GetChildContent(control);
             PageContent.ValidateContent(content);
+        }
+
+        [Test]
+        public async Task RenderToExistingControl_MultipleChildren()
+        {
+            var control = new MC.TabbedPage();
+
+            await _renderer.AddComponent<MultiplePagesContent>(control);
+
+            var pages = control.Children;
+            Assert.That(pages.Select(p => p.Title), Is.EqualTo(new[] { "Page1", "Page2", "Page3" }));
         }
 
         private static MC.Element GetChildContent(MC.Element container)
