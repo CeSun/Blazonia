@@ -13,13 +13,17 @@ namespace BlazorBindings.Maui.Elements.Input
             _eventCallback = eventCallback;
         }
 
-        public event EventHandler CanExecuteChanged;
-
         public bool CanExecute(object parameter) => _eventCallback.HasDelegate;
 
         public void Execute(object parameter)
         {
             _ = _eventCallback.InvokeAsync();
+        }
+
+        event EventHandler ICommand.CanExecuteChanged
+        {
+            add { }
+            remove { }
         }
     }
 }
