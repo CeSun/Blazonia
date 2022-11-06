@@ -1,5 +1,6 @@
 ﻿using BlazorBindings.Maui;
 using BlazorBindings.UnitTests.Components;
+using Microsoft.Maui.Controls;
 using NUnit.Framework;
 using System;
 using System.Linq;
@@ -60,6 +61,14 @@ namespace BlazorBindings.UnitTests
             Assert.That(pages.Select(p => p.Title), Is.EqualTo(new[] { "Page1", "Page2", "Page3" }));
         }
 
+        [Test]
+        public void ShouldThrowExceptionIfHappenedDuringSyncRender()
+        {
+            void action() => _renderer.AddComponent<ComponentWithException>(new NavigationPage());
+
+            Assert.That(action, Throws.InvalidOperationException.With.Message.EqualTo("Should fail here."));
+        }
+
         private static MC.Element GetChildContent(MC.Element container)
         {
             return container switch
@@ -72,6 +81,7 @@ namespace BlazorBindings.UnitTests
                 MC.FlyoutPage flyoutPage => flyoutPage.Detail,
                 MC.TabbedPage tabbedPage => tabbedPage.Children[0],
                 MC.Shell shell => (MC.Element)shell.Items[0].Items[0].Items[0].Content,
+                MC.ShellSection shellContent => (MC.Element)shellContent.Items[0].Content,
                 MC.ShellContent shellContent => (MC.Element)shellContent.Content,
                 _ => throw new NotSupportedException("Unexpected parent type.")
             };

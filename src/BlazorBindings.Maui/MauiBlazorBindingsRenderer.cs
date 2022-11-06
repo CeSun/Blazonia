@@ -22,20 +22,33 @@ namespace BlazorBindings.Maui
 
         public override Dispatcher Dispatcher { get; } = new MauiDeviceDispatcher();
 
-        public async Task<TComponent> AddComponent<TComponent>(MC.Element parent, Dictionary<string, object> parameters = null) where TComponent : IComponent
+        public Task<TComponent> AddComponent<TComponent>(MC.Element parent, Dictionary<string, object> parameters = null) where TComponent : IComponent
         {
-            var elementsComponentTask = GetElementsFromRenderedComponent(typeof(TComponent), parameters);
+            var componentTask = AddComponentLocal();
 
-            if (!elementsComponentTask.IsCompleted && parent is MC.Application app)
+            if (componentTask.Exception != null)
             {
-                // MAUI requires the Application to have the MainPage. If rendering task is not completed synchroniously,
-                // we need to set MainPage to something.
-                app.MainPage ??= new MC.ContentPage();
+                // If exception was thrown during the sync execution - throw it straight away.
+                ExceptionDispatchInfo.Throw(componentTask.Exception.InnerException);
             }
 
-            var (elements, componentTask) = await elementsComponentTask;
-            await SetChildContent(parent, elements);
-            return (TComponent)await componentTask;
+            return componentTask;
+
+            async Task<TComponent> AddComponentLocal()
+            {
+                var elementsComponentTask = GetElementsFromRenderedComponent(typeof(TComponent), parameters);
+
+                if (!elementsComponentTask.IsCompleted && parent is MC.Application app)
+                {
+                    // MAUI requires the Application to have the MainPage. If rendering task is not completed synchroniously,
+                    // we need to set MainPage to something.
+                    app.MainPage ??= new MC.ContentPage();
+                }
+
+                var (elements, componentTask) = await elementsComponentTask;
+                await SetChildContent(parent, elements);
+                return (TComponent)await componentTask;
+            }
         }
 
         protected override ElementManager CreateNativeControlManager()
