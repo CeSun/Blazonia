@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui
 {
-    public interface INavigationService
+    public interface INavigation
     {
         /// <summary>
         /// Performs URI-based Shell navigation. This method is only available for Shell-based applications.

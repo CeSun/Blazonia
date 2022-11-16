@@ -34,7 +34,7 @@
 </ContentPage>
 
 @code {
-    [Inject] INavigationService Navigation { get; set; }
+    [Inject] INavigation Navigation { get; set; }
 
     [Parameter] public Color ShellBackgroundColor { get; set; }
     [Parameter] public EventCallback<Color> ShellBackgroundColorChanged { get; set; }

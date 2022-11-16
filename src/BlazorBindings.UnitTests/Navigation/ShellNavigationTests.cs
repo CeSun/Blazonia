@@ -16,7 +16,7 @@ namespace BlazorBindings.UnitTests.Navigation
     {
         private static readonly Guid _testGuid = Guid.NewGuid();
 
-        private readonly NavigationService _navigationService;
+        private readonly Maui.Navigation _navigationService;
         private readonly MC.INavigation _mauiNavigation;
 
         public ShellNavigationTests()
@@ -24,7 +24,7 @@ namespace BlazorBindings.UnitTests.Navigation
             var shell = new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } };
             var sp = TestServiceProvider.Create();
             MC.Application.Current = new TestApplication(sp) { MainPage = shell };
-            _navigationService = new NavigationService(sp);
+            _navigationService = new Maui.Navigation(sp);
             _mauiNavigation = shell.Navigation;
         }
 
@@ -67,7 +67,7 @@ namespace BlazorBindings.UnitTests.Navigation
         [TestCaseSource(nameof(TryParseTestData))]
         public void TryParseTest(string s, Type type, object expectedResult, bool expectedSuccess)
         {
-            var success = NavigationService.TryParse(type, s, out var result);
+            var success = Maui.Navigation.TryParse(type, s, out var result);
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(expectedResult, result);

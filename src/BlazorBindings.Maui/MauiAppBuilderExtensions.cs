@@ -16,9 +16,9 @@ namespace BlazorBindings.Maui
 
             // Use factories for performance.
             builder.Services
-                .AddSingleton<NavigationService>(svcs => new NavigationService(svcs))
-                .AddSingleton<INavigationService>(services => services.GetRequiredService<NavigationService>())
-                .AddSingleton<ShellNavigationManager>(svcs => new ShellNavigationManager(svcs.GetRequiredService<NavigationService>()))
+                .AddSingleton<Navigation>(svcs => new Navigation(svcs))
+                .AddSingleton<INavigation>(services => services.GetRequiredService<Navigation>())
+                .AddSingleton<ShellNavigationManager>(svcs => new ShellNavigationManager(svcs.GetRequiredService<Navigation>()))
                 .AddScoped<MauiBlazorBindingsRenderer>(svcs => new MauiBlazorBindingsRenderer(svcs, svcs.GetRequiredService<ILoggerFactory>()));
 
             return builder;

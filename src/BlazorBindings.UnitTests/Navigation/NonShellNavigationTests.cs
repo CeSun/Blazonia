@@ -16,7 +16,7 @@ namespace BlazorBindings.UnitTests.Navigation
     [TestFixture(nameof(MC.NavigationPage))]
     public class NonShellNavigationTests
     {
-        private readonly NavigationService _navigationService;
+        private readonly Maui.Navigation _navigationService;
         private readonly MC.INavigation _mauiNavigation;
         private readonly MC.Page _rootPage;
 
@@ -32,7 +32,7 @@ namespace BlazorBindings.UnitTests.Navigation
             var ctx = MC.Application.Current.Handler.MauiContext;
             var dsp = ctx.Services.GetService<IDispatcher>();
 
-            _navigationService = new NavigationService(sp);
+            _navigationService = new Maui.Navigation(sp);
             _mauiNavigation = mainPage.Navigation;
             _rootPage = _mauiNavigation.NavigationStack[0];
         }

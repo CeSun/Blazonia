@@ -7,19 +7,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
+using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui
 {
-    public partial class NavigationService : INavigationService
+    public partial class Navigation : INavigation
     {
         protected readonly IServiceProvider _services;
 
-        public NavigationService(IServiceProvider services)
+        public Navigation(IServiceProvider services)
         {
             _services = services;
         }
 
-        protected INavigation Navigation => Application.Current.MainPage.Navigation;
+        protected MC.INavigation MauiNavigation => Application.Current.MainPage.Navigation;
 
         /// <summary>
         /// Push page component <typeparamref name="T"/> to the Navigation Stack.
@@ -29,7 +30,7 @@ namespace BlazorBindings.Maui
             await NavigationAction(async () =>
             {
                 var page = await BuildElement<Page>(typeof(T), arguments);
-                await Navigation.PushAsync(page, animated);
+                await MauiNavigation.PushAsync(page, animated);
             });
         }
 
@@ -41,7 +42,7 @@ namespace BlazorBindings.Maui
             await NavigationAction(async () =>
             {
                 var page = await BuildElement<Page>(typeof(T), arguments);
-                await Navigation.PushModalAsync(page, animated);
+                await MauiNavigation.PushModalAsync(page, animated);
             });
         }
 
@@ -54,7 +55,7 @@ namespace BlazorBindings.Maui
             await NavigationAction(async () =>
             {
                 var page = await BuildElement<Page>(renderFragment);
-                await Navigation.PushModalAsync(page, animated);
+                await MauiNavigation.PushModalAsync(page, animated);
             });
         }
 
@@ -67,23 +68,23 @@ namespace BlazorBindings.Maui
             await NavigationAction(async () =>
             {
                 var page = await BuildElement<Page>(renderFragment);
-                await Navigation.PushAsync(page, animated);
+                await MauiNavigation.PushAsync(page, animated);
             });
         }
 
         public async Task PopModalAsync(bool animated = true)
         {
-            await NavigationAction(() => Navigation.PopModalAsync(animated));
+            await NavigationAction(() => MauiNavigation.PopModalAsync(animated));
         }
 
         public async Task PopAsync(bool animated = true)
         {
-            await NavigationAction(() => Navigation.PopAsync(animated));
+            await NavigationAction(() => MauiNavigation.PopAsync(animated));
         }
 
         public async Task PopToRootAsync(bool animated = true)
         {
-            await NavigationAction(() => Navigation.PopToRootAsync(animated));
+            await NavigationAction(() => MauiNavigation.PopToRootAsync(animated));
         }
 
         /// <summary>

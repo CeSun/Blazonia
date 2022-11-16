@@ -10,7 +10,7 @@ using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui
 {
-    public partial class NavigationService
+    public partial class Navigation
     {
         private readonly Dictionary<string, MBBRouteFactory> RouteFactories = new();
         private readonly Dictionary<Type, StructuredRouteResult> NavigationParameters = new();
