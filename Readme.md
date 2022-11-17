@@ -1,6 +1,7 @@
 # BlazorBindings.Maui
 
 [![Nuget](https://img.shields.io/nuget/v/BlazorBindings.Maui)](https://www.nuget.org/packages/BlazorBindings.Maui/)
+[![Join Discord](https://img.shields.io/badge/discord-join%20chat-46BC99)](https://discord.com/channels/732297728826277939/734865521400610856)
 
 ## Getting Started
 
