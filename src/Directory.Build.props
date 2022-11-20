@@ -9,7 +9,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-		<PackageReleaseNotes>Release notes are available at: https://dreamescaper.github.io/MobileBlazorBindingsDocs/maui-blazor-bindings/release-notes/preview-10.html</PackageReleaseNotes>
+		<PackageReleaseNotes>Release notes are available at: https://dreamescaper.github.io/MobileBlazorBindingsDocs/maui-blazor-bindings/release-notes/preview-11.html</PackageReleaseNotes>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 	</PropertyGroup>
 
