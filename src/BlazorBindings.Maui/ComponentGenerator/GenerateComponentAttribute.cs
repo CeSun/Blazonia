@@ -38,5 +38,10 @@ namespace BlazorBindings.Maui.ComponentGenerator
         /// Generate parameters with different name. Format: "{MauiName}:{GeneratedName}".
         /// </summary>
         public string[] Aliases { get; set; }
+
+        /// <summary>
+        /// Generate generic component type.
+        /// </summary>
+        public bool IsGeneric { get; set; }
     }
 }

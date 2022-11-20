@@ -31,7 +31,7 @@ namespace BlazorBindings.Maui.ComponentGenerator
                     if (o.ProjectPath is null)
                     {
                         o.ProjectPath = Directory.GetFiles(Directory.GetCurrentDirectory()).FirstOrDefault(f
-                            => f.EndsWith(".csproj", StringComparison.InvariantCultureIgnoreCase))
+                            => f.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
                             ?? throw new Exception("Cannot find any csproj files.");
                     }
                     if (o.OutPath is null)
@@ -82,7 +82,8 @@ namespace BlazorBindings.Maui.ComponentGenerator
                         PropertyChangedEvents = GetNamedArgumentValues(a, "PropertyChangedEvents"),
                         GenericProperties = GetNamedArgumentValues(a, "GenericProperties").Select(v => v.Split(':')).ToDictionary(v => v[0],
                             v => v.ElementAtOrDefault(1) is string genericArgName ? compilation.GetTypeByMetadataName(genericArgName) : null),
-                        Aliases = GetNamedArgumentValues(a, "Aliases").Select(v => v.Split(':')).ToDictionary(v => v[0], v => v[1])
+                        Aliases = GetNamedArgumentValues(a, "Aliases").Select(v => v.Split(':')).ToDictionary(v => v[0], v => v[1]),
+                        IsGeneric = (a.NamedArguments.FirstOrDefault(a => a.Key == "IsGeneric").Value.Value as bool?) ?? false
                     };
                 })
                 .Where(type => type.TypeSymbol != null)

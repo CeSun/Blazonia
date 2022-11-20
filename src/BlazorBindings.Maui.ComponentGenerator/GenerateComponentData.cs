@@ -6,6 +6,8 @@ namespace BlazorBindings.Maui.ComponentGenerator
 {
     public class GenerateComponentSettings
     {
+        private bool _isForcedGeneric;
+
         public string FileHeader { get; set; }
         public INamedTypeSymbol TypeSymbol { get; set; }
         public HashSet<string> Exclude { get; set; }
@@ -16,6 +18,11 @@ namespace BlazorBindings.Maui.ComponentGenerator
         public Dictionary<string, string> Aliases { get; set; }
         public GenerateComponentSettings BaseTypeInfo { get; set; }
         public bool IsBaseTypeGeneric => BaseTypeInfo?.IsGeneric ?? false;
-        public bool IsGeneric => GenericProperties.Any(p => p.Value == null) || IsBaseTypeGeneric;
+
+        public bool IsGeneric
+        {
+            get => _isForcedGeneric || GenericProperties.Any(p => p.Value == null) || IsBaseTypeGeneric;
+            set => _isForcedGeneric = value;
+        }
     }
 }
