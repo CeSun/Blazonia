@@ -6,10 +6,13 @@ using BlazorBindings.Maui.Elements.DataTemplates;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.Maui
 {
+    /// <remarks>Experimental API, subject to change.</remarks>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class RenderTreeBuilderHelper
     {
         public static void AddContentProperty(RenderTreeBuilder builder, int sequence, Type containingType, RenderFragment content,
