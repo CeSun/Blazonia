@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Provides tap gesture recognition and events.
+    /// </summary>
     public partial class TapGestureRecognizer : GestureRecognizer
     {
         static TapGestureRecognizer()

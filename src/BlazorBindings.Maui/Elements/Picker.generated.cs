@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> control for picking an element in a list.
+    /// </summary>
     public partial class Picker<T> : View
     {
         static Picker()

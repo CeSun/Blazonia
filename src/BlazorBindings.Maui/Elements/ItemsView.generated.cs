@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> that serves as a base class for views that contain a templated list of items.
+    /// </summary>
     public abstract partial class ItemsView<T> : View
     {
         static ItemsView()

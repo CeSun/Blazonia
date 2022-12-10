@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Entry is a single line text entry. It is best used for collecting small discrete pieces of information, like usernames and passwords.
+    /// </summary>
     public partial class Entry : InputView
     {
         static Entry()

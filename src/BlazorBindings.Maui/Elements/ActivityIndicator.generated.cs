@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A visual control used to indicate that something is ongoing.
+    /// </summary>
     public partial class ActivityIndicator : View
     {
         static ActivityIndicator()

@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.Page" /> that provides fundamental UI features that most applications require, leaving you to focus on the application's core workload.
+    /// </summary>
     public partial class Shell : Page
     {
         static Shell()

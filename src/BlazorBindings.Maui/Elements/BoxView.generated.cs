@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> used to draw a solid colored rectangle.
+    /// </summary>
     public partial class BoxView : View
     {
         static BoxView()

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.BaseShellItem" /> that has <see cref="T:Microsoft.Maui.Controls.FlyoutDisplayOptions" />. Base class for <see cref="T:Microsoft.Maui.Controls.ShellItem" /> and <see cref="T:Microsoft.Maui.Controls.ShellSection" />.
+    /// </summary>
     public partial class ShellGroupItem : BaseShellItem
     {
         static ShellGroupItem()

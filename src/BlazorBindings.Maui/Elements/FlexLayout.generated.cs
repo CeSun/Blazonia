@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A Flexbox-like layout that lays out child elements in optionally wrappable rows or columns of child elements.
+    /// </summary>
     public partial class FlexLayout : Layout
     {
         static FlexLayout()

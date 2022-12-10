@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// <para>Provides the base class for all Layout elements. Use Layout elements to position and size child elements in Microsoft.Maui.Controls applications.</para>
+    /// </summary>
     public abstract partial class Layout : View
     {
         static Layout()

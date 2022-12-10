@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// The base class of a view which can take keyboard input.
+    /// </summary>
     public abstract partial class InputView : View
     {
         static InputView()

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Represents a section of a <see cref="T:Microsoft.Maui.Controls.FormattedString" />.
+    /// </summary>
     public partial class Span : GestureElement
     {
         static Span()

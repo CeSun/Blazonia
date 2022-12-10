@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A layout that arranges views in rows and columns.
+    /// </summary>
     public partial class Grid : Layout
     {
         static Grid()

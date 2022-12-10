@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A visual element that is used to place layouts and controls on the screen.
+    /// </summary>
     public abstract partial class View : VisualElement
     {
         static View()

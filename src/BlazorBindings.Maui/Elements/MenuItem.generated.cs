@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Class that presents a menu item and associates it with a command.
+    /// </summary>
     public partial class MenuItem : BaseMenuItem
     {
         static MenuItem()

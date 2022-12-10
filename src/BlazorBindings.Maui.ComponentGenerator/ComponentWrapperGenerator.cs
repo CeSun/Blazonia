@@ -121,13 +121,14 @@ namespace BlazorBindings.Maui.ComponentGenerator
             var genericModifier = generatedInfo.IsGeneric ? "<T>" : "";
             var baseGenericModifier = generatedInfo.IsBaseTypeGeneric ? "<T>" : "";
 
-            var outputBuilder = new StringBuilder();
-            outputBuilder.Append($@"{headerText}
+            var xmlDoc = GetXmlDocContents(typeToGenerate, "    ");
+
+            var content = $@"{headerText}
 {usingsText}
 
 namespace {componentNamespace}
 {{
-    public {classModifiers}partial class {componentName}{genericModifier} : {componentBaseName}{baseGenericModifier}
+{xmlDoc}    public {classModifiers}partial class {componentName}{genericModifier} : {componentBaseName}{baseGenericModifier}
     {{
         static {componentName}()
         {{
@@ -141,9 +142,9 @@ namespace {componentNamespace}
         static partial void RegisterAdditionalHandlers();
     }}
 }}
-");
+";
 
-            return (GetComponentGroup(typeToGenerate), componentName, outputBuilder.ToString());
+            return (GetComponentGroup(typeToGenerate), componentName, content);
         }
 
         private static List<UsingStatement> GetDefaultUsings(INamedTypeSymbol typeToGenerate, string componentNamespace)
@@ -198,9 +199,9 @@ namespace {componentNamespace}
             }
         }
 
-        internal static string GetXmlDocContents(IPropertySymbol prop, string indent)
+        internal static string GetXmlDocContents(ISymbol symbol, string indent)
         {
-            var xmlDocString = prop.GetDocumentationCommentXml();
+            var xmlDocString = symbol.GetDocumentationCommentXml();
 
             if (string.IsNullOrEmpty(xmlDocString))
             {

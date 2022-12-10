@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A control that can edit multiple lines of text.
+    /// </summary>
     public partial class Editor : InputView
     {
         static Editor()

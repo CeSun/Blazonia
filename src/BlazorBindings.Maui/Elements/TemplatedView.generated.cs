@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A view that displays content with a control template, and the base class for <see cref="T:Microsoft.Maui.Controls.ContentView" />.
+    /// </summary>
     public partial class TemplatedView : BlazorBindings.Maui.Elements.Compatibility.Layout
     {
         static TemplatedView()

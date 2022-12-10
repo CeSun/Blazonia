@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements.CommunityToolkit
 {
+    /// <summary>
+    /// The DrawingView allows you to draw one or multiple lines on a canvas.
+    /// </summary>
     public partial class DrawingView : BlazorBindings.Maui.Elements.View
     {
         static DrawingView()

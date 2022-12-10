@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// An element containing a single child, with some framing options.
+    /// </summary>
     public partial class Frame : ContentView
     {
         static Frame()

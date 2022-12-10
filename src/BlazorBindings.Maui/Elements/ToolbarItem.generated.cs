@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// An item in a toolbar or displayed on a <see cref="T:Microsoft.Maui.Controls.Page" />.
+    /// </summary>
     public partial class ToolbarItem : MenuItem
     {
         static ToolbarItem()

@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Default implementation of <see cref="T:Microsoft.Maui.Controls.ISearchHandlerController" />.
+    /// </summary>
     public partial class SearchHandler<T> : BindableObject
     {
         static SearchHandler()

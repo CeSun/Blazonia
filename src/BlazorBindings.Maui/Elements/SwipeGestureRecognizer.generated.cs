@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Recognizer for swipe gestures.
+    /// </summary>
     public partial class SwipeGestureRecognizer : GestureRecognizer
     {
         static SwipeGestureRecognizer()

@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.Element" /> that occupies an area on the screen, has a visual appearance, and can obtain touch input.
+    /// </summary>
     public abstract partial class VisualElement : NavigableElement
     {
         static VisualElement()

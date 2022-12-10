@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.NavigableElement" /> that is the base class for <see cref="T:Microsoft.Maui.Controls.ShellGroupItem" /> and <see cref="T:Microsoft.Maui.Controls.ShellContent" />.
+    /// </summary>
     public partial class BaseShellItem : NavigableElement
     {
         static BaseShellItem()

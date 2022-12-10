@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.Page" /> that displays a single view.
+    /// </summary>
     public partial class ContentPage : TemplatedPage
     {
         static ContentPage()

@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// An element capable of scrolling if its Content requires.
+    /// </summary>
     public partial class ScrollView : BlazorBindings.Maui.Elements.Compatibility.Layout
     {
         static ScrollView()

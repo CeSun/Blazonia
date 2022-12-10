@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements.CommunityToolkit
 {
+    /// <summary>
+    /// Represents a small View that pops up at front the Page. Implements <see cref="T:CommunityToolkit.Maui.Core.IPopup" />.
+    /// </summary>
     public partial class Popup : BlazorBindings.Maui.Elements.Element
     {
         static Popup()

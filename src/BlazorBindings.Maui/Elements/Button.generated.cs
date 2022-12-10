@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A button <see cref="T:Microsoft.Maui.Controls.View" /> that reacts to touch events.
+    /// </summary>
     public partial class Button : View
     {
         static Button()

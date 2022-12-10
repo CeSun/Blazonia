@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Provides the base class for all Microsoft.Maui.Controls hierarchal elements. This class contains all the methods and properties required to represent an element in the Microsoft.Maui.Controls hierarchy.
+    /// </summary>
     public abstract partial class Element : BindableObject
     {
         static Element()

@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// <see cref="T:Microsoft.Maui.Controls.View" /> that holds an image.
+    /// </summary>
     public partial class Image : View
     {
         static Image()

@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// <see cref="T:Microsoft.Maui.Controls.MultiPage`1" /> that displays an array of tabs across the top of the screen, each of which loads content onto the screen.
+    /// </summary>
     public partial class TabbedPage : Page
     {
         static TabbedPage()

@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.Layout" /> that positions child elements in a single line which can be oriented vertically or horizontally.
+    /// </summary>
     public partial class StackLayout : StackBase
     {
         static StackLayout()

@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.VisualElement" /> that occupies the entire screen.
+    /// </summary>
     public partial class Page : VisualElement
     {
         static Page()

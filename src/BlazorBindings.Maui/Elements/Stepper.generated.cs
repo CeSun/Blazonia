@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> control that inputs a discrete value, constrained to a range.
+    /// </summary>
     public partial class Stepper : View
     {
         static Stepper()

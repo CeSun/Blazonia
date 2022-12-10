@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements.CommunityToolkit
 {
+    /// <summary>
+    /// AvatarView control.
+    /// </summary>
     public partial class AvatarView : BlazorBindings.Maui.Elements.Border
     {
         static AvatarView()

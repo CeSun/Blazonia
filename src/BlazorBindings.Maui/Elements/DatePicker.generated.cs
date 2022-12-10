@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> that allows date picking.
+    /// </summary>
     public partial class DatePicker : View
     {
         static DatePicker()

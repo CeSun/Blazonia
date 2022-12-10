@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// A <see cref="T:Microsoft.Maui.Controls.View" /> control that displays progress.
+    /// </summary>
     public partial class ProgressBar : View
     {
         static ProgressBar()

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// An element that contains a single child element.
+    /// </summary>
     public partial class ContentView : TemplatedView
     {
         static ContentView()
