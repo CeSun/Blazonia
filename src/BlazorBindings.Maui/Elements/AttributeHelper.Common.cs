@@ -3,12 +3,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.Maui.Elements
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static partial class AttributeHelper
     {
         public static bool GetBool(object value, bool defaultValueIfNull = default)

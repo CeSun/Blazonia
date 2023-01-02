@@ -1,0 +1,14 @@
+﻿@inherits ElementTestBase
+
+@code {
+    [Test]
+    public async Task SetDisplayBinding()
+    {
+        var items = new List<string> { "A", "b", "c" };
+        var picker = await Render<MC.Picker>(
+            @<Picker ItemsSource="items" ItemDisplayBinding=@(i => $"-{i.ToUpper()}-") />
+        );
+
+        Assert.That(picker.Items, Is.EqualTo(new[] { "-A-", "-B-", "-C-" }));
+    }
+}

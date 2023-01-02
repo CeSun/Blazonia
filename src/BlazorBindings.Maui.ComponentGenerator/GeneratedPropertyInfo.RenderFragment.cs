@@ -69,7 +69,7 @@ namespace BlazorBindings.Maui.ComponentGenerator
         internal static GeneratedPropertyInfo[] GetContentProperties(GeneratedTypeInfo containingType)
         {
             var componentInfo = containingType.Settings;
-            var propInfos = componentInfo.TypeSymbol.GetMembers().OfType<IPropertySymbol>()
+            var propInfos = GetMembers<IPropertySymbol>(componentInfo.TypeSymbol, containingType.Settings.Include)
                 .Where(e => !componentInfo.Exclude.Contains(e.Name))
                 .Where(IsPublicProperty)
                 .Where(prop => IsRenderFragmentPropertySymbol(containingType, prop))

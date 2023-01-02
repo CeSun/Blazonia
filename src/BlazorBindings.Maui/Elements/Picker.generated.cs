@@ -46,6 +46,10 @@ namespace BlazorBindings.Maui.Elements
         [Parameter] public double? FontSize { get; set; }
         [Parameter] public TextAlignment? HorizontalTextAlignment { get; set; }
         /// <summary>
+        /// Gets or sets a binding that selects the property that will be displayed for each object in the list of items.
+        /// </summary>
+        [Parameter] public Func<T, string> ItemDisplayBinding { get; set; }
+        /// <summary>
         /// Gets or sets the source list of items to template and display.
         /// </summary>
         [Parameter] public List<T> ItemsSource { get; set; }
@@ -124,6 +128,13 @@ namespace BlazorBindings.Maui.Elements
                     {
                         HorizontalTextAlignment = (TextAlignment?)value;
                         NativeControl.HorizontalTextAlignment = HorizontalTextAlignment ?? (TextAlignment)MC.Picker.HorizontalTextAlignmentProperty.DefaultValue;
+                    }
+                    break;
+                case nameof(ItemDisplayBinding):
+                    if (!Equals(ItemDisplayBinding, value))
+                    {
+                        ItemDisplayBinding = (Func<T, string>)value;
+                        NativeControl.ItemDisplayBinding = AttributeHelper.GetBinding(ItemDisplayBinding);
                     }
                     break;
                 case nameof(ItemsSource):
