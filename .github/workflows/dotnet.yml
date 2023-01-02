@@ -24,7 +24,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore BlazorBindings.Maui.sln
     - name: Run tests
-      run: dotnet test src/BlazorBindings.UnitTests --no-restore --verbosity normal
+      run: dotnet test src/BlazorBindings.UnitTests --no-restore --verbosity normal --collect:"XPlat Code Coverage"
     - name: Build templates
       run: |
         cd templates
