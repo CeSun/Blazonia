@@ -52,7 +52,7 @@ namespace BlazorBindings.Maui.Elements
         /// <summary>
         /// Gets or sets the source list of items to template and display.
         /// </summary>
-        [Parameter] public List<T> ItemsSource { get; set; }
+        [Parameter] public IList<T> ItemsSource { get; set; }
         /// <summary>
         /// Gets or sets the index of the selected item of the picker.
         /// </summary>
@@ -140,8 +140,8 @@ namespace BlazorBindings.Maui.Elements
                 case nameof(ItemsSource):
                     if (!Equals(ItemsSource, value))
                     {
-                        ItemsSource = (List<T>)value;
-                        NativeControl.ItemsSource = ItemsSource;
+                        ItemsSource = (IList<T>)value;
+                        NativeControl.ItemsSource = AttributeHelper.GetIList(ItemsSource);
                     }
                     break;
                 case nameof(SelectedIndex):

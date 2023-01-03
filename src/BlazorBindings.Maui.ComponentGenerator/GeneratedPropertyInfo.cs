@@ -136,6 +136,11 @@ namespace BlazorBindings.Maui.ComponentGenerator
                     {
                         return $"AttributeHelper.GetBinding({propName})";
                     }
+
+                    if (IsGeneric && namedType.GetFullName() == "System.Collections.IList")
+                    {
+                        return $"AttributeHelper.GetIList({propName})";
+                    }
                 }
 
                 return propName;
@@ -213,7 +218,7 @@ namespace BlazorBindings.Maui.ComponentGenerator
             }
             else if (namedTypeSymbol.GetFullName() == "System.Collections.IList" && isGeneric)
             {
-                return containingType.GetTypeNameAndAddNamespace("System.Collections.Generic", $"List<{typeArgumentName}>");
+                return containingType.GetTypeNameAndAddNamespace("System.Collections.Generic", $"IList<{typeArgumentName}>");
             }
             else if (namedTypeSymbol.GetFullName() == "Microsoft.Maui.Controls.BindingBase" && isGeneric)
             {

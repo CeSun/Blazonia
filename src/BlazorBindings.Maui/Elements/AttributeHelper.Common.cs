@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -72,6 +73,11 @@ namespace BlazorBindings.Maui.Elements
         public static IList<string> GetStringList(object attributeValue)
         {
             return ((string)attributeValue)?.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList();
+        }
+
+        public static IList GetIList<T>(IList<T> listT)
+        {
+            return listT as IList ?? throw new ArgumentException("Property requires a value implementing both IList and IList<T>.");
         }
     }
 }
