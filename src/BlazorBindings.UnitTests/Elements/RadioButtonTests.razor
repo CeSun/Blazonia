@@ -14,7 +14,7 @@
     </RadioButton>
     );
 
-        var templateRoot = button.GetTemplateRoot<MC.Label>();
+        var templateRoot = button.GetTemplateContent<MC.Label>();
         Assert.That(templateRoot.Text, Is.EqualTo("Radio Template"));
     }
 }
