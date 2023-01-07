@@ -6,6 +6,11 @@
 @implements IHandleEvent
 
 @code {
+    public ElementTestBase()
+    {
+        MC.Application.Current = new TestApplication();
+    }
+
     private TestBlazorBindingsRenderer _renderer = (TestBlazorBindingsRenderer)TestBlazorBindingsRenderer.Create();
     private RenderFragmentComponent _renderedComponent;
 

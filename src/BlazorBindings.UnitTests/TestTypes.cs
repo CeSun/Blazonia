@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Hosting;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ namespace BlazorBindings.UnitTests
                 MauiContext = new MauiContext(serviceProvider),
                 VirtualView = this
             };
+
+            DependencyService.RegisterSingleton(new TestSystemResources());
         }
 
         class TestHandler : IElementHandler
@@ -36,6 +40,13 @@ namespace BlazorBindings.UnitTests
             public void SetMauiContext(IMauiContext mauiContext) => MauiContext = mauiContext;
             public void SetVirtualView(IElement view) => VirtualView = view;
             public void UpdateValue(string property) { }
+        }
+
+#pragma warning disable CS0612 // Type or member is obsolete. Unfortunately, I need to register this, otherwise some tests fail.
+        class TestSystemResources : ISystemResourcesProvider
+#pragma warning restore CS0612 // Type or member is obsolete
+        {
+            public IResourceDictionary GetSystemResources() => new ResourceDictionary();
         }
     }
 
