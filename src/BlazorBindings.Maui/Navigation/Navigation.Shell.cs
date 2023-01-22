@@ -39,7 +39,7 @@ namespace BlazorBindings.Maui
                 {
                     throw new InvalidOperationException($"A route factory for URI '{uri}' could not be found.");
                 }
-                await routeFactory.CreateAsync().ConfigureAwait(true);
+                await routeFactory.CreateAsync();
                 await shell.GoToAsync(route.Route.BaseUri);
             }
             else

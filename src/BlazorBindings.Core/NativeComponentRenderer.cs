@@ -46,7 +46,7 @@ namespace BlazorBindings.Core
         /// <returns></returns>
         public async Task<TComponent> AddComponent<TComponent>(IElementHandler parent, Dictionary<string, object> parameters = null) where TComponent : IComponent
         {
-            return (TComponent)await AddComponent(typeof(TComponent), parent, parameters).ConfigureAwait(false);
+            return (TComponent)await AddComponent(typeof(TComponent), parent, parameters);
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace BlazorBindings.Core
                     _componentIdToAdapter[componentId] = rootAdapter;
 
                     var parameterView = parameters?.Count > 0 ? ParameterView.FromDictionary(parameters) : ParameterView.Empty;
-                    await RenderRootComponentAsync(componentId, parameterView).ConfigureAwait(false);
+                    await RenderRootComponentAsync(componentId, parameterView);
                     return component;
-                }).ConfigureAwait(false);
+                });
             }
             catch (Exception ex)
             {
