@@ -8,8 +8,7 @@ using XCalendar.Maui.Views;
 [assembly: GenerateComponent(typeof(Avatar))]
 [assembly: GenerateComponent(typeof(AlohaKit.Controls.Button))]
 [assembly: GenerateComponent(typeof(AlohaKit.Controls.CheckBox))]
-[assembly: GenerateComponent(typeof(HorizontalProgressBar))]
-[assembly: GenerateComponent(typeof(VerticalProgressBar))]
+[assembly: GenerateComponent(typeof(AlohaKit.Controls.ProgressBar))]
 [assembly: GenerateComponent(typeof(NumericUpDown))]
 [assembly: GenerateComponent(typeof(ProgressRadial))]
 [assembly: GenerateComponent(typeof(ToggleSwitch),

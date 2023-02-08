@@ -46,9 +46,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AlohaKit" Version="1.0.0" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="3.0.0" />
-	  <PackageReference Include="XCalendar.Maui" Version="4.2.0" />
+	  <PackageReference Include="AlohaKit" Version="1.0.74" />
+	  <PackageReference Include="CommunityToolkit.Maui" Version="4.0.0" />
+	  <PackageReference Include="XCalendar.Maui" Version="4.4.0" />
 	</ItemGroup>
 
 	<ItemGroup>
