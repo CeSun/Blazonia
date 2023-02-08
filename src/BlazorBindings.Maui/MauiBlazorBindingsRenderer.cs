@@ -27,6 +27,12 @@ namespace BlazorBindings.Maui
             var handler = new ApplicationHandler(parent);
             var addComponentTask = AddComponent(componentType, handler, parameters);
 
+            if (addComponentTask.Exception != null)
+            {
+                // If exception was thrown during the sync execution - throw it straight away.
+                ExceptionDispatchInfo.Throw(addComponentTask.Exception.InnerException);
+            }
+
             if (!addComponentTask.IsCompleted && parent is MC.Application app)
             {
                 // MAUI requires the Application to have the MainPage. If rendering task is not completed synchronously,
@@ -39,6 +45,14 @@ namespace BlazorBindings.Maui
 
         public Task<TComponent> AddComponent<TComponent>(MC.Element parent, Dictionary<string, object> parameters = null) where TComponent : IComponent
         {
+            var task = AddComponent(typeof(TComponent), parent, parameters);
+            return Cast(task);
+
+            static async Task<TComponent> Cast(Task<IComponent> task) => (TComponent)await task;
+        }
+
+        public Task<IComponent> AddComponent(Type componentType, MC.Element parent, Dictionary<string, object> parameters = null)
+        {
             var componentTask = AddComponentLocal();
 
             if (componentTask.Exception != null)
@@ -49,9 +63,9 @@ namespace BlazorBindings.Maui
 
             return componentTask;
 
-            async Task<TComponent> AddComponentLocal()
+            async Task<IComponent> AddComponentLocal()
             {
-                var elementsComponentTask = GetElementsFromRenderedComponent(typeof(TComponent), parameters);
+                var elementsComponentTask = GetElementsFromRenderedComponent(componentType, parameters);
 
                 if (!elementsComponentTask.IsCompleted && parent is MC.Application app)
                 {
@@ -62,7 +76,7 @@ namespace BlazorBindings.Maui
 
                 var (elements, componentTask) = await elementsComponentTask;
                 await SetChildContent(parent, elements);
-                return (TComponent)await componentTask;
+                return await componentTask;
             }
         }
 

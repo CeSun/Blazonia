@@ -15,11 +15,17 @@ namespace BlazorBindings.Maui
     {
         protected readonly IServiceProvider _services;
         private readonly MauiBlazorBindingsRenderer _renderer;
+        private Type _wrapperComponentType;
 
         public Navigation(IServiceProvider services)
         {
             _services = services;
             _renderer = services.GetRequiredService<MauiBlazorBindingsRenderer>();
+        }
+
+        internal void SetWrapperComponentType(Type wrapperComponentType)
+        {
+            _wrapperComponentType = wrapperComponentType;
         }
 
         protected MC.INavigation MauiNavigation => Application.Current.MainPage.Navigation;
@@ -29,7 +35,7 @@ namespace BlazorBindings.Maui
         /// </summary>
         public Task PushAsync<T>(Dictionary<string, object> arguments = null, bool animated = true) where T : IComponent
         {
-            return Navigate<T>(arguments, NavigationTarget.Navigation, animated);
+            return Navigate(typeof(T), arguments, NavigationTarget.Navigation, animated);
         }
 
         /// <summary>
@@ -37,7 +43,7 @@ namespace BlazorBindings.Maui
         /// </summary>
         public Task PushModalAsync<T>(Dictionary<string, object> arguments = null, bool animated = true) where T : IComponent
         {
-            return Navigate<T>(arguments, NavigationTarget.Modal, animated);
+            return Navigate(typeof(T), arguments, NavigationTarget.Modal, animated);
         }
 
         /// <summary>
@@ -79,6 +85,15 @@ namespace BlazorBindings.Maui
         [EditorBrowsable(EditorBrowsableState.Never)]
         public async Task<T> BuildElement<T>(Type componentType, Dictionary<string, object> arguments) where T : Element
         {
+            if (_wrapperComponentType != null)
+            {
+                arguments = new()
+                {
+                    ["ChildContent"] = RenderFragments.FromComponentType(componentType, arguments)
+                };
+                componentType = _wrapperComponentType;
+            }
+
             var renderer = _services.GetRequiredService<MauiBlazorBindingsRenderer>();
 
             var (bindableObject, componentTask) = await renderer.GetElementFromRenderedComponent(componentType, arguments);
@@ -103,18 +118,27 @@ namespace BlazorBindings.Maui
 
         private Task Navigate(RenderFragment renderFragment, NavigationTarget target, bool animated)
         {
-            return Navigate<RenderFragmentComponent>(new()
+            return Navigate(typeof(RenderFragmentComponent), new()
             {
                 [nameof(RenderFragmentComponent.RenderFragment)] = renderFragment
             }, target, animated);
         }
 
-        private async Task Navigate<T>(Dictionary<string, object> arguments, NavigationTarget target, bool animated) where T : IComponent
+        private async Task Navigate(Type componentType, Dictionary<string, object> arguments, NavigationTarget target, bool animated)
         {
+            if (_wrapperComponentType != null)
+            {
+                arguments = new()
+                {
+                    ["ChildContent"] = RenderFragments.FromComponentType(componentType, arguments)
+                };
+                componentType = _wrapperComponentType;
+            }
+
             await NavigationAction(() =>
             {
                 var navigationHandler = new NavigationHandler(MauiNavigation, target, animated);
-                var renderTask = _renderer.AddComponent(typeof(T), navigationHandler, arguments);
+                var renderTask = _renderer.AddComponent(componentType, navigationHandler, arguments);
 
                 navigationHandler.PageClosed += async () =>
                 {
