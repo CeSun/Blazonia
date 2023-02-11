@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui.Elements.AlohaKit
 {
-    public partial class ProgressBar : BlazorBindings.Maui.Elements.GraphicsView
+    public partial class AlhProgressBar : BlazorBindings.Maui.Elements.GraphicsView
     {
-        static ProgressBar()
+        static AlhProgressBar()
         {
             RegisterAdditionalHandlers();
         }
