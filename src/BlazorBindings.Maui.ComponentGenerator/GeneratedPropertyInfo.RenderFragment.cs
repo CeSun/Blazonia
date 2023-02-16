@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using BlazorBindings.Maui.ComponentGenerator.Extensions;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace BlazorBindings.Maui.ComponentGenerator
         };
 
         public bool IsRenderFragmentProperty => Kind == GeneratedPropertyKind.RenderFragment;
-        public bool IsControlTemplate => _propertyInfo.Type.ToDisplayString() == "Microsoft.Maui.Controls.ControlTemplate";
-        public bool IsDataTemplate => _propertyInfo.Type.ToDisplayString() == "Microsoft.Maui.Controls.DataTemplate";
+        public bool IsControlTemplate => _propertyInfo.Type.GetFullName() == "Microsoft.Maui.Controls.ControlTemplate";
+        public bool IsDataTemplate => _propertyInfo.Type.GetFullName() == "Microsoft.Maui.Controls.DataTemplate";
 
         public string GetHandleContentProperty()
         {
