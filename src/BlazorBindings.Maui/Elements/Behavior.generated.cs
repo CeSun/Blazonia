@@ -10,8 +10,13 @@ using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements
 {
+    /// <summary>
+    /// Base class for generalized user-defined behaviors that can respond to arbitrary conditions and events.
+    /// </summary>
     public abstract partial class Behavior : BindableObject
     {
         static Behavior()

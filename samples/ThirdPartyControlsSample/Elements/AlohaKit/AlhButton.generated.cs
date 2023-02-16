@@ -16,6 +16,8 @@ using Microsoft.Maui.Graphics;
 using System;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements.AlohaKit
 {
     public partial class AlhButton : BlazorBindings.Maui.Elements.GraphicsView

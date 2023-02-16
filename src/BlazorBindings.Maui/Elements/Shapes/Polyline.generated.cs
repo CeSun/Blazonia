@@ -12,6 +12,8 @@ using MCS = Microsoft.Maui.Controls.Shapes;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements.Shapes
 {
     public partial class Polyline : Shape

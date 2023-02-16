@@ -123,6 +123,8 @@ namespace BlazorBindings.Maui.ComponentGenerator
             var content = $@"{headerText}
 {usingsText}
 
+#pragma warning disable CA2252
+
 namespace {componentNamespace}
 {{
 {xmlDoc}    public {classModifiers}partial class {componentName}{genericModifier} : {componentBaseName}{baseGenericModifier}

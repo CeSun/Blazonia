@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements.CommunityToolkit.Behaviors
 {
     /// <summary>

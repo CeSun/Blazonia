@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Maui;
 using System.Threading.Tasks;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements.Shapes
 {
     public partial class RoundRectangle : Shape

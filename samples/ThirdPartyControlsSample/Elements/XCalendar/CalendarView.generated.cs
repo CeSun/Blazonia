@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using XCalendar.Core.Interfaces;
 using XMV = XCalendar.Maui.Views;
 
+#pragma warning disable CA2252
+
 namespace BlazorBindings.Maui.Elements.XCalendar
 {
     public partial class CalendarView : BlazorBindings.Maui.Elements.ContentView
