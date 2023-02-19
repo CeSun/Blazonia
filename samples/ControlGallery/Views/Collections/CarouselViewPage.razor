@@ -7,20 +7,14 @@
                       ItemsSource="items"
                       Loop="false"
                       IndicatorView="() => indicatorView"
-        @bind-CurrentItem="currentItem"
-        @bind-Position="currentPosition">
+                      @bind-CurrentItem="currentItem"
+                      @bind-Position="currentPosition">
 
             <ItemTemplate>
-                <Frame BackgroundColor="Colors.LightPink"
-                       CornerRadius="10"
-                       HeightRequest="300"
-                       WidthRequest="300">
-
-                    <VerticalStackLayout>
-                        <Label HorizontalOptions="LayoutOptions.Center">@context.Name</Label>
-                        <Image Source="context.Image" />
-                    </VerticalStackLayout>
-                </Frame>
+                <VerticalStackLayout>
+                    <Label HorizontalOptions="LayoutOptions.Center">@context.Name</Label>
+                    <Image Source="context.Image" />
+                </VerticalStackLayout>
             </ItemTemplate>
         </CarouselView>
 

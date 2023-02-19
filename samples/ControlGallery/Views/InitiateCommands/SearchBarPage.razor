@@ -1,8 +1,8 @@
 ﻿<ContentPage Title="Search Bar">
-    <VerticalStackLayout Spacing="8">
+    <VerticalStackLayout Spacing="8" Margin="8">
         <SearchBar @bind-Text="_searchQuery" @bind-Text:after="UpdateSearchResults" />
 
-        <Label>Type any text to start searching.</Label>
+        <Label>Type any text to start searching:</Label>
 
         <CollectionView ItemsSource="_displayedItems">
             <EmptyView>
