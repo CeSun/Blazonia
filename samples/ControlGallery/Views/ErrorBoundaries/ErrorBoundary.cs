@@ -7,6 +7,7 @@ namespace ControlGallery.Views.ErrorBoundaries
     {
         protected override Task OnErrorAsync(Exception exception)
         {
+            // Log the exception somewhere.
             return Task.CompletedTask;
         }
 
