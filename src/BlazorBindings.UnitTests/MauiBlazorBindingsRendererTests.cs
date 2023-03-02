@@ -17,53 +17,19 @@ namespace BlazorBindings.UnitTests
             MC.Application.Current = _application;
         }
 
-        [TestCase(typeof(MC.ContentView))]
-        [TestCase(typeof(MC.ContentPage))]
-        [TestCase(typeof(MC.ScrollView))]
-        [TestCase(typeof(MC.StackLayout))]
-        [TestCase(typeof(MC.VerticalStackLayout))]
-        [TestCase(typeof(MC.HorizontalStackLayout))]
-        public async Task RenderToExistingControl_NonPageContent(Type containerType)
-        {
-            var control = (MC.Element)Activator.CreateInstance(containerType);
-
-            await _renderer.AddComponent<NonPageContent>(control);
-
-            var content = GetChildContent(control);
-            NonPageContent.ValidateContent(content);
-        }
-
-        [TestCase(typeof(MC.Application))]
-        [TestCase(typeof(MC.FlyoutPage))]
-        [TestCase(typeof(MC.TabbedPage))]
-        [TestCase(typeof(MC.Shell))]
-        [TestCase(typeof(MC.ShellContent))]
-        [TestCase(typeof(MC.ShellSection))]
-        public async Task RenderToExistingControl_PageContent(Type containerType)
-        {
-            var control = (MC.Element)Activator.CreateInstance(containerType);
-
-            await _renderer.AddComponent<PageContent>(control);
-
-            var content = GetChildContent(control);
-            PageContent.ValidateContent(content);
-        }
-
         [Test]
-        public async Task RenderToExistingControl_MultipleChildren()
+        public async Task RenderToApplication_PageContent()
         {
-            var control = new MC.TabbedPage();
+            await _renderer.AddComponent<PageContent>(_application);
 
-            await _renderer.AddComponent<MultiplePagesContent>(control);
-
-            var pages = control.Children;
-            Assert.That(pages.Select(p => p.Title), Is.EqualTo(new[] { "Page1", "Page2", "Page3" }));
+            var content = _application.MainPage;
+            PageContent.ValidateContent(content);
         }
 
         [Test]
         public void ShouldThrowExceptionIfHappenedDuringSyncRender()
         {
-            void action() => _ = _renderer.AddComponent<ComponentWithException>(new MC.NavigationPage());
+            void action() => _ = _renderer.AddComponent<ComponentWithException>(_application);
 
             Assert.That(action, Throws.InvalidOperationException.With.Message.EqualTo("Should fail here."));
         }
@@ -73,9 +39,8 @@ namespace BlazorBindings.UnitTests
         {
             _renderer.ThrowExceptions = false;
 
-            var contentView = new MC.ContentView();
-            await _renderer.AddComponent<ButtonWithAnExceptionOnClick>(contentView);
-            var button = (MC.Button)contentView.Content;
+            await _renderer.AddComponent<PageWithButtonWithExceptionOnClick>(_application);
+            var button = (MC.Button)((MC.ContentPage)_application.MainPage).Content;
             button.SendClicked();
 
             Assert.That(() => _renderer.Exceptions, Is.Not.Empty.After(1000, 10));
@@ -98,24 +63,6 @@ namespace BlazorBindings.UnitTests
             switchButton.SendClicked();
 
             Assert.That(_application.MainPage.Title, Is.EqualTo("Page1"));
-        }
-
-        private static MC.Element GetChildContent(MC.Element container)
-        {
-            return container switch
-            {
-                MC.Application app => app.MainPage,
-                MC.ContentPage contentPage => contentPage.Content,
-                MC.ContentView contentView => contentView.Content,
-                MC.ScrollView scrollView => scrollView.Content,
-                MC.StackBase stackBase => (MC.Element)stackBase.Children[0],
-                MC.FlyoutPage flyoutPage => flyoutPage.Detail,
-                MC.TabbedPage tabbedPage => tabbedPage.Children[0],
-                MC.Shell shell => (MC.Element)shell.Items[0].Items[0].Items[0].Content,
-                MC.ShellSection shellContent => (MC.Element)shellContent.Items[0].Content,
-                MC.ShellContent shellContent => (MC.Element)shellContent.Content,
-                _ => throw new NotSupportedException("Unexpected parent type.")
-            };
         }
     }
 }
