@@ -2,8 +2,6 @@
 // Licensed under the MIT license.
 
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
 
 namespace BlazorBindings.Core
 {

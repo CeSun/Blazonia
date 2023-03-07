@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using Microsoft.Maui.Graphics;
-using System;
 
 namespace BlazorBindings.Maui.Elements
 {

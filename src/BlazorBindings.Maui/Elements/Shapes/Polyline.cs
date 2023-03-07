@@ -1,8 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-
 namespace BlazorBindings.Maui.Elements.Shapes
 {
     public partial class Polyline : Shape

@@ -3,7 +3,6 @@
 
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Internals;
-using System;
 
 namespace BlazorBindings.Maui.Elements
 {

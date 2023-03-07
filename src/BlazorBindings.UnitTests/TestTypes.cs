@@ -1,18 +1,12 @@
 ﻿using BlazorBindings.Maui;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Hosting;
-using System;
-using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using System.Threading;
-using System.Threading.Tasks;
 using MauiDispatching = Microsoft.Maui.Dispatching;
-using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.UnitTests
 {

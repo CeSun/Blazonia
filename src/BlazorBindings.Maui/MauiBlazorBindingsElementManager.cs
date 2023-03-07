@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Core;
-using System;
-
 namespace BlazorBindings.Maui
 {
     internal class MauiBlazorBindingsElementManager : ElementManager<IMauiElementHandler>

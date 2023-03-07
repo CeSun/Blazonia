@@ -1,10 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace BlazorBindings.Maui.ShellNavigation
 {
     //Used to map blazor route syntax to forms query syntax

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace BlazorBindings.Maui
+﻿namespace BlazorBindings.Maui
 {
     public interface INavigation
     {

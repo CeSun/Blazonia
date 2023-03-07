@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MC = Microsoft.Maui.Controls;
+﻿using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui
 {

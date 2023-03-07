@@ -4,7 +4,6 @@
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Shapes;
 using Microsoft.Maui.Graphics;
-using System;
 
 namespace BlazorBindings.Maui.Elements
 {

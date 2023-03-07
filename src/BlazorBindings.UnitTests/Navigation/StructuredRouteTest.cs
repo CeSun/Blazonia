@@ -2,9 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Maui.ShellNavigation;
-using Microsoft.AspNetCore.Components;
-using NUnit.Framework;
-using System.Linq;
 
 namespace BlazorBindings.UnitTests
 {

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Core;
-using System;
 using System.IO;
 using System.Reflection;
 using MC = Microsoft.Maui.Controls;

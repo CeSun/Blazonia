@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Maui.Elements;
-using NUnit.Framework;
 
 namespace BlazorBindings.UnitTests.Elements
 {

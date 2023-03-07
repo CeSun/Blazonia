@@ -2,8 +2,6 @@
 // Licensed under the MIT license.
 
 using Microsoft.Maui.Controls;
-using System;
-using System.Threading.Tasks;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.ShellNavigation

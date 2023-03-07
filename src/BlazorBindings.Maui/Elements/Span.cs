@@ -1,9 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
-
 namespace BlazorBindings.Maui.Elements
 {
     public partial class Span : GestureElement, IHandleChildContentText

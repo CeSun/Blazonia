@@ -1,9 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using System;
-
 namespace BlazorBindings.Maui.Elements
 {
     public partial class RefreshView : ContentView

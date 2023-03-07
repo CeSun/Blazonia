@@ -1,15 +1,6 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Core;
-using BlazorBindings.Maui.Elements.Handlers;
-using MC = Microsoft.Maui.Controls;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Maui;
-using Microsoft.Maui.Graphics;
-using System;
-using System.Threading.Tasks;
-
 namespace BlazorBindings.Maui.Elements
 {
     public partial class Button : IHandleChildContentText

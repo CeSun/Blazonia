@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using System.Globalization;
 using MC = Microsoft.Maui.Controls;
 

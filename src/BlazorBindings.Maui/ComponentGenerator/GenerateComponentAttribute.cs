@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlazorBindings.Maui.ComponentGenerator
+﻿namespace BlazorBindings.Maui.ComponentGenerator
 {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class GenerateComponentAttribute : Attribute

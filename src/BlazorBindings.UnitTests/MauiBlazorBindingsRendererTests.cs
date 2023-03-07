@@ -1,9 +1,4 @@
 ﻿using BlazorBindings.UnitTests.Components;
-using NUnit.Framework;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.UnitTests
 {

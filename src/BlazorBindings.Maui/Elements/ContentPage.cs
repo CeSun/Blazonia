@@ -1,5 +1,4 @@
 using BlazorBindings.Maui.Elements.Input;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Maui.Graphics;
 using MC = Microsoft.Maui.Controls;
