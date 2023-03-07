@@ -1,14 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui

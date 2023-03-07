@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-
-namespace BlazorBindings.Maui
+﻿namespace BlazorBindings.Maui
 {
     internal static class RenderFragments
     {

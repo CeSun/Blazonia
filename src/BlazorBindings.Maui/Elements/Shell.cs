@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
-using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using MC = Microsoft.Maui.Controls;
 

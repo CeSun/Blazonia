@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
 
 namespace BlazorBindings.Maui.Elements

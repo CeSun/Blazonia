@@ -2,10 +2,7 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.Maui.Elements.Internal;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Threading.Tasks;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.DataTemplates

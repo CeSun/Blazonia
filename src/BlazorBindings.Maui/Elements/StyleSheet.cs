@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements.Handlers;
 using System.Reflection;
 

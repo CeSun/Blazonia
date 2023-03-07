@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements

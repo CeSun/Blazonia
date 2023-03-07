@@ -3,7 +3,6 @@
 
 using Microsoft.Maui.Converters;
 using Microsoft.Maui.Layouts;
-using System;
 
 namespace BlazorBindings.Maui.Elements
 {

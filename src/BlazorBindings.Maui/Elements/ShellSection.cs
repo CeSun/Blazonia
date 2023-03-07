@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
-using System;
 using System.Diagnostics;
-using System.Linq;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements

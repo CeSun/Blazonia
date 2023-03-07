@@ -1,13 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.Versioning;
 
 namespace BlazorBindings.Maui.Elements
 {

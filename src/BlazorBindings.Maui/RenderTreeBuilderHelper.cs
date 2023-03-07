@@ -3,11 +3,7 @@
 
 using BlazorBindings.Maui.Elements.DataTemplates;
 using BlazorBindings.Maui.Elements.Internal;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui

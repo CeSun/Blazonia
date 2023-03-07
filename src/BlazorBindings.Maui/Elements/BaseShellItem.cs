@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using MC = Microsoft.Maui.Controls;
 

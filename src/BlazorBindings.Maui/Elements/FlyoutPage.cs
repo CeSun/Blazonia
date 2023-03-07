@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements

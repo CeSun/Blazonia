@@ -3,8 +3,6 @@
 
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Dispatching;
-using System;
-using System.Threading.Tasks;
 
 namespace BlazorBindings.Maui
 {

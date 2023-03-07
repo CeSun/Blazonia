@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Maui.Controls;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Versioning;
-using System.Threading.Tasks;
 using IComponent = Microsoft.AspNetCore.Components.IComponent;
 using MC = Microsoft.Maui.Controls;
 
