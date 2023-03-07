@@ -3,9 +3,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System;
 using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 
 namespace BlazorBindings.Core
 {
