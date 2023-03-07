@@ -2,12 +2,7 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.UnitTests.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Dispatching;
-using NUnit.Framework;
-using System.Linq;
-using System.Threading.Tasks;
-using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.UnitTests.Navigation
 {

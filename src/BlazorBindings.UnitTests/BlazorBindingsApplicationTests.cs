@@ -1,8 +1,5 @@
 ﻿using BlazorBindings.Maui;
 using BlazorBindings.UnitTests.Components;
-using Microsoft.AspNetCore.Components;
-using NUnit.Framework;
-using System;
 
 namespace BlazorBindings.UnitTests
 {

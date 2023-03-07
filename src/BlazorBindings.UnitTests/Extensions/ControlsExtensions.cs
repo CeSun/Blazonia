@@ -1,5 +1,4 @@
 ﻿using Microsoft.Maui.Controls;
-using System;
 using System.Reflection;
 
 namespace BlazorBindings.UnitTests.Extensions
