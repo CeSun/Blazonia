@@ -39,10 +39,6 @@ Here is the code above running in the Android Emulator:
 
 This repository is a fork of Microsoft's [Experimental MobileBlazorBindings](https://github.com/dotnet/MobileBlazorBindings), which I decided to fork and maintain separately. If at any point of time Microsoft developers decide to push that repository moving forward, I'll gladly contribute all of my changes to the original repository. 
 
-## Contributing
-
-As an experimental project, there are several active areas of development and we're looking for your feedback to help set the direction for this project. Please check it out and let us know any feedback you have on the project by logging issues in this repo.
-
 # Code of Conduct
 
 This project has adopted the code of conduct defined by the Contributor Covenant
