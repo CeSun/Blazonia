@@ -11,7 +11,7 @@ public partial class Navigation : INavigation
     private readonly MauiBlazorBindingsRenderer _renderer;
     private Type _wrapperComponentType;
 
-    public Navigation(IServiceProvider services)
+    internal Navigation(MauiBlazorBindingsServiceProvider services)
     {
         _services = services;
         _renderer = services.GetRequiredService<MauiBlazorBindingsRenderer>();

@@ -15,7 +15,7 @@ public class UriNavigationTests
         var shell = new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } };
         var sp = TestServiceProvider.Create();
         MC.Application.Current = new TestApplication(sp) { MainPage = shell };
-        _navigationService = new Maui.Navigation(sp);
+        _navigationService = sp.GetRequiredService<Maui.Navigation>();
         _mauiNavigation = shell.Navigation;
     }
 

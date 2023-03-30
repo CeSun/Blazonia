@@ -2,7 +2,7 @@
 
 namespace BlazorBindings.Maui.UriNavigation;
 
-internal class NavigationInterception : INavigationInterception
+internal class MbbNavigationInterception : INavigationInterception
 {
     public Task EnableNavigationInterceptionAsync() => Task.CompletedTask;
 }

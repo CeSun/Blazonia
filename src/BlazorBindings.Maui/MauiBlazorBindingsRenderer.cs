@@ -15,6 +15,11 @@ public class MauiBlazorBindingsRenderer : NativeComponentRenderer
     {
     }
 
+    internal MauiBlazorBindingsRenderer(MauiBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory)
+        : base(serviceProvider, loggerFactory)
+    {
+    }
+
     public override Dispatcher Dispatcher { get; } = new MauiDeviceDispatcher();
 
     public Task AddComponent(Type componentType, MC.Application parent, Dictionary<string, object> parameters = null)

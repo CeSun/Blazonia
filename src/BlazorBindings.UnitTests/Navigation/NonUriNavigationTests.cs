@@ -26,7 +26,7 @@ public class NonUriNavigationTests
         var ctx = MC.Application.Current.Handler.MauiContext;
         var dsp = ctx.Services.GetService<IDispatcher>();
 
-        _navigationService = new Maui.Navigation(sp);
+        _navigationService = sp.GetRequiredService<Maui.Navigation>();
         _mauiNavigation = mainPage.Navigation;
         _rootPage = _mauiNavigation.NavigationStack[0];
     }
