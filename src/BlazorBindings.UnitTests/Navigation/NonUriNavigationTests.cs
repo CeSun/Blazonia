@@ -8,13 +8,13 @@ namespace BlazorBindings.UnitTests.Navigation;
 
 [TestFixture(nameof(MC.Shell))]
 [TestFixture(nameof(MC.NavigationPage))]
-public class NonShellNavigationTests
+public class NonUriNavigationTests
 {
     private readonly Maui.Navigation _navigationService;
     private readonly MC.INavigation _mauiNavigation;
     private readonly MC.Page _rootPage;
 
-    public NonShellNavigationTests(string root)
+    public NonUriNavigationTests(string root)
     {
         var mainPage = root == nameof(MC.Shell)
             ? (MC.Page)new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } }
