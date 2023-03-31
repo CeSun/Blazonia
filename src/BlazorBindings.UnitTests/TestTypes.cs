@@ -74,9 +74,9 @@ public static class TestServiceProvider
     }
 }
 
-public class TestBlazorBindingsRenderer : MauiBlazorBindingsRenderer
+internal class TestBlazorBindingsRenderer : MauiBlazorBindingsRenderer
 {
-    public TestBlazorBindingsRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory) : base(serviceProvider, loggerFactory)
+    public TestBlazorBindingsRenderer(MauiBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory) : base(serviceProvider, loggerFactory)
     {
     }
 

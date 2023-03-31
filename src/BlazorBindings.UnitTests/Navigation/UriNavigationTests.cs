@@ -5,30 +5,77 @@ using BlazorBindings.UnitTests.Components;
 
 namespace BlazorBindings.UnitTests.Navigation;
 
-public class ShellNavigationTests
+public class UriNavigationTests
 {
     private readonly Maui.Navigation _navigationService;
     private readonly MC.INavigation _mauiNavigation;
 
-    public ShellNavigationTests()
+    public UriNavigationTests()
     {
         var shell = new MC.Shell { Items = { new MC.ContentPage { Title = "Root" } } };
         var sp = TestServiceProvider.Create();
         MC.Application.Current = new TestApplication(sp) { MainPage = shell };
-        _navigationService = new Maui.Navigation(sp);
+        _navigationService = sp.GetRequiredService<Maui.Navigation>();
         _mauiNavigation = shell.Navigation;
     }
 
-    [Test]
-    public async Task NavigateToPageWithUrlParameters()
+    [TestCase("/test/path/TestTitle123/subpath")]
+    [TestCase("/test/path/TestTitle123")]
+    public async Task NavigateToPageWithUrlParameters(string uri)
     {
-        var title = "TestTitle123";
-
-        await _navigationService.NavigateToAsync($"/test/path/{title}");
+        await _navigationService.NavigateToAsync(uri);
 
         var mauiPage = _mauiNavigation.NavigationStack.Last();
-        Assert.That(mauiPage.Title, Is.EqualTo(title));
+        Assert.That(mauiPage.Title, Is.EqualTo("TestTitle123"));
         PageWithUrl.ValidateContent(mauiPage);
+    }
+
+    [Test]
+    public async Task NavigateToPageWithIntParameter()
+    {
+        await _navigationService.NavigateToAsync("/test/int-route/42/subpath");
+
+        var mauiPage = _mauiNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(mauiPage, i: 42);
+    }
+
+    [TestCase("/test/nullable-long-route/1234", 1234L)]
+    [TestCase("/test/nullable-long-route/", null)]
+    public async Task NavigateToPageWithNullableLongParameter(string uri, long? expectedValue)
+    {
+        await _navigationService.NavigateToAsync(uri);
+
+        var mauiPage = _mauiNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(mauiPage, l: expectedValue);
+    }
+
+    [Test]
+    public async Task NavigateToPageWithDateTimeParameterWithoutRouteConstraint()
+    {
+        await _navigationService.NavigateToAsync("/test/datetime/03-29-2023/without-constraint");
+
+        var mauiPage = _mauiNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(mauiPage, dt: new DateTime(2023, 03, 29));
+    }
+
+    [Test]
+    public async Task NavigateToPageWithAdditionalParameter()
+    {
+        var lines = new[] { "Hello there!", "General Kenobi!" };
+        await _navigationService.NavigateToAsync("/test/path/TestTitle123", new()
+        {
+            ["AdditionalText"] = lines
+        });
+
+        var mauiPage = _mauiNavigation.NavigationStack.Last();
+        PageWithUrl.ValidateContent(mauiPage, additionalLines: lines);
+    }
+
+    [Test]
+    public void ShouldFailIfRouteConstraintDoesNotMatch()
+    {
+        Assert.That(() => _navigationService.NavigateToAsync("/test/int-route/not-an-int/subpath"),
+            Throws.InvalidOperationException.With.Message.Contains("not registered"));
     }
 
     [Test]

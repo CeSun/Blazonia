@@ -14,9 +14,10 @@ public static class MauiAppBuilderExtensions
 
         // Use factories for performance.
         builder.Services
-            .AddSingleton<Navigation>(svcs => new Navigation(svcs))
+            .AddSingleton<Navigation>(svcs => new Navigation(svcs.GetRequiredService<MauiBlazorBindingsServiceProvider>()))
             .AddSingleton<INavigation>(services => services.GetRequiredService<Navigation>())
-            .AddSingleton<MauiBlazorBindingsRenderer>(svcs => new MauiBlazorBindingsRenderer(svcs, svcs.GetRequiredService<ILoggerFactory>()));
+            .AddSingleton(svcs => new MauiBlazorBindingsRenderer(svcs.GetRequiredService<MauiBlazorBindingsServiceProvider>(), svcs.GetRequiredService<ILoggerFactory>()))
+            .AddSingleton(svcs => new MauiBlazorBindingsServiceProvider(svcs));
 
         return builder;
     }

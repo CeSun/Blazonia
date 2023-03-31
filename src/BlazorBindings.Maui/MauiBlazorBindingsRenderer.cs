@@ -15,6 +15,11 @@ public class MauiBlazorBindingsRenderer : NativeComponentRenderer
     {
     }
 
+    internal MauiBlazorBindingsRenderer(MauiBlazorBindingsServiceProvider serviceProvider, ILoggerFactory loggerFactory)
+        : base(serviceProvider, loggerFactory)
+    {
+    }
+
     public override Dispatcher Dispatcher { get; } = new MauiDeviceDispatcher();
 
     public Task AddComponent(Type componentType, MC.Application parent, Dictionary<string, object> parameters = null)
@@ -64,6 +69,15 @@ public class MauiBlazorBindingsRenderer : NativeComponentRenderer
         }
 
         return (elements[0], addComponentTask);
+    }
+
+    internal async Task<(T Component, int ComponentId)> AddRootComponent<T>(Dictionary<string, object> initialParameters)
+        where T : IComponent
+    {
+        var component = (T)InstantiateComponent(typeof(T));
+        var componentId = AssignRootComponentId(component);
+        await RenderRootComponentAsync(componentId, ParameterView.FromDictionary(initialParameters));
+        return (component, componentId);
     }
 
     private async Task<(List<MC.BindableObject> Elements, Task<IComponent> Component)> GetElementsFromRenderedComponent(Type componentType, Dictionary<string, object> parameters)

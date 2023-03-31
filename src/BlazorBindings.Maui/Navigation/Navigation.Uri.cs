@@ -1,4 +1,4 @@
-﻿using BlazorBindings.Maui.ShellNavigation;
+﻿using Microsoft.AspNetCore.Components.Routing;
 using System.Globalization;
 using System.Reflection;
 using MC = Microsoft.Maui.Controls;
@@ -7,7 +7,9 @@ namespace BlazorBindings.Maui;
 
 public partial class Navigation
 {
-    private List<StructuredRoute> Routes;
+    private NavigationManager _navigationManager;
+    private Router _router;
+    private TaskCompletionSource<RouteData> _waitForRouteSource;
 
     /// <summary>
     /// Performs URI-based navigation.
@@ -18,14 +20,19 @@ public partial class Navigation
     {
         ArgumentNullException.ThrowIfNull(uri);
 
-        Routes ??= FindRoutes();
+        // I cannot use Blazor's route discovery directly as it is internal.
+        // Instead, I render Router internally with callbacks to get navigated page and parameters.
+        _navigationManager ??= _services.GetRequiredService<NavigationManager>();
+        _router ??= await RenderRouter();
 
-        var route = StructuredRoute.FindBestMatch(uri, Routes, parameters);
+        var routeTask = WaitForRoute();
+        _navigationManager.NavigateTo(uri);
+        var route = await routeTask;
 
         if (route != null)
         {
-            var pars = GetParameters(route);
-            await Navigate(route.Route.Type, pars, NavigationTarget.Navigation, true);
+            var pars = GetParameters(route, parameters);
+            await Navigate(route.PageType, pars, NavigationTarget.Navigation, true);
         }
         else
         {
@@ -33,39 +40,36 @@ public partial class Navigation
         }
     }
 
-    //TODO This route matching could be better. Can we use the ASPNEt version?
-    private List<StructuredRoute> FindRoutes()
+    private Dictionary<string, object> GetParameters(RouteData routeData, Dictionary<string, object> additionalParameters)
     {
-        var appType = MC.Application.Current.GetType();
-        var assembly = appType.IsGenericType && appType.GetGenericTypeDefinition() == typeof(BlazorBindingsApplication<>)
-            ? appType.GenericTypeArguments[0].Assembly
-            : appType.Assembly;
+        if (routeData.RouteValues?.Count is not > 0 && additionalParameters?.Count is not > 0)
+            return null;
 
-        var result = new List<StructuredRoute>();
-        var pages = assembly.GetTypes().Where(x => x.IsSubclassOf(typeof(ComponentBase)));
-        foreach (var page in pages)
+        var result = new Dictionary<string, object>();
+
+        if (routeData.RouteValues != null)
         {
-            //Find each @page on a page. There can be multiple.
-            var routes = page.GetCustomAttributes<RouteAttribute>();
-            foreach (var route in routes)
+            foreach (var (key, value) in ConvertParameters(routeData.PageType, routeData.RouteValues))
             {
-                if (route.Template == "/")
-                {
-                    // This route can be used in Hybrid apps and should be ignored by Shell (because Shell doesn't support empty routes anyway)
-                    continue;
-                }
+                result.Add(key, value);
+            }
+        }
 
-                var structuredRoute = new StructuredRoute(route.Template, page);
-
-                //Also register route in our own list for setting parameters and tracking if it is registered;
-                result.Add(structuredRoute);
+        if (additionalParameters != null)
+        {
+            foreach (var (key, value) in additionalParameters)
+            {
+                if (value != null)
+                    result.Add(key, value);
             }
         }
 
         return result;
     }
 
-    private static Dictionary<string, object> ConvertParameters(Type componentType, Dictionary<string, string> parameters)
+    // This method is only needed for backward-compatibility - to allow assigning non-string parameters without 
+    // specifying Route constraints. It should probably be removed in future versions.
+    private static Dictionary<string, object> ConvertParameters(Type componentType, IReadOnlyDictionary<string, object> parameters)
     {
         if (parameters is null)
         {
@@ -76,37 +80,58 @@ public partial class Navigation
 
         foreach (var keyValue in parameters)
         {
-            var propertyType = componentType.GetProperty(keyValue.Key)?.PropertyType ?? typeof(string);
-            if (!StringConverter.TryParse(propertyType, keyValue.Value, CultureInfo.InvariantCulture, out var parsedValue))
+            var value = keyValue.Value;
+
+            if (value is string stringValue)
             {
-                throw new InvalidOperationException($"The value {keyValue.Value} can not be converted to a {propertyType.Name}");
+                var propertyType = componentType.GetProperty(keyValue.Key)?.PropertyType ?? typeof(string);
+                if (!StringConverter.TryParse(propertyType, stringValue, CultureInfo.InvariantCulture, out var parsedValue))
+                {
+                    throw new InvalidOperationException($"The value {keyValue.Value} can not be converted to a {propertyType.Name}");
+                }
+
+                convertedParameters[keyValue.Key] = parsedValue;
+            }
+            else
+            {
+                convertedParameters[keyValue.Key] = value;
             }
 
-            convertedParameters[keyValue.Key] = parsedValue;
         }
 
         return convertedParameters;
     }
 
-    private Dictionary<string, object> GetParameters(StructuredRouteResult route)
+    private async Task<Router> RenderRouter()
     {
-        var parameters = ConvertParameters(route.Route.Type, route.PathParameters);
+        RenderFragment notFound = _ => _waitForRouteSource?.TrySetResult(null);
+        RenderFragment<RouteData> found = data => _ => _waitForRouteSource?.TrySetResult(data);
 
-        if (route.AdditionalParameters is not null)
+        (var router, _) = await _renderer.AddRootComponent<Router>(new()
         {
-            if (parameters is null)
-            {
-                parameters = route.AdditionalParameters;
-            }
-            else
-            {
-                foreach (var (key, value) in route.AdditionalParameters)
-                {
-                    parameters.Add(key, value);
-                }
-            }
-        }
+            [nameof(Router.AppAssembly)] = GetDefaultAssembly(),
+            [nameof(Router.NotFound)] = notFound,
+            [nameof(Router.Found)] = found
+        });
 
-        return parameters;
+        return router;
     }
+
+    private async Task<RouteData> WaitForRoute()
+    {
+        _waitForRouteSource = new();
+        var routeData = await _waitForRouteSource.Task;
+        _waitForRouteSource = null;
+        return routeData;
+    }
+
+    private static Assembly GetDefaultAssembly()
+    {
+        var appType = MC.Application.Current.GetType();
+        var assembly = appType.IsGenericType && appType.GetGenericTypeDefinition() == typeof(BlazorBindingsApplication<>)
+            ? appType.GenericTypeArguments[0].Assembly
+            : appType.Assembly;
+        return assembly;
+    }
+
 }
