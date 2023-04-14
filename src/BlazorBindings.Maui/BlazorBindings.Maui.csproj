@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net7.0</TargetFrameworks>
+		<TargetFrameworks>net8.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<Title>Maui binding for Blazor</Title>
 		<Description>Maui Blazor Bindings enables using Blazor syntax in .razor files to build native apps for iOS and Android.</Description>
