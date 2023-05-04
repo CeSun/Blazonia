@@ -9,7 +9,6 @@ using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
-using SkiaSharp.Views.Maui;
 using SVMC = SkiaSharp.Views.Maui.Controls;
 using System.Threading.Tasks;
 
@@ -26,8 +25,8 @@ namespace BlazorBindings.Maui.Elements.SkiaSharp
 
         [Parameter] public bool? EnableTouchEvents { get; set; }
         [Parameter] public bool? IgnorePixelScaling { get; set; }
-        [Parameter] public EventCallback<SKPaintSurfaceEventArgs> OnPaintSurface { get; set; }
-        [Parameter] public EventCallback<SKTouchEventArgs> OnTouch { get; set; }
+        [Parameter] public EventCallback<global::SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs> OnPaintSurface { get; set; }
+        [Parameter] public EventCallback<global::SkiaSharp.Views.Maui.SKTouchEventArgs> OnTouch { get; set; }
 
         public new SVMC.SKCanvasView NativeControl => (SVMC.SKCanvasView)((BindableObject)this).NativeControl;
 
@@ -54,9 +53,9 @@ namespace BlazorBindings.Maui.Elements.SkiaSharp
                 case nameof(OnPaintSurface):
                     if (!Equals(OnPaintSurface, value))
                     {
-                        void NativeControlPaintSurface(object sender, SKPaintSurfaceEventArgs e) => InvokeEventCallback(OnPaintSurface, e);
+                        void NativeControlPaintSurface(object sender, global::SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs e) => InvokeEventCallback(OnPaintSurface, e);
 
-                        OnPaintSurface = (EventCallback<SKPaintSurfaceEventArgs>)value;
+                        OnPaintSurface = (EventCallback<global::SkiaSharp.Views.Maui.SKPaintSurfaceEventArgs>)value;
                         NativeControl.PaintSurface -= NativeControlPaintSurface;
                         NativeControl.PaintSurface += NativeControlPaintSurface;
                     }
@@ -64,9 +63,9 @@ namespace BlazorBindings.Maui.Elements.SkiaSharp
                 case nameof(OnTouch):
                     if (!Equals(OnTouch, value))
                     {
-                        void NativeControlTouch(object sender, SKTouchEventArgs e) => InvokeEventCallback(OnTouch, e);
+                        void NativeControlTouch(object sender, global::SkiaSharp.Views.Maui.SKTouchEventArgs e) => InvokeEventCallback(OnTouch, e);
 
-                        OnTouch = (EventCallback<SKTouchEventArgs>)value;
+                        OnTouch = (EventCallback<global::SkiaSharp.Views.Maui.SKTouchEventArgs>)value;
                         NativeControl.Touch -= NativeControlTouch;
                         NativeControl.Touch += NativeControlTouch;
                     }

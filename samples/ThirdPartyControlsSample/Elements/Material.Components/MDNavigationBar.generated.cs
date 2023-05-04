@@ -7,7 +7,6 @@
 
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements;
-using Material.Components.Maui.Core;
 using MC = Microsoft.Maui.Controls;
 using MCM = Material.Components.Maui;
 using Microsoft.AspNetCore.Components;
@@ -26,7 +25,7 @@ namespace BlazorBindings.Maui.Elements.Material.Components
         }
 
         [Parameter] public bool? HasLabel { get; set; }
-        [Parameter] public ItemCollection<MCM.NavigationBarItem> Items { get; set; }
+        [Parameter] public MCM.Core.ItemCollection<MCM.NavigationBarItem> Items { get; set; }
         [Parameter] public int? SelectedIndex { get; set; }
         [Parameter] public RenderFragment SelectedItem { get; set; }
         [Parameter] public EventCallback<MCM.NavigationBarItem> SelectedItemChanged { get; set; }
@@ -49,7 +48,7 @@ namespace BlazorBindings.Maui.Elements.Material.Components
                 case nameof(Items):
                     if (!Equals(Items, value))
                     {
-                        Items = (ItemCollection<MCM.NavigationBarItem>)value;
+                        Items = (MCM.Core.ItemCollection<MCM.NavigationBarItem>)value;
                         NativeControl.Items = Items;
                     }
                     break;

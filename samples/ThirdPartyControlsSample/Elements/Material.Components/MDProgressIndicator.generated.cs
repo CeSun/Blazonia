@@ -7,7 +7,6 @@
 
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements;
-using Material.Components.Maui.Core;
 using MC = Microsoft.Maui.Controls;
 using MCM = Material.Components.Maui;
 using Microsoft.AspNetCore.Components;
@@ -86,7 +85,7 @@ namespace BlazorBindings.Maui.Elements.Material.Components
                 case nameof(PercentChanged):
                     if (!Equals(PercentChanged, value))
                     {
-                        void NativeControlPercentChanged(object sender, ValueChangedEventArgs e)
+                        void NativeControlPercentChanged(object sender, MCM.Core.ValueChangedEventArgs e)
                         {
                             var value = NativeControl.Percent;
                             Percent = value;
