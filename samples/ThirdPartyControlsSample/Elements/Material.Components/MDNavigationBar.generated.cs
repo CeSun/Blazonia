@@ -28,7 +28,6 @@ namespace BlazorBindings.Maui.Elements.Material.Components
         [Parameter] public MCM.Core.ItemCollection<MCM.NavigationBarItem> Items { get; set; }
         [Parameter] public int? SelectedIndex { get; set; }
         [Parameter] public RenderFragment SelectedItem { get; set; }
-        [Parameter] public EventCallback<MCM.NavigationBarItem> SelectedItemChanged { get; set; }
 
         public new MCM.NavigationBar NativeControl => (MCM.NavigationBar)((BindableObject)this).NativeControl;
 
@@ -61,21 +60,6 @@ namespace BlazorBindings.Maui.Elements.Material.Components
                     break;
                 case nameof(SelectedItem):
                     SelectedItem = (RenderFragment)value;
-                    break;
-                case nameof(SelectedItemChanged):
-                    if (!Equals(SelectedItemChanged, value))
-                    {
-                        void NativeControlSelectedItemChanged(object sender, MC.SelectedItemChangedEventArgs e)
-                        {
-                            var value = NativeControl.SelectedItem;
-                            SelectedItem = value;
-                            InvokeEventCallback(SelectedItemChanged, value);
-                        }
-
-                        SelectedItemChanged = (EventCallback<MCM.NavigationBarItem>)value;
-                        NativeControl.SelectedItemChanged -= NativeControlSelectedItemChanged;
-                        NativeControl.SelectedItemChanged += NativeControlSelectedItemChanged;
-                    }
                     break;
 
                 default:
