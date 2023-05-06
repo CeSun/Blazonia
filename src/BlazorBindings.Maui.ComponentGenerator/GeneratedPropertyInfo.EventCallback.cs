@@ -113,7 +113,7 @@ namespace BlazorBindings.Maui.ComponentGenerator
                         "PropertyChanged",
                         containingType.GetTypeNameAndAddNamespace(componentType),
                         componentEventName,
-                        GetRenderFragmentType(containingType, null, propertyInfo),
+                        GetEventCallbackType(containingType, null, propertyInfo),
                         GeneratedPropertyKind.EventCallback);
 
                     generatedPropertyInfo._bindedProperty = propertyInfo;
@@ -128,6 +128,9 @@ namespace BlazorBindings.Maui.ComponentGenerator
                 {
                     var isBindEvent = IsBindEvent(eventInfo, out var bindedProperty);
 
+                    if (isBindEvent && IsRenderFragmentPropertySymbol(containingType, bindedProperty))
+                        return null;
+
                     var eventCallbackName = isBindEvent ? $"{bindedProperty.Name}Changed" : GetEventCallbackName(eventInfo);
 
                     var generatedPropertyInfo = new GeneratedPropertyInfo(
@@ -135,18 +138,19 @@ namespace BlazorBindings.Maui.ComponentGenerator
                         eventInfo.Name,
                         containingType.GetTypeNameAndAddNamespace(componentType),
                         eventCallbackName,
-                        GetRenderFragmentType(containingType, eventInfo, bindedProperty),
+                        GetEventCallbackType(containingType, eventInfo, bindedProperty),
                         GeneratedPropertyKind.EventCallback);
 
                     generatedPropertyInfo._bindedProperty = bindedProperty;
                     generatedPropertyInfo._eventHandlerType = (INamedTypeSymbol)eventInfo.Type;
                     return generatedPropertyInfo;
-                });
+                })
+                .Where(e => e != null);
 
             return propertyChangedEvents.Concat(inferredEvents).ToArray();
         }
 
-        private static string GetRenderFragmentType(GeneratedTypeInfo containingType, IEventSymbol eventInfo, IPropertySymbol bindedProperty)
+        private static string GetEventCallbackType(GeneratedTypeInfo containingType, IEventSymbol eventInfo, IPropertySymbol bindedProperty)
         {
             if (bindedProperty != null)
             {

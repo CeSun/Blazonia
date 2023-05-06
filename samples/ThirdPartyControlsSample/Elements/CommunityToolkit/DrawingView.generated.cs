@@ -7,8 +7,8 @@
 
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements;
+using CM = CommunityToolkit.Maui;
 using CMV = CommunityToolkit.Maui.Views;
-using CommunityToolkit.Maui.Core;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
@@ -45,7 +45,7 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit
         /// <summary>
         /// The collection of lines that are currently on the <see cref="T:CommunityToolkit.Maui.Views.DrawingView" />.
         /// </summary>
-        [Parameter] public ObservableCollection<IDrawingLine> Lines { get; set; }
+        [Parameter] public ObservableCollection<CM.Core.IDrawingLine> Lines { get; set; }
         /// <summary>
         /// The width that is used by default to draw a line on the <see cref="T:CommunityToolkit.Maui.Views.DrawingView" />.
         /// </summary>
@@ -54,7 +54,7 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit
         /// Indicates whether the <see cref="T:CommunityToolkit.Maui.Views.DrawingView" /> is cleared after releasing the tap/click and a line is drawn. Note: when <see cref="P:CommunityToolkit.Maui.Views.DrawingView.IsMultiLineModeEnabled" /> is also enabled, this might cause unexpected behavior.
         /// </summary>
         [Parameter] public bool? ShouldClearOnFinish { get; set; }
-        [Parameter] public EventCallback<DrawingLineCompletedEventArgs> OnDrawingLineCompleted { get; set; }
+        [Parameter] public EventCallback<CM.Core.DrawingLineCompletedEventArgs> OnDrawingLineCompleted { get; set; }
 
         public new CMV.DrawingView NativeControl => (CMV.DrawingView)((BindableObject)this).NativeControl;
 
@@ -88,7 +88,7 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit
                 case nameof(Lines):
                     if (!Equals(Lines, value))
                     {
-                        Lines = (ObservableCollection<IDrawingLine>)value;
+                        Lines = (ObservableCollection<CM.Core.IDrawingLine>)value;
                         NativeControl.Lines = Lines;
                     }
                     break;
@@ -109,9 +109,9 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit
                 case nameof(OnDrawingLineCompleted):
                     if (!Equals(OnDrawingLineCompleted, value))
                     {
-                        void NativeControlDrawingLineCompleted(object sender, DrawingLineCompletedEventArgs e) => InvokeEventCallback(OnDrawingLineCompleted, e);
+                        void NativeControlDrawingLineCompleted(object sender, CM.Core.DrawingLineCompletedEventArgs e) => InvokeEventCallback(OnDrawingLineCompleted, e);
 
-                        OnDrawingLineCompleted = (EventCallback<DrawingLineCompletedEventArgs>)value;
+                        OnDrawingLineCompleted = (EventCallback<CM.Core.DrawingLineCompletedEventArgs>)value;
                         NativeControl.DrawingLineCompleted -= NativeControlDrawingLineCompleted;
                         NativeControl.DrawingLineCompleted += NativeControlDrawingLineCompleted;
                     }

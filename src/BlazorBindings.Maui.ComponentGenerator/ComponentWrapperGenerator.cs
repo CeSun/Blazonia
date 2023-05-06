@@ -150,6 +150,7 @@ namespace {componentNamespace}
         {
             var usings = new List<UsingStatement>
             {
+                new UsingStatement { Namespace = "System" },
                 new UsingStatement { Namespace = "Microsoft.AspNetCore.Components", IsUsed = true, },
                 new UsingStatement { Namespace = "BlazorBindings.Core", IsUsed = true, },
                 new UsingStatement { Namespace = "System.Threading.Tasks", IsUsed = true, },
@@ -160,13 +161,19 @@ namespace {componentNamespace}
             var typeNamespace = typeToGenerate.ContainingNamespace.GetFullName();
             if (typeNamespace != "Microsoft.Maui.Controls")
             {
-                var typeNamespaceAlias = GetNamespaceAlias(typeToGenerate.ContainingNamespace);
+                var typeNamespaceAlias = GetNamespaceAlias(typeNamespace);
                 usings.Add(new UsingStatement { Namespace = typeNamespace, Alias = typeNamespaceAlias, IsUsed = true });
             }
 
             if (componentNamespace != MauiComponentsNamespace)
             {
                 usings.Add(new UsingStatement { Namespace = MauiComponentsNamespace, IsUsed = true });
+            }
+
+            var assemblyName = typeToGenerate.ContainingAssembly.Name;
+            if (assemblyName.Contains('.') && typeNamespace != assemblyName && typeNamespace.StartsWith(assemblyName))
+            {
+                usings.Add(new UsingStatement { Namespace = assemblyName, Alias = GetNamespaceAlias(assemblyName) });
             }
 
             return usings;
@@ -272,18 +279,9 @@ namespace {componentNamespace}
             return string.IsNullOrEmpty(group) ? "BlazorBindings.Maui.Elements" : $"BlazorBindings.Maui.Elements.{group}";
         }
 
-        private static string GetNamespaceAlias(INamespaceSymbol namespaceSymbol)
+        private static string GetNamespaceAlias(string @namespace)
         {
-            var alias = "";
-            while (!namespaceSymbol.IsGlobalNamespace)
-            {
-                if (namespaceSymbol.Name != "Microsoft")
-                    alias = namespaceSymbol.Name[0] + alias;
-
-                namespaceSymbol = namespaceSymbol.ContainingNamespace;
-            }
-
-            return alias;
+            return new string(@namespace.Split('.').Where(part => part != "Microsoft").Select(part => part[0]).ToArray());
         }
     }
 }
