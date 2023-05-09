@@ -29,18 +29,31 @@ public class GeneratedTypeInfo
 
     public string GetTypeNameAndAddNamespace(string @namespace, string typeName)
     {
+        // Adding random usings might cause conflicts with global usings.
+        // Therefore, we only add usings for commonly used namespaces.
+
         var @using = Usings.FirstOrDefault(u => u.Namespace == @namespace);
-        if (@using == null)
+        if (@using == null && (@namespace.StartsWith("System.") || @namespace.StartsWith("Microsoft.")))
         {
             @using = new UsingStatement { Namespace = @namespace, IsUsed = true };
             Usings.Add(@using);
         }
-        else
+
+        if (@using != null)
         {
             @using.IsUsed = true;
+            return @using.Alias == null ? typeName : $"{@using.Alias}.{typeName}";
         }
 
-        return @using.Alias == null ? typeName : $"{@using.Alias}.{typeName}";
+        var partialAliasUsing = Usings.FirstOrDefault(u => u.Alias != null && @namespace.StartsWith(u.Namespace + "."));
+        if (partialAliasUsing != null)
+        {
+            partialAliasUsing.IsUsed = true;
+            var aliasedNs = @namespace.Replace(partialAliasUsing.Namespace, partialAliasUsing.Alias);
+            return $"{aliasedNs}.{typeName}";
+        }
+
+        return $"global::{@namespace}.{typeName}";
     }
 
     public string GetTypeNameAndAddNamespace(ITypeSymbol type)
@@ -56,25 +69,9 @@ public class GeneratedTypeInfo
             return $"{GetTypeNameAndAddNamespace(type.ContainingType)}.{FormatTypeName(type)}";
         }
 
-        // Check if there's a 'using' already. If so, check if it has an alias. If not, add a new 'using'.
-        var namespaceAlias = string.Empty;
-
         var nsName = type.ContainingNamespace.GetFullName();
-        var existingUsing = Usings.FirstOrDefault(u => u.Namespace == nsName);
-        if (existingUsing == null)
-        {
-            Usings.Add(new UsingStatement { Namespace = nsName, IsUsed = true, });
-        }
-        else
-        {
-            existingUsing.IsUsed = true;
-            if (existingUsing.Alias != null)
-            {
-                namespaceAlias = existingUsing.Alias + ".";
-            }
-        }
-        typeName = namespaceAlias + FormatTypeName(type);
-        return typeName;
+
+        return GetTypeNameAndAddNamespace(nsName, FormatTypeName(type));
     }
 
     private string FormatTypeName(ITypeSymbol type)

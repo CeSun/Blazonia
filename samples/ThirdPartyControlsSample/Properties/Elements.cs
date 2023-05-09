@@ -1,5 +1,6 @@
 ﻿using AlohaKit.Controls;
 using BlazorBindings.Maui.ComponentGenerator;
+using SkiaSharp.Views.Maui.Controls;
 using XCalendar.Maui.Views;
 
 // AlohaKit.Controls
@@ -32,3 +33,10 @@ using XCalendar.Maui.Views;
         $"{nameof(CalendarView.DayNameTemplate)}:XCalendar.Core.Interfaces.ICalendarDay",
         $"{nameof(CalendarView.DayTemplate)}:XCalendar.Core.Interfaces.ICalendarDay",
     })]
+
+// Material.Components.Maui
+[assembly: GenerateComponent(typeof(Material.Components.Maui.ProgressIndicator), Aliases = new[] { "ProgressIndicator:MDProgressIndicator" })]
+[assembly: GenerateComponent(typeof(Material.Components.Maui.NavigationBar), Aliases = new[] { "NavigationBar:MDNavigationBar" })]
+
+[assembly: GenerateComponent(typeof(Material.Components.Maui.SKTouchCanvasView))]
+[assembly: GenerateComponent(typeof(SKCanvasView))]

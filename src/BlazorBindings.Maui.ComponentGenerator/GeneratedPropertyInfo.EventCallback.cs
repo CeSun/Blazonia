@@ -108,13 +108,13 @@ public partial class GeneratedPropertyInfo
 
                 var componentEventName = $"{propertyInfo.Name}Changed";
 
-                var generatedPropertyInfo = new GeneratedPropertyInfo(
-                    containingType,
-                    "PropertyChanged",
-                    containingType.GetTypeNameAndAddNamespace(componentType),
-                    componentEventName,
-                    GetRenderFragmentType(containingType, null, propertyInfo),
-                    GeneratedPropertyKind.EventCallback);
+                    var generatedPropertyInfo = new GeneratedPropertyInfo(
+                        containingType,
+                        "PropertyChanged",
+                        containingType.GetTypeNameAndAddNamespace(componentType),
+                        componentEventName,
+                        GetEventCallbackType(containingType, null, propertyInfo),
+                        GeneratedPropertyKind.EventCallback);
 
                 generatedPropertyInfo._bindedProperty = propertyInfo;
                 generatedPropertyInfo._eventHandlerType = (INamedTypeSymbol)eventInfo.Type;
@@ -128,31 +128,35 @@ public partial class GeneratedPropertyInfo
             {
                 var isBindEvent = IsBindEvent(eventInfo, out var bindedProperty);
 
-                var eventCallbackName = isBindEvent ? $"{bindedProperty.Name}Changed" : GetEventCallbackName(eventInfo);
+                    if (isBindEvent && IsRenderFragmentPropertySymbol(containingType, bindedProperty))
+                        return null;
 
-                var generatedPropertyInfo = new GeneratedPropertyInfo(
-                    containingType,
-                    eventInfo.Name,
-                    containingType.GetTypeNameAndAddNamespace(componentType),
-                    eventCallbackName,
-                    GetRenderFragmentType(containingType, eventInfo, bindedProperty),
-                    GeneratedPropertyKind.EventCallback);
+                    var eventCallbackName = isBindEvent ? $"{bindedProperty.Name}Changed" : GetEventCallbackName(eventInfo);
 
-                generatedPropertyInfo._bindedProperty = bindedProperty;
-                generatedPropertyInfo._eventHandlerType = (INamedTypeSymbol)eventInfo.Type;
-                return generatedPropertyInfo;
-            });
+                    var generatedPropertyInfo = new GeneratedPropertyInfo(
+                        containingType,
+                        eventInfo.Name,
+                        containingType.GetTypeNameAndAddNamespace(componentType),
+                        eventCallbackName,
+                        GetEventCallbackType(containingType, eventInfo, bindedProperty),
+                        GeneratedPropertyKind.EventCallback);
+
+                    generatedPropertyInfo._bindedProperty = bindedProperty;
+                    generatedPropertyInfo._eventHandlerType = (INamedTypeSymbol)eventInfo.Type;
+                    return generatedPropertyInfo;
+                })
+                .Where(e => e != null);
 
         return propertyChangedEvents.Concat(inferredEvents).ToArray();
     }
 
-    private static string GetRenderFragmentType(GeneratedTypeInfo containingType, IEventSymbol eventInfo, IPropertySymbol bindedProperty)
-    {
-        if (bindedProperty != null)
+        private static string GetEventCallbackType(GeneratedTypeInfo containingType, IEventSymbol eventInfo, IPropertySymbol bindedProperty)
         {
-            var typeName = GetComponentPropertyTypeName(bindedProperty, containingType);
-            return $"EventCallback<{typeName}>";
-        }
+            if (bindedProperty != null)
+            {
+                var typeName = GetComponentPropertyTypeName(bindedProperty, containingType);
+                return $"EventCallback<{typeName}>";
+            }
 
         var eventArgType = GetEventArgType(eventInfo.Type);
         if (eventArgType.Name != nameof(EventArgs))
