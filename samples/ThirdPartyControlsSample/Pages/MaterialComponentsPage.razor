@@ -70,9 +70,9 @@
         ("Item D", IconKind.AutoDelete),
     };
 
-    int? selectedIndex1;
-    int? selectedIndex2;
+    int selectedIndex1 = -1;
+    int selectedIndex2 = -1;
 
-    string SelectedItem1 => selectedIndex1 == null ? null : combo1Items[selectedIndex1.Value];
-    string SelectedItem2 => selectedIndex2 == null ? null : combo2Items[selectedIndex2.Value].Text;
+    string SelectedItem1 => selectedIndex1 == -1 ? null : combo1Items[selectedIndex1];
+    string SelectedItem2 => selectedIndex2 == -1 ? null : combo2Items[selectedIndex2].Text;
 }
