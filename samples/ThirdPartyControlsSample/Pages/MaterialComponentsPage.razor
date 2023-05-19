@@ -1,5 +1,6 @@
 ﻿@using BlazorBindings.Maui.Elements.Material.Components
 @using IconPacks.Material;
+@using ThirdPartyControlsSample.Extensions;
 @using static MaterialStyles
 
 <ContentPage Title="Material Components">
@@ -49,10 +50,20 @@
                 <Label>'@(SelectedItem2 ?? "Nothing")' is selected in the second ComboBox.</Label>
             </ContentView>
         </MDCard>
+
+        <Label>Popup:</Label>
+        <MDButton Text="Show popup" OnClick="ShowPopup" />
+        @if (popupResult != null)
+        {
+            <Label>Popup result: @(popupResult.Value ? "Confirmed" : "Cancelled")</Label>
+        }
+
     </VerticalStackLayout>
 </ContentPage>
 
 @code {
+    [Inject] INavigation Navigation { get; set; }
+
     string buttonClicked;
 
     void ElevatedClicked() => buttonClicked = "Elevated";
@@ -75,4 +86,11 @@
 
     string SelectedItem1 => selectedIndex1 == -1 ? null : combo1Items[selectedIndex1];
     string SelectedItem2 => selectedIndex2 == -1 ? null : combo2Items[selectedIndex2].Text;
+
+    bool? popupResult;
+
+    async Task ShowPopup()
+    {
+        popupResult = await Navigation.ShowMDPopupAsync<MaterialPopup>() as bool?;
+    }
 }

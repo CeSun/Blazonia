@@ -43,6 +43,9 @@ using XCalendar.Maui.Views;
 [assembly: GenerateComponent(typeof(Material.Components.Maui.MenuItem), Aliases = new[] { "MenuItem:MDMenuItem" })]
 [assembly: GenerateComponent(typeof(Material.Components.Maui.Card), Aliases = new[] { "Card:MDCard" })]
 [assembly: GenerateComponent(typeof(Material.Components.Maui.WrapLayout), Aliases = new[] { "WrapLayout:MDWrapLayout" })]
+[assembly: GenerateComponent(typeof(Material.Components.Maui.Popup), Aliases = new[] { "Popup:MDPopup" })]
+[assembly: GenerateComponent(typeof(Material.Components.Maui.Label), Aliases = new[] { "Label:MDLabel" })]
+[assembly: GenerateComponent(typeof(Material.Components.Maui.TextField), Aliases = new[] { "TextField:MDTextField" })]
 
 [assembly: GenerateComponent(typeof(Material.Components.Maui.SKTouchCanvasView))]
 [assembly: GenerateComponent(typeof(SKCanvasView))]
