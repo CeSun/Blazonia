@@ -7,8 +7,8 @@
 
 using BlazorBindings.Core;
 using BlazorBindings.Maui.Elements;
+using CM = CommunityToolkit.Maui;
 using CMB = CommunityToolkit.Maui.Behaviors;
-using CommunityToolkit.Maui.Core;
 using MC = Microsoft.Maui.Controls;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Maui.Graphics;
@@ -35,7 +35,7 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit.Behaviors
         /// <summary>
         /// Property that holds the value of the Status bar color.
         /// </summary>
-        [Parameter] public StatusBarStyle? StatusBarStyle { get; set; }
+        [Parameter] public CM.Core.StatusBarStyle? StatusBarStyle { get; set; }
 
         public new CMB.StatusBarBehavior NativeControl => (CMB.StatusBarBehavior)((BindableObject)this).NativeControl;
 
@@ -55,8 +55,8 @@ namespace BlazorBindings.Maui.Elements.CommunityToolkit.Behaviors
                 case nameof(StatusBarStyle):
                     if (!Equals(StatusBarStyle, value))
                     {
-                        StatusBarStyle = (StatusBarStyle?)value;
-                        NativeControl.StatusBarStyle = StatusBarStyle ?? (StatusBarStyle)CMB.StatusBarBehavior.StatusBarStyleProperty.DefaultValue;
+                        StatusBarStyle = (CM.Core.StatusBarStyle?)value;
+                        NativeControl.StatusBarStyle = StatusBarStyle ?? (CM.Core.StatusBarStyle)CMB.StatusBarBehavior.StatusBarStyleProperty.DefaultValue;
                     }
                     break;
 

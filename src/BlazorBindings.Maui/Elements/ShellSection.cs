@@ -33,7 +33,7 @@ public partial class ShellSection : ShellGroupItem, IMauiContainerElementHandler
         {
             MC.TemplatedPage childAsTemplatedPage => childAsTemplatedPage,  // Implicit conversion
             MC.ShellContent childAsShellContent => childAsShellContent,
-            _ => throw new NotSupportedException($"Handler of type '{GetType().FullName}' doesn't support adding a child (child type is '{child.GetType().FullName}').")
+            _ => throw new NotSupportedException($"Control of type '{GetType().FullName}' doesn't support adding a child (child type is '{child.GetType().FullName}').")
         };
 
         // Ensure that there is non-null Content to avoid exceptions in Xamarin.Forms
@@ -61,7 +61,7 @@ public partial class ShellSection : ShellGroupItem, IMauiContainerElementHandler
         ArgumentNullException.ThrowIfNull(child);
 
         MC.ShellContent contentToRemove = GetContentForChild(child)
-            ?? throw new NotSupportedException($"Handler of type '{GetType().FullName}' doesn't support removing a child (child type is '{child.GetType().FullName}').");
+            ?? throw new NotSupportedException($"Control of type '{GetType().FullName}' doesn't support removing a child (child type is '{child.GetType().FullName}').");
 
         NativeControl.Items.Remove(contentToRemove);
     }
