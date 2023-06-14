@@ -37,7 +37,7 @@ public partial class ShellItem : ShellGroupItem, IMauiContainerElementHandler
             MC.TemplatedPage childAsTemplatedPage => childAsTemplatedPage,  // Implicit conversion
             MC.ShellContent childAsShellContent => childAsShellContent,  // Implicit conversion
             MC.ShellSection childAsShellSection => childAsShellSection,
-            _ => throw new NotSupportedException($"Handler of type '{GetType().FullName}' doesn't support adding a child (child type is '{child.GetType().FullName}').")
+            _ => throw new NotSupportedException($"Control of type '{GetType().FullName}' doesn't support adding a child (child type is '{child.GetType().FullName}').")
         };
 
         if (NativeControl.Items.Count >= physicalSiblingIndex)
@@ -65,7 +65,7 @@ public partial class ShellItem : ShellGroupItem, IMauiContainerElementHandler
         }
 
         var sectionToRemove = GetSectionForElement(child)
-            ?? throw new NotSupportedException($"Handler of type '{GetType().FullName}' doesn't support removing a child (child type is '{child.GetType().FullName}').");
+            ?? throw new NotSupportedException($"Control of type '{GetType().FullName}' doesn't support removing a child (child type is '{child.GetType().FullName}').");
 
         NativeControl.Items.Remove(sectionToRemove);
     }

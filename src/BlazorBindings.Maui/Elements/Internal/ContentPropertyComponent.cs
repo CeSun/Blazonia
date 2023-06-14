@@ -1,4 +1,5 @@
-﻿using MC = Microsoft.Maui.Controls;
+﻿using BlazorBindings.Maui.Extensions;
+using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Internal;
 
@@ -13,7 +14,7 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
 
     public void SetParent(object parentElement)
     {
-        _parent = (TControl)parentElement;
+        _parent = parentElement.Cast<TControl>();
     }
 
     public void RemoveFromParent(object parentElement)

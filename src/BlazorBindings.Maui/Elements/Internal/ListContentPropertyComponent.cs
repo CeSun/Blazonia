@@ -1,4 +1,5 @@
-﻿using MC = Microsoft.Maui.Controls;
+﻿using BlazorBindings.Maui.Extensions;
+using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Internal;
 
@@ -15,7 +16,7 @@ internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComp
 
     public void SetParent(object parentElement)
     {
-        _parent = (TControl)parentElement;
+        _parent = parentElement.Cast<TControl>();
         _propertyItems = ListPropertyAccessor(_parent);
     }
 
@@ -29,20 +30,17 @@ internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComp
 
     void IMauiContainerElementHandler.AddChild(MC.BindableObject child, int physicalSiblingIndex)
     {
-        if (child is not TItem typedChild)
-            throw new NotSupportedException($"Cannot add item of type {child?.GetType().Name} to a {typeof(TItem)} collection.");
-
-        _propertyItems.Insert(physicalSiblingIndex, typedChild);
+        _propertyItems.Insert(physicalSiblingIndex, child.Cast<TItem>());
     }
 
     int IMauiContainerElementHandler.GetChildIndex(MC.BindableObject child)
     {
-        return _propertyItems.IndexOf(child as TItem);
+        return _propertyItems.IndexOf(child.Cast<TItem>());
     }
 
     void IMauiContainerElementHandler.RemoveChild(MC.BindableObject child)
     {
-        _propertyItems.Remove(child as TItem);
+        _propertyItems.Remove(child.Cast<TItem>());
     }
 
     void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }

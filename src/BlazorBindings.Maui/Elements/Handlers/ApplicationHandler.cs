@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using BlazorBindings.Maui.Extensions;
+using Microsoft.Maui.Controls;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Handlers;
@@ -14,7 +15,7 @@ internal class ApplicationHandler : IMauiContainerElementHandler
 
     public void AddChild(MC.BindableObject child, int physicalSiblingIndex)
     {
-        _application.MainPage = (MC.Page)child;
+        _application.MainPage = child.Cast<MC.Page>();
     }
 
     public int GetChildIndex(MC.BindableObject child)
