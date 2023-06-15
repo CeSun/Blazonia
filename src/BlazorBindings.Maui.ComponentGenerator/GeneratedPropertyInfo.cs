@@ -282,7 +282,6 @@ public partial class GeneratedPropertyInfo
         "System.Windows.Input.ICommand",
         "System.Object",
         "Microsoft.Maui.Controls.Page",
-        "Microsoft.Maui.Controls.ResourceDictionary",
         "Microsoft.Maui.Controls.RowDefinitionCollection",
         "Microsoft.Maui.Controls.Shadow",
         "Microsoft.Maui.Controls.ShellContent",
