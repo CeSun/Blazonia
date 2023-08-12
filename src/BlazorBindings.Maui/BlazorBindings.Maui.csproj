@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BlazorBindings.Core\BlazorBindings.Core.csproj" />
-		
+
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Update="Nerdbank.GitVersioning" Version="3.6.133" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-preview.7.8842" />
 	</ItemGroup>
 
 </Project>
