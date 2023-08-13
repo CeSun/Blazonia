@@ -1,4 +1,7 @@
-﻿using BlazorBindings.Maui.ComponentGenerator;
+﻿using AlohaKit.Controls;
+using BlazorBindings.Maui.ComponentGenerator;
+using SkiaSharp.Views.Maui.Controls;
+using XCalendar.Maui.Views;
 
 // AlohaKit.Controls
 [assembly: GenerateComponent(typeof(Rating))]
