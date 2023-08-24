@@ -18,21 +18,17 @@
     }
 
     [Test]
-    public async Task AddLabelWithMarkupContent()
-    {
-        var label = await Render<MC.Label>(@<Label><test></test></Label>);
-
-        var expectedText = "<test></test>";
-        Assert.That(label.Text, Is.EqualTo(expectedText));
-    }
-
-    [Test]
     public async Task AddLabelWithDynamicTextContent()
     {
         var someText = "123";
         var label = await Render<MC.Label>(@<Label>Dynamic - @someText - label with child content</Label>);
 
         Assert.That(label.Text, Is.EqualTo("Dynamic - 123 - label with child content"));
+
+        someText = "234";
+        StateHasChanged();
+
+        Assert.That(label.Text, Is.EqualTo("Dynamic - 234 - label with child content"));
     }
 
     [Test]
@@ -45,7 +41,7 @@
         <Span TextDecorations="TextDecorations.Strikethrough">text decorations</Span>
         <Span FontAttributes="MC.FontAttributes.Bold" Text=" and font attributes." />
     </Label>
-    );
+        );
 
         var spans = label.FormattedText.Spans;
         Assert.That(spans[0].Text, Is.EqualTo("Label with spans "));

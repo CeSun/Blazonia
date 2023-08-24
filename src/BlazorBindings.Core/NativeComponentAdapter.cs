@@ -95,22 +95,13 @@ internal sealed class NativeComponentAdapter : IDisposable
                 case RenderTreeEditType.UpdateMarkup:
                     {
                         var frame = batch.ReferenceFrames.Array[edit.ReferenceFrameIndex];
-                        if (_targetElement is IHandleChildContentText handleChildContentText)
-                        {
-                            handleChildContentText.HandleText(edit.SiblingIndex, frame.MarkupContent);
-                        }
-                        else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
-                        {
-                            throw new Exception("Cannot set markup content on child that doesn't handle inner text content.");
-                        }
+                        if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
+                            throw new NotImplementedException($"Not supported edit type: {edit.Type}");
+
                         break;
                     }
-                case RenderTreeEditType.PermutationListEntry:
-                    throw new NotImplementedException($"Not supported edit type: {edit.Type}");
-                case RenderTreeEditType.PermutationListEnd:
-                    throw new NotImplementedException($"Not supported edit type: {edit.Type}");
                 default:
-                    throw new NotImplementedException($"Invalid edit type: {edit.Type}");
+                    throw new NotImplementedException($"Not supported edit type: {edit.Type}");
             }
         }
     }
@@ -208,14 +199,9 @@ internal sealed class NativeComponentAdapter : IDisposable
                 }
             case RenderTreeFrameType.Markup:
                 {
-                    if (_targetElement is IHandleChildContentText handleChildContentText)
+                    if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                     {
-                        handleChildContentText.HandleText(siblingIndex, frame.MarkupContent);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
-                    {
-                        var typeName = _targetElement?.TargetElement?.GetType()?.Name;
-                        throw new NotImplementedException($"Element {typeName} does not support markup content: " + frame.MarkupContent);
+                        throw new NotImplementedException($"Not supported frame type: {frame.FrameType}");
                     }
                     var childAdapter = CreateAdapter(_targetElement ?? _closestPhysicalParent);
                     childAdapter.Name = $"Markup, sib#={siblingIndex}";
