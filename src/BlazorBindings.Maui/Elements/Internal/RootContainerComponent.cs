@@ -3,7 +3,7 @@
 
 namespace BlazorBindings.Maui.Elements.Internal;
 
-internal class RootContainerComponent : NativeControlComponentBase, IContainerElementHandler, INonChildContainerElement
+internal class RootContainerComponent : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public EventCallback<object> OnElementAdded { get; set; }

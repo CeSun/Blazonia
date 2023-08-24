@@ -217,9 +217,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                         var typeName = _targetElement?.TargetElement?.GetType()?.Name;
                         throw new NotImplementedException($"Element {typeName} does not support markup content: " + frame.MarkupContent);
                     }
-#pragma warning disable CA2000 // Dispose objects before losing scope; adapters are disposed when they are removed from the adapter tree
                     var childAdapter = CreateAdapter(_targetElement ?? _closestPhysicalParent);
-#pragma warning restore CA2000 // Dispose objects before losing scope
                     childAdapter.Name = $"Markup, sib#={siblingIndex}";
                     AddChildAdapter(siblingIndex, childAdapter);
                     return 1;
@@ -235,9 +233,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                         var typeName = _targetElement?.TargetElement?.GetType()?.Name;
                         throw new NotImplementedException($"Element {typeName} does not support text content: " + frame.MarkupContent);
                     }
-#pragma warning disable CA2000 // Dispose objects before losing scope; adapters are disposed when they are removed from the adapter tree
                     var childAdapter = CreateAdapter(_targetElement ?? _closestPhysicalParent);
-#pragma warning restore CA2000 // Dispose objects before losing scope
                     childAdapter.Name = $"Text, sib#={siblingIndex}";
                     AddChildAdapter(siblingIndex, childAdapter);
                     return 1;
@@ -387,7 +383,7 @@ internal sealed class NativeComponentAdapter : IDisposable
         for (var i = indexOfParentsChildAdapter - 1; i >= 0; i--)
         {
             var sibling = parentAdapter.Children[i];
-            if (sibling._targetElement is INonChildContainerElement)
+            if (sibling._targetElement is INonPhysicalChild)
             {
                 continue;
             }
@@ -406,7 +402,7 @@ internal sealed class NativeComponentAdapter : IDisposable
 
     private NativeComponentAdapter GetLastDescendantWithPhysicalElement()
     {
-        if (_targetElement is INonChildContainerElement)
+        if (_targetElement is INonPhysicalChild)
         {
             return null;
         }

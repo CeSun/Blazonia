@@ -2,7 +2,7 @@
 
 namespace BlazorBindings.Maui.Elements.Internal;
 
-internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComponentBase, IContainerElementHandler, INonChildContainerElement
+internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
     where TItem : class
 {
     private TControl _parent;

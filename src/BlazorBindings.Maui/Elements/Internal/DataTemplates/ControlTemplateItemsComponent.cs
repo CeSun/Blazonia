@@ -9,7 +9,7 @@ namespace BlazorBindings.Maui.Elements.DataTemplates;
 /// This ControlTemplate implementation wraps the content in an additional View, therefore it is not suitable in cases when non-View content
 /// is expected from template.
 /// </summary>
-internal class ControlTemplateItemsComponent<T> : NativeControlComponentBase, IContainerElementHandler, INonChildContainerElement
+internal class ControlTemplateItemsComponent<T> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
     where T : MC.BindableObject
 {
     protected override RenderFragment GetChildContent()
