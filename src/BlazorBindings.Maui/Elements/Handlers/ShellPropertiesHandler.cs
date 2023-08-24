@@ -1,14 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using BlazorBindings.Maui.Extensions;
 using Microsoft.Maui.Graphics;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Handlers;
 
-public class ShellPropertiesHandler : BaseAttachedPropertiesHandler
+public class ShellPropertiesHandler : IElementHandler, INonPhysicalChild
 {
-    public override void ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
+    protected MC.BindableObject Target { get; private set; }
+
+    public void ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
     {
         switch (attributeName)
         {
@@ -54,7 +57,12 @@ public class ShellPropertiesHandler : BaseAttachedPropertiesHandler
         }
     }
 
-    public override void RemoveFromParent()
+    void INonPhysicalChild.SetParent(object parentElement)
+    {
+        Target = parentElement.Cast<MC.BindableObject>();
+    }
+
+    void INonPhysicalChild.RemoveFromParent(object parentElement)
     {
         MC.Shell.SetNavBarIsVisible(Target, (bool)MC.Shell.NavBarIsVisibleProperty.DefaultValue);
         MC.Shell.SetNavBarHasShadow(Target, (bool)MC.Shell.NavBarHasShadowProperty.DefaultValue);
@@ -67,5 +75,11 @@ public class ShellPropertiesHandler : BaseAttachedPropertiesHandler
         MC.Shell.SetTabBarUnselectedColor(Target, (Color)MC.Shell.TabBarUnselectedColorProperty.DefaultValue);
         MC.Shell.SetTitleColor(Target, (Color)MC.Shell.TitleColorProperty.DefaultValue);
         MC.Shell.SetUnselectedColor(Target, (Color)MC.Shell.UnselectedColorProperty.DefaultValue);
+    }
+
+    object IElementHandler.TargetElement => null;
+
+    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
+    {
     }
 }
