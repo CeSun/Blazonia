@@ -1,18 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using BlazorBindings.Maui.Elements.Handlers;
+using BlazorBindings.Maui.Extensions;
+using System.IO;
 using System.Reflection;
+using MC = Microsoft.Maui.Controls;
+using MCS = Microsoft.Maui.Controls.StyleSheets;
 
 namespace BlazorBindings.Maui.Elements;
 
-public class StyleSheet : NativeControlComponentBase
+public class StyleSheet : NativeControlComponentBase, IElementHandler, INonPhysicalChild
 {
-    static StyleSheet()
-    {
-        ElementHandlerRegistry
-            .RegisterElementHandler<StyleSheet>(renderer => new StyleSheetHandler(renderer));
-    }
+    private MC.VisualElement _parentVisualElement;
 
     [Parameter] public Assembly Assembly { get; set; }
     [Parameter] public string Resource { get; set; }
@@ -24,21 +23,48 @@ public class StyleSheet : NativeControlComponentBase
     // - public static StyleSheet FromString(string stylesheet);
     // - public static StyleSheet FromReader(TextReader reader);
 
-    protected override void RenderAttributes(AttributesBuilder builder)
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        base.RenderAttributes(builder);
+        await base.SetParametersAsync(parameters);
+        UpdateParentStyleSheetIfPossible();
+    }
 
-        if (Assembly != null)
+    private void UpdateParentStyleSheetIfPossible()
+    {
+        if (_parentVisualElement != null)
         {
-            builder.AddAttribute(nameof(Assembly), Assembly.FullName);
+            // TODO: Add logic to ensure same resource isn't added multiple times
+            if (Resource != null)
+            {
+                if (Assembly == null)
+                {
+                    throw new InvalidOperationException($"Specifying a '{nameof(Resource)}' property value '{Resource}' requires also specifying the '{nameof(Assembly)}' property to indicate the assembly containing the resource.");
+                }
+                var styleSheet = MCS.StyleSheet.FromResource(resourcePath: Resource, assembly: Assembly);
+                _parentVisualElement.Resources.Add(styleSheet);
+            }
+            if (Text != null)
+            {
+                using var reader = new StringReader(Text);
+                var styleSheet = MCS.StyleSheet.FromReader(reader);
+                _parentVisualElement.Resources.Add(styleSheet);
+            }
         }
-        if (Resource != null)
-        {
-            builder.AddAttribute(nameof(Resource), Resource);
-        }
-        if (Text != null)
-        {
-            builder.AddAttribute(nameof(Text), Text);
-        }
+    }
+
+    void INonPhysicalChild.SetParent(object parentElement)
+    {
+        _parentVisualElement = parentElement.Cast<MC.VisualElement>();
+        UpdateParentStyleSheetIfPossible();
+    }
+
+    void INonPhysicalChild.RemoveFromParent(object parentElement)
+    {
+        throw new InvalidOperationException("Removing StyleSheet element is not supported.");
+    }
+
+    object IElementHandler.TargetElement => null;
+    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
+    {
     }
 }
