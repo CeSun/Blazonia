@@ -66,11 +66,7 @@ internal class SyncControlTemplateItemsComponent<T> : NativeControlComponentBase
     }
 
     void INonPhysicalChild.RemoveFromParent(object parentElement) { }
-
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
-
     void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex) { }
     void IContainerElementHandler.RemoveChild(object child) { }
-    int IContainerElementHandler.GetChildIndex(object child) => -1;
     object IElementHandler.TargetElement => null;
 }

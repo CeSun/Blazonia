@@ -64,9 +64,7 @@ internal class ControlTemplateItemsComponent<T> : NativeControlComponentBase, IC
     }
 
     void INonPhysicalChild.RemoveFromParent(object parentElement) { }
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
     void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex) { }
     void IContainerElementHandler.RemoveChild(object child) { }
-    int IContainerElementHandler.GetChildIndex(object child) => _itemRoots.IndexOf((MC.ContentView)child);
     object IElementHandler.TargetElement => null;
 }

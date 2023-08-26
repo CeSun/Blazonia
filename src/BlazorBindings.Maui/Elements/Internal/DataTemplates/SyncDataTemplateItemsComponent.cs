@@ -54,8 +54,6 @@ internal class SyncDataTemplateItemsComponent<TControl, TItem> : NativeControlCo
     object IElementHandler.TargetElement => null;
     void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex) { }
     void IContainerElementHandler.RemoveChild(object child) { }
-    int IContainerElementHandler.GetChildIndex(object child) => -1;
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
 
     // In order to be able to render the item synchronously, we need to have an item upfront, before the render.
     // Unfortunately, regular DataTemplate does not have an access to the item, it is set set BindingContext afterwards.
