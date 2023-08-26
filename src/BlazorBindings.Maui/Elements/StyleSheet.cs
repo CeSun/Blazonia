@@ -64,7 +64,4 @@ public class StyleSheet : NativeControlComponentBase, IElementHandler, INonPhysi
     }
 
     object IElementHandler.TargetElement => null;
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
-    {
-    }
 }

@@ -69,10 +69,6 @@ public class GridCell : NativeControlComponentBase, IContainerElementHandler, IN
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
-    {
-    }
-
     protected override RenderFragment GetChildContent() => ChildContent;
 
     public void AddChild(object child, int physicalSiblingIndex)

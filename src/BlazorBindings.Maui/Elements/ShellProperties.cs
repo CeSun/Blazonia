@@ -140,62 +140,6 @@ public class ShellProperties : NativeControlComponentBase, IElementHandler, INon
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
-    protected override void RenderAttributes(AttributesBuilder builder)
-    {
-        if (NavBarIsVisible.HasValue)
-        {
-            builder.AddAttribute(nameof(NavBarIsVisible), NavBarIsVisible.Value);
-        }
-        if (NavBarHasShadow.HasValue)
-        {
-            builder.AddAttribute(nameof(NavBarHasShadow), NavBarHasShadow.Value);
-        }
-        if (TabBarIsVisible.HasValue)
-        {
-            builder.AddAttribute(nameof(TabBarIsVisible), TabBarIsVisible.Value);
-        }
-        if (BackgroundColor is not null)
-        {
-            builder.AddAttribute(nameof(BackgroundColor), AttributeHelper.ColorToString(BackgroundColor));
-        }
-        if (DisabledColor is not null)
-        {
-            builder.AddAttribute(nameof(DisabledColor), AttributeHelper.ColorToString(DisabledColor));
-        }
-        if (ForegroundColor is not null)
-        {
-            builder.AddAttribute(nameof(ForegroundColor), AttributeHelper.ColorToString(ForegroundColor));
-        }
-        if (TabBarBackgroundColor is not null)
-        {
-            builder.AddAttribute(nameof(TabBarBackgroundColor), AttributeHelper.ColorToString(TabBarBackgroundColor));
-        }
-        if (TabBarDisabledColor is not null)
-        {
-            builder.AddAttribute(nameof(TabBarDisabledColor), AttributeHelper.ColorToString(TabBarDisabledColor));
-        }
-        if (TabBarForegroundColor is not null)
-        {
-            builder.AddAttribute(nameof(TabBarForegroundColor), AttributeHelper.ColorToString(TabBarForegroundColor));
-        }
-        if (TabBarTitleColor is not null)
-        {
-            builder.AddAttribute(nameof(TabBarTitleColor), AttributeHelper.ColorToString(TabBarTitleColor));
-        }
-        if (TabBarUnselectedColor is not null)
-        {
-            builder.AddAttribute(nameof(TabBarUnselectedColor), AttributeHelper.ColorToString(TabBarUnselectedColor));
-        }
-        if (TitleColor is not null)
-        {
-            builder.AddAttribute(nameof(TitleColor), AttributeHelper.ColorToString(TitleColor));
-        }
-        if (UnselectedColor is not null)
-        {
-            builder.AddAttribute(nameof(UnselectedColor), AttributeHelper.ColorToString(UnselectedColor));
-        }
-    }
-
     void INonPhysicalChild.SetParent(object parentElement)
     {
         _target = parentElement.Cast<MC.BindableObject>();
@@ -217,5 +161,4 @@ public class ShellProperties : NativeControlComponentBase, IElementHandler, INon
     }
 
     object IElementHandler.TargetElement => null;
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
 }

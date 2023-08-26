@@ -40,6 +40,4 @@ internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComp
     {
         _propertyItems.Remove(child.Cast<TItem>());
     }
-
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
 }

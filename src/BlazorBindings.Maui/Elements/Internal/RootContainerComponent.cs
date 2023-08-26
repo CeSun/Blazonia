@@ -32,7 +32,6 @@ internal class RootContainerComponent : NativeControlComponentBase, IContainerEl
     // Because this is a 'fake' container element, all matters related to physical trees
     // should be no-ops.
     object IElementHandler.TargetElement => null;
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
     void INonPhysicalChild.SetParent(object parentElement) { }
     void INonPhysicalChild.RemoveFromParent(object parentElement) { }
 }

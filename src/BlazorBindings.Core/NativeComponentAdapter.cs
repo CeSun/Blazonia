@@ -15,10 +15,10 @@ internal sealed class NativeComponentAdapter : IDisposable
 {
     private static volatile int DebugInstanceCounter;
 
-    public NativeComponentAdapter(NativeComponentRenderer renderer, IElementHandler closestPhysicalParent, IElementHandler knownTargetElement = null)
+    public NativeComponentAdapter(NativeComponentRenderer renderer, IElementHandler closestParent, IElementHandler knownTargetElement = null)
     {
         Renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
-        _closestPhysicalParent = closestPhysicalParent;
+        _closestPhysicalParent = closestParent;
         _targetElement = knownTargetElement;
 
         // Assign unique counter value. This *should* all be done on one thread, but just in case, make it thread-safe.
@@ -61,13 +61,6 @@ internal sealed class NativeComponentAdapter : IDisposable
                     break;
                 case RenderTreeEditType.RemoveFrame:
                     ApplyRemoveFrame(edit.SiblingIndex);
-                    break;
-                case RenderTreeEditType.SetAttribute:
-                    ApplySetAttribute(ref referenceFrames.Array[edit.ReferenceFrameIndex]);
-                    break;
-                case RenderTreeEditType.RemoveAttribute:
-                    // TODO: See whether siblingIndex is needed here
-                    ApplyRemoveAttribute(edit.RemovedAttributeName);
                     break;
                 case RenderTreeEditType.UpdateText:
                     {
@@ -131,52 +124,21 @@ internal sealed class NativeComponentAdapter : IDisposable
         }
     }
 
-    private void ApplySetAttribute(ref RenderTreeFrame attributeFrame)
-    {
-        if (_targetElement == null)
-        {
-            throw new InvalidOperationException($"Trying to apply attribute {attributeFrame.AttributeName} to an adapter that isn't for an element");
-        }
-
-        _targetElement.ApplyAttribute(
-            attributeFrame.AttributeEventHandlerId,
-            attributeFrame.AttributeName,
-            attributeFrame.AttributeValue,
-            attributeFrame.AttributeEventUpdatesAttributeName);
-    }
-
-    private void ApplyRemoveAttribute(string removedAttributeName)
-    {
-        if (_targetElement == null)
-        {
-            throw new InvalidOperationException($"Trying to remove attribute {removedAttributeName} to an adapter that isn't for an element");
-        }
-
-        _targetElement.ApplyAttribute(
-            attributeEventHandlerId: 0,
-            attributeName: removedAttributeName,
-            attributeValue: null,
-            attributeEventUpdatesAttributeName: null);
-    }
-
     private int ApplyPrependFrame(RenderBatch batch, int componentId, int siblingIndex, RenderTreeFrame[] frames, int frameIndex, HashSet<int> processedComponentIds)
     {
         ref var frame = ref frames[frameIndex];
         switch (frame.FrameType)
         {
-            case RenderTreeFrameType.Element:
-                {
-                    InsertElement(siblingIndex, frames, frameIndex, componentId, batch, processedComponentIds);
-                    return 1;
-                }
             case RenderTreeFrameType.Component:
                 {
-                    // Components are represented by NativeComponentAdapter
-                    var childAdapter = Renderer.CreateAdapterForChildComponent(_targetElement ?? _closestPhysicalParent, frame.ComponentId);
-                    childAdapter.Name = $"For: '{frame.Component.GetType().FullName}'";
-                    childAdapter._targetComponent = frame.Component;
+                    var childAdapter = AddChildAdapter(siblingIndex, frame);
 
-                    AddChildAdapter(siblingIndex, childAdapter);
+                    // For most elements we should add element as child after all properties to have them fully initialized before rendering.
+                    // However, INonPhysicalChild elements are not real elements, but apply to parent instead, therefore should be added as child before any properties are set.
+                    if (childAdapter._targetElement is INonPhysicalChild)
+                    {
+                        childAdapter.AddElementAsChildElement();
+                    }
 
                     // Apply edits for child component recursively.
                     // That is done to fully initialize elements before adding to the UI tree.
@@ -191,6 +153,11 @@ internal sealed class NativeComponentAdapter : IDisposable
                         }
                     }
 
+                    if (childAdapter._targetElement is not INonPhysicalChild and not null)
+                    {
+                        childAdapter.AddElementAsChildElement();
+                    }
+
                     return 1;
                 }
             case RenderTreeFrameType.Region:
@@ -203,9 +170,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                     {
                         throw new NotImplementedException($"Not supported frame type: {frame.FrameType}");
                     }
-                    var childAdapter = CreateAdapter(_targetElement ?? _closestPhysicalParent);
-                    childAdapter.Name = $"Markup, sib#={siblingIndex}";
-                    AddChildAdapter(siblingIndex, childAdapter);
+                    AddChildAdapter(siblingIndex, frame);
                     return 1;
                 }
             case RenderTreeFrameType.Text:
@@ -219,82 +184,11 @@ internal sealed class NativeComponentAdapter : IDisposable
                         var typeName = _targetElement?.TargetElement?.GetType()?.Name;
                         throw new NotImplementedException($"Element {typeName} does not support text content: " + frame.MarkupContent);
                     }
-                    var childAdapter = CreateAdapter(_targetElement ?? _closestPhysicalParent);
-                    childAdapter.Name = $"Text, sib#={siblingIndex}";
-                    AddChildAdapter(siblingIndex, childAdapter);
+                    AddChildAdapter(siblingIndex, frame);
                     return 1;
                 }
             default:
                 throw new NotImplementedException($"Not supported frame type: {frame.FrameType}");
-        }
-    }
-
-    private NativeComponentAdapter CreateAdapter(IElementHandler physicalParent)
-    {
-        return new NativeComponentAdapter(Renderer, physicalParent);
-    }
-
-    private void InsertElement(int siblingIndex, RenderTreeFrame[] frames, int frameIndex, int componentId, RenderBatch batch, HashSet<int> processedComponentIds)
-    {
-        // Elements represent native elements
-        ref var frame = ref frames[frameIndex];
-        var elementName = frame.ElementName;
-
-        IElementHandler elementHandler;
-        if (_targetComponent is IElementHandler targetHandler)
-        {
-            elementHandler = targetHandler;
-        }
-        else if (ElementHandlerRegistry.ElementHandlers.TryGetValue(elementName, out var elementHandlerFactory))
-        {
-            elementHandler = elementHandlerFactory(Renderer, _closestPhysicalParent, _targetComponent);
-        }
-        else
-        {
-            throw new InvalidOperationException($"Failed to find ElementHandler for '{elementName}'");
-        }
-
-        if (_targetComponent is NativeControlComponentBase componentInstance)
-        {
-            componentInstance.SetElementReference(elementHandler);
-        }
-
-        if (siblingIndex != 0)
-        {
-            // With the current design, we should be able to ignore sibling indices for elements,
-            // so bail out if that's not the case
-            throw new NotSupportedException($"Currently we assume all adapter elements render exactly zero or one elements. Found an element with sibling index {siblingIndex}");
-        }
-
-        _targetElement = elementHandler;
-
-        // For most elements we should add element as child after all properties to have them fully initialized before rendering.
-        // However, INonPhysicalChild elements are not real elements, but apply to parent instead, therefore should be added as child before any properties are set.
-        if (elementHandler is INonPhysicalChild)
-        {
-            AddElementAsChildElement();
-        }
-
-        var endIndexExcl = frameIndex + frames[frameIndex].ElementSubtreeLength;
-        for (var descendantIndex = frameIndex + 1; descendantIndex < endIndexExcl; descendantIndex++)
-        {
-            var candidateFrame = frames[descendantIndex];
-            if (candidateFrame.FrameType == RenderTreeFrameType.Attribute)
-            {
-                ApplySetAttribute(ref candidateFrame);
-            }
-            else
-            {
-                // As soon as we see a non-attribute child, all the subsequent child frames are
-                // not attributes, so bail out and insert the remnants recursively
-                InsertFrameRange(batch, componentId, childIndex: 0, frames, descendantIndex, endIndexExcl, processedComponentIds);
-                break;
-            }
-        }
-
-        if (elementHandler is not INonPhysicalChild)
-        {
-            AddElementAsChildElement();
         }
     }
 
@@ -443,19 +337,32 @@ internal sealed class NativeComponentAdapter : IDisposable
         ;
     }
 
-    private void AddChildAdapter(int siblingIndex, NativeComponentAdapter childAdapter)
+    private NativeComponentAdapter AddChildAdapter(int siblingIndex, RenderTreeFrame frame)
     {
-        childAdapter.Parent = this;
+        var name = frame.FrameType is RenderTreeFrameType.Component
+            ? $"For: '{frame.Component.GetType().FullName}'"
+            : $"{frame.FrameType}, sib#={siblingIndex}";
 
-        if (siblingIndex <= Children.Count)
+        var childAdapter = new NativeComponentAdapter(Renderer, _targetElement ?? _closestPhysicalParent)
         {
-            Children.Insert(siblingIndex, childAdapter);
-        }
-        else
+            Parent = this,
+            Name = name
+        };
+
+        if (frame.FrameType is RenderTreeFrameType.Component)
         {
-            Debug.WriteLine($"WARNING: {nameof(AddChildAdapter)} called with {nameof(siblingIndex)}={siblingIndex}, but Children.Count={Children.Count}");
-            Children.Add(childAdapter);
+            childAdapter._targetComponent = frame.Component;
+            Renderer.RegisterComponentAdapter(childAdapter, frame.ComponentId);
+
+            if (frame.Component is IElementHandler targetHandler)
+            {
+                childAdapter._targetElement = targetHandler;
+            }
         }
+
+        Children.Insert(siblingIndex, childAdapter);
+
+        return childAdapter;
     }
 
     public void Dispose()
