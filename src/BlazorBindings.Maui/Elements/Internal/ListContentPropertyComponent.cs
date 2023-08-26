@@ -31,11 +31,6 @@ internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComp
         _propertyItems.Insert(physicalSiblingIndex, child.Cast<TItem>());
     }
 
-    int IContainerElementHandler.GetChildIndex(object child)
-    {
-        return _propertyItems.IndexOf(child.Cast<TItem>());
-    }
-
     void IContainerElementHandler.RemoveChild(object child)
     {
         _propertyItems.Remove(child.Cast<TItem>());

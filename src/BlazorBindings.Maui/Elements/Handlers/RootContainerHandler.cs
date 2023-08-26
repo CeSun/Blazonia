@@ -38,11 +38,6 @@ public class RootContainerHandler : IContainerElementHandler, INonPhysicalChild
         Elements.Remove(child);
     }
 
-    int IContainerElementHandler.GetChildIndex(object child)
-    {
-        return Elements.IndexOf(child);
-    }
-
     // Because this is a 'fake' container element, all matters related to physical trees
     // should be no-ops.
     object IElementHandler.TargetElement => null;

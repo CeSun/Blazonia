@@ -15,10 +15,10 @@ internal sealed class NativeComponentAdapter : IDisposable
 {
     private static volatile int DebugInstanceCounter;
 
-    public NativeComponentAdapter(NativeComponentRenderer renderer, IElementHandler closestParent, IElementHandler knownTargetElement = null)
+    public NativeComponentAdapter(NativeComponentRenderer renderer, NativeComponentAdapter closestPhysicalParent, IElementHandler knownTargetElement = null)
     {
         Renderer = renderer ?? throw new ArgumentNullException(nameof(renderer));
-        _closestPhysicalParent = closestParent;
+        _closestPhysicalParent = closestPhysicalParent;
         _targetElement = knownTargetElement;
 
         // Assign unique counter value. This *should* all be done on one thread, but just in case, make it thread-safe.
@@ -30,11 +30,13 @@ internal sealed class NativeComponentAdapter : IDisposable
     private string DebugName => $"[#{_debugInstanceCounterValue}] {Name}";
 
     public NativeComponentAdapter Parent { get; private set; }
-    public List<NativeComponentAdapter> Children { get; } = new List<NativeComponentAdapter>();
+    public List<NativeComponentAdapter> Children { get; } = new();
 
-    private readonly IElementHandler _closestPhysicalParent;
+    private readonly NativeComponentAdapter _closestPhysicalParent;
     private IElementHandler _targetElement;
     private IComponent _targetComponent;
+
+    private NativeComponentAdapter PhysicalTarget => _targetElement != null ? this : _closestPhysicalParent;
 
     public NativeComponentRenderer Renderer { get; }
 
@@ -112,7 +114,7 @@ internal sealed class NativeComponentAdapter : IDisposable
         {
             // This adapter represents a physical element, so by removing it, we implicitly
             // remove all descendants.
-            Renderer.ElementManager.RemoveChildElement(_closestPhysicalParent, _targetElement);
+            Renderer.ElementManager.RemoveChildElement(_closestPhysicalParent._targetElement, _targetElement);
         }
         else
         {
@@ -137,7 +139,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                     // However, INonPhysicalChild elements are not real elements, but apply to parent instead, therefore should be added as child before any properties are set.
                     if (childAdapter._targetElement is INonPhysicalChild)
                     {
-                        childAdapter.AddElementAsChildElement();
+                        AddElementAsChildElement(childAdapter);
                     }
 
                     // Apply edits for child component recursively.
@@ -155,7 +157,7 @@ internal sealed class NativeComponentAdapter : IDisposable
 
                     if (childAdapter._targetElement is not INonPhysicalChild and not null)
                     {
-                        childAdapter.AddElementAsChildElement();
+                        AddElementAsChildElement(childAdapter);
                     }
 
                     return 1;
@@ -195,16 +197,14 @@ internal sealed class NativeComponentAdapter : IDisposable
     /// <summary>
     /// Add element as a child element for closest physical parent.
     /// </summary>
-    private void AddElementAsChildElement()
+    private void AddElementAsChildElement(NativeComponentAdapter childAdapter)
     {
-        var elementIndex = GetIndexForElement();
-        Renderer.ElementManager.AddChildElement(_closestPhysicalParent, _targetElement, elementIndex);
+        var elementIndex = PhysicalTarget.GetChildPhysicalIndex(childAdapter);
+        Renderer.ElementManager.AddChildElement(PhysicalTarget._targetElement, childAdapter._targetElement, elementIndex);
     }
 
     /// <summary>
-    /// Finds the sibling index to insert this adapter's element into. It walks up Parent adapters to find 
-    /// an earlier sibling that has a native element, and uses that native element's physical index to determine
-    /// the location of the new element.
+    /// Finds the sibling index to insert this adapter's element into.
     /// <code>
     /// * Adapter0
     /// * Adapter1
@@ -222,88 +222,32 @@ internal sealed class NativeComponentAdapter : IDisposable
     /// * Adapter4
     /// </code>
     /// </summary>
-    /// <returns>The index at which the native element should be inserted into within the parent. It returns -1 as a failure mode.</returns>
-    private int GetIndexForElement()
+    private int GetChildPhysicalIndex(NativeComponentAdapter childAdapter)
     {
-        var childAdapter = this;
-        var parentAdapter = Parent;
-        while (parentAdapter != null)
+        var index = 0;
+        return FindChildPhysicalIndexRecursive(this, childAdapter, ref index) ? index : -1;
+
+        static bool FindChildPhysicalIndexRecursive(NativeComponentAdapter parent, NativeComponentAdapter targetChild, ref int index)
         {
-            // Walk previous siblings of this level and deep-scan them for native elements
-            var matchedEarlierSibling = GetEarlierSiblingMatch(parentAdapter, childAdapter);
-            if (matchedEarlierSibling != null)
+            foreach (var child in parent.Children)
             {
-                // If a native element was found somewhere within this sibling, the index for the new element
-                // will be 1 greater than its native index.
-                return Renderer.ElementManager.GetChildElementIndex(_closestPhysicalParent, matchedEarlierSibling._targetElement) + 1;
+                if (child == targetChild)
+                    return true;
+
+                if (child._targetElement != null)
+                {
+                    if (child._targetElement is not INonPhysicalChild)
+                        index++;
+                }
+                else
+                {
+                    if (FindChildPhysicalIndexRecursive(child, targetChild, ref index))
+                        return true;
+                }
             }
 
-            // If this level has a native element and all its relevant children have been scanned, then there's
-            // no previous sibling, so the new element to be added will be its earliest child (index=0). (There
-            // might be *later* siblings, but they are not relevant to this search.)
-            if (parentAdapter._targetElement != null)
-            {
-                Debug.Assert(parentAdapter._targetElement == _closestPhysicalParent, $"Expected that nearest parent ({parentAdapter.DebugName}) with native element ({parentAdapter._targetElement.GetType().FullName}) would have the closest physical parent ({_closestPhysicalParent.GetType().FullName}).");
-                return 0;
-            }
-
-            // If we haven't found a previous sibling with a native element or reached a native container, keep
-            // walking up the parent tree...
-            childAdapter = parentAdapter;
-            parentAdapter = parentAdapter.Parent;
+            return false;
         }
-        Debug.Fail($"Expected to find a parent with a native element but found none.");
-        return -1;
-    }
-
-    private static NativeComponentAdapter GetEarlierSiblingMatch(NativeComponentAdapter parentAdapter, NativeComponentAdapter childAdapter)
-    {
-        var indexOfParentsChildAdapter = parentAdapter.Children.IndexOf(childAdapter);
-
-        for (var i = indexOfParentsChildAdapter - 1; i >= 0; i--)
-        {
-            var sibling = parentAdapter.Children[i];
-            if (sibling._targetElement is INonPhysicalChild)
-            {
-                continue;
-            }
-
-            // Deep scan this sibling adapter to find its latest and highest native element
-            var siblingWithNativeElement = sibling.GetLastDescendantWithPhysicalElement();
-            if (siblingWithNativeElement != null)
-            {
-                return siblingWithNativeElement;
-            }
-        }
-
-        // No preceding sibling has any native elements
-        return null;
-    }
-
-    private NativeComponentAdapter GetLastDescendantWithPhysicalElement()
-    {
-        if (_targetElement is INonPhysicalChild)
-        {
-            return null;
-        }
-        if (_targetElement != null)
-        {
-            // If this adapter has a target element, then this is the droid we're looking for. It can't be
-            // any children of this target element because they can't be children of this element's parent.
-            return this;
-        }
-
-        for (var i = Children.Count - 1; i >= 0; i--)
-        {
-            var child = Children[i];
-            var physicalDescendant = child.GetLastDescendantWithPhysicalElement();
-            if (physicalDescendant != null)
-            {
-                return physicalDescendant;
-            }
-        }
-
-        return null;
     }
 
     private int InsertFrameRange(RenderBatch batch, int componentId, int childIndex, RenderTreeFrame[] frames, int startIndex, int endIndexExcl, HashSet<int> processedComponentIds)
@@ -343,7 +287,7 @@ internal sealed class NativeComponentAdapter : IDisposable
             ? $"For: '{frame.Component.GetType().FullName}'"
             : $"{frame.FrameType}, sib#={siblingIndex}";
 
-        var childAdapter = new NativeComponentAdapter(Renderer, _targetElement ?? _closestPhysicalParent)
+        var childAdapter = new NativeComponentAdapter(Renderer, PhysicalTarget)
         {
             Parent = this,
             Name = name

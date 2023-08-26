@@ -54,7 +54,7 @@ public abstract class NativeComponentRenderer : Renderer
 
                 _rootComponents.Add((componentId, component));
 
-                var rootAdapter = new NativeComponentAdapter(this, closestParent: parent, knownTargetElement: parent)
+                var rootAdapter = new NativeComponentAdapter(this, null, knownTargetElement: parent)
                 {
                     Name = $"RootAdapter attached to {parent.GetType().FullName}",
                 };

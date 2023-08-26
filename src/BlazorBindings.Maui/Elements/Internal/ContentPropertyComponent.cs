@@ -26,11 +26,6 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
         SetPropertyAction(_parent, child);
     }
 
-    int IContainerElementHandler.GetChildIndex(object child)
-    {
-        return -1;
-    }
-
     void IContainerElementHandler.RemoveChild(object child)
     {
         SetPropertyAction(_parent, null);

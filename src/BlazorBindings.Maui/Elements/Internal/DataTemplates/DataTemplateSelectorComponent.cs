@@ -65,7 +65,6 @@ internal class DataTemplateSelectorComponent<TControl, TItem> : NativeControlCom
     object IElementHandler.TargetElement => null;
     void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex) { }
     void IContainerElementHandler.RemoveChild(object child) { }
-    int IContainerElementHandler.GetChildIndex(object child) => -1;
 
     class DataTemplateSelector : MC.DataTemplateSelector
     {

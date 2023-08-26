@@ -68,6 +68,5 @@ internal class SyncControlTemplateItemsComponent<T> : NativeControlComponentBase
     void INonPhysicalChild.RemoveFromParent(object parentElement) { }
     void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex) { }
     void IContainerElementHandler.RemoveChild(object child) { }
-    int IContainerElementHandler.GetChildIndex(object child) => -1;
     object IElementHandler.TargetElement => null;
 }

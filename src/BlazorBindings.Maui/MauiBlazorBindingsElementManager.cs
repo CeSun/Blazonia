@@ -30,13 +30,6 @@ internal class MauiBlazorBindingsElementManager : ElementManager
         parent.AddChild(childHandler.TargetElement, physicalSiblingIndex);
     }
 
-    public override int GetChildElementIndex(IElementHandler parentHandler, IElementHandler childHandler)
-    {
-        return parentHandler is IContainerElementHandler containerHandler
-            ? containerHandler.GetChildIndex(childHandler.TargetElement)
-            : -1;
-    }
-
     public override void RemoveChildElement(IElementHandler parentHandler, IElementHandler childHandler)
     {
         if (childHandler is INonPhysicalChild nonPhysicalChild)
