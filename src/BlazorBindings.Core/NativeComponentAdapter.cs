@@ -105,23 +105,24 @@ internal sealed class NativeComponentAdapter : IDisposable
     {
         var childToRemove = Children[siblingIndex];
         Children.RemoveAt(siblingIndex);
-        childToRemove.RemoveSelfAndDescendants();
+        RemoveChildElementAndDescendants(childToRemove);
     }
 
-    private void RemoveSelfAndDescendants()
+    private void RemoveChildElementAndDescendants(NativeComponentAdapter childToRemove)
     {
-        if (_targetElement != null)
+        if (childToRemove._targetElement != null)
         {
             // This adapter represents a physical element, so by removing it, we implicitly
             // remove all descendants.
-            Renderer.ElementManager.RemoveChildElement(_closestPhysicalParent._targetElement, _targetElement);
+            var index = PhysicalTarget.GetChildPhysicalIndex(childToRemove);
+            Renderer.ElementManager.RemoveChildElement(PhysicalTarget._targetElement, childToRemove._targetElement, index);
         }
         else
         {
             // This adapter is just a container for other adapters
-            foreach (var child in Children)
+            foreach (var child in childToRemove.Children)
             {
-                child.RemoveSelfAndDescendants();
+                childToRemove.RemoveChildElementAndDescendants(child);
             }
         }
     }

@@ -50,7 +50,7 @@ public partial class ShellSection : ShellGroupItem, IContainerElementHandler
         }
     }
 
-    void IContainerElementHandler.RemoveChild(object child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         ArgumentNullException.ThrowIfNull(child);
 

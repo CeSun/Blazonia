@@ -6,5 +6,5 @@ namespace BlazorBindings.Maui;
 public interface IContainerElementHandler : IElementHandler
 {
     void AddChild(object child, int physicalSiblingIndex);
-    void RemoveChild(object child);
+    void RemoveChild(object child, int physicalSiblingIndex);
 }

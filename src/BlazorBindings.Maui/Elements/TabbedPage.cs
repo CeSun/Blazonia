@@ -40,7 +40,7 @@ public partial class TabbedPage : Page, IContainerElementHandler
         }
     }
 
-    void IContainerElementHandler.RemoveChild(object child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         NativeControl.Children.Remove(child as MC.Page);
     }

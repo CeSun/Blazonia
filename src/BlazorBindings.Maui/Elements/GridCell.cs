@@ -87,7 +87,7 @@ public class GridCell : NativeControlComponentBase, IContainerElementHandler, IN
         _parentGrid.Children.Add(childView);
     }
 
-    public void RemoveChild(object child)
+    public void RemoveChild(object child, int physicalSiblingIndex)
     {
         if (child is not MC.View childView)
         {

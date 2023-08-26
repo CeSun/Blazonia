@@ -51,7 +51,7 @@ public partial class ShellItem : ShellGroupItem, IContainerElementHandler
         }
     }
 
-    void IContainerElementHandler.RemoveChild(object child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         if (child is null)
         {

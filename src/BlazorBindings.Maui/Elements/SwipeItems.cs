@@ -27,7 +27,7 @@ public partial class SwipeItems : IContainerElementHandler
         NativeControl.Insert(physicalSiblingIndex, swipeItem);
     }
 
-    void IContainerElementHandler.RemoveChild(object child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         if (child is not MC.ISwipeItem swipeItem)
             throw new ArgumentException($"Expected child to be of type {typeof(MC.ISwipeItem).FullName} but it is of type {child?.GetType().FullName}.", nameof(child));

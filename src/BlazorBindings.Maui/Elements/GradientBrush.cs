@@ -46,7 +46,7 @@ public abstract partial class GradientBrush : Brush, IContainerElementHandler
         }
     }
 
-    void IContainerElementHandler.RemoveChild(object child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         if (child is not MC.GradientStop gradientStopChild)
         {
