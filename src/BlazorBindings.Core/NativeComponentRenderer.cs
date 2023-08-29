@@ -18,7 +18,7 @@ public abstract class NativeComponentRenderer : Renderer
     {
     }
 
-    protected abstract ElementManager CreateNativeControlManager();
+    protected virtual ElementManager CreateNativeControlManager() => new();
 
     internal ElementManager ElementManager => _elementManager ??= CreateNativeControlManager();
 

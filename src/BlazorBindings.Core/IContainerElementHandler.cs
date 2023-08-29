@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-namespace BlazorBindings.Maui;
+namespace BlazorBindings.Core;
 
 public interface IContainerElementHandler : IElementHandler
 {
