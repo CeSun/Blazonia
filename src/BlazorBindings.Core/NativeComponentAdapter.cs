@@ -104,8 +104,8 @@ internal sealed class NativeComponentAdapter : IDisposable
     private void ApplyRemoveFrame(int siblingIndex)
     {
         var childToRemove = Children[siblingIndex];
-        Children.RemoveAt(siblingIndex);
         RemoveChildElementAndDescendants(childToRemove);
+        Children.RemoveAt(siblingIndex);
     }
 
     private void RemoveChildElementAndDescendants(NativeComponentAdapter childToRemove)
@@ -116,6 +116,12 @@ internal sealed class NativeComponentAdapter : IDisposable
             // remove all descendants.
             var index = PhysicalTarget.GetChildPhysicalIndex(childToRemove);
             Renderer.ElementManager.RemoveChildElement(PhysicalTarget._targetElement, childToRemove._targetElement, index);
+
+            if (PhysicalTarget._targetElement is INonPhysicalChild { ShouldAddChildrenToParent: true })
+            {
+                // Since element was added to parent previosly, we have to remove it from there.
+                PhysicalTarget.Parent.PhysicalTarget.RemoveChildElementAndDescendants(childToRemove);
+            }
         }
         else
         {
@@ -202,6 +208,11 @@ internal sealed class NativeComponentAdapter : IDisposable
     {
         var elementIndex = PhysicalTarget.GetChildPhysicalIndex(childAdapter);
         Renderer.ElementManager.AddChildElement(PhysicalTarget._targetElement, childAdapter._targetElement, elementIndex);
+
+        if (PhysicalTarget._targetElement is INonPhysicalChild { ShouldAddChildrenToParent: true })
+        {
+            PhysicalTarget.Parent.AddElementAsChildElement(childAdapter);
+        }
     }
 
     /// <summary>
@@ -235,12 +246,12 @@ internal sealed class NativeComponentAdapter : IDisposable
                 if (child == targetChild)
                     return true;
 
-                if (child._targetElement != null)
+                if (child._targetElement != null && child._targetElement is not INonPhysicalChild)
                 {
-                    if (child._targetElement is not INonPhysicalChild)
-                        index++;
+                    index++;
                 }
-                else
+
+                if (child._targetElement == null || child._targetElement is INonPhysicalChild { ShouldAddChildrenToParent: true })
                 {
                     if (FindChildPhysicalIndexRecursive(child, targetChild, ref index))
                         return true;
