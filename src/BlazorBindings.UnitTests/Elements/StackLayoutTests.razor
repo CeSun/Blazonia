@@ -43,11 +43,16 @@
             <Label>3</Label>
         }
         <Label>4</Label>
+
         @if (insertItems)
         {
             <Label>5</Label>
         }
-        <Label>6</Label>
+        else
+        {
+            <Label>6</Label>
+        }
+
         @if (insertItems)
         {
             <Label>7</Label>
@@ -62,7 +67,7 @@
         StateHasChanged();
 
         items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
-        Assert.That(items, Is.EqualTo(new[] { "1", "2", "3", "4", "5", "6", "7" }));
+        Assert.That(items, Is.EqualTo(new[] { "1", "2", "3", "4", "5", "7" }));
 
         insertItems = false;
         StateHasChanged();
@@ -106,8 +111,11 @@
                 <Label>7</Label>
             </WrapperWithCascadingValue>
         }
+        else
+        {
+            <Label>8</Label>
+        }
 
-        <Label>8</Label>
         @if (insertItems)
         {
             <Label>9</Label>
@@ -122,7 +130,7 @@
         StateHasChanged();
 
         items = layout.Children.Cast<MC.Label>().Select(l => l.Text).ToArray();
-        Assert.That(items, Is.EqualTo(new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
+        Assert.That(items, Is.EqualTo(new[] { "0", "1", "2", "3", "4", "5", "6", "7", "9" }));
 
         insertItems = false;
         StateHasChanged();
