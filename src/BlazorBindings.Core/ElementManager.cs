@@ -53,4 +53,15 @@ public class ElementManager
                 $"(child type is '{childHandler.TargetElement?.GetType().FullName}').");
         }
     }
+
+    public virtual void ReplaceChildElement(IElementHandler parentHandler, IElementHandler oldChild, IElementHandler newChild, int physicalSiblingIndex)
+    {
+        if (oldChild is INonPhysicalChild || newChild is INonPhysicalChild)
+            throw new NotSupportedException("NonPhysicalChild elements cannot be replaced.");
+
+        if (parentHandler is not IContainerElementHandler container)
+            throw new InvalidOperationException($"Handler of type '{parentHandler.GetType().FullName}' does not support replacing child elements.");
+
+        container.ReplaceChild(physicalSiblingIndex, oldChild.TargetElement, newChild.TargetElement);
+    }
 }
