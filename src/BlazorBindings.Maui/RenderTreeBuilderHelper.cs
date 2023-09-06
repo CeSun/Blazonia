@@ -167,4 +167,28 @@ public static class RenderTreeBuilderHelper
             builder.CloseRegion();
         }
     }
+
+    internal static void AddItemsSourceProperty<TControl, TItem>(
+        RenderTreeBuilder builder,
+        int sequence,
+        IEnumerable<TItem> items,
+        Func<TItem, object> keySelector,
+        Action<TControl, ICollection<TItem>> collectionSetter)
+    {
+        if (items is null)
+            return;
+
+        builder.OpenRegion(sequence);
+
+        builder.OpenComponent<ItemsSourceComponent<TControl, TItem>>(0);
+        builder.AddAttribute(1, nameof(ItemsSourceComponent<TControl, TItem>.Items), items);
+        builder.AddAttribute(2, nameof(ItemsSourceComponent<TControl, TItem>.CollectionSetter), collectionSetter);
+
+        if (keySelector != null)
+            builder.AddAttribute(3, nameof(ItemsSourceComponent<TControl, TItem>.KeySelector), keySelector);
+
+        builder.CloseComponent();
+
+        builder.CloseRegion();
+    }
 }
