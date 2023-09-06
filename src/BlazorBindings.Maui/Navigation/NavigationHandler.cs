@@ -23,10 +23,6 @@ internal class NavigationHandler : IContainerElementHandler
 
     public async Task AddChildAsync(MC.Page child)
     {
-        // The order of AddChild and RemoveChild is undetermined. We need to make sure that the previous page is removed.
-        if (_currentPage != null)
-            await RemoveChildAsync(_currentPage);
-
         _currentPage = child;
 
         if (_target == NavigationTarget.Modal)
@@ -67,6 +63,7 @@ internal class NavigationHandler : IContainerElementHandler
 
         if (page == _currentPage && page.Parent == null)
         {
+            // Notify that the page is closed so that rootComponent could be removed from Blazor tree.
             PageClosed?.Invoke();
         }
 
