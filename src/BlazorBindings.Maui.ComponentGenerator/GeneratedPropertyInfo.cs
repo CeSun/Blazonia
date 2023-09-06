@@ -84,7 +84,7 @@ public partial class GeneratedPropertyInfo
 
     public string GetPropertyDeclaration()
     {
-        // razor compiler doesn't allow 'new' properties, it condiders them as duplicates.
+        // razor compiler doesn't allow 'new' properties, it considers them as duplicates.
         if (_propertyInfo is not null && _propertyInfo.IsHidingMember())
         {
             return "";
@@ -282,7 +282,6 @@ public partial class GeneratedPropertyInfo
         "System.Windows.Input.ICommand",
         "System.Object",
         "Microsoft.Maui.Controls.Page",
-        "Microsoft.Maui.Controls.ResourceDictionary",
         "Microsoft.Maui.Controls.RowDefinitionCollection",
         "Microsoft.Maui.Controls.Shadow",
         "Microsoft.Maui.Controls.ShellContent",

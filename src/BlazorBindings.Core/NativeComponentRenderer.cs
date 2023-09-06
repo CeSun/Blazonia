@@ -9,29 +9,20 @@ namespace BlazorBindings.Core;
 
 public abstract class NativeComponentRenderer : Renderer
 {
-    private readonly Dictionary<int, NativeComponentAdapter> _componentIdToAdapter = new Dictionary<int, NativeComponentAdapter>();
-    private ElementManager _elementManager;
-    private readonly Dictionary<ulong, Action<ulong>> _eventRegistrations = new Dictionary<ulong, Action<ulong>>();
+    private readonly Dictionary<int, NativeComponentAdapter> _componentIdToAdapter = new();
     private readonly List<(int Id, IComponent Component)> _rootComponents = new();
-
+    private ElementManager _elementManager;
 
     public NativeComponentRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         : base(serviceProvider, loggerFactory)
     {
     }
 
-    protected abstract ElementManager CreateNativeControlManager();
+    protected virtual ElementManager CreateNativeControlManager() => new();
 
-    internal ElementManager ElementManager
-    {
-        get
-        {
-            return _elementManager ??= CreateNativeControlManager();
-        }
-    }
+    internal ElementManager ElementManager => _elementManager ??= CreateNativeControlManager();
 
-    public override Dispatcher Dispatcher { get; }
-         = Dispatcher.CreateDefault();
+    public override Dispatcher Dispatcher { get; } = Dispatcher.CreateDefault();
 
     /// <summary>
     /// Creates a component of type <typeparamref name="TComponent"/> and adds it as a child of <paramref name="parent"/>.
@@ -63,7 +54,7 @@ public abstract class NativeComponentRenderer : Renderer
 
                 _rootComponents.Add((componentId, component));
 
-                var rootAdapter = new NativeComponentAdapter(this, closestPhysicalParent: parent, knownTargetElement: parent)
+                var rootAdapter = new NativeComponentAdapter(this, null, knownTargetElement: parent)
                 {
                     Name = $"RootAdapter attached to {parent.GetType().FullName}",
                 };
@@ -94,20 +85,22 @@ public abstract class NativeComponentRenderer : Renderer
 
     protected override Task UpdateDisplayAsync(in RenderBatch renderBatch)
     {
-        HashSet<int> processedComponentIds = new HashSet<int>();
+        HashSet<NativeComponentAdapter> adaptersWithPendingEdits = new();
 
         var numUpdatedComponents = renderBatch.UpdatedComponents.Count;
         for (var componentIndex = 0; componentIndex < numUpdatedComponents; componentIndex++)
         {
             var updatedComponent = renderBatch.UpdatedComponents.Array[componentIndex];
 
-            // If UpdatedComponent is already processed (due to recursive ApplyEdits) - skip it.
-            if (updatedComponent.Edits.Count > 0 && !processedComponentIds.Contains(updatedComponent.ComponentId))
+            if (updatedComponent.Edits.Count > 0)
             {
                 var adapter = _componentIdToAdapter[updatedComponent.ComponentId];
-                adapter.ApplyEdits(updatedComponent.ComponentId, updatedComponent.Edits, renderBatch.ReferenceFrames, renderBatch, processedComponentIds);
+                adapter.ApplyEdits(updatedComponent.ComponentId, updatedComponent.Edits, renderBatch, adaptersWithPendingEdits);
             }
         }
+
+        foreach (var adapter in adaptersWithPendingEdits.OrderByDescending(a => a.DeepLevel))
+            adapter.ApplyPendingEdits();
 
         var numDisposedComponents = renderBatch.DisposedComponentIDs.Count;
         for (var i = 0; i < numDisposedComponents; i++)
@@ -119,41 +112,11 @@ public abstract class NativeComponentRenderer : Renderer
             }
         }
 
-        var numDisposeEventHandlers = renderBatch.DisposedEventHandlerIDs.Count;
-        for (var i = 0; i < numDisposeEventHandlers; i++)
-        {
-            DisposeEvent(renderBatch.DisposedEventHandlerIDs.Array[i]);
-        }
-
         return Task.CompletedTask;
     }
 
-    public void RegisterEvent(ulong eventHandlerId, Action<ulong> unregisterCallback)
+    internal void RegisterComponentAdapter(NativeComponentAdapter adapter, int componentId)
     {
-        if (eventHandlerId == 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(eventHandlerId), "Event handler ID must not be 0.");
-        }
-        if (unregisterCallback == null)
-        {
-            throw new ArgumentNullException(nameof(unregisterCallback));
-        }
-        _eventRegistrations.Add(eventHandlerId, unregisterCallback);
-    }
-
-    private void DisposeEvent(ulong eventHandlerId)
-    {
-        if (!_eventRegistrations.TryGetValue(eventHandlerId, out var unregisterCallback))
-        {
-            throw new InvalidOperationException($"Attempting to dispose unknown event handler id '{eventHandlerId}'.");
-        }
-        unregisterCallback(eventHandlerId);
-    }
-
-    internal NativeComponentAdapter CreateAdapterForChildComponent(IElementHandler physicalParent, int componentId)
-    {
-        var result = new NativeComponentAdapter(this, physicalParent);
-        _componentIdToAdapter[componentId] = result;
-        return result;
+        _componentIdToAdapter[componentId] = adapter;
     }
 }

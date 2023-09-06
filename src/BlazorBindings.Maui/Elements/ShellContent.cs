@@ -2,11 +2,12 @@
 // Licensed under the MIT license.
 
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Diagnostics;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements;
 
-public partial class ShellContent : BaseShellItem, IMauiContainerElementHandler
+public partial class ShellContent : BaseShellItem, IContainerElementHandler
 {
     /// <summary>
     /// Gets or sets a data template to create when ShellContent becomes active.
@@ -35,22 +36,21 @@ public partial class ShellContent : BaseShellItem, IMauiContainerElementHandler
         }
     }
 
-    void IMauiContainerElementHandler.AddChild(MC.BindableObject child, int physicalSiblingIndex)
+    void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex)
     {
         NativeControl.Content = child;
     }
 
-    int IMauiContainerElementHandler.GetChildIndex(MC.BindableObject child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
-        return child == NativeControl.Content ? 0 : -1;
+        Debug.Assert(NativeControl.Content == child);
+        NativeControl.Content = null;
     }
 
-    void IMauiContainerElementHandler.RemoveChild(MC.BindableObject child)
+    void IContainerElementHandler.ReplaceChild(int physicalSiblingIndex, object oldChild, object newChild)
     {
-        if (NativeControl.Content == child)
-        {
-            NativeControl.Content = null;
-        }
+        Debug.Assert(NativeControl.Content == oldChild);
+        NativeControl.Content = newChild;
     }
 
     protected override void RenderAdditionalPartialElementContent(RenderTreeBuilder builder, ref int sequence)

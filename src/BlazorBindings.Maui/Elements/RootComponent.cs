@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using MC = Microsoft.Maui.Controls;
 using WVM = Microsoft.AspNetCore.Components.WebView.Maui;
 
 namespace BlazorBindings.Maui.Elements;
 
-public class RootComponent : NativeControlComponentBase, IMauiElementHandler, INonPhysicalChild
+public class RootComponent : NativeControlComponentBase, IElementHandler, INonPhysicalChild
 {
     [Parameter] public string Selector { get; set; }
     [Parameter] public Type ComponentType { get; set; }
@@ -59,14 +58,5 @@ public class RootComponent : NativeControlComponentBase, IMauiElementHandler, IN
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
-
-    protected override void RenderAttributes(AttributesBuilder builder)
-    {
-    }
-
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName)
-    {
-    }
-    MC.BindableObject IMauiElementHandler.ElementControl => null;
     object IElementHandler.TargetElement => NativeControl;
 }

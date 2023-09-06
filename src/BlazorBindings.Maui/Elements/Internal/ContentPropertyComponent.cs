@@ -1,13 +1,12 @@
 ﻿using BlazorBindings.Maui.Extensions;
-using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui.Elements.Internal;
 
-internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, IMauiContainerElementHandler, INonChildContainerElement
+internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
 {
     private TControl _parent;
 
-    [Parameter] public Action<TControl, MC.BindableObject> SetPropertyAction { get; set; }
+    [Parameter] public Action<TControl, object> SetPropertyAction { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     protected override RenderFragment GetChildContent() => ChildContent;
@@ -22,26 +21,22 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
         // Because this Handler is used internally only, this method is no-op.
     }
 
-    void IMauiContainerElementHandler.AddChild(MC.BindableObject child, int physicalSiblingIndex)
+    void IContainerElementHandler.AddChild(object child, int physicalSiblingIndex)
     {
         SetPropertyAction(_parent, child);
     }
 
-    int IMauiContainerElementHandler.GetChildIndex(MC.BindableObject child)
-    {
-        return -1;
-    }
-
-    void IMauiContainerElementHandler.RemoveChild(MC.BindableObject child)
+    void IContainerElementHandler.RemoveChild(object child, int physicalSiblingIndex)
     {
         SetPropertyAction(_parent, null);
     }
 
-    MC.BindableObject IMauiElementHandler.ElementControl => _parent as MC.BindableObject;
+    void IContainerElementHandler.ReplaceChild(int physicalSiblingIndex, object oldChild, object newChild)
+    {
+        SetPropertyAction(_parent, newChild);
+    }
 
     // Because this is a 'fake' element, all matters related to physical trees
     // should be no-ops.
-
     object IElementHandler.TargetElement => null;
-    void IElementHandler.ApplyAttribute(ulong attributeEventHandlerId, string attributeName, object attributeValue, string attributeEventUpdatesAttributeName) { }
 }

@@ -102,6 +102,13 @@ namespace BlazorBindings.Maui.Elements
         /// </value>
         [Parameter] public double? Opacity { get; set; }
         /// <summary>
+        /// Gets or sets the local resource dictionary.
+        /// </summary>
+        /// <value>
+        /// The current resource dictionary, where resources are stored by key.
+        /// </value>
+        [Parameter] public MC.ResourceDictionary Resources { get; set; }
+        /// <summary>
         /// Gets or sets the rotation (in degrees) about the Z-axis (affine rotation) when the element is rendered.
         /// </summary>
         /// <value>
@@ -271,6 +278,13 @@ namespace BlazorBindings.Maui.Elements
                     {
                         Opacity = (double?)value;
                         NativeControl.Opacity = Opacity ?? (double)MC.VisualElement.OpacityProperty.DefaultValue;
+                    }
+                    break;
+                case nameof(Resources):
+                    if (!Equals(Resources, value))
+                    {
+                        Resources = (MC.ResourceDictionary)value;
+                        NativeControl.Resources = Resources;
                     }
                     break;
                 case nameof(Rotation):
