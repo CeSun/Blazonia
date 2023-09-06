@@ -195,7 +195,7 @@ namespace BlazorBindings.Maui.Elements
                         {
                             if (e.PropertyName == nameof(NativeControl.SelectedItem))
                             {
-                                var value = (T)NativeControl.SelectedItem;
+                                var value = NativeControl.SelectedItem is T item ? item : default(T);
                                 SelectedItem = value;
                                 InvokeEventCallback(SelectedItemChanged, value);
                             }

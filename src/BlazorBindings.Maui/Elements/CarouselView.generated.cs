@@ -105,7 +105,7 @@ namespace BlazorBindings.Maui.Elements
                     {
                         void NativeControlCurrentItemChanged(object sender, MC.CurrentItemChangedEventArgs e)
                         {
-                            var value = (T)NativeControl.CurrentItem;
+                            var value = NativeControl.CurrentItem is T item ? item : default(T);
                             CurrentItem = value;
                             InvokeEventCallback(CurrentItemChanged, value);
                         }
