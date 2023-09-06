@@ -7,8 +7,7 @@ namespace BlazorBindings.Maui;
 
 public partial class Navigation
 {
-    private NavigationManager _navigationManager;
-    private Router _router;
+    private bool _isRouterRendered;
     private TaskCompletionSource<RouteData> _waitForRouteSource;
 
     /// <summary>
@@ -22,8 +21,11 @@ public partial class Navigation
 
         // I cannot use Blazor's route discovery directly as it is internal.
         // Instead, I render Router internally with callbacks to get navigated page and parameters.
-        _navigationManager ??= _services.GetRequiredService<NavigationManager>();
-        _router ??= await RenderRouter();
+        if (!_isRouterRendered)
+        {
+            await RenderRouter();
+            _isRouterRendered = true;
+        }
 
         var routeTask = WaitForRoute();
         _navigationManager.NavigateTo(uri);

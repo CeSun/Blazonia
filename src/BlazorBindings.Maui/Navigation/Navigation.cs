@@ -7,14 +7,14 @@ namespace BlazorBindings.Maui;
 
 public partial class Navigation : INavigation
 {
-    protected readonly IServiceProvider _services;
     private readonly MauiBlazorBindingsRenderer _renderer;
+    private readonly NavigationManager _navigationManager;
     private Type _wrapperComponentType;
 
     internal Navigation(MauiBlazorBindingsServiceProvider services)
     {
-        _services = services;
         _renderer = services.GetRequiredService<MauiBlazorBindingsRenderer>();
+        _navigationManager = services.GetRequiredService<NavigationManager>();
     }
 
     internal void SetWrapperComponentType(Type wrapperComponentType)
@@ -79,9 +79,7 @@ public partial class Navigation : INavigation
     [RequiresPreviewFeatures]
     public async Task<T> BuildElement<T>(Type componentType, Dictionary<string, object> arguments) where T : Element
     {
-        var renderer = _services.GetRequiredService<MauiBlazorBindingsRenderer>();
-
-        var (bindableObject, componentTask) = await renderer.GetElementFromRenderedComponent(componentType, arguments);
+        var (bindableObject, componentTask) = await _renderer.GetElementFromRenderedComponent(componentType, arguments);
         var element = (Element)bindableObject;
 
         element.ParentChanged += DisposeScopeWhenParentRemoved;
@@ -96,7 +94,7 @@ public partial class Navigation : INavigation
                 element.ParentChanged -= DisposeScopeWhenParentRemoved;
 
                 var component = await componentTask;
-                renderer.RemoveRootComponent(component);
+                _renderer.RemoveRootComponent(component);
             }
         }
     }
