@@ -21,7 +21,7 @@
 
         refreshView.IsRefreshing = true;
 
-        await Task.Delay(5);
+        await Task.Delay(10);
         Assert.That(refreshInvokeStarted, Is.True);
         Assert.That(refreshView.IsRefreshing, Is.True);
 
