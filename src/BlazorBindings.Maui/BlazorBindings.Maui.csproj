@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
-		<UseMaui>true</UseMaui>
 		<Title>Maui binding for Blazor</Title>
 		<Description>Maui Blazor Bindings enables using Blazor syntax in .razor files to build native apps for iOS and Android.</Description>
 		<PackageTags>blazor;blazorbindings</PackageTags>
@@ -14,13 +13,7 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<!--We cannot use Microsoft.NET.Sdk.Razor because of this bug https://github.com/dotnet/maui/issues/3536.
-		Therefore we reference WebView.Maui package directly, but excluding .targets files.-->
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" IncludeAssets="compile;runtime" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 		<ProjectReference Include="..\BlazorBindings.Core\BlazorBindings.Core.csproj" />
 
@@ -31,7 +24,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-preview.7.8842" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-rc.1.9171" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.0-rc.1.9171" />
 	</ItemGroup>
-
+	
 </Project>
