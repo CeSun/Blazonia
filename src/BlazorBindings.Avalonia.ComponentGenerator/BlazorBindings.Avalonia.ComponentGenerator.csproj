@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>net8.0</TargetFrameworks>
+
+		<Description>Dotnet tool which generate BlazorBindings.Avalonia components for Avalonia elements.</Description>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>dotnet-generate-maui-blazor-components</ToolCommandName>
+		<PackageTags>blazor;blazorbindings</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="Microsoft.Build.Locator" Version="1.6.1" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.5.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Nerdbank.GitVersioning" Version="3.6.133" />
+	</ItemGroup>
+
+</Project>
