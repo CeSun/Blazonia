@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using Avalonia.Markup.Xaml.Templates;
 using BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 using BlazorBindings.AvaloniaBindings.Elements.Internal;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -50,24 +51,24 @@ public static class RenderTreeBuilderHelper
         }
     }
 
-    //public static void AddDataTemplateProperty<TControl, TItem>(
-    //    RenderTreeBuilder builder,
-    //    int sequence,
-    //    RenderFragment<TItem> template,
-    //    Action<TControl, AvaloniaDataTemplate> setDataTemplateAction)
-    //{
-    //    if (template != null)
-    //    {
-    //        builder.OpenRegion(sequence);
+    public static void AddDataTemplateProperty<TControl, TItem>(
+        RenderTreeBuilder builder,
+        int sequence,
+        RenderFragment<TItem> template,
+        Action<TControl, Avalonia.Controls.Templates.IDataTemplate> setDataTemplateAction)
+    {
+        if (template != null)
+        {
+            builder.OpenRegion(sequence);
 
-    //        builder.OpenComponent<DataTemplateItemsComponent<TControl, TItem>>(0);
-    //        builder.AddAttribute(1, nameof(DataTemplateItemsComponent<TControl, TItem>.SetDataTemplateAction), setDataTemplateAction);
-    //        builder.AddAttribute(2, nameof(DataTemplateItemsComponent<TControl, TItem>.Template), template);
-    //        builder.CloseComponent();
+            builder.OpenComponent<DataTemplateItemsComponent<TControl, TItem>>(0);
+            builder.AddAttribute(1, nameof(DataTemplateItemsComponent<TControl, TItem>.SetDataTemplateAction), setDataTemplateAction);
+            builder.AddAttribute(2, nameof(DataTemplateItemsComponent<TControl, TItem>.Template), template);
+            builder.CloseComponent();
 
-    //        builder.CloseRegion();
-    //    }
-    //}
+            builder.CloseRegion();
+        }
+    }
 
     public static void AddDataTemplateProperty<T>(
         RenderTreeBuilder builder,
@@ -89,25 +90,26 @@ public static class RenderTreeBuilderHelper
         }
     }
 
-    //public static void AddControlTemplateProperty<T>(
-    //    RenderTreeBuilder builder,
-    //     int sequence,
-    //    RenderFragment template,
-    //    Action<T, MC.ControlTemplate> setControlTemplateAction)
-    //    where T : AvaloniaBindableObject
-    //{
-    //    if (template != null)
-    //    {
-    //        builder.OpenRegion(sequence);
+    public static void AddControlTemplateProperty<T>(
+        RenderTreeBuilder builder,
+         int sequence,
+        RenderFragment template,
+        //Action<T, Avalonia.Controls.ITemplate<T>> setControlTemplateAction)
+        Action<T, ItemsPanelTemplate> setControlTemplateAction)
+        where T : Avalonia.Controls.Control //AvaloniaBindableObject
+    {
+        if (template != null)
+        {
+            builder.OpenRegion(sequence);
 
-    //        builder.OpenComponent<ControlTemplateItemsComponent<T>>(0);
-    //        builder.AddAttribute(1, nameof(ControlTemplateItemsComponent<T>.SetControlTemplateAction), setControlTemplateAction);
-    //        builder.AddAttribute(2, nameof(ControlTemplateItemsComponent<T>.Template), template);
-    //        builder.CloseComponent();
+            builder.OpenComponent<ControlTemplateItemsComponent<T>>(0);
+            builder.AddAttribute(1, nameof(ControlTemplateItemsComponent<T>.SetControlTemplateAction), setControlTemplateAction);
+            builder.AddAttribute(2, nameof(ControlTemplateItemsComponent<T>.Template), template);
+            builder.CloseComponent();
 
-    //        builder.CloseRegion();
-    //    }
-    //}
+            builder.CloseRegion();
+        }
+    }
 
     //internal static void AddSyncDataTemplateProperty<TControl, TItem>(
     //    RenderTreeBuilder builder,

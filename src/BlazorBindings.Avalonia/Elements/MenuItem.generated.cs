@@ -18,7 +18,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// <summary>
     /// A menu item control.
     /// </summary>
-    public partial class MenuItem : BlazorBindings.AvaloniaBindings.Elements.Primitives.HeaderedSelectingItemsControl
+    public partial class MenuItem<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.HeaderedSelectingItemsControl<T>
     {
         static MenuItem()
         {

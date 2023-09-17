@@ -15,10 +15,24 @@ internal class ApplicationHandler : IContainerElementHandler
 
     public void AddChild(object child, int physicalSiblingIndex)
     {
-        var lifetime = ((IClassicDesktopStyleApplicationLifetime)_application.ApplicationLifetime);
-
-        lifetime.MainWindow = child.Cast<global::Avalonia.Controls.Window>();
-        lifetime.MainWindow.AttachDevTools();
+        if (_application.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
+        {
+            if (child is global::Avalonia.Controls.Window w)
+            {
+                classic.MainWindow = w;
+            }
+            else
+            {
+                classic.MainWindow = new global::Avalonia.Controls.Window()
+                {
+                    Content = child.Cast<global::Avalonia.Controls.Control>()
+                };
+            }
+        }
+        else if (_application.ApplicationLifetime is ISingleViewApplicationLifetime single)
+        {
+            single.MainView = child.Cast<global::Avalonia.Controls.Control>();
+        }
     }
 
     public void RemoveChild(object child, int physicalSiblingIndex)

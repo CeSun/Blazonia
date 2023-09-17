@@ -18,7 +18,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// <summary>
     /// An <see cref="T:Avalonia.Controls.ItemsControl" /> in which individual items can be selected.
     /// </summary>
-    public partial class ListBox : BlazorBindings.AvaloniaBindings.Elements.Primitives.SelectingItemsControl
+    public partial class ListBox<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.SelectingItemsControl<T>
     {
         static ListBox()
         {

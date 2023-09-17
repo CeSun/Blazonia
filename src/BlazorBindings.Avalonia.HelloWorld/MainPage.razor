@@ -1,20 +1,49 @@
 ﻿@* @page "/main" *@
+@* @inherits BlazorBindings.AvaloniaBindings.Elements.Window *@
 
-<BlazorBindings.AvaloniaBindings.Elements.Window Background="global::Avalonia.Media.Brushes.Blue">
-    <BlazorBindings.AvaloniaBindings.Elements.StackPanel
-        HorizontalAlignment="global::Avalonia.Layout.HorizontalAlignment.Center"
-        VerticalAlignment="global::Avalonia.Layout.VerticalAlignment.Center"
-        >
-        <BlazorBindings.AvaloniaBindings.Elements.TextBlock Text="Hello World"></BlazorBindings.AvaloniaBindings.Elements.TextBlock>
-        <BlazorBindings.AvaloniaBindings.Elements.Button OnClick="OnCounterClicked">Click me</BlazorBindings.AvaloniaBindings.Elements.Button>
-        <BlazorBindings.AvaloniaBindings.Elements.TextBlock Text="@ButtonText"></BlazorBindings.AvaloniaBindings.Elements.TextBlock>
+@using BlazorBindings.AvaloniaBindings.Elements
+@using System.Collections.ObjectModel;
+@using global::Avalonia.Layout
+@using global::Avalonia
 
-    </BlazorBindings.AvaloniaBindings.Elements.StackPanel>
-</BlazorBindings.AvaloniaBindings.Elements.Window>
+<StackPanel
+    HorizontalAlignment="HorizontalAlignment.Center"
+    VerticalAlignment="VerticalAlignment.Center"
+    >
+    <TextBlock Text="Hello World"></TextBlock>
+    @if (buttonVisible == true)
+    {
+        <Button OnClick="OnCounterClicked">Click me</Button>
+    }
+    <TextBlock Text="@ButtonText"></TextBlock>
+
+    <CheckBox @bind-IsChecked="buttonVisible">Button visible</CheckBox>
+
+    <ListBox ItemsSource="Items" T="string">
+        <ItemTemplate>
+            <StackPanel>
+                <TextBlock Text="@context"></TextBlock>
+            </StackPanel>
+        </ItemTemplate>
+
+    </ListBox>
+</StackPanel>
 
 @code {
 
     int count = 0;
+    bool? buttonVisible {get; set; } = true;
+    ObservableCollection<string> Items { get; set; } = new ObservableCollection<string>(new []
+    {
+        "a",
+        "b",
+        "c"
+    });
+
+    void ToggleButton()
+    {
+        buttonVisible = !buttonVisible;
+    }
 
     string ButtonText => count switch
     {
@@ -26,10 +55,5 @@
     void OnCounterClicked()
     {
         count++;
-    }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
     }
 }

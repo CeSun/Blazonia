@@ -44,7 +44,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnAttachedToLogicalTree { get; set; }
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnDetachedFromLogicalTree { get; set; }
         [Parameter] public EventCallback<object> DataContextChanged { get; set; }
-        [Parameter] public EventCallback OnInitialized { get; set; }
         [Parameter] public EventCallback<A.Controls.IResourceDictionary> ResourcesChanged { get; set; }
         [Parameter] public EventCallback OnActualThemeVariantChanged { get; set; }
 
@@ -117,16 +116,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         DataContextChanged = (EventCallback<object>)value;
                         NativeControl.DataContextChanged -= NativeControlDataContextChanged;
                         NativeControl.DataContextChanged += NativeControlDataContextChanged;
-                    }
-                    break;
-                case nameof(OnInitialized):
-                    if (!Equals(OnInitialized, value))
-                    {
-                        void NativeControlInitialized(object sender, EventArgs e) => InvokeEventCallback(OnInitialized);
-
-                        OnInitialized = (EventCallback)value;
-                        NativeControl.Initialized -= NativeControlInitialized;
-                        NativeControl.Initialized += NativeControlInitialized;
                     }
                     break;
                 case nameof(ResourcesChanged):

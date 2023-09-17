@@ -24,7 +24,8 @@ public partial class GeneratedPropertyInfo
     public bool IsRenderFragmentProperty => Kind == GeneratedPropertyKind.RenderFragment;
     public bool IsControlTemplate => 
         _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.ControlTemplate" ||
-        _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IControlTemplate";
+        _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IControlTemplate" ||
+        _propertyInfo.Type.GetFullName().StartsWith("Avalonia.Controls.ITemplate<");
     public bool IsDataTemplate => 
         _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.DataTemplate" ||
         _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IDataTemplate";

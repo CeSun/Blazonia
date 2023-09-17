@@ -44,16 +44,31 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(InputElement))]
 [assembly: GenerateComponent(typeof(Interactive))]
 [assembly: GenerateComponent(typeof(Image))]
-[assembly: GenerateComponent(typeof(ItemsControl)
-    //GenericProperties = new[] { nameof(ItemsView.ItemsSource), nameof(ItemsView.ItemTemplate) },
-    //ContentProperties = new[] { nameof(ItemsView.EmptyView) },
-    //Exclude = new[] { nameof(ItemsView.EmptyViewTemplate), nameof(ItemsView.ItemsSource) }
+[assembly: GenerateComponent(typeof(ItemsControl),
+    ContentProperties = new string[]
+    {
+        nameof(ItemsControl.ItemTemplate),
+        nameof(ItemsControl.ItemsPanel),
+    },
+    GenericProperties = new string[]
+    {
+        nameof(ItemsControl.ItemTemplate)
+        //nameof(ListBox.SelectedItems),
+        //nameof(ListBox.Selection),
+        //nameof(ListView.ItemsSource),
+        //$"{nameof(ItemsControl.ItemsPanel)}:Avalonia.Controls.Panel",
+        //nameof(ListView.GroupDisplayBinding),
+        //nameof(ListView.GroupShortNameBinding)
+        }
     )]
 [assembly: GenerateComponent(typeof(Layoutable))]
 [assembly: GenerateComponent(typeof(Label))]
 [assembly: GenerateComponent(typeof(LinearGradientBrush))]
 [assembly: GenerateComponent(typeof(ListBox),
-    Exclude = new[] { nameof(ListBox.ItemTemplate) },
+    Exclude = new string[] 
+    { 
+        //nameof(ListBox.ItemTemplate) 
+    },
     Include = new[]
     {
         nameof(ListBox.ItemsSource),
@@ -61,15 +76,20 @@ using Avalonia.Controls.Primitives;
         nameof(ListBox.SelectedItems),
         nameof(ListBox.Selection)
     },
+    ContentProperties =new string[]
+    {
+        //nameof(ListBox.ItemTemplate),
+        //nameof(ListBox.ItemsPanel),
+    },
     GenericProperties = new string[]
     {
         //nameof(ListBox.SelectedItems),
         //nameof(ListBox.Selection),
         //nameof(ListView.ItemsSource),
-        //$"{nameof(ListView.GroupHeaderTemplate)}:System.Object",
+        //$"{nameof(ListBox.ItemsPanel)}:Avalonia.Controls.Panel",
         //nameof(ListView.GroupDisplayBinding),
         //nameof(ListView.GroupShortNameBinding)
-        },
+    },
     Aliases = new string[] {
         //$"{nameof(ListView.HeaderTemplate)}:Header",
         //$"{nameof(ListView.FooterTemplate)}:Footer" 
@@ -98,7 +118,11 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(Span))]
 [assembly: GenerateComponent(typeof(StackPanel))]
 [assembly: GenerateComponent(typeof(StackLayout))]
-[assembly: GenerateComponent(typeof(StyledElement))]
+[assembly: GenerateComponent(typeof(StyledElement),
+    Exclude = new[]
+    {
+        nameof(StyledElement.Initialized)
+    })]
 
 [assembly: GenerateComponent(typeof(TemplatedControl))]
 [assembly: GenerateComponent(typeof(TextElement))]

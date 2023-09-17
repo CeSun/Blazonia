@@ -93,12 +93,12 @@ internal static class SymbolExtensions
 
     public static bool IsHidingMember(this ISymbol symbol)
     {
-        return false;
         var currentType = symbol.ContainingType?.BaseType;
 
         while (currentType != null)
         {
-            var containsMember = currentType.GetMembers(symbol.Name).Any(s => s.Kind == symbol.Kind);
+            // is hiding a *publicly* visible member?
+            var containsMember = currentType.GetMembers(symbol.Name).Any(s => s.Kind == symbol.Kind && s.DeclaredAccessibility == Accessibility.Public);
             if (containsMember)
                 return true;
 

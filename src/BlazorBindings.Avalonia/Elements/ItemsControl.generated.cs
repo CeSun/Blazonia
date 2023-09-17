@@ -8,6 +8,7 @@
 using AC = Avalonia.Controls;
 using BlazorBindings.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// <summary>
     /// Displays a collection of items.
     /// </summary>
-    public partial class ItemsControl : BlazorBindings.AvaloniaBindings.Elements.Primitives.TemplatedControl
+    public partial class ItemsControl<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.TemplatedControl
     {
         static ItemsControl()
         {
@@ -34,17 +35,17 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Styling.ControlTheme ItemContainerTheme { get; set; }
         /// <summary>
-        /// Gets or sets the panel used to display the items.
-        /// </summary>
-        [Parameter] public AC.ITemplate<AC.Panel> ItemsPanel { get; set; }
-        /// <summary>
         /// Gets or sets a collection used to generate the content of the <see cref="T:Avalonia.Controls.ItemsControl" />.
         /// </summary>
         [Parameter] public IEnumerable ItemsSource { get; set; }
         /// <summary>
+        /// Gets or sets the panel used to display the items.
+        /// </summary>
+        [Parameter] public RenderFragment ItemsPanel { get; set; }
+        /// <summary>
         /// Gets or sets the data template used to display the items in the control.
         /// </summary>
-        [Parameter] public AC.Templates.IDataTemplate ItemTemplate { get; set; }
+        [Parameter] public RenderFragment<T> ItemTemplate { get; set; }
         [Parameter] public EventCallback<AC.ContainerPreparedEventArgs> OnContainerPrepared { get; set; }
         [Parameter] public EventCallback<AC.ContainerIndexChangedEventArgs> OnContainerIndexChanged { get; set; }
         [Parameter] public EventCallback<AC.ContainerClearingEventArgs> OnContainerClearing { get; set; }
@@ -71,13 +72,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.ItemContainerTheme = ItemContainerTheme;
                     }
                     break;
-                case nameof(ItemsPanel):
-                    if (!Equals(ItemsPanel, value))
-                    {
-                        ItemsPanel = (AC.ITemplate<AC.Panel>)value;
-                        NativeControl.ItemsPanel = ItemsPanel;
-                    }
-                    break;
                 case nameof(ItemsSource):
                     if (!Equals(ItemsSource, value))
                     {
@@ -85,12 +79,11 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.ItemsSource = ItemsSource;
                     }
                     break;
+                case nameof(ItemsPanel):
+                    ItemsPanel = (RenderFragment)value;
+                    break;
                 case nameof(ItemTemplate):
-                    if (!Equals(ItemTemplate, value))
-                    {
-                        ItemTemplate = (AC.Templates.IDataTemplate)value;
-                        NativeControl.ItemTemplate = ItemTemplate;
-                    }
+                    ItemTemplate = (RenderFragment<T>)value;
                     break;
                 case nameof(OnContainerPrepared):
                     if (!Equals(OnContainerPrepared, value))
@@ -127,6 +120,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddControlTemplateProperty<AC.ItemsControl>(builder, sequence++, ItemsPanel, (x, template) => x.ItemsPanel = template);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate, (x, template) => x.ItemTemplate = template);
         }
 
         static partial void RegisterAdditionalHandlers();

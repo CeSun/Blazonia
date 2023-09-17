@@ -2,20 +2,21 @@
 // Licensed under the MIT license.
 
 using BlazorBindings.AvaloniaBindings.Elements;
+using BlazorBindings.AvaloniaBindings.Elements.Primitives;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 
-internal class InitializedContentView : Control
+internal class InitializedContentView : ContentControl//Control
 {
-    [Parameter] public new AvaloniaContentView NativeControl { get; set; }
-
-    protected override AvaloniaContentView CreateNativeElement() => NativeControl;
+    [Parameter] public new global::Avalonia.Controls.ContentControl NativeControl { get; set; }
+    
+    protected override global::Avalonia.Controls.ContentControl CreateNativeElement() => NativeControl;
 
     protected override void HandleParameter(string name, object value)
     {
         if (name == nameof(NativeControl))
         {
-            NativeControl = (AvaloniaContentView)value;
+            NativeControl = (global::Avalonia.Controls.ContentControl)value;
         }
         else
         {

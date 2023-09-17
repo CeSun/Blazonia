@@ -38,7 +38,7 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
             // MAUI requires the Application to have the MainPage. If rendering task is not completed synchronously,
             // we need to set MainPage to something.
             //app.MainPage ??= new MC.ContentPage();
-            ((IClassicDesktopStyleApplicationLifetime)app.ApplicationLifetime).MainWindow = new Avalonia.Controls.Window();
+            //((IClassicDesktopStyleApplicationLifetime)app.ApplicationLifetime).MainWindow ??= new Avalonia.Controls.Window();
         }
 
         return addComponentTask;

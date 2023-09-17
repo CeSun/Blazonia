@@ -19,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
     /// <summary>
     /// Represents a <see cref="T:Avalonia.Controls.Primitives.SelectingItemsControl" /> with a related header.
     /// </summary>
-    public partial class HeaderedSelectingItemsControl : SelectingItemsControl
+    public partial class HeaderedSelectingItemsControl<T> : SelectingItemsControl<T>
     {
         static HeaderedSelectingItemsControl()
         {

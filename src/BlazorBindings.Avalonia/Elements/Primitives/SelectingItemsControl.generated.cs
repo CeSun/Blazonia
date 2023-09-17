@@ -19,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
     /// <summary>
     /// An <see cref="T:Avalonia.Controls.ItemsControl" /> that maintains a selection.
     /// </summary>
-    public partial class SelectingItemsControl : BlazorBindings.AvaloniaBindings.Elements.ItemsControl
+    public partial class SelectingItemsControl<T> : BlazorBindings.AvaloniaBindings.Elements.ItemsControl<T>
     {
         static SelectingItemsControl()
         {

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using Avalonia.Controls.Templates;
+
 namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 
 /// <summary>
@@ -29,13 +31,14 @@ internal class ControlTemplateItemsComponent<T> : NativeControlComponentBase, IC
         };
     }
 
-    [Parameter] public Action<T, AvaloniaControlTemplate> SetControlTemplateAction { get; set; }
-    [Parameter] public Action<T, AvaloniaDataTemplate> SetDataTemplateAction { get; set; }
+    [Parameter] public Action<T, IControlTemplate> SetControlTemplateAction { get; set; }
+    //[Parameter] public Action<T, Avalonia.Controls.Templates.ITemplate<object, Avalonia.Controls.Control>> SetDataTemplateAction { get; set; }
+    [Parameter] public Action<T, Avalonia.Controls.Templates.IDataTemplate> SetDataTemplateAction { get; set; }
     [Parameter] public RenderFragment Template { get; set; }
 
     private readonly List<AvaloniaContentView> _itemRoots = new();
 
-    private AvaloniaView AddTemplateRoot()
+    private Avalonia.Controls.Control AddTemplateRoot()
     {
         var templateRoot = new AvaloniaContentView();
         _itemRoots.Add(templateRoot);
@@ -50,15 +53,17 @@ internal class ControlTemplateItemsComponent<T> : NativeControlComponentBase, IC
 
         if (SetControlTemplateAction != null)
         {
-            var controlTemplate = new AvaloniaControlTemplate();
-            controlTemplate.Content = AddTemplateRoot();
+            //var controlTemplate = new AvaloniaControlTemplate();
+            var controlTemplate = new global::Avalonia.Controls.Templates.FuncControlTemplate((tc, namescope) => AddTemplateRoot());
             SetControlTemplateAction(parent, controlTemplate);
         }
 
         if (SetDataTemplateAction != null)
         {
-            var dataTemplate = new AvaloniaDataTemplate();
-            dataTemplate.Content = AddTemplateRoot();
+
+            //var dataTemplate = new AvaloniaDataTemplate();
+            var dataTemplate = new FuncDataTemplate(typeof(T), (item, namescope) => AddTemplateRoot());
+            //dataTemplate.Content = AddTemplateRoot();
             SetDataTemplateAction(parent, dataTemplate);
         }
     }
