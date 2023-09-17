@@ -1,0 +1,35 @@
+﻿@* @page "/main" *@
+
+<BlazorBindings.AvaloniaBindings.Elements.Window Background="global::Avalonia.Media.Brushes.Blue">
+    <BlazorBindings.AvaloniaBindings.Elements.StackPanel
+        HorizontalAlignment="global::Avalonia.Layout.HorizontalAlignment.Center"
+        VerticalAlignment="global::Avalonia.Layout.VerticalAlignment.Center"
+        >
+        <BlazorBindings.AvaloniaBindings.Elements.TextBlock Text="Hello World"></BlazorBindings.AvaloniaBindings.Elements.TextBlock>
+        <BlazorBindings.AvaloniaBindings.Elements.Button OnClick="OnCounterClicked">Click me</BlazorBindings.AvaloniaBindings.Elements.Button>
+        <BlazorBindings.AvaloniaBindings.Elements.TextBlock Text="@ButtonText"></BlazorBindings.AvaloniaBindings.Elements.TextBlock>
+
+    </BlazorBindings.AvaloniaBindings.Elements.StackPanel>
+</BlazorBindings.AvaloniaBindings.Elements.Window>
+
+@code {
+
+    int count = 0;
+
+    string ButtonText => count switch
+    {
+        0 => "Click me",
+        1 => $"Clicked 1 time",
+        _ => $"Clicked {count} times"
+    };
+
+    void OnCounterClicked()
+    {
+        count++;
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}

@@ -20,6 +20,7 @@
 		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.0.4" />
 		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.4" />
 		<PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.0.4" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.0.4" />
 
 		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
 			<PrivateAssets>all</PrivateAssets>
@@ -27,6 +28,8 @@
 		</PackageReference>
 
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.1.23419.4" />
+
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-rc.1.23419.4" />
 	</ItemGroup>
 
 	<ItemGroup>

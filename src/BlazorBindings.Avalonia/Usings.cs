@@ -12,3 +12,5 @@ global using AvaloniaBindableObject = Avalonia.AvaloniaObject;
 global using AvaloniaApplication = Avalonia.Application;
 global using AvaloniaDataTemplate = Avalonia.Markup.Xaml.Templates.DataTemplate;
 global using AvaloniaControlTemplate = Avalonia.Markup.Xaml.Templates.ControlTemplate;
+global using AvaloniaContentView = Avalonia.Controls.Control;
+global using AvaloniaView = Avalonia.Visual;

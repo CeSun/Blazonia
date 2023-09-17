@@ -17,7 +17,8 @@ internal class ApplicationHandler : IContainerElementHandler
     {
         var lifetime = ((IClassicDesktopStyleApplicationLifetime)_application.ApplicationLifetime);
 
-        lifetime.MainWindow = child.Cast<Window>();
+        lifetime.MainWindow = child.Cast<global::Avalonia.Controls.Window>();
+        lifetime.MainWindow.AttachDevTools();
     }
 
     public void RemoveChild(object child, int physicalSiblingIndex)

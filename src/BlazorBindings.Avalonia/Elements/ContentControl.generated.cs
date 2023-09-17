@@ -8,6 +8,7 @@
 using AC = Avalonia.Controls;
 using BlazorBindings.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System.Threading.Tasks;
 
 #pragma warning disable CA2252
@@ -25,14 +26,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
 
         /// <summary>
-        /// Gets or sets the content to display.
-        /// </summary>
-        [Parameter] public object Content { get; set; }
-        /// <summary>
-        /// Gets or sets the data template used to display the content of the control.
-        /// </summary>
-        [Parameter] public AC.Templates.IDataTemplate ContentTemplate { get; set; }
-        /// <summary>
         /// Gets or sets the horizontal alignment of the content within the control.
         /// </summary>
         [Parameter] public global::Avalonia.Layout.HorizontalAlignment? HorizontalContentAlignment { get; set; }
@@ -40,6 +33,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the vertical alignment of the content within the control.
         /// </summary>
         [Parameter] public global::Avalonia.Layout.VerticalAlignment? VerticalContentAlignment { get; set; }
+        /// <summary>
+        /// Gets or sets the content to display.
+        /// </summary>
+        [Parameter] public RenderFragment ChildContent { get; set; }
+        /// <summary>
+        /// Gets or sets the data template used to display the content of the control.
+        /// </summary>
+        [Parameter] public RenderFragment ContentTemplate { get; set; }
 
         public new AC.ContentControl NativeControl => (AC.ContentControl)((BindableObject)this).NativeControl;
 
@@ -49,20 +50,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
-                case nameof(Content):
-                    if (!Equals(Content, value))
-                    {
-                        Content = (object)value;
-                        NativeControl.Content = Content;
-                    }
-                    break;
-                case nameof(ContentTemplate):
-                    if (!Equals(ContentTemplate, value))
-                    {
-                        ContentTemplate = (AC.Templates.IDataTemplate)value;
-                        NativeControl.ContentTemplate = ContentTemplate;
-                    }
-                    break;
                 case nameof(HorizontalContentAlignment):
                     if (!Equals(HorizontalContentAlignment, value))
                     {
@@ -77,11 +64,24 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.VerticalContentAlignment = VerticalContentAlignment ?? (global::Avalonia.Layout.VerticalAlignment)AC.ContentControl.VerticalContentAlignmentProperty.GetDefaultValue(AC.ContentControl.VerticalContentAlignmentProperty.OwnerType);
                     }
                     break;
+                case nameof(ChildContent):
+                    ChildContent = (RenderFragment)value;
+                    break;
+                case nameof(ContentTemplate):
+                    ContentTemplate = (RenderFragment)value;
+                    break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddContentProperty<AC.ContentControl>(builder, sequence++, ChildContent, (x, value) => x.Content = (object)value);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ContentControl>(builder, sequence++, ContentTemplate, (x, template) => x.ContentTemplate = template);
         }
 
         static partial void RegisterAdditionalHandlers();

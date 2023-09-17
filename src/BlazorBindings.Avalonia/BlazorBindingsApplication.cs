@@ -1,12 +1,36 @@
 ﻿namespace BlazorBindings.AvaloniaBindings;
 
-public class BlazorBindingsApplication<T> : Application where T : IComponent
+public interface IAvaloniaBlazorInitialize
 {
-    public BlazorBindingsApplication(IServiceProvider services)
+    void Initialize(IServiceProvider serviceProvider);
+}
+public class BlazorBindingsApplication<T> : Application, IAvaloniaBlazorInitialize
+    where T : IComponent
+{
+    public BlazorBindingsApplication()
+    {
+        //Configure();
+
+        //var renderer = services.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
+
+        //if (WrapperComponentType != null)
+        //{
+        //    //var navigation = services.GetService<INavigation>();
+        //    //(navigation as Navigation)?.SetWrapperComponentType(WrapperComponentType);
+        //}
+
+        //var (componentType, parameters) = GetComponentToRender();
+        //var task = renderer.AddComponent(componentType, this, parameters);
+        //AwaitVoid(task);
+
+        //static async void AwaitVoid(Task task) => await task;
+    }
+
+    public void Initialize(IServiceProvider serviceProvider)
     {
         Configure();
 
-        var renderer = services.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
+        var renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
 
         if (WrapperComponentType != null)
         {

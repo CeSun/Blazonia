@@ -1,10 +1,12 @@
 ﻿using BlazorBindings.AvaloniaBindings.Extensions;
+using BlazorBindings.Core;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Internal;
 
-internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
+internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild, IHandleChildContentText
 {
     private TControl _parent;
+    private TextSpanContainer _textSpanContainer;
 
     [Parameter] public Action<TControl, object> SetPropertyAction { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
@@ -34,6 +36,14 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
     void IContainerElementHandler.ReplaceChild(int physicalSiblingIndex, object oldChild, object newChild)
     {
         SetPropertyAction(_parent, newChild);
+    }
+
+    public void HandleText(int index, string text)
+    {
+        if (_parent is global::Avalonia.Controls.ContentControl handle)
+        {
+            handle.Content = (_textSpanContainer ??= new()).GetUpdatedText(index, text);
+        }
     }
 
     // Because this is a 'fake' element, all matters related to physical trees

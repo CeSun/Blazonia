@@ -22,7 +22,13 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(Brush))]
 [assembly: GenerateComponent(typeof(Button))]
 [assembly: GenerateComponent(typeof(CheckBox))]
-[assembly: GenerateComponent(typeof(ContentControl))]
+[assembly: GenerateComponent(typeof(ContentControl),
+    ContentProperties = new[]
+    {
+        nameof(ContentControl.Content),
+        nameof(ContentControl.ContentTemplate),
+        nameof(ContentControl.Template),
+    })]
 [assembly: GenerateComponent(typeof(Control))]
 [assembly: GenerateComponent(typeof(DatePicker))]
 [assembly: GenerateComponent(typeof(Decorator))]
@@ -69,7 +75,12 @@ using Avalonia.Controls.Primitives;
         //$"{nameof(ListView.FooterTemplate)}:Footer" 
     })]
 [assembly: GenerateComponent(typeof(MenuItem))]
-[assembly: GenerateComponent(typeof(Panel))]
+[assembly: GenerateComponent(typeof(Panel),
+    ContentProperties = new string[]
+    {
+        nameof(Panel.Children)
+    }
+    )]
 [assembly: GenerateComponent(typeof(ProgressBar))]
 [assembly: GenerateComponent(typeof(RadialGradientBrush))]
 [assembly: GenerateComponent(typeof(RadioButton))]
@@ -85,11 +96,14 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(Slider))]
 [assembly: GenerateComponent(typeof(SolidColorBrush))]
 [assembly: GenerateComponent(typeof(Span))]
+[assembly: GenerateComponent(typeof(StackPanel))]
 [assembly: GenerateComponent(typeof(StackLayout))]
 [assembly: GenerateComponent(typeof(StyledElement))]
 
 [assembly: GenerateComponent(typeof(TemplatedControl))]
 [assembly: GenerateComponent(typeof(TextElement))]
+[assembly: GenerateComponent(typeof(TextBlock))]
+[assembly: GenerateComponent(typeof(TextBox))]
 [assembly: GenerateComponent(typeof(ToggleButton))]
 [assembly: GenerateComponent(typeof(ToggleSwitch))]
 [assembly: GenerateComponent(typeof(TimePicker))]
@@ -110,6 +124,10 @@ using Avalonia.Controls.Primitives;
         //nameof(Visual.DescendantAdded), nameof(Visual.DescendantRemoved), nameof(Visual.ParentChanged),
         //nameof(Visual.ParentChanging), nameof(Visual.HandlerChanged), nameof(Visual.HandlerChanging) 
     })]
+
+[assembly: GenerateComponent(typeof(Window))]
+[assembly: GenerateComponent(typeof(WindowBase))]
+[assembly: GenerateComponent(typeof(TopLevel))]
 
 // Shapes
 [assembly: GenerateComponent(typeof(Ellipse))]

@@ -22,8 +22,12 @@ public partial class GeneratedPropertyInfo
     ];
 
     public bool IsRenderFragmentProperty => Kind == GeneratedPropertyKind.RenderFragment;
-    public bool IsControlTemplate => _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.ControlTemplate";
-    public bool IsDataTemplate => _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.DataTemplate";
+    public bool IsControlTemplate => 
+        _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.ControlTemplate" ||
+        _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IControlTemplate";
+    public bool IsDataTemplate => 
+        _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.DataTemplate" ||
+        _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IDataTemplate";
     public bool ForceContent => ContainingType.Settings.ContentProperties.Contains(_propertyInfo.Name);
 
     public string GetHandleContentProperty()
@@ -54,7 +58,7 @@ public partial class GeneratedPropertyInfo
             var itemTypeName = GenericTypeArgument is null ? "T" : GetTypeNameAndAddNamespace(GenericTypeArgument);
             return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName}, (x, template) => x.{_propertyInfo.Name} = template);";
         }
-        else if (!ForceContent && IsIList(type, out var itemType))
+        else if (/*!ForceContent &&*/ IsIList(type, out var itemType))
         {
             // RenderTreeBuilderHelper.AddListContentProperty<MC.Layout, IView>(builder, sequence++, ChildContent, x => x.Children);
             var itemTypeName = GetTypeNameAndAddNamespace(itemType);

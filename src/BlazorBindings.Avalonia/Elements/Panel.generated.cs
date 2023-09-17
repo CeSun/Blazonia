@@ -8,6 +8,7 @@
 using AC = Avalonia.Controls;
 using BlazorBindings.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using System.Threading.Tasks;
 
 #pragma warning disable CA2252
@@ -28,6 +29,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or Sets Panel background brush.
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
+        /// <summary>
+        /// Gets the children of the <see cref="T:Avalonia.Controls.Panel" />.
+        /// </summary>
+        [Parameter] public RenderFragment ChildContent { get; set; }
 
         public new AC.Panel NativeControl => (AC.Panel)((BindableObject)this).NativeControl;
 
@@ -44,11 +49,20 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.Background = Background;
                     }
                     break;
+                case nameof(ChildContent):
+                    ChildContent = (RenderFragment)value;
+                    break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddListContentProperty<AC.Panel, AC.Control>(builder, sequence++, ChildContent, x => x.Children);
         }
 
         static partial void RegisterAdditionalHandlers();

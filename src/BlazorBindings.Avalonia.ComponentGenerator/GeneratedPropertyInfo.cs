@@ -72,8 +72,8 @@ public partial class GeneratedPropertyInfo
             if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaPropertyName, out var aliasName))
                 return aliasName;
 
-            if (IsRenderFragmentProperty && _propertyInfo.ContainingType.GetAttributes().Any(a
-                => a.AttributeClass.Name == "ContentPropertyAttribute" && Equals(a.ConstructorArguments.FirstOrDefault().Value, _propertyInfo.Name)))
+            if (IsRenderFragmentProperty && _propertyInfo.GetAttributes().Any(a
+                => a.AttributeClass.Name == "ContentAttribute"))
             {
                 return "ChildContent";
             }
