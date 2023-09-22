@@ -63,19 +63,19 @@ internal class SyncDataTemplateItemsComponent<TControl, TItem> : NativeControlCo
     // Unfortunately, regular DataTemplate does not have an access to the item, it is set set BindingContext afterwards.
     // In order to workaround this issue, we use a DataTemplateSelector, which returns the same DataTemplate. But we're able
     // to store the item from OnSelectTemplate method, which is used to render the item in DataTemplate.
-    //class DataTemplateSelector : MC.DataTemplateSelector
+    //class DataTemplateSelector : AC.DataTemplateSelector
     //{
-    //    private readonly MC.DataTemplate _dataTemplate;
-    //    private readonly Func<TItem, MC.BindableObject> _loadTemplate;
+    //    private readonly AC.DataTemplate _dataTemplate;
+    //    private readonly Func<TItem, AC.BindableObject> _loadTemplate;
     //    private TItem _initialItem;
 
-    //    public DataTemplateSelector(Func<TItem, MC.BindableObject> loadTemplate)
+    //    public DataTemplateSelector(Func<TItem, AC.BindableObject> loadTemplate)
     //    {
     //        _loadTemplate = loadTemplate;
-    //        _dataTemplate = new MC.DataTemplate(() => _loadTemplate(_initialItem));
+    //        _dataTemplate = new AC.DataTemplate(() => _loadTemplate(_initialItem));
     //    }
 
-    //    protected override MC.DataTemplate OnSelectTemplate(object item, MC.BindableObject container)
+    //    protected override AC.DataTemplate OnSelectTemplate(object item, AC.BindableObject container)
     //    {
     //        _initialItem = (TItem)item;
     //        return _dataTemplate;

@@ -6,10 +6,6 @@
 // </auto-generated>
 
 using A = Avalonia;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Threading.Tasks;
 
 #pragma warning disable CA2252
 
@@ -36,7 +32,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Gets or sets the styled element's resource dictionary.
         /// </summary>
-        [Parameter] public A.Controls.IResourceDictionary Resources { get; set; }
+        [Parameter] public AC.IResourceDictionary Resources { get; set; }
         /// <summary>
         /// Gets or sets the theme to be applied to the element.
         /// </summary>
@@ -44,7 +40,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnAttachedToLogicalTree { get; set; }
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnDetachedFromLogicalTree { get; set; }
         [Parameter] public EventCallback<object> DataContextChanged { get; set; }
-        [Parameter] public EventCallback<A.Controls.IResourceDictionary> ResourcesChanged { get; set; }
+        [Parameter] public EventCallback<AC.IResourceDictionary> ResourcesChanged { get; set; }
         [Parameter] public EventCallback OnActualThemeVariantChanged { get; set; }
 
         public new A.StyledElement NativeControl => (A.StyledElement)((BindableObject)this).NativeControl;
@@ -72,7 +68,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 case nameof(Resources):
                     if (!Equals(Resources, value))
                     {
-                        Resources = (A.Controls.IResourceDictionary)value;
+                        Resources = (AC.IResourceDictionary)value;
                         NativeControl.Resources = Resources;
                     }
                     break;
@@ -121,14 +117,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 case nameof(ResourcesChanged):
                     if (!Equals(ResourcesChanged, value))
                     {
-                        void NativeControlResourcesChanged(object sender, A.Controls.ResourcesChangedEventArgs e)
+                        void NativeControlResourcesChanged(object sender, AC.ResourcesChangedEventArgs e)
                         {
                             var value = NativeControl.Resources;
                             Resources = value;
                             InvokeEventCallback(ResourcesChanged, value);
                         }
 
-                        ResourcesChanged = (EventCallback<A.Controls.IResourceDictionary>)value;
+                        ResourcesChanged = (EventCallback<AC.IResourceDictionary>)value;
                         NativeControl.ResourcesChanged -= NativeControlResourcesChanged;
                         NativeControl.ResourcesChanged += NativeControlResourcesChanged;
                     }

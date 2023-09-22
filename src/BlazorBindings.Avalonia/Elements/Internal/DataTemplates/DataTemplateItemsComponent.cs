@@ -43,7 +43,7 @@ internal class DataTemplateItemsComponent<TControl, TItem> : NativeControlCompon
     void INonPhysicalChild.SetParent(object parentElement)
     {
         var parent = (TControl)parentElement;
-        var dataTemplate = new MC.Templates.FuncDataTemplate(typeof(TItem),
+        var dataTemplate = new AC.Templates.FuncDataTemplate(typeof(TItem),
             (item, namescope) => AddTemplateRoot());
         SetDataTemplateAction(parent, dataTemplate);
     }

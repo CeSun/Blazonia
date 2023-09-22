@@ -5,10 +5,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-using AC = Avalonia.Controls;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
+
 
 #pragma warning disable CA2252
 

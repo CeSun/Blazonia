@@ -7,7 +7,7 @@ global using BlazorBindings.Core;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.Extensions.DependencyInjection;
 global using Avalonia;
-global using MC = Avalonia.Controls;
+global using AC = Avalonia.Controls;
 global using AvaloniaBindableObject = Avalonia.AvaloniaObject;
 global using AvaloniaApplication = Avalonia.Application;
 global using AvaloniaDataTemplate = Avalonia.Controls.Templates.IDataTemplate;

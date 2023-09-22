@@ -1,17 +1,17 @@
-﻿//using MC = Avalonia.Controls;
+﻿//using AC = Avalonia.Controls;
 
 //namespace BlazorBindings.AvaloniaBindings;
 
 //internal class NavigationHandler : IContainerElementHandler
 //{
 //    private readonly NavigationTarget _target;
-//    private readonly MC.INavigation _navigation;
+//    private readonly AC.INavigation _navigation;
 //    private readonly bool _animated;
 //    private readonly TaskCompletionSource _taskCompletionSource = new();
-//    private MC.Page _currentPage;
+//    private AC.Page _currentPage;
 //    private bool _firstAdd = true;
 
-//    public NavigationHandler(MC.INavigation navigation, NavigationTarget target, bool animated)
+//    public NavigationHandler(AC.INavigation navigation, NavigationTarget target, bool animated)
 //    {
 //        _target = target;
 //        _navigation = navigation;
@@ -21,7 +21,7 @@
 //    public Task WaitForNavigation() => _taskCompletionSource.Task;
 //    public event Action PageClosed;
 
-//    public async Task AddChildAsync(MC.Page child)
+//    public async Task AddChildAsync(AC.Page child)
 //    {
 //        _currentPage = child;
 
@@ -40,7 +40,7 @@
 //        child.ParentChanged += ParentChanged;
 //    }
 
-//    public async Task RemoveChildAsync(MC.Page child)
+//    public async Task RemoveChildAsync(AC.Page child)
 //    {
 //        child.ParentChanged -= ParentChanged;
 //        if (_target == NavigationTarget.Modal)
@@ -59,7 +59,7 @@
 
 //    private void ParentChanged(object sender, EventArgs e)
 //    {
-//        var page = sender as MC.Page;
+//        var page = sender as AC.Page;
 
 //        if (page == _currentPage && page.Parent == null)
 //        {
@@ -72,12 +72,12 @@
 
 //    public async void RemoveChild(object child, int physicalSiblingIndex)
 //    {
-//        await RemoveChildAsync((MC.Page)child);
+//        await RemoveChildAsync((AC.Page)child);
 //    }
 
 //    public async void AddChild(object child, int physicalSiblingIndex)
 //    {
-//        await AddChildAsync((MC.Page)child);
+//        await AddChildAsync((AC.Page)child);
 //    }
 
 //    public object TargetElement => null;

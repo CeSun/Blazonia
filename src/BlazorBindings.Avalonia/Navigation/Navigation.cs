@@ -20,7 +20,7 @@
 //        _wrapperComponentType = wrapperComponentType;
 //    }
 
-//    protected global::Avalonia. MC.INavigation AvaloniaNavigation => Application.Current.MainPage.Navigation;
+//    protected global::Avalonia. AC.INavigation AvaloniaNavigation => Application.Current.MainPage.Navigation;
 
 //    /// <summary>
 //    /// Push page component <typeparamref name="T"/> to the Navigation Stack.

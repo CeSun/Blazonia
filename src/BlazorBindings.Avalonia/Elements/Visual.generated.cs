@@ -6,9 +6,6 @@
 // </auto-generated>
 
 using A = Avalonia;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 
 #pragma warning disable CA2252
 

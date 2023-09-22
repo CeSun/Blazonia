@@ -117,6 +117,7 @@ public partial class ComponentWrapperGenerator
                 .Distinct()
                 .Where(u => u.Namespace != componentNamespace)
                 .Where(u => u.IsUsed)
+                .Where(u => !u.IsGlobalUsing)
                 .OrderBy(u => u.ComparableString)
                 .Select(u => u.UsingText));
 
@@ -155,16 +156,16 @@ namespace {componentNamespace}
     {
         var usings = new List<UsingStatement>
             {
-                new UsingStatement { Namespace = "System" },
-                new UsingStatement { Namespace = "Microsoft.AspNetCore.Components", IsUsed = true, },
-                new UsingStatement { Namespace = "BlazorBindings.Core", IsUsed = true, },
-                new UsingStatement { Namespace = "System.Threading.Tasks", IsUsed = true, },
-                //new UsingStatement { Namespace = "Avalonia.Controls", Alias = "MC", IsUsed = true },
+                new UsingStatement { Namespace = "System", IsGlobalUsing = true },
+                new UsingStatement { Namespace = "Microsoft.AspNetCore.Components", IsUsed = true, IsGlobalUsing = true },
+                new UsingStatement { Namespace = "BlazorBindings.Core", IsUsed = true, IsGlobalUsing = true },
+                new UsingStatement { Namespace = "System.Threading.Tasks", IsUsed = true, IsGlobalUsing = true },
+                new UsingStatement { Namespace = "Avalonia.Controls", Alias = "AC", IsUsed = true, IsGlobalUsing = true },
                 //new UsingStatement { Namespace = "Avalonia.Templ", Alias = "MMP" }
             };
 
         var typeNamespace = typeToGenerate.ContainingNamespace.GetFullName();
-        if (typeNamespace != "Microsoft.Avalonia.Controls")
+        if (typeNamespace != "Avalonia.Controls")
         {
             var typeNamespaceAlias = GetNamespaceAlias(typeNamespace);
             usings.Add(new UsingStatement { Namespace = typeNamespace, Alias = typeNamespaceAlias, IsUsed = true });
@@ -178,7 +179,7 @@ namespace {componentNamespace}
         var assemblyName = typeToGenerate.ContainingAssembly.Name;
         if (assemblyName.Contains('.') && typeNamespace != assemblyName && typeNamespace.StartsWith(assemblyName))
         {
-            usings.Add(new UsingStatement { Namespace = assemblyName, Alias = GetNamespaceAlias(assemblyName) });
+            usings.Add(new UsingStatement { Namespace = assemblyName, IsUsed = true, IsGlobalUsing = true, Alias = GetNamespaceAlias(assemblyName) });
         }
 
         return usings;

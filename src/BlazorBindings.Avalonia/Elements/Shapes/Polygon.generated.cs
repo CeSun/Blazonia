@@ -7,10 +7,7 @@
 
 using ACS = Avalonia.Controls.Shapes;
 using BlazorBindings.AvaloniaBindings.Elements;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 #pragma warning disable CA2252
 

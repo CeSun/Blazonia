@@ -1,7 +1,7 @@
 ﻿//using Microsoft.AspNetCore.Components.Routing;
 //using System.Globalization;
 //using System.Reflection;
-//using MC = Avalonia.Controls;
+//using AC = Avalonia.Controls;
 
 //namespace BlazorBindings.AvaloniaBindings;
 
@@ -129,7 +129,7 @@
 
 //    private static Assembly GetDefaultAssembly()
 //    {
-//        var appType = MC.Application.Current.GetType();
+//        var appType = AC.Application.Current.GetType();
 //        var assembly = appType.IsGenericType && appType.GetGenericTypeDefinition() == typeof(BlazorBindingsApplication<>)
 //            ? appType.GenericTypeArguments[0].Assembly
 //            : appType.Assembly;

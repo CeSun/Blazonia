@@ -5,12 +5,8 @@
 //     the code is regenerated.
 // </auto-generated>
 
-using AC = Avalonia.Controls;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using System.Collections;
-using System.Threading.Tasks;
 
 #pragma warning disable CA2252
 
@@ -118,11 +114,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(
-                builder, 
-                sequence++, 
-                ItemTemplate, 
-                (itemsControl, template) => itemsControl.ItemTemplate = template);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate, (x, template) => x.ItemTemplate = template);
         }
 
         static partial void RegisterAdditionalHandlers();

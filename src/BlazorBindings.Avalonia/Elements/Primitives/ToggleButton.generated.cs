@@ -7,10 +7,6 @@
 
 using ACP = Avalonia.Controls.Primitives;
 using BlazorBindings.AvaloniaBindings.Elements;
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.Threading.Tasks;
 
 #pragma warning disable CA2252
 
