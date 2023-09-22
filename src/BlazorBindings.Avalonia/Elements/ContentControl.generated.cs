@@ -76,8 +76,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddContentProperty<AC.ContentControl>(builder, sequence++, ChildContent, (x, value) => x.Content = (object)value);
-            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ContentControl>(builder, sequence++, ContentTemplate, (x, template) => x.ContentTemplate = template);
+            RenderTreeBuilderHelper.AddContentProperty<AC.ContentControl>(builder, sequence++, ChildContent,
+                (nativeControl, data) => nativeControl.Content = (object)data);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ContentControl>(builder, sequence++, ContentTemplate,
+                (nativeControl, nativeTemplate) => nativeControl.ContentTemplate = nativeTemplate);
         }
 
         static partial void RegisterAdditionalHandlers();

@@ -42,34 +42,35 @@ public partial class GeneratedPropertyInfo
     public string RenderContentProperty()
     {
         var type = (INamedTypeSymbol)_propertyInfo.Type;
+        var parameterName = "nativeControl";//$"{type.Name[..1].ToLowerInvariant()}{type.Name[1..]}";
 
         if (IsControlTemplate)
         {
             // RenderTreeBuilderHelper.AddControlTemplateProperty<MC.TemplatedView>(builder, sequence++, ControlTemplate, (x, template) => x.ControlTemplate = template);
-            return $"\r\n            RenderTreeBuilderHelper.AddControlTemplateProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName}, (x, template) => x.{_propertyInfo.Name} = template);";
+            return $"\r\n            RenderTreeBuilderHelper.AddControlTemplateProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
         }
         else if (IsDataTemplate && !IsGeneric)
         {
             // RenderTreeBuilderHelper.AddDataTemplateProperty<MC.Shell>(builder, sequence++, FlyoutContent, (x, template) => x.FlyoutContentTemplate = template);
-            return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName}, (x, template) => x.{_propertyInfo.Name} = template);";
+            return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
         }
         else if (IsDataTemplate && IsGeneric)
         {
             // RenderTreeBuilderHelper.AddDataTemplateProperty<MC.ItemsView, T>(builder, sequence++, ItemTemplate, (x, template) => x.ItemTemplate = template);
             var itemTypeName = GenericTypeArgument is null ? "T" : GetTypeNameAndAddNamespace(GenericTypeArgument);
-            return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName}, (x, template) => x.{_propertyInfo.Name} = template);";
+            return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
         }
         else if (/*!ForceContent &&*/ IsIList(type, out var itemType))
         {
             // RenderTreeBuilderHelper.AddListContentProperty<MC.Layout, IView>(builder, sequence++, ChildContent, x => x.Children);
             var itemTypeName = GetTypeNameAndAddNamespace(itemType);
-            return $"\r\n            RenderTreeBuilderHelper.AddListContentProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName}, x => x.{_propertyInfo.Name});";
+            return $"\r\n            RenderTreeBuilderHelper.AddListContentProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                {parameterName} => {parameterName}.{_propertyInfo.Name});";
         }
         else
         {
             // RenderTreeBuilderHelper.AddContentProperty<MC.ContentPage>(builder, sequence++, ChildContent, (x, value) => x.Content = (MC.View)value);
             var propTypeName = GetTypeNameAndAddNamespace(type);
-            return $"\r\n            RenderTreeBuilderHelper.AddContentProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName}, (x, value) => x.{_propertyInfo.Name} = ({propTypeName})value);";
+            return $"\r\n            RenderTreeBuilderHelper.AddContentProperty<{AvaloniaContainingTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, data) => {parameterName}.{_propertyInfo.Name} = ({propTypeName})data);";
         }
     }
 

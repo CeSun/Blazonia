@@ -58,7 +58,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddListContentProperty<AC.Panel, AC.Control>(builder, sequence++, ChildContent, x => x.Children);
+            RenderTreeBuilderHelper.AddListContentProperty<AC.Panel, AC.Control>(builder, sequence++, ChildContent,
+                nativeControl => nativeControl.Children);
         }
 
         static partial void RegisterAdditionalHandlers();
