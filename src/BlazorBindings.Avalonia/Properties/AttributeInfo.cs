@@ -50,6 +50,10 @@ using Avalonia.Controls.Primitives;
         nameof(ItemsControl.ItemTemplate),
         nameof(ItemsControl.ItemsPanel),
     },
+    Exclude =new string[]
+    {
+        nameof(ItemsControl.ItemsPanel),
+    },
     GenericProperties = new string[]
     {
         nameof(ItemsControl.ItemTemplate)

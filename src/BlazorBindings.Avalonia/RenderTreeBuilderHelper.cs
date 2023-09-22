@@ -111,24 +111,24 @@ public static class RenderTreeBuilderHelper
         }
     }
 
-    //internal static void AddSyncDataTemplateProperty<TControl, TItem>(
-    //    RenderTreeBuilder builder,
-    //    int sequence,
-    //    RenderFragment<TItem> template,
-    //    Action<TControl, AvaloniaDataTemplate> setDataTemplateAction)
-    //{
-    //    if (template != null)
-    //    {
-    //        builder.OpenRegion(sequence);
+    internal static void AddSyncDataTemplateProperty<TControl, TItem>(
+        RenderTreeBuilder builder,
+        int sequence,
+        RenderFragment<TItem> template,
+        Action<TControl, AvaloniaDataTemplate> setDataTemplateAction)
+    {
+        if (template != null)
+        {
+            builder.OpenRegion(sequence);
 
-    //        builder.OpenComponent<SyncDataTemplateItemsComponent<TControl, TItem>>(0);
-    //        builder.AddAttribute(1, nameof(SyncDataTemplateItemsComponent<TControl, TItem>.SetDataTemplateAction), setDataTemplateAction);
-    //        builder.AddAttribute(2, nameof(SyncDataTemplateItemsComponent<TControl, TItem>.Template), template);
-    //        builder.CloseComponent();
+            builder.OpenComponent<SyncDataTemplateItemsComponent<TControl, TItem>>(0);
+            builder.AddAttribute(1, nameof(SyncDataTemplateItemsComponent<TControl, TItem>.SetDataTemplateAction), setDataTemplateAction);
+            builder.AddAttribute(2, nameof(SyncDataTemplateItemsComponent<TControl, TItem>.Template), template);
+            builder.CloseComponent();
 
-    //        builder.CloseRegion();
-    //    }
-    //}
+            builder.CloseRegion();
+        }
+    }
 
     //internal static void AddSyncDataTemplateProperty<T>(
     //    RenderTreeBuilder builder,

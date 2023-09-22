@@ -6,16 +6,14 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes. Class is used as generic parameter.
-internal class DataTemplateItemComponent<T> : ComponentBase
+internal class DataTemplateItemComponent<TItem> : ComponentBase
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes
 {
     private object _item;
     private bool _shouldRender = true;
 
-    [Parameter] public RenderFragment<T> Template { get; set; }
+    [Parameter] public RenderFragment<TItem> Template { get; set; }
 
-    //[Parameter] public AvaloniaBindableObject ContentView { get; set; }
-    
     [Parameter] public AvaloniaContentView ContentView { get; set; }
 
     public override Task SetParametersAsync(ParameterView parameters)
@@ -25,7 +23,7 @@ internal class DataTemplateItemComponent<T> : ComponentBase
             switch (parValue.Name)
             {
                 case nameof(Template):
-                    Template = (RenderFragment<T>)parValue.Value;
+                    Template = (RenderFragment<TItem>)parValue.Value;
                     break;
 
                 case nameof(ContentView):
@@ -58,7 +56,7 @@ internal class DataTemplateItemComponent<T> : ComponentBase
     {
         if (_item != null)
         {
-            builder.AddContent(0, Template.Invoke((T)_item));
+            builder.AddContent(0, Template.Invoke((TItem)_item));
             _shouldRender = false;
         }
     }

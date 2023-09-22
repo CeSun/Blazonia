@@ -43,9 +43,8 @@ internal class DataTemplateItemsComponent<TControl, TItem> : NativeControlCompon
     void INonPhysicalChild.SetParent(object parentElement)
     {
         var parent = (TControl)parentElement;
-        //var dataTemplate = new AvaloniaDataTemplate();
-        var dataTemplate = new global::Avalonia.Controls.Templates.FuncDataTemplate(typeof(TItem), (item, namescope) => AddTemplateRoot());
-        //dataTemplate.Content = AddTemplateRoot();
+        var dataTemplate = new MC.Templates.FuncDataTemplate(typeof(TItem),
+            (item, namescope) => AddTemplateRoot());
         SetDataTemplateAction(parent, dataTemplate);
     }
 

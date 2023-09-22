@@ -10,7 +10,7 @@ global using Avalonia;
 global using MC = Avalonia.Controls;
 global using AvaloniaBindableObject = Avalonia.AvaloniaObject;
 global using AvaloniaApplication = Avalonia.Application;
-global using AvaloniaDataTemplate = Avalonia.Markup.Xaml.Templates.DataTemplate;
+global using AvaloniaDataTemplate = Avalonia.Controls.Templates.IDataTemplate;
 global using AvaloniaControlTemplate = Avalonia.Markup.Xaml.Templates.ControlTemplate;
 global using AvaloniaContentView = Avalonia.Controls.ContentControl;//Avalonia.Controls.Control;
 global using AvaloniaView = Avalonia.Visual;
