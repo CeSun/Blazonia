@@ -10,7 +10,7 @@ internal class DataTemplateItemComponent<TItem> : ComponentBase
 #pragma warning restore CA1812 // Avoid uninstantiated internal classes
 {
     private object _item;
-    private bool _shouldRender = true;
+    //private bool _shouldRender = true;
 
     [Parameter] public RenderFragment<TItem> Template { get; set; }
 
@@ -44,20 +44,20 @@ internal class DataTemplateItemComponent<TItem> : ComponentBase
         return base.SetParametersAsync(ParameterView.Empty);
     }
 
-    protected override bool ShouldRender()
-    {
-        // Re-rendering is required only if BindingContext is changed.
-        // If this method is not overridden, it re-renders all items in DataTemplateItemsComponent
-        // when new item is added there.
-        return _shouldRender;
-    }
+    //protected override bool ShouldRender()
+    //{
+    //    // Re-rendering is required only if BindingContext is changed.
+    //    // If this method is not overridden, it re-renders all items in DataTemplateItemsComponent
+    //    // when new item is added there.
+    //    return _shouldRender;
+    //}
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         if (_item != null)
         {
             builder.AddContent(0, Template.Invoke((TItem)_item));
-            _shouldRender = false;
+            //_shouldRender = false;
         }
     }
 
@@ -71,7 +71,7 @@ internal class DataTemplateItemComponent<TItem> : ComponentBase
             if (newItem != null && newItem != _item)
             {
                 _item = newItem;
-                _shouldRender = true;
+                //_shouldRender = true;
                 StateHasChanged();
             }
         };

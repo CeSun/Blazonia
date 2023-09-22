@@ -5,11 +5,9 @@
 //     the code is regenerated.
 // </auto-generated>
 
-using BlazorBindings.Core;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Collections;
-using System.Threading.Tasks;
+using System.Collections.Immutable;
+using System.Collections.Specialized;
 
 #pragma warning disable CA2252
 
@@ -20,18 +18,22 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// </summary>
     public partial class ItemsControl<T> : BlazorBindings.AvaloniaBindings.Elements.Primitives.TemplatedControl
     {
+        [Parameter] public IEnumerable<T> ItemsSource { get; set; }
 
-        /// <summary>
-        /// Gets or sets the panel used to display the items.
-        /// </summary>
-        [Parameter] public RenderFragment ItemsPanel { get; set; }
-        
+        private bool AssignItemsSourceDirectly => ItemsSource is INotifyCollectionChanged || ItemsSource is IImmutableList<T>;
+
         protected override bool HandleAdditionalParameter(string name, object value)
         {
             switch (name)
             {
-                case nameof(ItemsPanel):
-                    ItemsPanel = (RenderFragment)value;
+                case nameof(ItemsSource):
+                    if (!Equals(ItemsSource, value))
+                    {
+                        ItemsSource = (IEnumerable<T>)value;
+
+                        if (AssignItemsSourceDirectly)
+                            NativeControl.ItemsSource = ItemsSource;
+                    }
                     return true;
 
                 default:
@@ -43,7 +45,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalPartialElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalPartialElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddSyncDataTemplateProperty<Avalonia.Controls.ItemsControl, T>(builder, sequence++, ItemTemplate, (x, template) => x.ItemTemplate = template);
+            RenderTreeBuilderHelper.AddSyncDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
+                (nativeElement, nativeDataTemplate) => nativeElement.ItemTemplate = nativeDataTemplate);
+
+            sequence++;
+            if (!AssignItemsSourceDirectly)
+            {
+                RenderTreeBuilderHelper.AddItemsSourceProperty<AC.ItemsControl, T>(builder, sequence, ItemsSource, /*ItemKeySelector*/null, 
+                    (nativeElement, items) => nativeElement.ItemsSource = items);
+            }
         }
     }
 }

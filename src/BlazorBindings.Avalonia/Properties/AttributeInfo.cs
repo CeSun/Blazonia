@@ -26,8 +26,7 @@ using Avalonia.Controls.Primitives;
     ContentProperties = new[]
     {
         nameof(ContentControl.Content),
-        nameof(ContentControl.ContentTemplate),
-        nameof(ContentControl.Template),
+        nameof(ContentControl.ContentTemplate)
     })]
 [assembly: GenerateComponent(typeof(Control))]
 [assembly: GenerateComponent(typeof(DatePicker))]
@@ -52,7 +51,8 @@ using Avalonia.Controls.Primitives;
     },
     Exclude =new string[]
     {
-        nameof(ItemsControl.ItemsPanel),
+        //nameof(ItemsControl.ItemsPanel),
+        nameof(ItemsControl.ItemsSource),
     },
     GenericProperties = new string[]
     {
@@ -128,7 +128,11 @@ using Avalonia.Controls.Primitives;
         nameof(StyledElement.Initialized)
     })]
 
-[assembly: GenerateComponent(typeof(TemplatedControl))]
+[assembly: GenerateComponent(typeof(TemplatedControl),
+    ContentProperties =new string[]
+    {
+        nameof(TemplatedControl.Template)
+    })]
 [assembly: GenerateComponent(typeof(TextElement))]
 [assembly: GenerateComponent(typeof(TextBlock))]
 [assembly: GenerateComponent(typeof(TextBox))]

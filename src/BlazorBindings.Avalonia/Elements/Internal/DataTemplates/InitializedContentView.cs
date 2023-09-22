@@ -18,6 +18,10 @@ internal class InitializedContentView : ContentControl//Control
         {
             NativeControl = (global::Avalonia.Controls.ContentControl)value;
         }
+        //else if (name == "ChildContent")
+        //{
+
+        //}
         else
         {
             base.HandleParameter(name, value);

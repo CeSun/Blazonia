@@ -7,6 +7,7 @@
 
 using ACP = Avalonia.Controls.Primitives;
 using BlazorBindings.AvaloniaBindings.Elements;
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -69,7 +70,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// <summary>
         /// Gets or sets the template that defines the control's appearance.
         /// </summary>
-        [Parameter] public AC.Templates.IControlTemplate Template { get; set; }
+        [Parameter] public RenderFragment Template { get; set; }
         [Parameter] public EventCallback<ACP.TemplateAppliedEventArgs> OnTemplateApplied { get; set; }
 
         public new ACP.TemplatedControl NativeControl => (ACP.TemplatedControl)((BindableObject)this).NativeControl;
@@ -158,11 +159,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     }
                     break;
                 case nameof(Template):
-                    if (!Equals(Template, value))
-                    {
-                        Template = (AC.Templates.IControlTemplate)value;
-                        NativeControl.Template = Template;
-                    }
+                    Template = (RenderFragment)value;
                     break;
                 case nameof(OnTemplateApplied):
                     if (!Equals(OnTemplateApplied, value))
@@ -179,6 +176,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddControlTemplateProperty<ACP.TemplatedControl, AC.Templates.IControlTemplate>(builder, sequence++, Template,
+                (nativeControl, nativeTemplate) => nativeControl.Template = nativeTemplate);
         }
 
         static partial void RegisterAdditionalHandlers();

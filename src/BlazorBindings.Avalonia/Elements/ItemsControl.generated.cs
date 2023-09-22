@@ -6,7 +6,6 @@
 // </auto-generated>
 
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Collections;
 
 #pragma warning disable CA2252
 
@@ -31,9 +30,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Styling.ControlTheme ItemContainerTheme { get; set; }
         /// <summary>
-        /// Gets or sets a collection used to generate the content of the <see cref="T:Avalonia.Controls.ItemsControl" />.
+        /// Gets or sets the panel used to display the items.
         /// </summary>
-        [Parameter] public IEnumerable ItemsSource { get; set; }
+        [Parameter] public RenderFragment ItemsPanel { get; set; }
         /// <summary>
         /// Gets or sets the data template used to display the items in the control.
         /// </summary>
@@ -64,12 +63,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.ItemContainerTheme = ItemContainerTheme;
                     }
                     break;
-                case nameof(ItemsSource):
-                    if (!Equals(ItemsSource, value))
-                    {
-                        ItemsSource = (IEnumerable)value;
-                        NativeControl.ItemsSource = ItemsSource;
-                    }
+                case nameof(ItemsPanel):
+                    ItemsPanel = (RenderFragment)value;
                     break;
                 case nameof(ItemTemplate):
                     ItemTemplate = (RenderFragment<T>)value;
@@ -114,6 +109,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddControlTemplateProperty<AC.ItemsControl, AC.ITemplate<AC.Panel>>(builder, sequence++, ItemsPanel,
+                (nativeControl, nativeTemplate) => nativeControl.ItemsPanel = nativeTemplate);
             RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,
                 (nativeControl, nativeTemplate) => nativeControl.ItemTemplate = nativeTemplate);
         }

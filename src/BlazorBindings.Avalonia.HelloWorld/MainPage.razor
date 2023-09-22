@@ -5,6 +5,7 @@
 @using System.Collections.ObjectModel;
 @using global::Avalonia.Layout
 @using global::Avalonia
+@using global::Avalonia.Media;
 
 <StackPanel
     HorizontalAlignment="HorizontalAlignment.Center"
@@ -19,14 +20,16 @@
 
     <CheckBox @bind-IsChecked="buttonVisible">Button visible</CheckBox>
 
-    <ListBox ItemsSource="Items" T="string">
+    <ListBox ItemsSource="Items">
         <ItemTemplate>
             <StackPanel>
                 <TextBlock Text="Content:"></TextBlock>
                 <TextBlock Text="@context"></TextBlock>
             </StackPanel>
         </ItemTemplate>
-
+        <ItemsPanel>
+            <StackPanel Orientation="Orientation.Horizontal"></StackPanel>
+        </ItemsPanel>
     </ListBox>
 </StackPanel>
 
@@ -56,5 +59,10 @@
     void OnCounterClicked()
     {
         count++;
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
     }
 }

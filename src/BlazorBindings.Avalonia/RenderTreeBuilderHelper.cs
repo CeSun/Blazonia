@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
 using Avalonia.Markup.Xaml.Templates;
 using BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 using BlazorBindings.AvaloniaBindings.Elements.Internal;
@@ -75,36 +77,37 @@ public static class RenderTreeBuilderHelper
         int sequence,
         RenderFragment template,
         Action<T, AvaloniaDataTemplate> setDataTemplateAction)
-        where T : AvaloniaBindableObject
+        where T : TemplatedControl
     {
         if (template != null)
         {
             builder.OpenRegion(sequence);
 
-            builder.OpenComponent<ControlTemplateItemsComponent<T>>(0);
-            builder.AddAttribute(1, nameof(ControlTemplateItemsComponent<T>.SetDataTemplateAction), setDataTemplateAction);
-            builder.AddAttribute(2, nameof(ControlTemplateItemsComponent<T>.Template), template);
+            builder.OpenComponent<DataTemplateItemsComponent<T, IDataTemplate>>(0);
+            builder.AddAttribute(1, nameof(DataTemplateItemsComponent<T, IDataTemplate>.SetDataTemplateAction), setDataTemplateAction);
+            builder.AddAttribute(2, nameof(DataTemplateItemsComponent<T, IDataTemplate>.Template), template);
             builder.CloseComponent();
 
             builder.CloseRegion();
         }
     }
 
-    public static void AddControlTemplateProperty<T>(
+    public static void AddControlTemplateProperty<TNativeControl, TNativeTemplate>(
         RenderTreeBuilder builder,
-         int sequence,
+        int sequence,
         RenderFragment template,
         //Action<T, Avalonia.Controls.ITemplate<T>> setControlTemplateAction)
-        Action<T, ItemsPanelTemplate> setControlTemplateAction)
-        where T : Avalonia.Controls.Control //AvaloniaBindableObject
+        Action<TNativeControl, TNativeTemplate> setControlTemplateAction)
+        where TNativeControl : TemplatedControl //AvaloniaBindableObject
     {
         if (template != null)
         {
             builder.OpenRegion(sequence);
 
-            builder.OpenComponent<ControlTemplateItemsComponent<T>>(0);
-            builder.AddAttribute(1, nameof(ControlTemplateItemsComponent<T>.SetControlTemplateAction), setControlTemplateAction);
-            builder.AddAttribute(2, nameof(ControlTemplateItemsComponent<T>.Template), template);
+            builder.OpenComponent<ControlTemplateItemsComponent<TNativeControl, TNativeTemplate>>(0);
+            builder.AddAttribute(1, nameof(ControlTemplateItemsComponent<TNativeControl, TNativeTemplate>.SetControlTemplateAction), setControlTemplateAction);
+            builder.AddAttribute(2, nameof(ControlTemplateItemsComponent<TNativeControl, TNativeTemplate>.Template), template);
+            builder.AddComponentReferenceCapture(3, reference => { });
             builder.CloseComponent();
 
             builder.CloseRegion();
