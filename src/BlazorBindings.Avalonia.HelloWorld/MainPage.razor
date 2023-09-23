@@ -2,6 +2,7 @@
 
 @using BlazorBindings.AvaloniaBindings.Elements
 @using System.Collections.ObjectModel;
+@using BlazorBindings.AvaloniaBindings.Elements.Shapes
 @using Microsoft.AspNetCore.Components.Rendering;
 @using global::Avalonia.Layout
 @using global::Avalonia
@@ -31,10 +32,14 @@
                 <StackPanel Orientation="Orientation.Horizontal"></StackPanel>
             </ItemsPanel>
         </ListBox>
+        <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Red"></Ellipse>
+        <Slider @bind-Value="slider"></Slider>
+        <TextBlock Text="@slider.ToString()"></TextBlock>
     </StackPanel>
 </Window>
 
 @code {
+    double slider = 0;
     int count = 0;
     bool? buttonVisible { get; set; } = true;
     ObservableCollection<string> Items { get; set; } = new ObservableCollection<string>(new[]
