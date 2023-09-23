@@ -18,8 +18,4 @@ public class AppBlazor : BlazorBindingsApplication<MainPage>
 
         this.AttachDevTools();
     }
-    //public AppBlazor(IServiceProvider services)
-    //    : base(services)
-    //{
-    //}
 }

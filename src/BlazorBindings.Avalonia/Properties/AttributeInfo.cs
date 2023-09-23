@@ -75,7 +75,6 @@ using Avalonia.Controls.Primitives;
     },
     Include = new[]
     {
-        nameof(ListBox.ItemsSource),
         nameof(ListBox.SelectionMode),
         nameof(ListBox.SelectedItems),
         nameof(ListBox.Selection)

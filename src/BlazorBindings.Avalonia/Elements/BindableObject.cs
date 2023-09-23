@@ -11,14 +11,14 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
 
     public AvaloniaBindableObject NativeControl => _nativeControl ??= CreateNativeElement();
 
-    public override Task SetParametersAsync(ParameterView parameters)
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
         foreach (var parameterValue in parameters)
         {
             HandleParameter(parameterValue.Name, parameterValue.Value);
         }
-        StateHasChanged();
-        return Task.CompletedTask;
+
+        await base.SetParametersAsync(parameters);
     }
 
     protected virtual void HandleParameter(string name, object value)

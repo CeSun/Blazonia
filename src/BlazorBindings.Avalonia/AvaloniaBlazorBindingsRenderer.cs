@@ -22,7 +22,7 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
 
     public override Dispatcher Dispatcher { get; } = new AvaloniaDispatcher();
 
-    public Task AddComponent(Type componentType, AvaloniaApplication parent, Dictionary<string, object> parameters = null)
+    public Task<IComponent> AddComponent(Type componentType, AvaloniaApplication parent, Dictionary<string, object> parameters = null)
     {
         var handler = new ApplicationHandler(parent);
         var addComponentTask = AddComponent(componentType, handler, parameters);
@@ -44,9 +44,12 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
         return addComponentTask;
     }
 
-    public Task AddComponent<T>(AvaloniaApplication parent, Dictionary<string, object> parameters = null)
+    public async Task<T> AddComponent<T>(AvaloniaApplication parent, Dictionary<string, object> parameters = null)
+        where T : IComponent
     {
-        return AddComponent(typeof(T), parent, parameters);
+        var result = await AddComponent(typeof(T), parent, parameters);
+
+        return (T)result;
     }
 
     protected override void HandleException(Exception exception)

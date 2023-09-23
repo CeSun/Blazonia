@@ -21,10 +21,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        /// <summary>
-        /// Gets or sets a collection used to generate the content of the <see cref="T:Avalonia.Controls.ItemsControl" />.
-        /// </summary>
-        [Parameter] public IEnumerable<T> ItemsSource { get; set; }
         [Parameter] public IList SelectedItems { get; set; }
         [Parameter] public AC.Selection.ISelectionModel Selection { get; set; }
         /// <summary>
@@ -40,13 +36,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
-                case nameof(ItemsSource):
-                    if (!Equals(ItemsSource, value))
-                    {
-                        ItemsSource = (IEnumerable<T>)value;
-                        NativeControl.ItemsSource = ItemsSource;
-                    }
-                    break;
                 case nameof(SelectedItems):
                     if (!Equals(SelectedItems, value))
                     {

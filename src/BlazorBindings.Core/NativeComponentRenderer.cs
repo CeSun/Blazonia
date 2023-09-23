@@ -59,7 +59,7 @@ public abstract class NativeComponentRenderer : Renderer
                     Name = $"RootAdapter attached to {parent.GetType().FullName}",
                 };
 
-                _componentIdToAdapter[componentId] = rootAdapter;
+                RegisterComponentAdapter(rootAdapter, componentId);
 
                 var parameterView = parameters?.Count > 0 ? ParameterView.FromDictionary(parameters) : ParameterView.Empty;
                 await RenderRootComponentAsync(componentId, parameterView);

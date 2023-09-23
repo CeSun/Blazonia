@@ -1,43 +1,43 @@
 ﻿@* @page "/main" *@
-@* @inherits BlazorBindings.AvaloniaBindings.Elements.Window *@
 
 @using BlazorBindings.AvaloniaBindings.Elements
 @using System.Collections.ObjectModel;
+@using Microsoft.AspNetCore.Components.Rendering;
 @using global::Avalonia.Layout
 @using global::Avalonia
 @using global::Avalonia.Media;
+@using global::Avalonia.Media.Imaging;
 
-<StackPanel
-    HorizontalAlignment="HorizontalAlignment.Center"
-    VerticalAlignment="VerticalAlignment.Center"
-    >
-    <TextBlock Text="Hello World"></TextBlock>
-    @if (buttonVisible == true)
-    {
-        <Button OnClick="OnCounterClicked">Click me</Button>
-    }
-    <TextBlock Text="@ButtonText"></TextBlock>
+<Window Topmost="true" Width="600" Height="500">
+    <StackPanel HorizontalAlignment="HorizontalAlignment.Center"
+                VerticalAlignment="VerticalAlignment.Center">
+        <TextBlock Text="Hello World"></TextBlock>
+        @if (buttonVisible == true)
+        {
+            <Button OnClick="OnCounterClicked">Click me</Button>
+        }
+        <TextBlock Text="@ButtonText"></TextBlock>
 
-    <CheckBox @bind-IsChecked="buttonVisible">Button visible</CheckBox>
+        <CheckBox @bind-IsChecked="buttonVisible">Button visible</CheckBox>
 
-    <ListBox ItemsSource="Items">
-        <ItemTemplate>
-            <StackPanel>
-                <TextBlock Text="Content:"></TextBlock>
-                <TextBlock Text="@context"></TextBlock>
-            </StackPanel>
-        </ItemTemplate>
-        <ItemsPanel>
-            <StackPanel Orientation="Orientation.Horizontal"></StackPanel>
-        </ItemsPanel>
-    </ListBox>
-</StackPanel>
+        <ListBox ItemsSource="Items">
+            <ItemTemplate>
+                <StackPanel>
+                    <TextBlock Text="Content:"></TextBlock>
+                    <TextBlock Text="@context"></TextBlock>
+                </StackPanel>
+            </ItemTemplate>
+            <ItemsPanel>
+                <StackPanel Orientation="Orientation.Horizontal"></StackPanel>
+            </ItemsPanel>
+        </ListBox>
+    </StackPanel>
+</Window>
 
 @code {
-
     int count = 0;
-    bool? buttonVisible {get; set; } = true;
-    ObservableCollection<string> Items { get; set; } = new ObservableCollection<string>(new []
+    bool? buttonVisible { get; set; } = true;
+    ObservableCollection<string> Items { get; set; } = new ObservableCollection<string>(new[]
     {
         "a",
         "b",

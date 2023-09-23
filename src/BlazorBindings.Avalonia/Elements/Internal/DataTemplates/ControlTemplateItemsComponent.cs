@@ -17,25 +17,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 internal class ControlTemplateItemsComponent<TControl, TTemplate> : NativeControlComponentBase, IContainerElementHandler, INonPhysicalChild
     where TControl : TemplatedControl
 {
-    protected override RenderFragment GetChildContent()
-    {
-        return builder =>
-        {
-            foreach (var itemRoot in _dataControlRoots)
-            {
-                builder.OpenComponent<InitializedContentView>(1);
-
-                builder.AddAttribute(2, nameof(InitializedContentView.NativeControl), itemRoot);
-                builder.AddAttribute(3, "ChildContent", (RenderFragment)(builder =>
-                {
-                    Template.Invoke(builder);
-                }));
-                builder.AddComponentReferenceCapture(4, reference => { });
-                builder.CloseComponent();
-            }
-        };
-    }
-
     protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
     {
         base.RenderAdditionalElementContent(builder, ref sequence);
@@ -63,31 +44,14 @@ internal class ControlTemplateItemsComponent<TControl, TTemplate> : NativeContro
     }
 
     [Parameter] public Action<TControl, TTemplate> SetControlTemplateAction { get; set; }
-    //[Parameter] public Action<T, Avalonia.Controls.Templates.ITemplate<object, Avalonia.Controls.Control>> SetDataTemplateAction { get; set; }
-    [Parameter] public Action<TControl, Avalonia.Controls.Templates.IDataTemplate> SetDataTemplateAction { get; set; }
+    
     [Parameter] public RenderFragment Template { get; set; }
 
-    private readonly List<AC.Control> _dataControlRoots = new();
     private TControl _parent;
-
-    private Avalonia.Controls.Control AddDataTemplateRoot()
-    {
-        var templateRoot = new AvaloniaContentView();
-        _dataControlRoots.Add(templateRoot);
-        StateHasChanged();
-
-        return templateRoot;
-    }
 
     void INonPhysicalChild.SetParent(object parentElement)
     {
         _parent = parentElement as TControl;
-
-        if (SetDataTemplateAction != null)
-        {
-            var dataTemplate = new FuncDataTemplate(typeof(TControl), (item, namescope) => AddDataTemplateRoot());
-            SetDataTemplateAction(_parent, dataTemplate);
-        }
     }
 
 
