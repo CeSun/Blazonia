@@ -4,7 +4,6 @@
 using Microsoft.Extensions.Logging;
 using AvaloniaAppBuilder = global::Avalonia.AppBuilder;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorBindings.AvaloniaBindings;
 

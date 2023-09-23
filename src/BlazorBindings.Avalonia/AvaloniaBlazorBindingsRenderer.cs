@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Avalonia.Controls.ApplicationLifetimes;
 using BlazorBindings.AvaloniaBindings.Elements.Handlers;
 using Microsoft.Extensions.Logging;
 using System.Runtime.ExceptionServices;

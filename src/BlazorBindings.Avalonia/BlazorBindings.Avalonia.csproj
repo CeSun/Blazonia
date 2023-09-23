@@ -33,7 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Elements\Compatibility\" />
 	  <Folder Include="Elements\Documents\" />
 	  <Folder Include="Elements\Layout\" />
 	  <Folder Include="Elements\Media\" />

@@ -1,5 +1,4 @@
 ﻿using BlazorBindings.AvaloniaBindings.Extensions;
-using BlazorBindings.Core;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Internal;
 
@@ -40,7 +39,7 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
 
     public void HandleText(int index, string text)
     {
-        if (_parent is global::Avalonia.Controls.ContentControl handle)
+        if (_parent is AvaloniaContentView handle)
         {
             handle.Content = (_textSpanContainer ??= new()).GetUpdatedText(index, text);
         }

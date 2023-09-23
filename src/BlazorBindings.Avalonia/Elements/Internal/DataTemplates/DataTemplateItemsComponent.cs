@@ -26,13 +26,13 @@ internal class DataTemplateItemsComponent<TControl, TItem> : NativeControlCompon
         }
     };
 
-    //[Parameter] public Action<TControl, Avalonia.Controls.Templates.ITemplate<object, Avalonia.Controls.Control>> SetDataTemplateAction { get; set; }
-    [Parameter] public Action<TControl, Avalonia.Controls.Templates.IDataTemplate> SetDataTemplateAction { get; set; }
+    [Parameter] public Action<TControl, AvaloniaDataTemplate> SetDataTemplateAction { get; set; }
+
     [Parameter] public RenderFragment<TItem> Template { get; set; }
 
     private readonly List<AvaloniaContentView> _itemRoots = new();
 
-    public Avalonia.Controls.ContentControl AddTemplateRoot()
+    public AvaloniaContentView AddTemplateRoot()
     {
         var templateRoot = new AvaloniaContentView();
         _itemRoots.Add(templateRoot);

@@ -3,7 +3,6 @@
 
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
-using Avalonia.Markup.Xaml.Templates;
 using BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 using BlazorBindings.AvaloniaBindings.Elements.Internal;
 using Microsoft.AspNetCore.Components.Rendering;

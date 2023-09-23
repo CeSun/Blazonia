@@ -1,5 +1,4 @@
-﻿using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia.Controls.ApplicationLifetimes;
 using BlazorBindings.AvaloniaBindings.Extensions;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Handlers;
@@ -17,21 +16,21 @@ internal class ApplicationHandler : IContainerElementHandler
     {
         if (_application.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime classic)
         {
-            if (child is global::Avalonia.Controls.Window w)
+            if (child is AC.Window w)
             {
                 classic.MainWindow = w;
             }
             else
             {
-                classic.MainWindow = new global::Avalonia.Controls.Window()
+                classic.MainWindow = new AC.Window()
                 {
-                    Content = child.Cast<global::Avalonia.Controls.Control>()
+                    Content = child.Cast<AC.Control>()
                 };
             }
         }
         else if (_application.ApplicationLifetime is ISingleViewApplicationLifetime single)
         {
-            single.MainView = child.Cast<global::Avalonia.Controls.Control>();
+            single.MainView = child.Cast<AC.Control>();
         }
     }
 

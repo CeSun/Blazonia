@@ -1,13 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-
-using Avalonia.Data;
-using Avalonia.Data.Converters;
-using Avalonia.Threading;
-using System.ComponentModel;
-using System.Globalization;
-
 namespace BlazorBindings.AvaloniaBindings.Elements;
 
 public static partial class AttributeHelper
