@@ -7,6 +7,7 @@
 
 using ACP = Avalonia.Controls.Primitives;
 using BlazorBindings.AvaloniaBindings.Elements;
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -29,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// <summary>
         /// Gets or sets the data template used to display the header content of the control.
         /// </summary>
-        [Parameter] public AC.Templates.IDataTemplate HeaderTemplate { get; set; }
+        [Parameter] public RenderFragment HeaderTemplate { get; set; }
 
         public new ACP.HeaderedSelectingItemsControl NativeControl => (ACP.HeaderedSelectingItemsControl)((BindableObject)this).NativeControl;
 
@@ -47,17 +48,20 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     }
                     break;
                 case nameof(HeaderTemplate):
-                    if (!Equals(HeaderTemplate, value))
-                    {
-                        HeaderTemplate = (AC.Templates.IDataTemplate)value;
-                        NativeControl.HeaderTemplate = HeaderTemplate;
-                    }
+                    HeaderTemplate = (RenderFragment)value;
                     break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<ACP.HeaderedSelectingItemsControl>(builder, sequence++, HeaderTemplate,
+                (nativeControl, nativeTemplate) => nativeControl.HeaderTemplate = nativeTemplate);
         }
 
         static partial void RegisterAdditionalHandlers();

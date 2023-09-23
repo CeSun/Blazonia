@@ -5,7 +5,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -30,17 +30,17 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public object OffContent { get; set; }
         /// <summary>
-        /// Gets or Sets the <see cref="T:Avalonia.Controls.Templates.IDataTemplate" /> used to display the <see cref="P:Avalonia.Controls.ToggleSwitch.OffContent" />.
-        /// </summary>
-        [Parameter] public AC.Templates.IDataTemplate OffContentTemplate { get; set; }
-        /// <summary>
         /// Gets or Sets the Content that is displayed when in the On State.
         /// </summary>
         [Parameter] public object OnContent { get; set; }
         /// <summary>
+        /// Gets or Sets the <see cref="T:Avalonia.Controls.Templates.IDataTemplate" /> used to display the <see cref="P:Avalonia.Controls.ToggleSwitch.OffContent" />.
+        /// </summary>
+        [Parameter] public RenderFragment OffContentTemplate { get; set; }
+        /// <summary>
         /// Gets or Sets the <see cref="T:Avalonia.Controls.Templates.IDataTemplate" /> used to display the <see cref="P:Avalonia.Controls.ToggleSwitch.OnContent" />.
         /// </summary>
-        [Parameter] public AC.Templates.IDataTemplate OnContentTemplate { get; set; }
+        [Parameter] public RenderFragment OnContentTemplate { get; set; }
 
         public new AC.ToggleSwitch NativeControl => (AC.ToggleSwitch)((BindableObject)this).NativeControl;
 
@@ -64,13 +64,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.OffContent = OffContent;
                     }
                     break;
-                case nameof(OffContentTemplate):
-                    if (!Equals(OffContentTemplate, value))
-                    {
-                        OffContentTemplate = (AC.Templates.IDataTemplate)value;
-                        NativeControl.OffContentTemplate = OffContentTemplate;
-                    }
-                    break;
                 case nameof(OnContent):
                     if (!Equals(OnContent, value))
                     {
@@ -78,18 +71,26 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.OnContent = OnContent;
                     }
                     break;
+                case nameof(OffContentTemplate):
+                    OffContentTemplate = (RenderFragment)value;
+                    break;
                 case nameof(OnContentTemplate):
-                    if (!Equals(OnContentTemplate, value))
-                    {
-                        OnContentTemplate = (AC.Templates.IDataTemplate)value;
-                        NativeControl.OnContentTemplate = OnContentTemplate;
-                    }
+                    OnContentTemplate = (RenderFragment)value;
                     break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ToggleSwitch>(builder, sequence++, OffContentTemplate,
+                (nativeControl, nativeTemplate) => nativeControl.OffContentTemplate = nativeTemplate);
+            RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ToggleSwitch>(builder, sequence++, OnContentTemplate,
+                (nativeControl, nativeTemplate) => nativeControl.OnContentTemplate = nativeTemplate);
         }
 
         static partial void RegisterAdditionalHandlers();

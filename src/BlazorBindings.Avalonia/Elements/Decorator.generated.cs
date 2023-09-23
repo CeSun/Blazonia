@@ -5,7 +5,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -22,13 +22,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
 
         /// <summary>
-        /// Gets or sets the decorated control.
-        /// </summary>
-        [Parameter] public AC.Control Child { get; set; }
-        /// <summary>
         /// Gets or sets the padding to place around the <see cref="P:Avalonia.Controls.Decorator.Child" /> control.
         /// </summary>
         [Parameter] public global::Avalonia.Thickness? Padding { get; set; }
+        /// <summary>
+        /// Gets or sets the decorated control.
+        /// </summary>
+        [Parameter] public RenderFragment ChildContent { get; set; }
 
         public new AC.Decorator NativeControl => (AC.Decorator)((BindableObject)this).NativeControl;
 
@@ -38,13 +38,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
-                case nameof(Child):
-                    if (!Equals(Child, value))
-                    {
-                        Child = (AC.Control)value;
-                        NativeControl.Child = Child;
-                    }
-                    break;
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
@@ -52,11 +45,21 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.Padding = Padding ?? (global::Avalonia.Thickness)AC.Decorator.PaddingProperty.GetDefaultValue(AC.Decorator.PaddingProperty.OwnerType);
                     }
                     break;
+                case nameof(ChildContent):
+                    ChildContent = (RenderFragment)value;
+                    break;
 
                 default:
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddContentProperty<AC.Decorator>(builder, sequence++, ChildContent,
+                (nativeControl, data) => nativeControl.Child = (AC.Control)data);
         }
 
         static partial void RegisterAdditionalHandlers();

@@ -30,13 +30,21 @@ using Avalonia.Controls.Primitives;
     })]
 [assembly: GenerateComponent(typeof(Control))]
 [assembly: GenerateComponent(typeof(DatePicker))]
-[assembly: GenerateComponent(typeof(Decorator))]
+[assembly: GenerateComponent(typeof(Decorator),
+    ContentProperties = new[]
+    {
+        nameof(Decorator.Child)
+    })]
 
 [assembly: GenerateComponent(typeof(GradientBrush))]
 [assembly: GenerateComponent(typeof(GradientStop))]
 [assembly: GenerateComponent(typeof(Grid))]
 
-[assembly: GenerateComponent(typeof(HeaderedSelectingItemsControl))]
+[assembly: GenerateComponent(typeof(HeaderedSelectingItemsControl),
+    ContentProperties = new[]
+    {
+        nameof(HeaderedSelectingItemsControl.HeaderTemplate)
+    })]
 
 [assembly: GenerateComponent(typeof(Inline))]
 [assembly: GenerateComponent(typeof(InlineUIContainer))]
@@ -49,7 +57,7 @@ using Avalonia.Controls.Primitives;
         nameof(ItemsControl.ItemTemplate),
         nameof(ItemsControl.ItemsPanel),
     },
-    Exclude =new string[]
+    Exclude = new string[]
     {
         //nameof(ItemsControl.ItemsPanel),
         nameof(ItemsControl.ItemsSource),
@@ -69,7 +77,7 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(Label))]
 [assembly: GenerateComponent(typeof(LinearGradientBrush))]
 [assembly: GenerateComponent(typeof(ListBox),
-    Exclude = new string[] 
+    Exclude = new string[]
     { 
         //nameof(ListBox.ItemTemplate) 
     },
@@ -79,7 +87,7 @@ using Avalonia.Controls.Primitives;
         nameof(ListBox.SelectedItems),
         nameof(ListBox.Selection)
     },
-    ContentProperties =new string[]
+    ContentProperties = new string[]
     {
         //nameof(ListBox.ItemTemplate),
         //nameof(ListBox.ItemsPanel),
@@ -112,7 +120,7 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(SelectingItemsControl),
     Include = new string[]
     {
-        
+
     }
 )]
 
@@ -128,7 +136,7 @@ using Avalonia.Controls.Primitives;
     })]
 
 [assembly: GenerateComponent(typeof(TemplatedControl),
-    ContentProperties =new string[]
+    ContentProperties = new string[]
     {
         nameof(TemplatedControl.Template)
     })]
@@ -136,7 +144,12 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(TextBlock))]
 [assembly: GenerateComponent(typeof(TextBox))]
 [assembly: GenerateComponent(typeof(ToggleButton))]
-[assembly: GenerateComponent(typeof(ToggleSwitch))]
+[assembly: GenerateComponent(typeof(ToggleSwitch),
+    ContentProperties = new[]
+    {
+        nameof(ToggleSwitch.OnContentTemplate),
+        nameof(ToggleSwitch.OffContentTemplate),
+    })]
 [assembly: GenerateComponent(typeof(TimePicker))]
 [assembly: GenerateComponent(typeof(VirtualizingLayout))]
 
