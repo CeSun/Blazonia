@@ -1,17 +1,16 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.AvaloniaBindings.Elements;
 
 public abstract class BindableObject : NativeControlComponentBase, IElementHandler
 {
-    //private EventCallback _attached { get; set; }
-    private Action<object> _attached { get; set; }
+    //public Action<object> Attached { get; set; }
+
+    internal Dictionary<string, object> _attachedProperties = new Dictionary<string, object>();
 
     private AvaloniaBindableObject _nativeControl;
 
@@ -22,6 +21,11 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
         foreach (var parameterValue in parameters)
         {
             HandleParameter(parameterValue.Name, parameterValue.Value);
+        }
+
+        foreach (var parameterValue in _attachedProperties)
+        {
+            HandleParameter(parameterValue.Key, parameterValue.Value);
         }
 
         await base.SetParametersAsync(ParameterView.Empty);
@@ -45,8 +49,16 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
     {
         if (name == "Attached")
         {
+            var last = _attachedProperties;
+            _attachedProperties = new Dictionary<string, object>();
             ((dynamic)value).Invoke((dynamic)this);
-            
+
+            var toReset = last?.Keys.Except(_attachedProperties.Keys) ?? Array.Empty<string>();
+            foreach (var reset in toReset)
+            {
+                HandleParameter(reset, AvaloniaProperty.UnsetValue);
+            }
+
             return;
         }
 
