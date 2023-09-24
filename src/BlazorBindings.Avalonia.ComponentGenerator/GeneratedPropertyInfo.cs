@@ -52,8 +52,14 @@ public partial class GeneratedPropertyInfo
 
     private GeneratedPropertyInfo(GeneratedTypeInfo typeInfo, IPropertySymbol propertyInfo, GeneratedPropertyKind kind)
     {
+        
         _propertyInfo = propertyInfo;
         Kind = kind;
+        if (typeInfo.TypeName.StartsWith("TabControl"))
+        {
+
+        }
+
 
         ContainingType = typeInfo;
         Compilation = typeInfo.Compilation;

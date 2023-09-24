@@ -48,7 +48,7 @@ public partial class GeneratedPropertyInfo
         var type = (INamedTypeSymbol)_propertyInfo.Type;
         var parameterName = "nativeControl";//$"{type.Name[..1].ToLowerInvariant()}{type.Name[1..]}";
 
-        if(parameterName == "PreviewContent")
+        if(AvaloniaContainingTypeName.Contains("ItemsControl"))
         {
 
         }

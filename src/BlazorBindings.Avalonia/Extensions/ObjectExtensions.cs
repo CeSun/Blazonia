@@ -1,6 +1,6 @@
 ﻿namespace BlazorBindings.AvaloniaBindings.Extensions;
 
-internal static class ObjectExtensions
+public static class ObjectExtensions
 {
     public static T Cast<T>(this object obj)
     {

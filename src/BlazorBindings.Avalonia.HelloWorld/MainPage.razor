@@ -1,14 +1,24 @@
 ﻿@* @page "/main" *@
+@* @inherits NativeControlComponentBase *@
 
 @namespace BlazorBindings.Avalonia.HelloWorld
 
 @using BlazorBindings.AvaloniaBindings.Elements
-@using System.Collections.ObjectModel;
+@using System.Collections.ObjectModel
 @using BlazorBindings.AvaloniaBindings.Elements.Shapes
+@using BlazorBindings.Core;
 @using global::Avalonia.Layout
 @using global::Avalonia
-@using global::Avalonia.Media;
+@using global::Avalonia.Media
 @using global::Avalonia.Media.Imaging;
+@using BlazorBindings.AvaloniaBindings.Extensions
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.CompilerServices
+@using Microsoft.AspNetCore.Components.Infrastructure
+@using Microsoft.AspNetCore.Components.Rendering
+@using Microsoft.AspNetCore.Components.RenderTree
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Sections
 
 <Window Title="Blazor Bindings for Avalonia" Topmost="true" Width="600" Height="500">
     <ScrollViewer>
@@ -68,13 +78,13 @@
             </StackPanel>
             <Slider @bind-Value="slider"></Slider>
 
-            <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Red" ToolTip_TipText="@("test tool tip text")"
+            <Ellipse Attached="@((x) => {} )" Width="slider" Height="slider/2" Fill="Brushes.Red"
                      ToolTip_Placement="@(global::Avalonia.Controls.PlacementMode.BottomEdgeAlignedRight)">
-                <ToolTip_Tip>
+                @* <ToolTip_Tip>
                     
                     <Button>A button in a tool tip</Button>
                     
-                </ToolTip_Tip>
+                </ToolTip_Tip> *@
             </Ellipse>
 
             <Calendar></Calendar>

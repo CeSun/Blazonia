@@ -24,6 +24,9 @@ public abstract class NativeControlComponentBase : IComponent
         };
     }
 
+    protected virtual bool ShouldRender()
+        => true;
+
     /// <summary>
     /// Method invoked when the component is ready to start, having received its
     /// initial parameters from its parent in the render tree.
@@ -179,6 +182,11 @@ public abstract class NativeControlComponentBase : IComponent
     {
         if (_hasPendingQueuedRender)
             return;
+
+        if (!ShouldRender())
+        {
+            return;
+        }
 
         try
         {

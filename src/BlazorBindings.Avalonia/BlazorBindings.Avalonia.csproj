@@ -36,7 +36,6 @@
 	  <Folder Include="Elements\Documents\" />
 	  <Folder Include="Elements\Layout\" />
 	  <Folder Include="Elements\Media\" />
-	  <Folder Include="Elements\Shapes\" />
 	</ItemGroup>
 	
 	
