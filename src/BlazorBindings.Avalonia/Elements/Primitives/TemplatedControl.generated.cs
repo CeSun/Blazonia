@@ -181,7 +181,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
-            RenderTreeBuilderHelper.AddControlTemplateProperty<ACP.TemplatedControl, AC.Templates.IControlTemplate>(builder, sequence++, Template,
+            RenderTreeBuilderHelper.AddControlTemplateProperty<ACP.TemplatedControl, Avalonia.Controls.Templates.IControlTemplate>(builder, sequence++, Template,
                 (nativeControl, nativeTemplate) => nativeControl.Template = nativeTemplate);
         }
 

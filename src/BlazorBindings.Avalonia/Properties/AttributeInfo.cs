@@ -18,16 +18,28 @@ using Avalonia.Controls.Primitives;
 
 [assembly: GenerateComponent(typeof(Animatable))]
 [assembly: GenerateComponent(typeof(AttachedLayout))]
+[assembly: GenerateComponent(typeof(AutoCompleteBox),
+    ContentProperties = new[]
+    {
+        nameof(AutoCompleteBox.ItemTemplate)
+    })]
 [assembly: GenerateComponent(typeof(Border))]
 [assembly: GenerateComponent(typeof(Brush))]
 [assembly: GenerateComponent(typeof(Button))]
+[assembly: GenerateComponent(typeof(ButtonSpinner))]
+[assembly: GenerateComponent(typeof(Calendar))]
+[assembly: GenerateComponent(typeof(CalendarDatePicker))]
+[assembly: GenerateComponent(typeof(Canvas))]
+[assembly: GenerateComponent(typeof(Carousel))]
 [assembly: GenerateComponent(typeof(CheckBox))]
+[assembly: GenerateComponent(typeof(ComboBox))]
 [assembly: GenerateComponent(typeof(ContentControl),
     ContentProperties = new[]
     {
         nameof(ContentControl.Content),
         nameof(ContentControl.ContentTemplate)
     })]
+[assembly: GenerateComponent(typeof(ContextMenu))]
 [assembly: GenerateComponent(typeof(Control))]
 [assembly: GenerateComponent(typeof(DatePicker))]
 [assembly: GenerateComponent(typeof(Decorator),
@@ -35,11 +47,40 @@ using Avalonia.Controls.Primitives;
     {
         nameof(Decorator.Child)
     })]
-
+[assembly: GenerateComponent(typeof(DataGrid),
+    ContentProperties = new[]
+    {
+        nameof(DataGrid.DropLocationIndicatorTemplate),
+        nameof(DataGrid.RowDetailsTemplate)
+    },
+    GenericProperties = new[]
+    {
+        nameof(DataGrid.ItemsSource),
+        nameof(DataGrid.RowDetailsTemplate)
+    })]
+[assembly: GenerateComponent(typeof(DatePicker))]
+[assembly: GenerateComponent(typeof(DockPanel))]
+[assembly: GenerateComponent(typeof(Expander))]
+[assembly: GenerateComponent(typeof(Flyout))]
+[assembly: GenerateComponent(typeof(FlyoutBase))]
 [assembly: GenerateComponent(typeof(GradientBrush))]
 [assembly: GenerateComponent(typeof(GradientStop))]
 [assembly: GenerateComponent(typeof(Grid))]
-
+[assembly: GenerateComponent(typeof(GridSplitter),
+    ContentProperties = new[]
+    {
+        nameof(GridSplitter.PreviewContent)
+    })]
+[assembly: GenerateComponent(typeof(HeaderedContentControl),
+    ContentProperties = new[]
+    {
+        nameof(HeaderedContentControl.HeaderTemplate)
+    })]
+[assembly: GenerateComponent(typeof(HeaderedItemsControl),
+    ContentProperties = new[]
+    {
+        nameof(HeaderedItemsControl.HeaderTemplate)
+    })]
 [assembly: GenerateComponent(typeof(HeaderedSelectingItemsControl),
     ContentProperties = new[]
     {
@@ -73,8 +114,14 @@ using Avalonia.Controls.Primitives;
         //nameof(ListView.GroupShortNameBinding)
         }
     )]
-[assembly: GenerateComponent(typeof(Layoutable))]
+[assembly: GenerateComponent(typeof(ItemsRepeater),
+    ContentProperties = new[]
+    {
+        nameof(ItemsRepeater.ItemTemplate)
+    })]
 [assembly: GenerateComponent(typeof(Label))]
+[assembly: GenerateComponent(typeof(Layoutable))]
+[assembly: GenerateComponent(typeof(LayoutTransformControl))]
 [assembly: GenerateComponent(typeof(LinearGradientBrush))]
 [assembly: GenerateComponent(typeof(ListBox),
     Exclude = new string[]
@@ -105,18 +152,27 @@ using Avalonia.Controls.Primitives;
         //$"{nameof(ListView.HeaderTemplate)}:Header",
         //$"{nameof(ListView.FooterTemplate)}:Footer" 
     })]
+[assembly: GenerateComponent(typeof(MaskedTextBox))]
+[assembly: GenerateComponent(typeof(Menu))]
+[assembly: GenerateComponent(typeof(MenuBase))]
 [assembly: GenerateComponent(typeof(MenuItem))]
+[assembly: GenerateComponent(typeof(NativeMenu))]
+[assembly: GenerateComponent(typeof(NumericUpDown))]
 [assembly: GenerateComponent(typeof(Panel),
     ContentProperties = new string[]
     {
         nameof(Panel.Children)
     }
     )]
+[assembly: GenerateComponent(typeof(PopupFlyoutBase))]
 [assembly: GenerateComponent(typeof(ProgressBar))]
+[assembly: GenerateComponent(typeof(RelativePanel))]
 [assembly: GenerateComponent(typeof(RadialGradientBrush))]
 [assembly: GenerateComponent(typeof(RadioButton))]
 [assembly: GenerateComponent(typeof(RangeBase))]
+[assembly: GenerateComponent(typeof(ScrollBar))]
 [assembly: GenerateComponent(typeof(ScrollViewer))]
+[assembly: GenerateComponent(typeof(Separator))]
 [assembly: GenerateComponent(typeof(SelectingItemsControl),
     Include = new string[]
     {
@@ -125,8 +181,15 @@ using Avalonia.Controls.Primitives;
 )]
 
 [assembly: GenerateComponent(typeof(Slider))]
+[assembly: GenerateComponent(typeof(Spinner))]
+[assembly: GenerateComponent(typeof(SplitView),
+    ContentProperties = new[]
+    {
+        nameof(SplitView.PaneTemplate)
+    })]
 [assembly: GenerateComponent(typeof(SolidColorBrush))]
 [assembly: GenerateComponent(typeof(Span))]
+[assembly: GenerateComponent(typeof(SplitButton))]
 [assembly: GenerateComponent(typeof(StackPanel))]
 [assembly: GenerateComponent(typeof(StackLayout))]
 [assembly: GenerateComponent(typeof(StyledElement),
@@ -134,15 +197,22 @@ using Avalonia.Controls.Primitives;
     {
         nameof(StyledElement.Initialized)
     })]
-
+[assembly: GenerateComponent(typeof(TabControl),
+    ContentProperties = new[]
+    {
+        nameof(TabControl.ContentTemplate)
+    })]
+[assembly: GenerateComponent(typeof(TabStrip))]
 [assembly: GenerateComponent(typeof(TemplatedControl),
     ContentProperties = new string[]
     {
         nameof(TemplatedControl.Template)
     })]
+[assembly: GenerateComponent(typeof(TextBox))]
 [assembly: GenerateComponent(typeof(TextElement))]
 [assembly: GenerateComponent(typeof(TextBlock))]
-[assembly: GenerateComponent(typeof(TextBox))]
+[assembly: GenerateComponent(typeof(Thumb))]
+[assembly: GenerateComponent(typeof(TrayIcon))]
 [assembly: GenerateComponent(typeof(ToggleButton))]
 [assembly: GenerateComponent(typeof(ToggleSwitch),
     ContentProperties = new[]
@@ -150,7 +220,15 @@ using Avalonia.Controls.Primitives;
         nameof(ToggleSwitch.OnContentTemplate),
         nameof(ToggleSwitch.OffContentTemplate),
     })]
+[assembly: GenerateComponent(typeof(ToggleSplitButton))]
+[assembly: GenerateComponent(typeof(TopLevel))]
 [assembly: GenerateComponent(typeof(TimePicker))]
+[assembly: GenerateComponent(typeof(ToolTip))]
+[assembly: GenerateComponent(typeof(TreeView))]
+[assembly: GenerateComponent(typeof(TreeViewItem))]
+[assembly: GenerateComponent(typeof(TransitioningContentControl))]
+[assembly: GenerateComponent(typeof(UserControl))]
+[assembly: GenerateComponent(typeof(Viewbox))]
 [assembly: GenerateComponent(typeof(VirtualizingLayout))]
 
 [assembly: GenerateComponent(typeof(Visual),
@@ -171,7 +249,7 @@ using Avalonia.Controls.Primitives;
 
 [assembly: GenerateComponent(typeof(Window))]
 [assembly: GenerateComponent(typeof(WindowBase))]
-[assembly: GenerateComponent(typeof(TopLevel))]
+[assembly: GenerateComponent(typeof(WrapPanel))]
 
 // Shapes
 [assembly: GenerateComponent(typeof(Ellipse))]

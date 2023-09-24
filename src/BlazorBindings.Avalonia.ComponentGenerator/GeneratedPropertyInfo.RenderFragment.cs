@@ -27,7 +27,7 @@ public partial class GeneratedPropertyInfo
         _propertyInfo.Type.GetFullName().StartsWith("Avalonia.Controls.ITemplate<Avalonia.Controls.Panel>");
 
     public bool IsControlTemplate => 
-        _propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.ControlTemplate" ||
+        //_propertyInfo.Type.GetFullName() == "Avalonia.Markup.Xaml.ControlTemplate" ||
         _propertyInfo.Type.GetFullName() == "Avalonia.Controls.Templates.IControlTemplate" ||
         _propertyInfo.Type.GetFullName().StartsWith("Avalonia.Controls.ITemplate<");
     public bool IsDataTemplate => 
@@ -48,7 +48,7 @@ public partial class GeneratedPropertyInfo
         var type = (INamedTypeSymbol)_propertyInfo.Type;
         var parameterName = "nativeControl";//$"{type.Name[..1].ToLowerInvariant()}{type.Name[1..]}";
 
-        if(type.Name == "TemplatedControl")
+        if(parameterName == "PreviewContent")
         {
 
         }
@@ -61,7 +61,7 @@ public partial class GeneratedPropertyInfo
         if (IsControlTemplate)
         {
             // RenderTreeBuilderHelper.AddControlTemplateProperty<MC.TemplatedView>(builder, sequence++, ControlTemplate, (x, template) => x.ControlTemplate = template);
-            return $"\r\n            RenderTreeBuilderHelper.AddControlTemplateProperty<{AvaloniaContainingTypeName}, AC.Templates.IControlTemplate>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
+            return $"\r\n            RenderTreeBuilderHelper.AddControlTemplateProperty<{AvaloniaContainingTypeName}, {type.GetFullName()}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
         }
         else if (IsDataTemplate && !IsGeneric)
         {

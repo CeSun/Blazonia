@@ -76,7 +76,7 @@ public static class RenderTreeBuilderHelper
         int sequence,
         RenderFragment template,
         Action<T, AvaloniaDataTemplate> setDataTemplateAction)
-        where T : TemplatedControl
+        where T : AC.Control
     {
         if (template != null)
         {
