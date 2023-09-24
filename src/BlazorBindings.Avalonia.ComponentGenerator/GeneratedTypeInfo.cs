@@ -8,12 +8,12 @@ namespace BlazorBindings.AvaloniaBindings.ComponentGenerator;
 
 public class GeneratedTypeInfo
 {
-    public GeneratedTypeInfo(Compilation compilation, GenerateComponentSettings settings, string typeName, string baseTypeName, ITypeSymbol mauiType, IList<UsingStatement> usings)
+    public GeneratedTypeInfo(Compilation compilation, GenerateComponentSettings settings, string typeName, string baseTypeName, ITypeSymbol avaloniaType, IList<UsingStatement> usings)
     {
         TypeName = typeName;
         BaseTypeName = baseTypeName;
         IsGeneric = settings.IsGeneric;
-        MauiType = mauiType;
+        AvaloniaType = avaloniaType;
         Usings = usings;
         Compilation = compilation;
         Settings = settings;
@@ -24,7 +24,7 @@ public class GeneratedTypeInfo
     public bool IsGeneric { get; }
     public Compilation Compilation { get; }
     public GenerateComponentSettings Settings { get; }
-    public ITypeSymbol MauiType { get; }
+    public ITypeSymbol AvaloniaType { get; }
     public IList<UsingStatement> Usings { get; }
 
     public string GetTypeNameAndAddNamespace(string @namespace, string typeName)

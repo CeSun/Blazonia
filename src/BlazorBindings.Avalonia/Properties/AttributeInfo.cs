@@ -12,6 +12,7 @@ using Avalonia.Animation;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Controls.Primitives;
+using Avalonia.Markup.Xaml.Templates;
 
 [assembly: InternalsVisibleTo("BlazorBindings.UnitTests")]
 
@@ -40,7 +41,15 @@ using Avalonia.Controls.Primitives;
         nameof(ContentControl.ContentTemplate)
     })]
 [assembly: GenerateComponent(typeof(ContextMenu))]
-[assembly: GenerateComponent(typeof(Control))]
+[assembly: GenerateComponent(typeof(Control),
+    ContentProperties = new[]
+    {
+        nameof(Control.ContextMenu)
+    },
+    Aliases = new[]
+    {
+        $"{nameof(Control.ContextMenu)}:ContextMenuSlot",
+    })]
 [assembly: GenerateComponent(typeof(DatePicker))]
 [assembly: GenerateComponent(typeof(Decorator),
     ContentProperties = new[]
@@ -97,6 +106,7 @@ using Avalonia.Controls.Primitives;
     {
         nameof(ItemsControl.ItemTemplate),
         nameof(ItemsControl.ItemsPanel),
+        nameof(ItemsControl.Items),
     },
     Exclude = new string[]
     {
@@ -200,8 +210,14 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(TabControl),
     ContentProperties = new[]
     {
-        nameof(TabControl.ContentTemplate)
+        nameof(TabControl.ContentTemplate),
+        //nameof(TabControl.Items)
+    },
+    Include = new string[]
+    {
+        //nameof(TabControl.Items)
     })]
+[assembly: GenerateComponent(typeof(TabItem))]
 [assembly: GenerateComponent(typeof(TabStrip))]
 [assembly: GenerateComponent(typeof(TemplatedControl),
     ContentProperties = new string[]

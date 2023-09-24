@@ -5,7 +5,7 @@
 //     the code is regenerated.
 // </auto-generated>
 
-
+using Microsoft.AspNetCore.Components.Rendering;
 
 #pragma warning disable CA2252
 
@@ -26,10 +26,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public AC.Primitives.FlyoutBase ContextFlyout { get; set; }
         /// <summary>
-        /// Gets or sets a context menu to the control.
-        /// </summary>
-        [Parameter] public AC.ContextMenu ContextMenu { get; set; }
-        /// <summary>
         /// Gets or sets the control's focus adorner.
         /// </summary>
         [Parameter] public AC.ITemplate<AC.Control> FocusAdorner { get; set; }
@@ -37,6 +33,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets a user-defined object attached to the control.
         /// </summary>
         [Parameter] public object Tag { get; set; }
+        /// <summary>
+        /// Gets or sets a context menu to the control.
+        /// </summary>
+        [Parameter] public RenderFragment ContextMenuSlot { get; set; }
         [Parameter] public EventCallback<AC.ContextRequestedEventArgs> OnContextRequested { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnLoaded { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnUnloaded { get; set; }
@@ -57,13 +57,6 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.ContextFlyout = ContextFlyout;
                     }
                     break;
-                case nameof(ContextMenu):
-                    if (!Equals(ContextMenu, value))
-                    {
-                        ContextMenu = (AC.ContextMenu)value;
-                        NativeControl.ContextMenu = ContextMenu;
-                    }
-                    break;
                 case nameof(FocusAdorner):
                     if (!Equals(FocusAdorner, value))
                     {
@@ -77,6 +70,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         Tag = (object)value;
                         NativeControl.Tag = Tag;
                     }
+                    break;
+                case nameof(ContextMenuSlot):
+                    ContextMenuSlot = (RenderFragment)value;
                     break;
                 case nameof(OnContextRequested):
                     if (!Equals(OnContextRequested, value))
@@ -123,6 +119,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     base.HandleParameter(name, value);
                     break;
             }
+        }
+
+        protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
+        {
+            base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddContentProperty<AC.Control>(builder, sequence++, ContextMenuSlot,
+                (nativeControl, data) => nativeControl.ContextMenu = (AC.ContextMenu)data);
         }
 
         static partial void RegisterAdditionalHandlers();

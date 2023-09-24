@@ -4,6 +4,7 @@
 using BlazorBindings.Maui.Elements.DataTemplates;
 using BlazorBindings.Maui.Elements.Internal;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Collections;
 using MC = Microsoft.Maui.Controls;
 
 namespace BlazorBindings.Maui;
@@ -35,7 +36,7 @@ public static class RenderTreeBuilderHelper
         RenderTreeBuilder builder,
         int sequence,
         RenderFragment content,
-        Func<TControl, IList<TItem>> listPropertyAccessor)
+        Func<TControl, IList> listPropertyAccessor)
         where TItem : class
     {
         if (content != null)

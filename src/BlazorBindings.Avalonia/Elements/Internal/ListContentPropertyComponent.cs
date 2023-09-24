@@ -1,4 +1,5 @@
 ﻿using BlazorBindings.AvaloniaBindings.Extensions;
+using System.Collections;
 using System.Diagnostics;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Internal;
@@ -7,9 +8,9 @@ internal class ListContentPropertyComponent<TControl, TItem> : NativeControlComp
     where TItem : class
 {
     private TControl _parent;
-    private IList<TItem> _propertyItems;
+    private IList _propertyItems;
 
-    [Parameter] public Func<TControl, IList<TItem>> ListPropertyAccessor { get; set; }
+    [Parameter] public Func<TControl, IList> ListPropertyAccessor { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     protected override RenderFragment GetChildContent() => ChildContent;

@@ -18,7 +18,7 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
             HandleParameter(parameterValue.Name, parameterValue.Value);
         }
 
-        await base.SetParametersAsync(parameters);
+        await base.SetParametersAsync(ParameterView.Empty);
     }
 
     protected virtual void HandleParameter(string name, object value)

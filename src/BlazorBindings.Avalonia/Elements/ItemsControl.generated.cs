@@ -30,6 +30,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Styling.ControlTheme ItemContainerTheme { get; set; }
         /// <summary>
+        /// Gets the items to display.
+        /// </summary>
+        [Parameter] public RenderFragment ChildContent { get; set; }
+        /// <summary>
         /// Gets or sets the panel used to display the items.
         /// </summary>
         [Parameter] public RenderFragment ItemsPanel { get; set; }
@@ -62,6 +66,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         ItemContainerTheme = (global::Avalonia.Styling.ControlTheme)value;
                         NativeControl.ItemContainerTheme = ItemContainerTheme;
                     }
+                    break;
+                case nameof(ChildContent):
+                    ChildContent = (RenderFragment)value;
                     break;
                 case nameof(ItemsPanel):
                     ItemsPanel = (RenderFragment)value;
@@ -109,6 +116,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         protected override void RenderAdditionalElementContent(RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
+            RenderTreeBuilderHelper.AddListContentProperty<AC.ItemsControl, object>(builder, sequence++, ChildContent,
+                nativeControl => nativeControl.Items);
             RenderTreeBuilderHelper.AddControlTemplateProperty<AC.ItemsControl, AC.ITemplate<AC.Panel>>(builder, sequence++, ItemsPanel,
                 (nativeControl, nativeTemplate) => nativeControl.ItemsPanel = nativeTemplate);
             RenderTreeBuilderHelper.AddDataTemplateProperty<AC.ItemsControl, T>(builder, sequence++, ItemTemplate,

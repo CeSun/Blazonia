@@ -74,10 +74,16 @@ public partial class GeneratedPropertyInfo
             var itemTypeName = GenericTypeArgument is null ? "T" : GetTypeNameAndAddNamespace(GenericTypeArgument);
             return $"\r\n            RenderTreeBuilderHelper.AddDataTemplateProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                ({parameterName}, nativeTemplate) => {parameterName}.{_propertyInfo.Name} = nativeTemplate);";
         }
-        else if (/*!ForceContent &&*/ IsIList(type, out var itemType))
+        else if (/*!ForceContent &&*/ IsIListGeneric(type, out var itemType))
         {
             // RenderTreeBuilderHelper.AddListContentProperty<MC.Layout, IView>(builder, sequence++, ChildContent, x => x.Children);
             var itemTypeName = GetTypeNameAndAddNamespace(itemType);
+            return $"\r\n            RenderTreeBuilderHelper.AddListContentProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                {parameterName} => {parameterName}.{_propertyInfo.Name});";
+        }
+        else if (/*!ForceContent &&*/ IsIList(type))
+        {
+            // RenderTreeBuilderHelper.AddListContentProperty<MC.Layout, IView>(builder, sequence++, ChildContent, x => x.Children);
+            var itemTypeName = "object";
             return $"\r\n            RenderTreeBuilderHelper.AddListContentProperty<{AvaloniaContainingTypeName}, {itemTypeName}>(builder, sequence++, {ComponentPropertyName},\r\n                {parameterName} => {parameterName}.{_propertyInfo.Name});";
         }
         else
@@ -123,7 +129,7 @@ public partial class GeneratedPropertyInfo
         if (IsContent(type) && HasPublicSetter(prop))
             return true;
 
-        if (IsIList(type, out var itemType) && IsContent(itemType))
+        if (IsIListGeneric(type, out var itemType) && IsContent(itemType))
         {
             return true;
         }
@@ -140,9 +146,9 @@ public partial class GeneratedPropertyInfo
         });
     }
 
-    private static bool IsIList(ITypeSymbol type, out ITypeSymbol itemType)
+    private static bool IsIListGeneric(ITypeSymbol type, out ITypeSymbol itemType)
     {
-        var isList = TypeEqualsIList(type, out var outItemType) || type.AllInterfaces.Any(i => IsIList(i, out outItemType));
+        var isList = TypeEqualsIList(type, out var outItemType) || type.AllInterfaces.Any(i => IsIListGeneric(i, out outItemType));
         itemType = outItemType;
         return isList;
 
@@ -161,5 +167,36 @@ public partial class GeneratedPropertyInfo
                 return false;
             }
         }
+    }
+
+    private static bool IsIList(ITypeSymbol type)
+    {
+        var isList = TypeEqualsIList(type) || type.AllInterfaces.Any(i => IsIList(i));
+        return isList;
+
+        static bool TypeEqualsIList(ITypeSymbol type)
+        {
+            if ((type is INamedTypeSymbol namedType2 &&
+                !namedType2.IsGenericType &&
+                namedType2.AllInterfaces.Any(x => x.GetFullName() == "System.Collections.IList")))
+            {
+                var objectTypeSymbol = GetObjectTypeSymbol(type);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    private static ITypeSymbol GetObjectTypeSymbol(ITypeSymbol type)
+    {
+        while(type.BaseType is not null)
+        {
+            type = type.BaseType;
+        }
+
+        return type;
     }
 }

@@ -6,6 +6,7 @@ using Avalonia.Controls.Templates;
 using BlazorBindings.AvaloniaBindings.Elements.DataTemplates;
 using BlazorBindings.AvaloniaBindings.Elements.Internal;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Collections;
 
 namespace BlazorBindings.AvaloniaBindings;
 
@@ -36,7 +37,7 @@ public static class RenderTreeBuilderHelper
         RenderTreeBuilder builder,
         int sequence,
         RenderFragment content,
-        Func<TControl, IList<TItem>> listPropertyAccessor)
+        Func<TControl, IList> listPropertyAccessor)
         where TItem : class
     {
         if (content != null)
