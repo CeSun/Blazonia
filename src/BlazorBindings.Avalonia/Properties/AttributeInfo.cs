@@ -239,7 +239,12 @@ using Avalonia.Markup.Xaml.Templates;
 [assembly: GenerateComponent(typeof(ToggleSplitButton))]
 [assembly: GenerateComponent(typeof(TopLevel))]
 [assembly: GenerateComponent(typeof(TimePicker))]
-[assembly: GenerateComponent(typeof(ToolTip))]
+[assembly: GenerateComponent(typeof(ToolTip),
+    ContentProperties = new[]
+    {
+        nameof(ToolTip.TipProperty)
+    }
+    )]
 [assembly: GenerateComponent(typeof(TreeView))]
 [assembly: GenerateComponent(typeof(TreeViewItem))]
 [assembly: GenerateComponent(typeof(TransitioningContentControl))]

@@ -39,6 +39,11 @@ internal static class SymbolExtensions
         return GetMember(typeSymbol, propName, includeBaseTypes) as IPropertySymbol;
     }
 
+    public static IFieldSymbol GetField(this ITypeSymbol typeSymbol, string fieldName, bool includeBaseTypes = false)
+    {
+        return GetMember(typeSymbol, fieldName, includeBaseTypes) as IFieldSymbol;
+    }
+
     public static IEnumerable<INamedTypeSymbol> GetAllTypes(this INamespaceSymbol namespaceSymbol)
     {
         foreach (var nsOrType in namespaceSymbol.GetMembers())

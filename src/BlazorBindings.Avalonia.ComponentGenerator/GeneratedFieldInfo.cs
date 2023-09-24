@@ -4,58 +4,68 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 namespace BlazorBindings.AvaloniaBindings.ComponentGenerator;
 
-public partial class GeneratedPropertyInfo
+public enum GeneratedFieldKind
 {
-    private readonly IPropertySymbol _propertyInfo;
-    private Lazy<string> _componentPropertyNameLazy;
-    private Lazy<string> _componentTypeLazy;
+    AttachedProperty,
+    RenderFragment
+}
+public partial class GeneratedFieldInfo
+{
+    private readonly IFieldSymbol _fieldInfo;
+    private Lazy<string> _componentFieldNameLazy;
+    //private Lazy<string> _componentTypeLazy;
 
     public GeneratedTypeInfo ContainingType { get; set; }
-    public GeneratedPropertyKind Kind { get; }
-    public string AvaloniaPropertyName { get; set; }
+    public GeneratedFieldKind Kind { get; }
+    public string AvaloniaFieldName { get; set; }
     public string AvaloniaContainingTypeName { get; }
+    public ITypeSymbol HostType { get; }
     public string ComponentName { get; }
     public Compilation Compilation { get; }
     public bool IsGeneric { get; }
     public INamedTypeSymbol GenericTypeArgument { get; }
-    public string ComponentPropertyName
+    public string ComponentFieldName
     {
-        get => _componentPropertyNameLazy.Value;
-        set => _componentPropertyNameLazy = new Lazy<string>(value);
+        get => _componentFieldNameLazy.Value;
+        set => _componentFieldNameLazy = new Lazy<string>(value);
     }
 
-    public string ComponentType
-    {
-        get => _componentTypeLazy.Value;
-        set => _componentTypeLazy = new Lazy<string>(value);
-    }
+    public bool IsRenderFragmentProperty => Kind == GeneratedFieldKind.RenderFragment;
 
-    private GeneratedPropertyInfo(GeneratedTypeInfo typeInfo,
-                                  string avaloniaPropertyName,
+
+    //public string ComponentType
+    //{
+    //    get => _componentTypeLazy.Value;
+    //    set => _componentTypeLazy = new Lazy<string>(value);
+    //}
+
+    private GeneratedFieldInfo(GeneratedTypeInfo typeInfo,
+                                  string avaloniaFieldName,
                                   string avaloniaContainingTypeName,
-                                  string componentPropertyName,
+                                  string componentFieldName,
                                   string componentType,
-                                  GeneratedPropertyKind kind)
+                                  GeneratedFieldKind kind)
     {
         ContainingType = typeInfo;
         Compilation = typeInfo.Compilation;
         ComponentName = typeInfo.TypeName;
         Kind = kind;
-        AvaloniaPropertyName = avaloniaPropertyName;
+        AvaloniaFieldName = avaloniaFieldName;
         AvaloniaContainingTypeName = avaloniaContainingTypeName;
-        _componentTypeLazy = new Lazy<string>(componentType);
-        _componentPropertyNameLazy = new Lazy<string>(componentPropertyName);
+        //_componentTypeLazy = new Lazy<string>(componentType);
+        _componentFieldNameLazy = new Lazy<string>(componentFieldName);
     }
 
-    private GeneratedPropertyInfo(GeneratedTypeInfo typeInfo, IPropertySymbol propertyInfo, GeneratedPropertyKind kind)
+    private GeneratedFieldInfo(GeneratedTypeInfo typeInfo, IFieldSymbol fieldInfo, GeneratedFieldKind kind)
     {
         
-        _propertyInfo = propertyInfo;
+        _fieldInfo = fieldInfo;
         Kind = kind;
-        if (typeInfo.TypeName.StartsWith("TabControl"))
+        if (typeInfo.TypeName.StartsWith("ToolTip"))
         {
 
         }
@@ -64,62 +74,77 @@ public partial class GeneratedPropertyInfo
         ContainingType = typeInfo;
         Compilation = typeInfo.Compilation;
         ComponentName = typeInfo.TypeName;
-        AvaloniaPropertyName = ComponentWrapperGenerator.GetIdentifierName(propertyInfo.Name);
-        IsGeneric = typeInfo.Settings.GenericProperties.TryGetValue(propertyInfo.Name, out var genericTypeArgument);
+        AvaloniaFieldName = ComponentWrapperGenerator.GetIdentifierName(fieldInfo.Name);
+        IsGeneric = typeInfo.Settings.GenericProperties.TryGetValue(fieldInfo.Name, out var genericTypeArgument);
         GenericTypeArgument = genericTypeArgument;
-        AvaloniaContainingTypeName = GetTypeNameAndAddNamespace(propertyInfo.ContainingType);
+        AvaloniaContainingTypeName = GetTypeNameAndAddNamespace(fieldInfo.ContainingType);
 
-        ComponentName = ComponentWrapperGenerator.GetIdentifierName(_propertyInfo.ContainingType.Name);
-        _componentPropertyNameLazy = new Lazy<string>(GetComponentPropertyName);
-        _componentTypeLazy = new Lazy<string>(() => GetComponentPropertyTypeName(_propertyInfo, typeInfo, IsRenderFragmentProperty, makeNullable: true));
+        HostType = fieldInfo.ContainingType.GetMethod("Get" + fieldInfo.Name[..^8])?
+            .Parameters[0].Type;
 
-        string GetComponentPropertyName()
+        ComponentName = ComponentWrapperGenerator.GetIdentifierName(_fieldInfo.ContainingType.Name);
+        _componentFieldNameLazy = new Lazy<string>(GetComponentFieldName);
+        //_componentTypeLazy = new Lazy<string>(() => GetComponentFieldTypeName(_fieldInfo, typeInfo, makeNullable: true));
+
+        string GetComponentFieldName()
         {
-            if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaPropertyName, out var aliasName))
+            if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaFieldName, out var aliasName))
                 return aliasName;
 
-            if (IsRenderFragmentProperty && _propertyInfo.GetAttributes().Any(a
-                => a.AttributeClass.Name == "ContentAttribute"))
+            if (IsRenderFragmentProperty &&
+                ((INamedTypeSymbol)fieldInfo.Type).TypeArguments[0].Name == "Object")
             {
                 return "ChildContent";
             }
 
-            return ComponentWrapperGenerator.GetIdentifierName(_propertyInfo.Name);
+            return ComponentWrapperGenerator.GetIdentifierName(_fieldInfo.Name[..^8]);
         }
     }
 
-    public string GetPropertyDeclaration()
+    public string GetAttachedPropertyType()
+    {
+        //return ((INamedTypeSymbol)_fieldInfo.Type).TypeArguments[0].GetFullName();
+        //return GetComponentFieldTypeName(_fieldInfo, ContainingType, false);
+        return GetAttachedPropertyTypeName(_fieldInfo, ContainingType, IsRenderFragmentProperty, makeNullable: false);
+    }
+
+    public string GetAttachedPropertyNameWithoutSuffix()
+    {
+        return _fieldInfo.Name[..^8];
+    }
+
+    public string GetFieldDeclaration()
     {
         // razor compiler doesn't allow 'new' properties, it considers them as duplicates.
-        if (_propertyInfo is not null && _propertyInfo.IsHidingMember())
+        if (_fieldInfo is not null && _fieldInfo.IsHidingMember())
         {
             return "";
         }
 
         const string indent = "        ";
 
-        var xmlDocContents = _propertyInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_propertyInfo, indent);
+        var xmlDocContents = _fieldInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_fieldInfo, indent);
 
-        return $@"{xmlDocContents}{indent}[Parameter] public {ComponentType} {ComponentPropertyName} {{ get; set; }}
+        return $@"{xmlDocContents}{indent}[Parameter] public {GetAttachedPropertyType()} {ComponentFieldName} {{ get; set; }}
 ";
     }
 
-    public string GetHandleValueProperty()
+    public string GetHandleValueField()
     {
-        var propName = ComponentPropertyName;
+        var propName = ComponentFieldName;
 
-        return $@"                case nameof({propName}):
+        return $@"case nameof({propName}):
                     if (!Equals({propName}, value))
                     {{
-                        {propName} = ({ComponentType})value;
-                        NativeControl.{AvaloniaPropertyName} = {GetConvertedProperty(_propertyInfo.Type, propName)};
+                        {propName} = ({GetAttachedPropertyType()})value;
+                        //NativeControl.{AvaloniaFieldName} = {GetConvertedField(_fieldInfo.Type, propName)};
                     }}
                     break;
 ";
 
-        string GetConvertedProperty(ITypeSymbol propertyType, string propName)
+        string GetConvertedField(ITypeSymbol fieldType, string propName)
         {
-            if (propertyType is INamedTypeSymbol namedType)
+            if (fieldType is INamedTypeSymbol namedType)
             {
                 if (namedType.IsGenericType
                     && namedType.ConstructedFrom.SpecialType == SpecialType.System_Collections_Generic_IList_T
@@ -130,9 +155,9 @@ public partial class GeneratedPropertyInfo
 
                 if (namedType.IsValueType && !namedType.IsNullableStruct())
                 {
-                    var hasBindingProperty = !_propertyInfo.ContainingType.GetMembers($"{propName}Property").IsEmpty;
-                    var defaultValue = hasBindingProperty
-                        ? $"({GetTypeNameAndAddNamespace(propertyType)}){AvaloniaContainingTypeName}.{propName}Property.GetDefaultValue({AvaloniaContainingTypeName}.{propName}Property.OwnerType)"
+                    var hasBindingField = !_fieldInfo.ContainingType.GetMembers($"{propName}Field").IsEmpty;
+                    var defaultValue = hasBindingField
+                        ? $"({GetTypeNameAndAddNamespace(fieldType)}){AvaloniaContainingTypeName}.{propName}Field.GetDefaultValue({AvaloniaContainingTypeName}.{propName}Field.OwnerType)"
                         : "default";
 
                     return $"{propName} ?? {defaultValue}";
@@ -153,17 +178,16 @@ public partial class GeneratedPropertyInfo
         }
     }
 
-    internal static GeneratedPropertyInfo[] GetValueProperties(GeneratedTypeInfo generatedType)
+    internal static GeneratedFieldInfo[] GetValueProperties(GeneratedTypeInfo generatedType)
     {
         var componentInfo = generatedType.Settings;
 
-        var props = GetMembers<IPropertySymbol>(componentInfo.TypeSymbol, generatedType.Settings.Include)
+        var props = GetMembers<IFieldSymbol>(componentInfo.TypeSymbol, generatedType.Settings.Include)
             .Where(p => !componentInfo.Exclude.Contains(p.Name))
             .Where(p => !componentInfo.ContentProperties.Contains(p.Name))
-            .Where(IsPublicProperty)
-            .Where(HasPublicSetter)
+            .Where(IsPublicField)
             .Where(prop => IsExplicitlyAllowed(prop, generatedType) || !DisallowedComponentTypes.Contains(prop.Type.GetFullName()))
-            .Where(prop => prop.Type.GetFullName() == "Avalonia.Media.Brush" || !IsRenderFragmentPropertySymbol(generatedType, prop))
+            .Where(prop => prop.Type.GetFullName() == "Avalonia.Media.Brush")
             .OrderBy(prop => prop.Name, StringComparer.OrdinalIgnoreCase);
 
         return props.Select(prop =>
@@ -177,26 +201,72 @@ public partial class GeneratedPropertyInfo
                         return null;
                     }
 
-                    return new GeneratedPropertyInfo(generatedType, prop, GeneratedPropertyKind.Value)
+                    return new GeneratedFieldInfo(generatedType, prop, GeneratedFieldKind.AttachedProperty)
                     {
-                        ComponentPropertyName = propName,
-                        ComponentType = generatedType.GetTypeNameAndAddNamespace("Avalonia.Media", "Color")
+                        ComponentFieldName = propName,
+                        //ComponentType = generatedType.GetTypeNameAndAddNamespace("Avalonia.Media", "Color")
                     };
                 }
                 else
                 {
-                    return new GeneratedPropertyInfo(generatedType, prop, GeneratedPropertyKind.Value);
+                    return new GeneratedFieldInfo(generatedType, prop, GeneratedFieldKind.AttachedProperty);
                 }
             })
             .Where(p => p != null)
             .ToArray();
     }
 
-
-    private static string GetComponentPropertyTypeName(IPropertySymbol propertySymbol, GeneratedTypeInfo containingType, bool isRenderFragmentProperty = false, bool makeNullable = false)
+    internal static GeneratedFieldInfo[] GetAttachedProperties(GeneratedTypeInfo generatedType)
     {
-        var typeSymbol = propertySymbol.Type;
-        var isGeneric = containingType.Settings.GenericProperties.TryGetValue(propertySymbol.Name, out var typeArgument);
+        if(generatedType.TypeName == "ToolTip")
+        {
+
+        }
+        var componentInfo = generatedType.Settings;
+
+        var props = GetMembers<IFieldSymbol>(componentInfo.TypeSymbol, generatedType.Settings.Include)
+            .Where(p => !componentInfo.Exclude.Contains(p.Name))
+            //.Where(p => !componentInfo.ContentProperties.Contains(p.Name))
+            .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+            .Where(prop => IsExplicitlyAllowed(prop, generatedType) || !DisallowedComponentTypes.Contains(prop.Type.GetFullName()))
+            //.Where(prop => prop.Type.GetFullName() == "Avalonia.Media.Brush")
+            .Where(prop => prop.Type.GetFullName().StartsWith("Avalonia.AttachedProperty"))
+            .OrderBy(prop => prop.Name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        return props.Select(prop =>
+        {
+            
+            if (prop.Type.GetFullName() == "Avalonia.Media.Brush")
+            {
+                var propName = prop.Name.Replace("Brush", "") + "Color";
+
+                if (prop.ContainingType.GetField(propName, includeBaseTypes: true) != null)
+                {
+                    return null;
+                }
+
+                return new GeneratedFieldInfo(generatedType, prop, GeneratedFieldKind.AttachedProperty)
+                {
+                    ComponentFieldName = propName,
+                    //ComponentType = generatedType.GetTypeNameAndAddNamespace("Avalonia.Media", "Color")
+                };
+            }
+            else
+            {
+                var isContent = componentInfo.ContentProperties.Any(x => x == prop.Name);
+                return new GeneratedFieldInfo(generatedType, prop, isContent ? GeneratedFieldKind.RenderFragment : GeneratedFieldKind.AttachedProperty);
+            }
+        })
+            .Where(p => p != null)
+            .ToArray();
+    }
+
+
+    private static string GetAttachedPropertyTypeName(IFieldSymbol fieldSymbol, GeneratedTypeInfo containingType, bool isRenderFragmentProperty = false, bool makeNullable = false)
+    {
+        var typeSymbol = ((INamedTypeSymbol)fieldSymbol.Type).TypeArguments[0];
+        var isGeneric = containingType.Settings.GenericProperties.TryGetValue(fieldSymbol.Name, out var typeArgument);
         var typeArgumentName = typeArgument is null ? "T" : containingType.GetTypeNameAndAddNamespace(typeArgument);
 
         if (typeSymbol is not INamedTypeSymbol namedTypeSymbol)
@@ -240,18 +310,17 @@ public partial class GeneratedPropertyInfo
         }
     }
 
-    private static bool IsExplicitlyAllowed(IPropertySymbol propertyInfo, GeneratedTypeInfo generatedType)
+    private static bool IsExplicitlyAllowed(IFieldSymbol fieldInfo, GeneratedTypeInfo generatedType)
     {
-        return generatedType.Settings.Include.Contains(propertyInfo.Name)
-            || propertyInfo.Type.SpecialType == SpecialType.System_Object && generatedType.Settings.GenericProperties.ContainsKey(propertyInfo.Name);
+        return generatedType.Settings.Include.Contains(fieldInfo.Name)
+            || fieldInfo.Type.SpecialType == SpecialType.System_Object && generatedType.Settings.GenericProperties.ContainsKey(fieldInfo.Name);
     }
 
-    private static bool IsPublicProperty(IPropertySymbol propertyInfo)
+    private static bool IsPublicField(IFieldSymbol fieldInfo)
     {
-        return propertyInfo.GetMethod?.DeclaredAccessibility == Accessibility.Public
-            && IsBrowsable(propertyInfo)
-            && !propertyInfo.IsIndexer
-            && !IsObsolete(propertyInfo);
+        return fieldInfo.DeclaredAccessibility == Accessibility.Public
+            && IsBrowsable(fieldInfo)
+            && !IsObsolete(fieldInfo);
     }
 
     private static bool IsBrowsable(ISymbol propInfo)
@@ -259,11 +328,6 @@ public partial class GeneratedPropertyInfo
         // [EditorBrowsable(EditorBrowsableState.Never)]
         return !propInfo.GetAttributes().Any(a => a.AttributeClass.Name == nameof(EditorBrowsableAttribute)
             && a.ConstructorArguments.FirstOrDefault().Value?.Equals((int)EditorBrowsableState.Never) == true);
-    }
-
-    private static bool HasPublicSetter(IPropertySymbol propertyInfo)
-    {
-        return propertyInfo.SetMethod?.DeclaredAccessibility == Accessibility.Public;
     }
 
     private static bool IsObsolete(ISymbol symbol)
