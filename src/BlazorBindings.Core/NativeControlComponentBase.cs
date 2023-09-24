@@ -162,12 +162,12 @@ public abstract class NativeControlComponentBase : IComponent
         }
 
         var childContent = GetChildContent();
+        var sequence = 0;
         if (childContent != null)
         {
-            builder.AddContent(0, childContent);
+            builder.AddContent(sequence++, childContent);
         }
 
-        int sequence = 1;
         RenderAdditionalElementContent(builder, ref sequence);
     }
 
