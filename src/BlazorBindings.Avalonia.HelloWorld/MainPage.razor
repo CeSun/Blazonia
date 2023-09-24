@@ -79,8 +79,8 @@
             <Slider @bind-Value="slider"></Slider>
 
             @* Attached="@((x) => x.ToolTip_TipExtension("func 5 tool tip"))" *@
-            <Ellipse  Width="slider" Height="slider/2" Fill="Brushes.Red"
-                     Attached="@((x) => { x.ToolTip_TipExtension("tool tip text");})"
+            <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Green"
+                     Attached="@((Ellipse x) => { x.ToolTip_TipExtension("Tool tip test");})"
                      ToolTip_Placement="@(global::Avalonia.Controls.PlacementMode.BottomEdgeAlignedRight)">
                 @* <ToolTip_Tip>
                     

@@ -8,7 +8,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements;
 
 public abstract class BindableObject : NativeControlComponentBase, IElementHandler
 {
-    //public Action<object> Attached { get; set; }
+    [Parameter] public Delegate Attached { get; set; }
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AttachedProperties { get; set; } = new Dictionary<string, object>();
