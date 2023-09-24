@@ -11,6 +11,21 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
 {
     public partial class Ellipse : Shape
     {
+        protected override RenderFragment GetChildContent()
+        {
+            return ChildContent;
+        }
+        [Parameter] public RenderFragment ChildContent { get; set; }
+
+        protected override bool HandleAdditionalParameter(string name, object value)
+        {
+            if(name == "ChildContent")
+            {
+                ChildContent = value as RenderFragment;
+                return true;
+            }
+            return base.HandleAdditionalParameter(name, value);
+        }
     }
 
     public static class EllipseExtensions

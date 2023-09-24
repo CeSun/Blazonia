@@ -12,3 +12,5 @@ global using AvaloniaBindableObject = Avalonia.AvaloniaObject;
 global using AvaloniaApplication = Avalonia.Application;
 global using AvaloniaDataTemplate = Avalonia.Controls.Templates.IDataTemplate;
 global using AvaloniaContentView = Avalonia.Controls.ContentControl;//Avalonia.Controls.Control;
+global using BlazorBindings.AvaloniaBindings;
+global using BlazorBindings.AvaloniaBindings.Extensions;

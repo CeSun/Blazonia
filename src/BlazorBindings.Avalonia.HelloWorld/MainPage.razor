@@ -80,8 +80,14 @@
 
             @* Attached="@((x) => x.ToolTip_TipExtension("func 5 tool tip"))" *@
             <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Green"
-                     Attached="@((Ellipse x) => { x.ToolTip_TipExtension("Tool tip test");})"
-                     ToolTip_Placement="@(global::Avalonia.Controls.PlacementMode.BottomEdgeAlignedRight)">
+                     Attached="@((Ellipse x) => { })"
+                >
+                <ToolTipAttachment Placement="global::Avalonia.Controls.PlacementMode.Bottom">
+                    <StackPanel>
+                        <TextBlock>test</TextBlock>
+                        <Button>test</Button>
+                    </StackPanel>
+                </ToolTipAttachment>
                 @* <ToolTip_Tip>
                     
                     <Button>A button in a tool tip</Button>

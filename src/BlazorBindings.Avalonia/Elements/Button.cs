@@ -17,13 +17,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// <summary>
     /// A standard button control.
     /// </summary>
-    public partial class Button : IHandleChildContentText
-    {
-        private TextSpanContainer _textSpanContainer;
-
-        public void HandleText(int index, string text)
-        {
-            NativeControl.Content = (_textSpanContainer ??= new()).GetUpdatedText(index, text);
-        }
+    public partial class Button
+    {   
     }
 }

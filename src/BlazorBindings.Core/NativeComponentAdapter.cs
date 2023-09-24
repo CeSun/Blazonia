@@ -253,7 +253,11 @@ internal sealed class NativeComponentAdapter : IDisposable
                 }
             case RenderTreeFrameType.Markup:
                 {
-                    if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
+                    if (_targetElement is IHandleChildContentText handleChildContentText)
+                    {
+                        handleChildContentText.HandleText(siblingIndex, frame.MarkupContent);
+                    }
+                    else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                     {
                         throw new NotImplementedException($"Not supported frame type: {frame.FrameType}");
                     }

@@ -17,28 +17,29 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// </summary>
     public partial class Control : BlazorBindings.AvaloniaBindings.Elements.Input.InputElement
     {
-        [Parameter] public RenderFragment ToolTip_Tip { get; set; }
-        [Parameter] public string ToolTip_TipText { get; set; }
-        [Parameter] public PlacementMode ToolTip_Placement { get; set; }
+        //[Parameter] public RenderFragment ToolTip_Tip { get; set; }
+        //[Parameter] public string ToolTip_TipText { get; set; }
+        
+
 
         protected override bool HandleAdditionalParameter(string name, object value)
         {
-            if (name == nameof(ToolTip_Tip))
-            {
-                ToolTip_Tip = (RenderFragment)value;
-                return true;
-            }
-            if (name == nameof(ToolTip_TipText))
-            {
-                ToolTip_TipText = (string)value;
-                return true;
-            }
-            if (name == nameof(ToolTip_Placement))
-            {
-                ToolTip_Placement = (PlacementMode)value;
-                AC.ToolTip.SetPlacement(NativeControl, ToolTip_Placement);
-                return true;
-            }
+            //if (name == nameof(ToolTip_Tip))
+            //{
+            //    ToolTip_Tip = (RenderFragment)value;
+            //    return true;
+            //}
+            //if (name == nameof(ToolTip_TipText))
+            //{
+            //    ToolTip_TipText = (string)value;
+            //    return true;
+            //}
+            //if (name == nameof(ToolTip_Placement))
+            //{
+            //    ToolTip_Placement = (PlacementMode)value;
+            //    AC.ToolTip.SetPlacement(NativeControl, ToolTip_Placement);
+            //    return true;
+            //}
 
             return base.HandleAdditionalParameter(name, value);
         }
@@ -47,21 +48,21 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             base.RenderAdditionalPartialElementContent(builder, ref sequence);
 
-            if (ToolTip_Tip is not null)
-            {
-                RenderTreeBuilderHelper.AddContentProperty<AC.Control>(builder, sequence++, ToolTip_Tip,
-                    (nativeControl, value) => AC.ToolTip.SetTip(nativeControl, value));
-            }
-            else if (ToolTip_TipText is not null)
-            {
-                RenderTreeBuilderHelper.AddContentProperty<AC.Control>(builder, sequence++, b => 
-                {
-                    b.OpenComponent<TextBlock>(0);
-                    b.AddAttribute(1, nameof(TextBlock.Text), ToolTip_TipText);
-                    b.CloseComponent();
-                },
-                (nativeControl, value) => AC.ToolTip.SetTip(nativeControl, value));
-            }
+            //if (ToolTip_Tip is not null)
+            //{
+            //    RenderTreeBuilderHelper.AddContentProperty<AC.Control>(builder, sequence++, ToolTip_Tip,
+            //        (nativeControl, value) => AC.ToolTip.SetTip(nativeControl, value));
+            //}
+            //else if (ToolTip_TipText is not null)
+            //{
+            //    RenderTreeBuilderHelper.AddContentProperty<AC.Control>(builder, sequence++, b => 
+            //    {
+            //        b.OpenComponent<TextBlock>(0);
+            //        b.AddAttribute(1, nameof(TextBlock.Text), ToolTip_TipText);
+            //        b.CloseComponent();
+            //    },
+            //    (nativeControl, value) => AC.ToolTip.SetTip(nativeControl, value));
+            //}
         }
     }
 }
