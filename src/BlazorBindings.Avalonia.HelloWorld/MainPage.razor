@@ -15,6 +15,16 @@
         <StackPanel HorizontalAlignment="HorizontalAlignment.Center"
                     VerticalAlignment="VerticalAlignment.Center">
 
+            <Menu T="object">
+                <MenuItem T="object" Header="@("Menu item 1")">
+                    <MenuItem T="object" Header="@("Menu item 1-1")"></MenuItem>
+                    <MenuItem T="object" Header="@("Menu item 1-2")"></MenuItem>
+                </MenuItem>
+                <MenuItem T="object" Header="@("Menu item 2")"></MenuItem>
+            </Menu>
+
+            <NumericUpDown></NumericUpDown>
+
             <Border Padding="new Thickness(10,0,10,0)">
                 <AutoCompleteBox ItemsSource="Items"></AutoCompleteBox>
             </Border>
@@ -23,6 +33,7 @@
             </Canvas>
             <ComboBox ItemsSource="Items">
             </ComboBox>
+            <MaskedTextBox Text="000-111-222" Mask="(+09) 000 000 0000"></MaskedTextBox>
             <TextBox Text="Hallo Welt">
                 <ContextMenuSlot>
                     <ContextMenu T="object">
@@ -57,7 +68,14 @@
             </StackPanel>
             <Slider @bind-Value="slider"></Slider>
 
-            <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Red"></Ellipse>
+            <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Red" ToolTip_TipText="@("test tool tip text")"
+                     ToolTip_Placement="@(global::Avalonia.Controls.PlacementMode.BottomEdgeAlignedRight)">
+                <ToolTip_Tip>
+                    
+                    <Button>A button in a tool tip</Button>
+                    
+                </ToolTip_Tip>
+            </Ellipse>
 
             <Calendar></Calendar>
             <CalendarDatePicker>
