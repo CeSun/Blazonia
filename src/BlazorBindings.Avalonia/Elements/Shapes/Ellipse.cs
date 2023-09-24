@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
     {
         public static Ellipse ToolTip_TipExtension(this Ellipse self, string text)
         {
-            self._attachedProperties["ToolTip.Tip"] = text;
+            self.AttachedProperties["ToolTip.Tip"] = text;
 
             return self;
         }

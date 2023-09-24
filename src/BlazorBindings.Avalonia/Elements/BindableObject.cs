@@ -10,7 +10,8 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
 {
     //public Action<object> Attached { get; set; }
 
-    internal Dictionary<string, object> _attachedProperties = new Dictionary<string, object>();
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AttachedProperties { get; set; } = new Dictionary<string, object>();
 
     private AvaloniaBindableObject _nativeControl;
 
@@ -23,7 +24,7 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
             HandleParameter(parameterValue.Name, parameterValue.Value);
         }
 
-        foreach (var parameterValue in _attachedProperties)
+        foreach (var parameterValue in AttachedProperties)
         {
             HandleParameter(parameterValue.Key, parameterValue.Value);
         }
@@ -49,11 +50,11 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
     {
         if (name == "Attached")
         {
-            var last = _attachedProperties;
-            _attachedProperties = new Dictionary<string, object>();
+            var last = AttachedProperties;
+            AttachedProperties = new Dictionary<string, object>();
             ((dynamic)value).Invoke((dynamic)this);
 
-            var toReset = last?.Keys.Except(_attachedProperties.Keys) ?? Array.Empty<string>();
+            var toReset = last?.Keys.Except(AttachedProperties.Keys) ?? Array.Empty<string>();
             foreach (var reset in toReset)
             {
                 HandleParameter(reset, AvaloniaProperty.UnsetValue);
