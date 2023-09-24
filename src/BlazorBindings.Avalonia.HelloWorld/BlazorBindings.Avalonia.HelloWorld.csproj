@@ -7,7 +7,6 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
-
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.4" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.4" />
@@ -18,8 +17,14 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0-rc.1.23419.4" />
   </ItemGroup>
 
-
   <ItemGroup>
     <ProjectReference Include="..\BlazorBindings.Avalonia\BlazorBindings.Avalonia.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="App.axaml.cs">
+      <DependentUpon>App.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
 </Project>

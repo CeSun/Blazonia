@@ -1,0 +1,17 @@
+<local:BlazorBindingsApplicationMainPage
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="BlazorBindings.Avalonia.HelloWorld.App"
+    xmlns:local="using:BlazorBindings.Avalonia.HelloWorld"
+    RequestedThemeVariant="Default">
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<local:BlazorBindingsApplicationMainPage.DataTemplates>
+
+	</local:BlazorBindingsApplicationMainPage.DataTemplates>
+
+	<local:BlazorBindingsApplicationMainPage.Styles>
+		<FluentTheme />
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+	</local:BlazorBindingsApplicationMainPage.Styles>
+</local:BlazorBindingsApplicationMainPage>
