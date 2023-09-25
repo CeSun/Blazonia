@@ -1,7 +1,7 @@
 ﻿@* @page "/main" *@
 @* @inherits NativeControlComponentBase *@
 
-@namespace BlazorBindings.Avalonia.HelloWorld
+@namespace BlazorBindings.AvaloniaBindings.HelloWorld
 
 @using BlazorBindings.AvaloniaBindings.Elements
 @using System.Collections.ObjectModel
@@ -82,12 +82,16 @@
             <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Green"
                      Attached="@((Ellipse x) => { })"
                 >
-                <ToolTipAttachment Placement="global::Avalonia.Controls.PlacementMode.Bottom">
+                <ToolTip_Attachment Placement="global::Avalonia.Controls.PlacementMode.Bottom">
                     <StackPanel>
-                        <TextBlock>test</TextBlock>
-                        <Button>test</Button>
+                        <TextBlock >
+                            <TextElement_Attachment FontSize="40">
+
+                            </TextElement_Attachment>
+                            test me nnnn aaaaad </TextBlock>
+                        <Button>test 2adaasdfasdf</Button>
                     </StackPanel>
-                </ToolTipAttachment>
+                </ToolTip_Attachment>
                 @* <ToolTip_Tip>
                     
                     <Button>A button in a tool tip</Button>

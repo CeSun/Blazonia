@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+
+	<RootNamespace>BlazorBindings.AvaloniaBindings.HelloWorld</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
