@@ -96,7 +96,11 @@ internal sealed class NativeComponentAdapter : IDisposable
                 case RenderTreeEditType.UpdateMarkup:
                     {
                         var frame = referenceFrames[edit.ReferenceFrameIndex];
-                        if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
+                        if (_targetElement is IHandleChildContentText handleChildContentText)
+                        {
+                            handleChildContentText.HandleText(edit.SiblingIndex, frame.MarkupContent);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                             throw new NotImplementedException($"Not supported edit type: {edit.Type}");
 
                         break;

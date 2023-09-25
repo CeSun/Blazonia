@@ -5,6 +5,7 @@ using BlazorBindings.AvaloniaBindings.ComponentGenerator.Extensions;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -80,164 +81,6 @@ public partial class ComponentWrapperGenerator
         }
         var handleProperties = handlePropertiesBuilder.ToString();
 
-
-
-
-
-
-
-
-
-        var handleAttachedPopertiesBuilder = new StringBuilder();
-
-        if (attachedProperties.Any())
-        {
-            var lowestHostType = attachedProperties[0].HostType;
-
-            var fullTypeName = generatedInfo.TypeSymbol.GetFullName();
-
-            var containsContent = attachedProperties.Any(x => x.IsRenderFragmentProperty);
-            if (containsContent || generatedInfo.TypeSymbol.Name == "ToolTip")
-            {
-
-            }
-
-            handleAttachedPopertiesBuilder.AppendLine($$"""
-            public class {{typeToGenerate.Name}}_Attachment : NativeControlComponentBase{{(containsContent ? ", INonPhysicalChild, IContainerElementHandler" : "")}}
-            {
-            """);
-
-            foreach (var attached in attachedProperties)
-            {
-                handleAttachedPopertiesBuilder.AppendLine(attached.GetFieldDeclaration());
-            }
-
-            if (containsContent)
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
-
-                            protected override RenderFragment GetChildContent() => ChildContent;
-
-                    """);
-            }
-
-            handleAttachedPopertiesBuilder.AppendLine($$"""
-                        private {{lowestHostType}} _parent;
-
-                        public object TargetElement => _parent;
-
-                """);
-
-            handleAttachedPopertiesBuilder.AppendLine("""
-                        public override Task SetParametersAsync(ParameterView parameters)
-                        {
-                            foreach (var parameterValue in parameters)
-                            {
-                                var value = parameterValue.Value;
-                                switch (parameterValue.Name)
-                                {
-                """);
-
-            foreach (var attached in attachedProperties)
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
-                                        {{attached.GetHandleValueField()}}
-                    """);
-            }
-
-            handleAttachedPopertiesBuilder.AppendLine("""
-                                }
-                            }
-                        
-                            TryUpdateParent(_parent);
-                            return base.SetParametersAsync(ParameterView.Empty);
-                        }
-                """);
-
-            handleAttachedPopertiesBuilder.AppendLine($$"""
-                    
-                        void INonPhysicalChild.SetParent(object parentElement)
-                        {
-                            TryUpdateParent(parentElement);
-                            _parent = ({{lowestHostType}})parentElement;
-                        }
-                        
-                        private void TryUpdateParent(object parentElement)
-                        {
-                            if (parentElement is not null)
-                            {
-                """);
-            foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
-                                    {{fullTypeName}}.Set{{attached.GetAttachedPropertyNameWithoutSuffix()}}(({{attached.HostType}})parentElement, {{attached.GetAttachedPropertyNameWithoutSuffix()}});
-                    """);
-            }
-
-            handleAttachedPopertiesBuilder.AppendLine($$"""
-                            }
-                        }
-                """);
-
-            handleAttachedPopertiesBuilder.AppendLine($$"""
-                        public void RemoveFromParent(object parentElement)
-                        {
-                            //_children.Clear();
-
-                            //{{fullTypeName}}.SetTip(_parent, null);
-
-                            _parent = null;
-                        }
-
-                        public void AddChild(object child, int physicalSiblingIndex)
-                        {
-                            var childView = child.Cast<AC.Control>();
-
-                            //_children.Add(childView);
-                        }
-
-                        public void RemoveChild(object child, int physicalSiblingIndex)
-                        {
-                            //_children.Remove((AC.Control)child);
-                        }
-
-                        protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)
-                        {
-                            base.RenderAdditionalElementContent(builder, ref sequence);
-                """);
-            foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
-                                RenderTreeBuilderHelper.AddContentProperty<{{lowestHostType}}>(builder, sequence++, {{contentProperty.ComponentFieldName}},
-                                    (nativeControl, value) => {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value));
-                            }
-                        }
-                    }
-                    """);
-            }
-        }
-
-        var handleAttachedPoperties = handleAttachedPopertiesBuilder.ToString();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         var isComponentAbstract = typeToGenerate.IsAbstract || !typeToGenerate.Constructors.Any(c => c.DeclaredAccessibility == Accessibility.Public && c.Parameters.Length == 0);
         var classModifiers = string.Empty;
         if (isComponentAbstract)
@@ -289,11 +132,6 @@ public partial class ComponentWrapperGenerator
         var content = $@"{headerText}
 {usingsText}
 
-/*
-{handleAttachedPoperties}
-*/
-
-
 #pragma warning disable CA2252
 
 namespace {componentNamespace}
@@ -315,6 +153,243 @@ namespace {componentNamespace}
 ";
 
         return (GetComponentGroup(typeToGenerate), componentName, content);
+    }
+
+
+
+
+
+
+    public (string GroupName, string Name, string Source) GenerateAttachmentFile(Compilation compilation, GenerateComponentSettings generatedInfo)
+    {
+        //if (!System.Diagnostics.Debugger.IsAttached)
+        //{
+        //    System.Diagnostics.Debugger.Launch();
+        //}
+
+        var typeToGenerate = generatedInfo.TypeSymbol;
+        var componentName = generatedInfo.TypeAlias ?? typeToGenerate.Name;
+        var componentNamespace = GetComponentNamespace(typeToGenerate);
+
+        var baseType = GetBaseTypeOfInterest(typeToGenerate);
+        var componentBaseName = generatedInfo.BaseTypeInfo?.TypeAlias ?? baseType.Name;
+
+        if (componentNamespace != GetComponentNamespace(baseType))
+            componentBaseName = $"{GetComponentNamespace(baseType)}.{componentBaseName}";
+
+        if (baseType.Name == "AvaloniaObject")
+        {
+            componentBaseName = componentBaseName.Replace("AvaloniaObject", "BindableObject");
+        }
+        //var semanticModel =compilation.GetSemanticModel(compilation.SyntaxTrees.Where(x => x.);
+        // header
+        var headerText = generatedInfo.FileHeader;
+
+        // usings
+        var usings = GetDefaultUsings(typeToGenerate, componentNamespace);
+        var generatedType = new GeneratedTypeInfo(compilation, generatedInfo, componentName, componentBaseName, typeToGenerate, usings);
+
+        var avaloniaTypeName = generatedType.GetTypeNameAndAddNamespace(typeToGenerate);
+
+        // props
+
+        var attachedProperties = GeneratedFieldInfo.GetAttachedProperties(generatedType);
+
+
+        var usingsText = string.Join(
+            Environment.NewLine,
+            usings
+                .Distinct()
+                .Where(u => u.Namespace != componentNamespace)
+                .Where(u => u.IsUsed)
+                .Where(u => !u.IsGlobalUsing)
+                .OrderBy(u => u.ComparableString)
+                .Select(u => u.UsingText));
+
+
+
+
+
+
+        var handleAttachedPopertiesBuilder = new StringBuilder();
+
+        if (attachedProperties.Any())
+        {
+            var lowestHostType = attachedProperties[0].HostType;
+
+            var fullTypeName = generatedInfo.TypeSymbol.GetFullName();
+
+            var containsContent = attachedProperties.Any(x => x.IsRenderFragmentProperty);
+            if (containsContent || generatedInfo.TypeSymbol.Name == "ToolTip")
+            {
+
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+            {{usingsText}}
+
+            namespace BlazorBindings.AvaloniaBindings.Elements
+            {
+                public class {{typeToGenerate.Name}}_Attachment : NativeControlComponentBase{{(true ? ", INonPhysicalChild, IContainerElementHandler" : "")}}
+                {
+            """);
+
+            foreach (var attached in attachedProperties)
+            {
+                handleAttachedPopertiesBuilder.AppendLine(attached.GetFieldDeclaration());
+            }
+
+            if (containsContent)
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+
+                            protected override RenderFragment GetChildContent() => ChildContent;
+
+                    """);
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+                        private {{lowestHostType}} _parent;
+
+                        public object TargetElement => _parent;
+
+                """);
+
+            handleAttachedPopertiesBuilder.AppendLine("""
+                        public override Task SetParametersAsync(ParameterView parameters)
+                        {
+                            foreach (var parameterValue in parameters)
+                            {
+                                var value = parameterValue.Value;
+                                switch (parameterValue.Name)
+                                {
+                """);
+
+            foreach (var attached in attachedProperties)
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                        {{attached.GetHandleValueField()}}
+                    """);
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine("""
+                                }
+                            }
+                        
+                            TryUpdateParent(_parent);
+                            return base.SetParametersAsync(ParameterView.Empty);
+                        }
+
+                        private void TryUpdateParent(object parentElement)
+                        {
+                            if (parentElement is not null)
+                            {
+                """);
+
+            foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
+            {
+                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                    if ({{attached.ComponentFieldName}} == {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentElement.GetType()))
+                                    {
+                                        (({{attached.HostType}})parentElement).ClearValue({{avaloniaAttachedPropertyName}});
+                                    }
+                                    else
+                                    {
+                                        {{fullTypeName}}.Set{{attached.ComponentFieldName}}(({{attached.HostType}})parentElement, {{attached.ComponentFieldName}});
+                                    }
+                                    
+                    """);
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+                            }
+                        }
+                """);
+
+            if (true)
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                    
+                        void INonPhysicalChild.SetParent(object parentElement)
+                        {
+                            var parentType = parentElement?.GetType();
+                            if (parentType is not null)
+                            {
+                """);
+
+                foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
+                {
+                    var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+
+                    handleAttachedPopertiesBuilder.AppendLine($$"""
+                                        {{attached.ComponentFieldName}} = {{attached.ComponentFieldName}} != default ? {{attached.ComponentFieldName}} : {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
+                        """);
+                }
+
+
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                            }
+
+                            TryUpdateParent(parentElement);
+                            _parent = ({{lowestHostType}})parentElement;
+                        }
+                        
+                        
+                """);
+
+
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                        public void RemoveFromParent(object parentElement)
+                        {
+                            //_children.Clear();
+
+                            //{{fullTypeName}}.SetTip(_parent, null);
+
+                            _parent = null;
+                        }
+
+                        public void AddChild(object child, int physicalSiblingIndex)
+                        {
+                            var childView = child.Cast<AC.Control>();
+
+                            //_children.Add(childView);
+                        }
+
+                        public void RemoveChild(object child, int physicalSiblingIndex)
+                        {
+                            //_children.Remove((AC.Control)child);
+                        }
+
+                        protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)
+                        {
+                            base.RenderAdditionalElementContent(builder, ref sequence);
+                """);
+
+                foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
+                {
+                    handleAttachedPopertiesBuilder.AppendLine($$"""
+                                RenderTreeBuilderHelper.AddContentProperty<{{lowestHostType}}>(builder, sequence++, {{contentProperty.ComponentFieldName}},
+                                    (nativeControl, value) => {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value));
+                    """);
+
+                }
+
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                            }
+                    """);
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+                        }
+                    }
+                    """);
+        }
+
+        var handleAttachedPoperties = handleAttachedPopertiesBuilder.ToString();
+
+        return (GetComponentGroup(typeToGenerate), componentName, handleAttachedPoperties);
     }
 
     private static List<UsingStatement> GetDefaultUsings(INamedTypeSymbol typeToGenerate, string componentNamespace)

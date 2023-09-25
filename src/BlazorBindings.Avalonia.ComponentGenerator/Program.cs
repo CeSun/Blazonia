@@ -53,15 +53,27 @@ public class Program
                 foreach (var generatedType in typesToGenerate)
                 {
                     var (groupName, name, source) = componentWrapperGenerator.GenerateComponentFile(compilation, generatedType);
+                    var (_, _, attachmentSource) = componentWrapperGenerator.GenerateAttachmentFile(compilation, generatedType);
 
                     var fileName = $"{name}.generated.cs";
+                    var fileNameAttachment = $"{name}.generated.attachment.cs";
+
                     var path = string.IsNullOrEmpty(groupName)
                         ? Path.Combine(o.OutPath, fileName)
                         : Path.Combine(o.OutPath, groupName, fileName);
 
+                    var pathAttachment = string.IsNullOrEmpty(groupName)
+                        ? Path.Combine(o.OutPath, fileNameAttachment)
+                        : Path.Combine(o.OutPath, groupName, fileNameAttachment);
+
                     Directory.GetParent(path).Create();
 
                     File.WriteAllText(path, source);
+                    if(attachmentSource != "")
+                    {
+                        File.WriteAllText(pathAttachment, attachmentSource);
+                    }
+                    
                 }
             });
     }

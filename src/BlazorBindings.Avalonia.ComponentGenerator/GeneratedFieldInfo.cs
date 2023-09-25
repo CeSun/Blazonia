@@ -228,6 +228,7 @@ public partial class GeneratedFieldInfo
             .Where(p => !componentInfo.Exclude.Contains(p.Name))
             //.Where(p => !componentInfo.ContentProperties.Contains(p.Name))
             .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+            .Where(p => componentInfo.TypeSymbol.GetMethod("Set" + p.Name[..^8])?.DeclaredAccessibility == Accessibility.Public)
             .Where(prop => IsExplicitlyAllowed(prop, generatedType) || !DisallowedComponentTypes.Contains(prop.Type.GetFullName()))
             //.Where(prop => prop.Type.GetFullName() == "Avalonia.Media.Brush")
             .Where(prop => prop.Type.GetFullName().StartsWith("Avalonia.AttachedProperty"))
