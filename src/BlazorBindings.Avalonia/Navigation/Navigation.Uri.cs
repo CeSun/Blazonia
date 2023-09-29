@@ -14,7 +14,7 @@ public partial class BlazorNavigation
     /// </summary>
     /// <param name="uri">URI to navigate to.</param>
     /// <param name="parameters">Additional parameters to set for component.</param>
-    public async Task NavigateToAsync(string uri, Dictionary<string, object> parameters = null)
+    public async Task NavigateToAsync(string uri, Dictionary<string, object> parameters = null, bool animated = true)
     {
         ArgumentNullException.ThrowIfNull(uri);
 
@@ -33,7 +33,7 @@ public partial class BlazorNavigation
         if (route != null)
         {
             var pars = GetParameters(route, parameters);
-            await Navigate(route.PageType, pars, NavigationTarget.Navigation, true);
+            await Navigate(route.PageType, pars, NavigationTarget.Navigation, animated);
         }
         else
         {

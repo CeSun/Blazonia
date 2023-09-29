@@ -26,13 +26,13 @@ internal class AvaloniaBlazorBindingsServiceProvider : IServiceProvider
     public object GetService(Type serviceType)
     {
         if (serviceType == typeof(NavigationManager))
-            return _navigationManager ??= new MbbNavigationManager();
+            return _navigationManager ??= new BlazorNavigationManager();
 
         if (serviceType == typeof(INavigationInterception))
-            return _navigationInterception ??= new MbbNavigationInterception();
+            return _navigationInterception ??= new BlazorNavigationInterception();
 
         if (serviceType == typeof(IScrollToLocationHash))
-            return _scrollToLocationHash ??= new MbbScrollToLocationHash();
+            return _scrollToLocationHash ??= new BlazorScrollToLocationHash();
 
         return ServiceProvider.GetService(serviceType);
     }

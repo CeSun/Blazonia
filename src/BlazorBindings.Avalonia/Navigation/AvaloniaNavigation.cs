@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia.Animation;
+using Avalonia.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -8,6 +9,8 @@ public class AvaloniaNavigation : INotifyPropertyChanged
 {
     private Control _currentPage;
     private readonly NavigationView navigationView;
+    private bool _shouldAnimate;
+    private bool _reverseAnimate;
 
     public Stack<Control> ModalStack { get; internal set; } = new Stack<Control>();
     public Stack<Control> NavigationStack { get; internal set; } = new Stack<Control>();
@@ -21,6 +24,10 @@ public class AvaloniaNavigation : INotifyPropertyChanged
     }
 
     public Control CurrentPage { get => _currentPage; private set => Raise(ref _currentPage, value); }
+
+    public bool ShouldAnimate { get => _shouldAnimate; private set => Raise(ref _shouldAnimate, value); }
+
+    public bool ReverseAnimate { get => _reverseAnimate; private set => Raise(ref _reverseAnimate, value); }
 
     private void Raise<T>(ref T target, T value, [CallerMemberName] string propertyName = null)
     {
@@ -36,14 +43,7 @@ public class AvaloniaNavigation : INotifyPropertyChanged
     {
         NavigationStack.Pop();
 
-        UpdateCurrentPage();
-    }
-
-    private void UpdateCurrentPage()
-    {
-        NavigationStack.TryPeek(out var current);
-
-        CurrentPage = current;
+        UpdateCurrentPage(animated, true);
     }
 
     public async Task PopModalAsync(bool animated)
@@ -57,13 +57,15 @@ public class AvaloniaNavigation : INotifyPropertyChanged
         {
             NavigationStack.Pop();
         }
+
+        UpdateCurrentPage(animated, true);
     }
 
     public async Task PushAsync(AvaloniaPage child, bool animated)
     {
         NavigationStack.Push(child);
 
-        UpdateCurrentPage();
+        UpdateCurrentPage(animated, false);
     }
 
     public async Task PushModalAsync(AvaloniaPage child, bool animated)
@@ -113,5 +115,17 @@ public class AvaloniaNavigation : INotifyPropertyChanged
                 ModalStack.Push(list[i]);
             }
         }
+
+        UpdateCurrentPage(false, true);
+    }
+
+    private void UpdateCurrentPage(bool animated, bool reverse)
+    {
+        ShouldAnimate = animated;
+        ReverseAnimate = reverse;
+
+        NavigationStack.TryPeek(out var current);
+
+        CurrentPage = current;
     }
 }

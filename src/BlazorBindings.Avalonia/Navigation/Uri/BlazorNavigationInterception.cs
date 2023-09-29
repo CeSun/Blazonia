@@ -2,7 +2,7 @@
 
 namespace BlazorBindings.AvaloniaBindings.UriNavigation;
 
-internal class MbbNavigationInterception : INavigationInterception
+internal class BlazorNavigationInterception : INavigationInterception
 {
     public Task EnableNavigationInterceptionAsync() => Task.CompletedTask;
 }

@@ -1,6 +1,6 @@
 ﻿namespace BlazorBindings.AvaloniaBindings.UriNavigation;
 
-internal class MbbNavigationManager : NavigationManager
+internal class BlazorNavigationManager : NavigationManager
 {
     protected override void EnsureInitialized()
     {

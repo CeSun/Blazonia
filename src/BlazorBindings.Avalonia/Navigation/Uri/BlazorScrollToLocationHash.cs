@@ -2,7 +2,7 @@
 
 namespace BlazorBindings.AvaloniaBindings.UriNavigation;
 
-internal class MbbScrollToLocationHash : IScrollToLocationHash
+internal class BlazorScrollToLocationHash : IScrollToLocationHash
 {
     public Task RefreshScrollPositionForHash(string locationAbsolute) => Task.CompletedTask;
 }
