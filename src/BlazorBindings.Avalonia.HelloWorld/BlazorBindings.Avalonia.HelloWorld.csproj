@@ -28,5 +28,11 @@
       <DependentUpon>App.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="SubPage.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
   
 </Project>

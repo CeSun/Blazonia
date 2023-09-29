@@ -1,5 +1,6 @@
 ﻿using BlazorBindings.AvaloniaBindings.UriNavigation;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazorBindings.AvaloniaBindings;
 
@@ -9,15 +10,18 @@ namespace BlazorBindings.AvaloniaBindings;
 // Any better approach?...
 internal class AvaloniaBlazorBindingsServiceProvider : IServiceProvider
 {
-    private readonly IServiceProvider _serviceProvider;
     private NavigationManager _navigationManager;
     private INavigationInterception _navigationInterception;
     private IScrollToLocationHash _scrollToLocationHash;
+    private Func<IServiceProvider> _serviceProviderFactory;
+    private IServiceProvider _serviceProvider;
 
-    public AvaloniaBlazorBindingsServiceProvider(IServiceProvider serviceProvider)
+    public AvaloniaBlazorBindingsServiceProvider(Func<IServiceProvider> serviceProviderFactory)
     {
-        _serviceProvider = serviceProvider;
+        _serviceProviderFactory = serviceProviderFactory;
     }
+
+    private IServiceProvider ServiceProvider => _serviceProvider ??= _serviceProviderFactory();
 
     public object GetService(Type serviceType)
     {
@@ -30,6 +34,6 @@ internal class AvaloniaBlazorBindingsServiceProvider : IServiceProvider
         if (serviceType == typeof(IScrollToLocationHash))
             return _scrollToLocationHash ??= new MbbScrollToLocationHash();
 
-        return _serviceProvider.GetService(serviceType);
+        return ServiceProvider.GetService(serviceType);
     }
 }

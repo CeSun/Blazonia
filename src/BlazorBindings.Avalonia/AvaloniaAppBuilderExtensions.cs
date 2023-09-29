@@ -4,6 +4,7 @@
 using Microsoft.Extensions.Logging;
 using AvaloniaAppBuilder = global::Avalonia.AppBuilder;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using BlazorBindings.AvaloniaBindings.Navigation;
 
 namespace BlazorBindings.AvaloniaBindings;
 
@@ -16,21 +17,26 @@ public static class AvaloniaAppBuilderExtensions
         // Use factories for performance.
         builder.AfterSetup(b =>
         {
+            IServiceProvider serviceProvider = null;
+
             var services = new ServiceCollection();
 
             configureServices?.Invoke(services);
             //.TryAddSingleton<Navigation>(svcs => new Navigation(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>()))
             //.TryAddSingleton<INavigation>(services => services.GetRequiredService<Navigation>())
+            services.TryAddSingleton(new AvaloniaBlazorBindingsServiceProvider(() => serviceProvider));
+            services.TryAddSingleton<IServiceProvider>(svcs => svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>());
             services.TryAddSingleton(svcs => new AvaloniaBlazorBindingsRenderer(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>(), svcs.GetRequiredService<ILoggerFactory>()));
-            services.TryAddSingleton(svcs => new AvaloniaBlazorBindingsServiceProvider(svcs));
+            services.TryAddSingleton<INavigation>(svcs => new BlazorNavigation(svcs.GetRequiredService<AvaloniaBlazorBindingsServiceProvider>()));
+            //services.TryAddSingleton(svcs => ((IAvaloniaBlazorApplication)Avalonia.Application.Current).Navigation);
             services.AddLogging();
 
-            var serviceProvider = services.BuildServiceProvider();
+            serviceProvider = services.BuildServiceProvider();
 
             b.With(serviceProvider);
 
 
-            ((IAvaloniaBlazorInitialize)b.Instance).Initialize(serviceProvider);
+            ((IAvaloniaBlazorApplication)b.Instance).Initialize(serviceProvider);
         });
 
         return builder;

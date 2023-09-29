@@ -1,5 +1,6 @@
-﻿@* @page "/main" *@
+﻿@page "/"
 @* @inherits NativeControlComponentBase *@
+@inject INavigation navigation
 
 @namespace BlazorBindings.AvaloniaBindings.HelloWorld
 
@@ -25,6 +26,7 @@
         <StackPanel HorizontalAlignment="HorizontalAlignment.Center"
                     VerticalAlignment="VerticalAlignment.Center">
 
+            <Button OnClick="@(async () => await navigation.NavigateToAsync("/sub", null))">Go to sub page</Button>
             <Menu T="object">
                 <MenuItem T="object" Header="@("Menu item 1")">
                     <MenuItem T="object" Header="@("Menu item 1-1")"></MenuItem>

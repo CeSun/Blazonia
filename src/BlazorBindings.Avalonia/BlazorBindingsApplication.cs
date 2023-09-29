@@ -1,31 +1,47 @@
-﻿namespace BlazorBindings.AvaloniaBindings;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using BlazorBindings.AvaloniaBindings.Navigation;
 
-public interface IAvaloniaBlazorInitialize
-{
-    void Initialize(IServiceProvider serviceProvider);
-}
-public class BlazorBindingsApplication<T> : Application, IAvaloniaBlazorInitialize
+namespace BlazorBindings.AvaloniaBindings;
+public class BlazorBindingsApplication<T> : Application, IAvaloniaBlazorApplication
     where T : IComponent
 {
+    private IServiceProvider _serviceProvider = null;
+    private AvaloniaNavigation _avaloniaNavigation = null;
+    
     public BlazorBindingsApplication()
     {
     }
 
+    public IServiceProvider ServiceProvider => _serviceProvider;
+
+    public AvaloniaNavigation Navigation => _avaloniaNavigation;
+
     public void Initialize(IServiceProvider serviceProvider)
     {
+        _serviceProvider = serviceProvider;
+
         Configure();
 
         var renderer = serviceProvider.GetRequiredService<AvaloniaBlazorBindingsRenderer>();
 
         if (WrapperComponentType != null)
         {
-            //var navigation = services.GetService<INavigation>();
-            //(navigation as Navigation)?.SetWrapperComponentType(WrapperComponentType);
+            var navigation = _serviceProvider.GetService<INavigation>();
+            (navigation as BlazorNavigation)?.SetWrapperComponentType(WrapperComponentType);
         }
 
         var (componentType, parameters) = GetComponentToRender();
         var task = renderer.AddComponent(componentType, this, parameters);
         AwaitVoid(task);
+
+        var navigationView = new NavigationView();
+        _avaloniaNavigation = new AvaloniaNavigation(navigationView);
+        var pushTask = _avaloniaNavigation.PushAsync((Control)((IClassicDesktopStyleApplicationLifetime)Avalonia.Application.Current.ApplicationLifetime).MainWindow.Content, false);
+
+        ((IClassicDesktopStyleApplicationLifetime)Avalonia.Application.Current.ApplicationLifetime).MainWindow.Content = navigationView;
+
+        AwaitVoid(pushTask);
 
         static async void AwaitVoid(Task task) => await task;
     }

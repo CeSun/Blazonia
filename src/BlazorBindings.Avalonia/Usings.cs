@@ -14,3 +14,5 @@ global using AvaloniaDataTemplate = Avalonia.Controls.Templates.IDataTemplate;
 global using AvaloniaContentView = Avalonia.Controls.ContentControl;//Avalonia.Controls.Control;
 global using BlazorBindings.AvaloniaBindings;
 global using BlazorBindings.AvaloniaBindings.Extensions;
+global using AvaloniaPage = Avalonia.Controls.Control;
+global using AvaloniaControl = Avalonia.Controls.Control;

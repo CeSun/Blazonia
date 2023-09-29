@@ -1,0 +1,16 @@
+<Panel 
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="BlazorBindings.AvaloniaBindings.Navigation.NavigationView"
+	>
+	<Grid>
+		<ContentPresenter x:Name="Presenter" Content="{Binding CurrentPage}"></ContentPresenter>
+		<ItemsControl x:Name="ModalItemsControl">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid></Grid>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</Grid>
+</Panel>
