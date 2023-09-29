@@ -13,5 +13,9 @@
 	<local:BlazorBindingsApplicationMainPage.Styles>
 		<FluentTheme />
 		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+
+		<Style Selector="Button">
+			<Setter Property="FontWeight" Value="Black" />
+		</Style>
 	</local:BlazorBindingsApplicationMainPage.Styles>
 </local:BlazorBindingsApplicationMainPage>
