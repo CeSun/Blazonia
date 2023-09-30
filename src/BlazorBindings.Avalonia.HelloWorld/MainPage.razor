@@ -27,6 +27,7 @@
                     VerticalAlignment="VerticalAlignment.Center">
 
             <Button class="bold" OnClick="@(async () => await navigation.NavigateToAsync("/sub", null))">Go to sub page</Button>
+            <Button class="bold" OnClick="@(async () => await navigation.PushModalAsync(GetModalFragment()))">Open Modal</Button>
             <Menu T="object">
                 <MenuItem T="object" Header="@("Menu item 1")">
                     <MenuItem T="object" Header="@("Menu item 1-1")"></MenuItem>
@@ -49,7 +50,7 @@
             <TextBox Text="Hallo Welt">
                 <ContextMenuSlot>
                     <ContextMenu T="object">
-                        <MenuItem T="object" Header="@("Copy")"/>
+                        <MenuItem T="object" Header="@("Copy")" />
                         <MenuItem T="object" Header="@("Paste")" />
                     </ContextMenu>
                 </ContextMenuSlot>
@@ -82,22 +83,22 @@
 
             @* Attached="@((x) => x.ToolTip_TipExtension("func 5 tool tip"))" *@
             <Ellipse Width="slider" Height="slider/2" Fill="Brushes.Green"
-                     Attached="@((Ellipse x) => { })"
-                >
+                     Attached="@((Ellipse x) => { })">
                 <ToolTip_Attachment Placement="global::Avalonia.Controls.PlacementMode.Bottom">
                     <StackPanel>
-                        <TextBlock >
+                        <TextBlock>
                             <TextElement_Attachment FontSize="40">
 
                             </TextElement_Attachment>
-                            test me nnnn aaaaad </TextBlock>
+                            test me nnnn aaaaad
+                        </TextBlock>
                         <Button>test 2adaasdfasdf</Button>
                     </StackPanel>
                 </ToolTip_Attachment>
                 @* <ToolTip_Tip>
-                    
-                    <Button>A button in a tool tip</Button>
-                    
+
+                <Button>A button in a tool tip</Button>
+
                 </ToolTip_Tip> *@
             </Ellipse>
 
@@ -159,6 +160,18 @@
         1 => $"Clicked 1 time",
         _ => $"Clicked {count} times"
     };
+
+    RenderFragment GetModalFragment() =>
+    @<Panel Width="300" Height="200">
+        <Border Background="Brushes.Green" Padding="new Thickness(10,10,10,10)" CornerRadius="new CornerRadius(10)" ClipToBounds="true">
+            <StackPanel>
+                <TextBlock Text="This is a modal"></TextBlock>
+                <Button OnClick="@(() => navigation.PushModalAsync(GetModalFragment()))">Open another Modal</Button>
+                <Button OnClick="@(() => navigation.PopModalAsync())">Close Modal</Button>
+            </StackPanel>
+        </Border>
+    </Panel>
+    ;
 
     void OnCounterClicked()
     {

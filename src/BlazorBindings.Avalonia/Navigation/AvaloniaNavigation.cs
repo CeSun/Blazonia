@@ -12,8 +12,8 @@ public class AvaloniaNavigation : INotifyPropertyChanged
     private bool _shouldAnimate;
     private bool _reverseAnimate;
 
-    public Stack<Control> ModalStack { get; internal set; } = new Stack<Control>();
-    public Stack<Control> NavigationStack { get; internal set; } = new Stack<Control>();
+    public ObservableStack<Control> ModalStack { get; internal set; } = new ObservableStack<Control>();
+    public ObservableStack<Control> NavigationStack { get; internal set; } = new ObservableStack<Control>();
 
     public event PropertyChangedEventHandler PropertyChanged;
 

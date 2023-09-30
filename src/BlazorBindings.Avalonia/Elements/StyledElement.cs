@@ -11,6 +11,7 @@ public partial class StyledElement
             NativeControl.Classes.Replace(Classes.Parse((string)value));
             return true;
         }
+
         return base.HandleAdditionalParameter(name, value);
     }
 }

@@ -7,7 +7,5 @@ public partial class NavigationView : Panel
     public NavigationView()
     {
         InitializeComponent();
-
-
     }
 }

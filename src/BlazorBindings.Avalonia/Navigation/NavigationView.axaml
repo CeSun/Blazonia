@@ -34,6 +34,21 @@
 				</ControlTemplate>
 			</Setter>
 		</ControlTheme>
+
+		<ControlTheme x:Key="{x:Type local:ItemsControlWithItemContainer}" TargetType="local:ItemsControlWithItemContainer">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							Padding="{TemplateBinding Padding}">
+						<ItemsPresenter Name="PART_ItemsPresenter"
+										ItemsPanel="{TemplateBinding ItemsPanel}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</ControlTheme>
 	</Panel.Resources>
 	<Panel.Styles>
 		<Style Selector="local|ReversableTransitioningContentControl:not(.shouldAnimate)">
@@ -51,17 +66,36 @@
 		</Style>
 	</Panel.Styles>
 	<Grid>
-		<!--<ContentPresenter x:Name="Presenter" Content="{Binding CurrentPage}"></ContentPresenter>-->
 		<local:ReversableTransitioningContentControl x:Name="Presenter" Content="{Binding CurrentPage}"
 									 Classes.shouldAnimate="{Binding ShouldAnimate}"
 									 Classes.reverseAnimate="{Binding ReverseAnimate}">
 		</local:ReversableTransitioningContentControl>
-		<ItemsControl x:Name="ModalItemsControl">
-			<ItemsControl.ItemsPanel>
+		
+		<local:ItemsControlWithItemContainer ItemsSource="{Binding ModalStack}">
+			<local:ItemsControlWithItemContainer.ItemContainerTheme>
+				<ControlTheme TargetType="ContentPresenter">
+					<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+					<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+					<Setter Property="Background" Value="#3000"></Setter>
+				</ControlTheme>
+			</local:ItemsControlWithItemContainer.ItemContainerTheme>
+
+			<local:ItemsControlWithItemContainer.ItemsPanel>
 				<ItemsPanelTemplate>
-					<Grid></Grid>
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
 				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
-		</ItemsControl>
+			</local:ItemsControlWithItemContainer.ItemsPanel>
+
+			<local:ItemsControlWithItemContainer.ItemTemplate>
+				<DataTemplate>
+					<Border>
+						<Border.Effect>
+							<DropShadowEffect Color="#3000" BlurRadius="20" OffsetX="0" OffsetY="0"/>
+						</Border.Effect>
+						<ContentPresenter Content="{Binding}"></ContentPresenter>
+					</Border>
+				</DataTemplate>
+			</local:ItemsControlWithItemContainer.ItemTemplate>
+		</local:ItemsControlWithItemContainer>
 	</Grid>
 </Panel>
