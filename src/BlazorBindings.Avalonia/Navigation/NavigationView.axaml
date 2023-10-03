@@ -4,6 +4,61 @@
 	x:Class="BlazorBindings.AvaloniaBindings.Navigation.NavigationView"
 	xmlns:local="using:BlazorBindings.AvaloniaBindings.Navigation"
 	>
+	
+	<Panel.Styles>
+		<Style Selector="local|ReversableTransitioningContentControl:not(.shouldAnimate)">
+			<Setter Property="PageTransition" Value="{x:Null}" />
+		</Style>
+
+		<Style Selector="local|ReversableTransitioningContentControl.shouldAnimate">
+			<Setter Property="PageTransition">
+				<PageSlide Duration="0:0:1" Orientation="Vertical" SlideInEasing="CubicEaseInOut" SlideOutEasing="CubicEaseInOut" />
+			</Setter>
+		</Style>
+
+		<Style Selector="local|ReversableTransitioningContentControl.reverseAnimate">
+			<Setter Property="IsTransitionReversed" Value="True" />
+		</Style>
+
+		<Style Selector="local|ItemsControlWithItemContainer">
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ContentPresenter">
+					<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+					<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+					<Setter Property="Background" Value="#3000"></Setter>
+				</ControlTheme>
+			</Setter>
+
+			<Setter Property="ItemsPanel">
+				<ItemsPanelTemplate>
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
+				</ItemsPanelTemplate>
+			</Setter>
+
+			<Setter Property="ItemTemplate">
+				<DataTemplate>
+					<Border>
+						<Border.Effect>
+							<DropShadowEffect Color="#3000" BlurRadius="20" OffsetX="0" OffsetY="0"/>
+						</Border.Effect>
+						<ContentPresenter Content="{Binding}"></ContentPresenter>
+					</Border>
+				</DataTemplate>
+			</Setter>
+		</Style>
+	</Panel.Styles>
+
+
+	<Grid>
+		<local:ReversableTransitioningContentControl Name="PART_ContentControl" Content="{Binding CurrentPage}"
+									 Classes.shouldAnimate="{Binding ShouldAnimate}"
+									 Classes.reverseAnimate="{Binding ReverseAnimate}">
+		</local:ReversableTransitioningContentControl>
+
+		<local:ItemsControlWithItemContainer Name="PART_ItemsControl" ItemsSource="{Binding ModalStack}">
+		</local:ItemsControlWithItemContainer>
+	</Grid>
+
 	<!-- Workaround until https://github.com/AvaloniaUI/Avalonia/pull/13003 is merged and released -->
 	<Panel.Resources>
 		<ControlTheme x:Key="{x:Type local:ReversableTransitioningContentControl}"
@@ -50,52 +105,4 @@
 			</Setter>
 		</ControlTheme>
 	</Panel.Resources>
-	<Panel.Styles>
-		<Style Selector="local|ReversableTransitioningContentControl:not(.shouldAnimate)">
-			<Setter Property="PageTransition" Value="{x:Null}" />
-		</Style>
-		
-		<Style Selector="local|ReversableTransitioningContentControl.shouldAnimate">
-			<Setter Property="PageTransition">
-				<PageSlide Duration="0:0:1" Orientation="Vertical" SlideInEasing="CubicEaseInOut" SlideOutEasing="CubicEaseInOut" />
-			</Setter>
-		</Style>
-		
-		<Style Selector="local|ReversableTransitioningContentControl.reverseAnimate">
-			<Setter Property="IsTransitionReversed" Value="True" />
-		</Style>
-	</Panel.Styles>
-	<Grid>
-		<local:ReversableTransitioningContentControl x:Name="Presenter" Content="{Binding CurrentPage}"
-									 Classes.shouldAnimate="{Binding ShouldAnimate}"
-									 Classes.reverseAnimate="{Binding ReverseAnimate}">
-		</local:ReversableTransitioningContentControl>
-		
-		<local:ItemsControlWithItemContainer ItemsSource="{Binding ModalStack}">
-			<local:ItemsControlWithItemContainer.ItemContainerTheme>
-				<ControlTheme TargetType="ContentPresenter">
-					<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-					<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-					<Setter Property="Background" Value="#3000"></Setter>
-				</ControlTheme>
-			</local:ItemsControlWithItemContainer.ItemContainerTheme>
-
-			<local:ItemsControlWithItemContainer.ItemsPanel>
-				<ItemsPanelTemplate>
-					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></Grid>
-				</ItemsPanelTemplate>
-			</local:ItemsControlWithItemContainer.ItemsPanel>
-
-			<local:ItemsControlWithItemContainer.ItemTemplate>
-				<DataTemplate>
-					<Border>
-						<Border.Effect>
-							<DropShadowEffect Color="#3000" BlurRadius="20" OffsetX="0" OffsetY="0"/>
-						</Border.Effect>
-						<ContentPresenter Content="{Binding}"></ContentPresenter>
-					</Border>
-				</DataTemplate>
-			</local:ItemsControlWithItemContainer.ItemTemplate>
-		</local:ItemsControlWithItemContainer>
-	</Grid>
 </Panel>
