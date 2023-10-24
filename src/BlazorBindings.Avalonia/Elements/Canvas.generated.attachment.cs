@@ -2,6 +2,103 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class CanvasInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Bottom",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Canvas.BottomProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Canvas.SetBottom((Avalonia.AvaloniaObject)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Left",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Canvas.LeftProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Canvas.SetLeft((Avalonia.AvaloniaObject)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Right",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Canvas.RightProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Canvas.SetRight((Avalonia.AvaloniaObject)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Canvas.Top",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Canvas.TopProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Canvas.SetTop((Avalonia.AvaloniaObject)element, (double)value);
+                    }
+                });
+        }
+    }
+
+    public static class CanvasExtensions
+    {
+        /// <summary>
+        /// Defines the Bottom attached property.
+        /// </summary>
+        public static BindableObject CanvasBottom(this BindableObject element, double value)
+        {
+            element.AttachedProperties["Canvas.Bottom"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the Left attached property.
+        /// </summary>
+        public static BindableObject CanvasLeft(this BindableObject element, double value)
+        {
+            element.AttachedProperties["Canvas.Left"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the Right attached property.
+        /// </summary>
+        public static BindableObject CanvasRight(this BindableObject element, double value)
+        {
+            element.AttachedProperties["Canvas.Right"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the Top attached property.
+        /// </summary>
+        public static BindableObject CanvasTop(this BindableObject element, double value)
+        {
+            element.AttachedProperties["Canvas.Top"] = value;
+        
+            return element;
+        }
+    }
+
     public class Canvas_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

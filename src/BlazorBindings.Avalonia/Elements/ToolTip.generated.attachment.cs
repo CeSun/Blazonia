@@ -2,6 +2,145 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class ToolTipInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.HorizontalOffset",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.HorizontalOffsetProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetHorizontalOffset((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.IsOpen",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.IsOpenProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetIsOpen((Avalonia.Controls.Control)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Placement",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.PlacementProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetPlacement((Avalonia.Controls.Control)element, (AC.PlacementMode)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.ShowDelay",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.ShowDelayProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetShowDelay((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.ChildContent",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.TipProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetTip((Avalonia.Controls.Control)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.VerticalOffset",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ToolTip.VerticalOffsetProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ToolTip.SetVerticalOffset((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+        }
+    }
+
+    public static class ToolTipExtensions
+    {
+        /// <summary>
+        /// Defines the ToolTip.HorizontalOffset property.
+        /// </summary>
+        public static Control ToolTipHorizontalOffset(this Control element, double value)
+        {
+            element.AttachedProperties["ToolTip.HorizontalOffset"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the ToolTip.IsOpen attached property.
+        /// </summary>
+        public static Control ToolTipIsOpen(this Control element, bool value)
+        {
+            element.AttachedProperties["ToolTip.IsOpen"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the ToolTip.Placement property.
+        /// </summary>
+        public static Control ToolTipPlacement(this Control element, AC.PlacementMode value)
+        {
+            element.AttachedProperties["ToolTip.Placement"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the ToolTip.ShowDelay property.
+        /// </summary>
+        public static Control ToolTipShowDelay(this Control element, int value)
+        {
+            element.AttachedProperties["ToolTip.ShowDelay"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the ToolTip.Tip attached property.
+        /// </summary>
+        public static Control ToolTipChildContent(this Control element, RenderFragment value)
+        {
+            element.AttachedProperties["ToolTip.ChildContent"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the ToolTip.VerticalOffset property.
+        /// </summary>
+        public static Control ToolTipVerticalOffset(this Control element, double value)
+        {
+            element.AttachedProperties["ToolTip.VerticalOffset"] = value;
+        
+            return element;
+        }
+    }
+
     public class ToolTip_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

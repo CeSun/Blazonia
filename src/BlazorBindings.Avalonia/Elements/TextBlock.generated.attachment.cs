@@ -2,6 +2,166 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class TextBlockInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.BaselineOffset",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.BaselineOffsetProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetBaselineOffset((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.LetterSpacing",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.LetterSpacingProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetLetterSpacing((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.LineHeight",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.LineHeightProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetLineHeight((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.MaxLines",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.MaxLinesProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetMaxLines((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextAlignment",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.TextAlignmentProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetTextAlignment((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextAlignment)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextTrimming",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.TextTrimmingProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetTextTrimming((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextTrimming)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextBlock.TextWrapping",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TextBlock.TextWrappingProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TextBlock.SetTextWrapping((Avalonia.Controls.Control)element, (global::Avalonia.Media.TextWrapping)value);
+                    }
+                });
+        }
+    }
+
+    public static class TextBlockExtensions
+    {
+        /// <summary>
+        /// DependencyProperty for <see cref="P:Avalonia.Controls.TextBlock.BaselineOffset" /> property.
+        /// </summary>
+        public static Control TextBlockBaselineOffset(this Control element, double value)
+        {
+            element.AttachedProperties["TextBlock.BaselineOffset"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.LetterSpacing" /> property.
+        /// </summary>
+        public static Control TextBlockLetterSpacing(this Control element, double value)
+        {
+            element.AttachedProperties["TextBlock.LetterSpacing"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.LineHeight" /> property.
+        /// </summary>
+        public static Control TextBlockLineHeight(this Control element, double value)
+        {
+            element.AttachedProperties["TextBlock.LineHeight"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.MaxLines" /> property.
+        /// </summary>
+        public static Control TextBlockMaxLines(this Control element, int value)
+        {
+            element.AttachedProperties["TextBlock.MaxLines"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.TextAlignment" /> property.
+        /// </summary>
+        public static Control TextBlockTextAlignment(this Control element, global::Avalonia.Media.TextAlignment value)
+        {
+            element.AttachedProperties["TextBlock.TextAlignment"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.TextTrimming" /> property.
+        /// </summary>
+        public static Control TextBlockTextTrimming(this Control element, global::Avalonia.Media.TextTrimming value)
+        {
+            element.AttachedProperties["TextBlock.TextTrimming"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.TextBlock.TextWrapping" /> property.
+        /// </summary>
+        public static Control TextBlockTextWrapping(this Control element, global::Avalonia.Media.TextWrapping value)
+        {
+            element.AttachedProperties["TextBlock.TextWrapping"] = value;
+        
+            return element;
+        }
+    }
+
     public class TextBlock_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

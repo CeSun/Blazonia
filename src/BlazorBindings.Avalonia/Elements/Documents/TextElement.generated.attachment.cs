@@ -3,6 +3,145 @@ using BlazorBindings.AvaloniaBindings.Elements;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class TextElementInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontFamily",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontFamilyProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontFamily)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontSize",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontSizeProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontSize((Avalonia.Controls.Control)element, (double)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontStretch",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontStretchProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontStretch((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStretch)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontStyle",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontStyleProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontStyle((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontStyle)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontWeight",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontWeightProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontWeight((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontWeight)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.Foreground",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.ForegroundProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetForeground((Avalonia.Controls.Control)element, (global::Avalonia.Media.IBrush)value);
+                    }
+                });
+        }
+    }
+
+    public static class TextElementExtensions
+    {
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFamily" /> property.
+        /// </summary>
+        public static Control TextElementFontFamily(this Control element, global::Avalonia.Media.FontFamily value)
+        {
+            element.AttachedProperties["TextElement.FontFamily"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontSize" /> property.
+        /// </summary>
+        public static Control TextElementFontSize(this Control element, double value)
+        {
+            element.AttachedProperties["TextElement.FontSize"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontStretch" /> property.
+        /// </summary>
+        public static Control TextElementFontStretch(this Control element, global::Avalonia.Media.FontStretch value)
+        {
+            element.AttachedProperties["TextElement.FontStretch"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontStyle" /> property.
+        /// </summary>
+        public static Control TextElementFontStyle(this Control element, global::Avalonia.Media.FontStyle value)
+        {
+            element.AttachedProperties["TextElement.FontStyle"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontWeight" /> property.
+        /// </summary>
+        public static Control TextElementFontWeight(this Control element, global::Avalonia.Media.FontWeight value)
+        {
+            element.AttachedProperties["TextElement.FontWeight"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.Foreground" /> property.
+        /// </summary>
+        public static Control TextElementForeground(this Control element, global::Avalonia.Media.IBrush value)
+        {
+            element.AttachedProperties["TextElement.Foreground"] = value;
+        
+            return element;
+        }
+    }
+
     public class TextElement_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

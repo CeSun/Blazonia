@@ -2,6 +2,40 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class TrayIconInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TrayIcon.Icons",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TrayIcon.IconsProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TrayIcon.SetIcons((Avalonia.Application)element, (AC.TrayIcons)value);
+                    }
+                });
+        }
+    }
+
+    public static class TrayIconExtensions
+    {
+        /// <summary>
+        /// Defines the <see cref="T:Avalonia.Controls.TrayIcons" /> attached property.
+        /// </summary>
+        //public static Application TrayIconIcons(this Application element, AC.TrayIcons value)
+        //{
+        //    element.AttachedProperties["TrayIcon.Icons"] = value;
+        
+        //    return element;
+        //}
+    }
+
     public class TrayIcon_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

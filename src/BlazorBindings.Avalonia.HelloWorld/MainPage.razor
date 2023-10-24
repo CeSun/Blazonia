@@ -28,6 +28,14 @@
 
             <Button class="bold" OnClick="@(async () => await navigation.NavigateToAsync("/sub", null))">Go to sub page</Button>
             <Button class="bold" OnClick="@(async () => await navigation.PushModalAsync(GetModalFragment()))">Open Modal</Button>
+
+            <Canvas Width="200" Height="100" Background="Brushes.DarkOrchid" ClipToBounds="true">
+                <TextBlock Attached="@((TextBlock x) => x.CanvasLeft(22))">Canvas positioned text block
+
+                    <Canvas_Attachment Top="30"></Canvas_Attachment>
+                </TextBlock>
+            </Canvas>
+
             <Menu T="object">
                 <MenuItem T="object" Header="@("Menu item 1")">
                     <MenuItem T="object" Header="@("Menu item 1-1")"></MenuItem>

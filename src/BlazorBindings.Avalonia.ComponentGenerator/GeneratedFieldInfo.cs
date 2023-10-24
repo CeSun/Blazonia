@@ -1,4 +1,5 @@
 ﻿using BlazorBindings.AvaloniaBindings.ComponentGenerator.Extensions;
+using CommandLine;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ public enum GeneratedFieldKind
 public partial class GeneratedFieldInfo
 {
     private readonly IFieldSymbol _fieldInfo;
+    private readonly GeneratedTypeInfo _typeInfo;
     private Lazy<string> _componentFieldNameLazy;
     //private Lazy<string> _componentTypeLazy;
 
@@ -62,8 +64,9 @@ public partial class GeneratedFieldInfo
 
     private GeneratedFieldInfo(GeneratedTypeInfo typeInfo, IFieldSymbol fieldInfo, GeneratedFieldKind kind)
     {
-        
+
         _fieldInfo = fieldInfo;
+        _typeInfo = typeInfo;
         Kind = kind;
         if (typeInfo.TypeName.StartsWith("ToolTip"))
         {
@@ -103,14 +106,75 @@ public partial class GeneratedFieldInfo
 
     public string GetAttachedPropertyType()
     {
-        //return ((INamedTypeSymbol)_fieldInfo.Type).TypeArguments[0].GetFullName();
-        //return GetComponentFieldTypeName(_fieldInfo, ContainingType, false);
         return GetAttachedPropertyTypeName(_fieldInfo, ContainingType, IsRenderFragmentProperty, makeNullable: false);
+    }
+
+    public string GetOriginalAttachedPropertyType()
+    {
+        return GetOriginalAttachedPropertyTypeName(_fieldInfo, ContainingType, IsRenderFragmentProperty, makeNullable: false);
     }
 
     public string GetAttachedPropertyNameWithoutSuffix()
     {
         return _fieldInfo.Name[..^8];
+    }
+
+    public string GetRegisterAttachedPropertyDeclaration()
+    {
+        // razor compiler doesn't allow 'new' properties, it considers them as duplicates.
+        if (_fieldInfo is not null && _fieldInfo.IsHidingMember())
+        {
+            return "";
+        }
+
+        const string indent = "        ";
+        var xmlDocContents = _fieldInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_fieldInfo, indent);
+
+        var effectiveBindingHostType = HostType.GetFullName();
+
+        var effectiveAvaloniaFieldName = AvaloniaFieldName[..^8];
+
+        return $$"""
+            {{indent}}    AttachedPropertyRegistry.RegisterAttachedPropertyHandler("{{ComponentName}}.{{ComponentFieldName}}",
+            {{indent}}        (element, value) => 
+            {{indent}}        {
+            {{indent}}            if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+            {{indent}}            {
+            {{indent}}                element.ClearValue({{AvaloniaContainingTypeName}}.{{AvaloniaFieldName}});
+            {{indent}}            }
+            {{indent}}            else
+            {{indent}}            {
+            {{indent}}                {{_typeInfo.AvaloniaType.GetFullName()}}.Set{{effectiveAvaloniaFieldName}}(({{effectiveBindingHostType}})element, ({{GetOriginalAttachedPropertyType()}})value);
+            {{indent}}            }
+            {{indent}}        });
+            """;
+    }
+
+    public string GetExtensionMethodDeclaration()
+    {
+        // razor compiler doesn't allow 'new' properties, it considers them as duplicates.
+        if (_fieldInfo is not null && _fieldInfo.IsHidingMember())
+        {
+            return "";
+        }
+
+        const string indent = "        ";
+        var xmlDocContents = _fieldInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_fieldInfo, indent);
+
+        var effectiveBindingHostType = HostType.Name;
+        if (effectiveBindingHostType == "AvaloniaObject")
+        {
+            effectiveBindingHostType = "BindableObject";
+        }
+
+        return $$"""
+            {{xmlDocContents}}{{indent}}public static {{effectiveBindingHostType}} {{ComponentName}}{{ComponentFieldName}}(this {{effectiveBindingHostType}} element, {{GetAttachedPropertyType()}} value)
+            {{indent}}{
+            {{indent}}    element.AttachedProperties["{{ComponentName}}.{{ComponentFieldName}}"] = value;
+            {{indent}}
+            {{indent}}    return element;
+            {{indent}}}
+            """;
     }
 
     public string GetFieldDeclaration()
@@ -218,7 +282,7 @@ public partial class GeneratedFieldInfo
 
     internal static GeneratedFieldInfo[] GetAttachedProperties(GeneratedTypeInfo generatedType)
     {
-        if(generatedType.TypeName == "ToolTip")
+        if (generatedType.TypeName == "ToolTip")
         {
 
         }
@@ -237,7 +301,7 @@ public partial class GeneratedFieldInfo
 
         return props.Select(prop =>
         {
-            
+
             if (prop.Type.GetFullName() == "Avalonia.Media.Brush")
             {
                 var propName = prop.Name.Replace("Brush", "") + "Color";
@@ -300,6 +364,45 @@ public partial class GeneratedFieldInfo
         else if (namedTypeSymbol.GetFullName() == "Avalonia.Data.BindingBase" && isGeneric)
         {
             return "Func<T, string>";
+        }
+        else if (namedTypeSymbol.SpecialType == SpecialType.System_Object && isGeneric)
+        {
+            return typeArgumentName;
+        }
+        else
+        {
+            return containingType.GetTypeNameAndAddNamespace(namedTypeSymbol);
+        }
+    }
+
+    private static string GetOriginalAttachedPropertyTypeName(IFieldSymbol fieldSymbol, GeneratedTypeInfo containingType, bool isRenderFragmentProperty = false, bool makeNullable = false)
+    {
+        var typeSymbol = ((INamedTypeSymbol)fieldSymbol.Type).TypeArguments[0];
+        var isGeneric = containingType.Settings.GenericProperties.TryGetValue(fieldSymbol.Name, out var typeArgument);
+        var typeArgumentName = typeArgument is null ? "T" : containingType.GetTypeNameAndAddNamespace(typeArgument);
+
+        if (typeSymbol is not INamedTypeSymbol namedTypeSymbol)
+        {
+            return containingType.GetTypeNameAndAddNamespace(typeSymbol);
+        }
+        else if (namedTypeSymbol.IsGenericType
+            && namedTypeSymbol.ConstructedFrom.SpecialType == SpecialType.System_Collections_Generic_IList_T
+            && namedTypeSymbol.TypeArguments[0].SpecialType == SpecialType.System_String)
+        {
+            // Lists of strings are special-cased because they are handled specially by the handlers as a comma-separated list
+            return "string";
+        }
+        else if (makeNullable && namedTypeSymbol.IsValueType && !namedTypeSymbol.IsNullableStruct())
+        {
+            return containingType.GetTypeNameAndAddNamespace(typeSymbol) + "?";
+        }
+        else if (namedTypeSymbol.SpecialType == SpecialType.System_Collections_IEnumerable && isGeneric)
+        {
+            return containingType.GetTypeNameAndAddNamespace("System.Collections.Generic", $"IEnumerable<{typeArgumentName}>");
+        }
+        else if (namedTypeSymbol.GetFullName() == "System.Collections.IList" && isGeneric)
+        {
+            return containingType.GetTypeNameAndAddNamespace("System.Collections.Generic", $"IList<{typeArgumentName}>");
         }
         else if (namedTypeSymbol.SpecialType == SpecialType.System_Object && isGeneric)
         {

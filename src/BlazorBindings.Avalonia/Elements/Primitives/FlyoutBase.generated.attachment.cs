@@ -3,6 +3,40 @@ using BlazorBindings.AvaloniaBindings.Elements;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class FlyoutBaseInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("FlyoutBase.AttachedFlyout",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACP.FlyoutBase.AttachedFlyoutProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Primitives.FlyoutBase.SetAttachedFlyout((Avalonia.Controls.Control)element, (ACP.FlyoutBase)value);
+                    }
+                });
+        }
+    }
+
+    public static class FlyoutBaseExtensions
+    {
+        /// <summary>
+        /// Defines the AttachedFlyout property
+        /// </summary>
+        public static Control FlyoutBaseAttachedFlyout(this Control element, ACP.FlyoutBase value)
+        {
+            element.AttachedProperties["FlyoutBase.AttachedFlyout"] = value;
+        
+            return element;
+        }
+    }
+
     public class FlyoutBase_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

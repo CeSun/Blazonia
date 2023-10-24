@@ -2,6 +2,37 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class NativeMenuInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("NativeMenu.Menu",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.NativeMenu.MenuProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.NativeMenu.SetMenu((Avalonia.AvaloniaObject)element, (AC.NativeMenu)value);
+                    }
+                });
+        }
+    }
+
+    public static class NativeMenuExtensions
+    {
+        public static BindableObject NativeMenuMenu(this BindableObject element, AC.NativeMenu value)
+        {
+            element.AttachedProperties["NativeMenu.Menu"] = value;
+        
+            return element;
+        }
+    }
+
     public class NativeMenu_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         [Parameter] public AC.NativeMenu Menu { get; set; }

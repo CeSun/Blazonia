@@ -2,6 +2,40 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class DockPanelInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("DockPanel.Dock",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.DockPanel.DockProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.DockPanel.SetDock((Avalonia.Controls.Control)element, (AC.Dock)value);
+                    }
+                });
+        }
+    }
+
+    public static class DockPanelExtensions
+    {
+        /// <summary>
+        /// Defines the Dock attached property.
+        /// </summary>
+        public static Control DockPanelDock(this Control element, AC.Dock value)
+        {
+            element.AttachedProperties["DockPanel.Dock"] = value;
+        
+            return element;
+        }
+    }
+
     public class DockPanel_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

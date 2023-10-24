@@ -10,8 +10,10 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
 {
     [Parameter] public Delegate Attached { get; set; }
 
-    [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AttachedProperties { get; set; } = new Dictionary<string, object>();
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalProperties { get; set; } = new Dictionary<string, object>();
 
     private AvaloniaBindableObject _nativeControl;
 
@@ -22,6 +24,11 @@ public abstract class BindableObject : NativeControlComponentBase, IElementHandl
         foreach (var parameterValue in parameters)
         {
             HandleParameter(parameterValue.Name, parameterValue.Value);
+        }
+
+        foreach (var parameterValue in AdditionalProperties)
+        {
+            HandleParameter(parameterValue.Key, parameterValue.Value);
         }
 
         foreach (var parameterValue in AttachedProperties)

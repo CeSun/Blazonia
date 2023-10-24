@@ -19,7 +19,7 @@ public class BlazorBindingsApplication<T> : Application, IAvaloniaBlazorApplicat
 
     public void Initialize(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
+        _serviceProvider = serviceProvider ?? (new ServiceCollection().BuildServiceProvider());
 
         Configure();
 

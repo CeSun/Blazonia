@@ -17,18 +17,18 @@ using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
-    internal static class ToolTipInitializer
-    {
-        [ModuleInitializer]
-        internal static void RegisterAdditionalHandlers()
-        {
-            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Tip",
-                (element, value) => AC.ToolTip.SetTip((AC.Control)element, value));
+    //internal static class ToolTipInitializer
+    //{
+    //    [ModuleInitializer]
+    //    internal static void RegisterAdditionalHandlers()
+    //    {
+    //        AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Tip",
+    //            (element, value) => AC.ToolTip.SetTip((AC.Control)element, value));
 
-            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Placement",
-                (element, value) => AC.ToolTip.SetPlacement((AC.Control)element, (PlacementMode)value));
-        }
-    }
+    //        AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ToolTip.Placement",
+    //            (element, value) => AC.ToolTip.SetPlacement((AC.Control)element, (PlacementMode)value));
+    //    }
+    //}
 
     /// <summary>
     /// A control which pops up a hint when a control is hovered.

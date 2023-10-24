@@ -2,6 +2,124 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class GridInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.Column",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Grid.ColumnProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Grid.SetColumn((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.ColumnSpan",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Grid.ColumnSpanProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Grid.SetColumnSpan((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.IsSharedSizeScope",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Grid.IsSharedSizeScopeProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Grid.SetIsSharedSizeScope((Avalonia.Controls.Control)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.Row",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Grid.RowProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Grid.SetRow((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Grid.RowSpan",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.Grid.RowSpanProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Grid.SetRowSpan((Avalonia.Controls.Control)element, (int)value);
+                    }
+                });
+        }
+    }
+
+    public static class GridExtensions
+    {
+        /// <summary>
+        /// Column property. This is an attached property. Grid defines Column property, so that it can be set on any element treated as a cell. Column property specifies child's position with respect to columns.
+        /// </summary>
+        public static Control GridColumn(this Control element, int value)
+        {
+            element.AttachedProperties["Grid.Column"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// ColumnSpan property. This is an attached property. Grid defines ColumnSpan, so that it can be set on any element treated as a cell. ColumnSpan property specifies child's width with respect to columns. Example, ColumnSpan == 2 means that child will span across two columns.
+        /// </summary>
+        public static Control GridColumnSpan(this Control element, int value)
+        {
+            element.AttachedProperties["Grid.ColumnSpan"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// IsSharedSizeScope property marks scoping element for shared size.
+        /// </summary>
+        public static Control GridIsSharedSizeScope(this Control element, bool value)
+        {
+            element.AttachedProperties["Grid.IsSharedSizeScope"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Row property. This is an attached property. Grid defines Row, so that it can be set on any element treated as a cell. Row property specifies child's position with respect to rows. <remarks><para> Rows are 0 - based. In order to appear in first row, element should have Row property set to <c>0</c>. </para><para> Default value for the property is <c>0</c>. </para></remarks>
+        /// </summary>
+        public static Control GridRow(this Control element, int value)
+        {
+            element.AttachedProperties["Grid.Row"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// RowSpan property. This is an attached property. Grid defines RowSpan, so that it can be set on any element treated as a cell. RowSpan property specifies child's height with respect to row grid lines. Example, RowSpan == 3 means that child will span across three rows.
+        /// </summary>
+        public static Control GridRowSpan(this Control element, int value)
+        {
+            element.AttachedProperties["Grid.RowSpan"] = value;
+        
+            return element;
+        }
+    }
+
     public class Grid_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

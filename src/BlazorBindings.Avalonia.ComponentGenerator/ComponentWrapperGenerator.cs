@@ -230,6 +230,43 @@ namespace {componentNamespace}
 
             namespace BlazorBindings.AvaloniaBindings.Elements
             {
+                
+                internal static class {{typeToGenerate.Name}}Initializer
+                {
+                    [System.Runtime.CompilerServices.ModuleInitializer]
+                    internal static void RegisterAdditionalHandlers()
+                    {
+            """);
+
+            foreach (var attached in attachedProperties)
+            {
+                var declaration = attached.GetRegisterAttachedPropertyDeclaration();
+                if (!string.IsNullOrEmpty(declaration))
+                {
+                    handleAttachedPopertiesBuilder.AppendLine(declaration);
+                }
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+                    }
+                }
+
+                public static class {{typeToGenerate.Name}}Extensions
+                {
+            """);
+
+            foreach (var attached in attachedProperties)
+            {
+                var declaration = attached.GetExtensionMethodDeclaration();
+                if (!string.IsNullOrEmpty(declaration))
+                {
+                    handleAttachedPopertiesBuilder.AppendLine(declaration);
+                }
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+                }
+
                 public class {{typeToGenerate.Name}}_Attachment : NativeControlComponentBase{{(true ? ", INonPhysicalChild, IContainerElementHandler" : "")}}
                 {
             """);

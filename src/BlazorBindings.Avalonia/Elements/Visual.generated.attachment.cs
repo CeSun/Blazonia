@@ -2,6 +2,40 @@ using A = Avalonia;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class VisualInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("Visual.FlowDirection",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(A.Visual.FlowDirectionProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Visual.SetFlowDirection((Avalonia.Visual)element, (A.Media.FlowDirection)value);
+                    }
+                });
+        }
+    }
+
+    public static class VisualExtensions
+    {
+        /// <summary>
+        /// Defines the <see cref="P:Avalonia.Visual.FlowDirection" /> property.
+        /// </summary>
+        public static Visual VisualFlowDirection(this Visual element, A.Media.FlowDirection value)
+        {
+            element.AttachedProperties["Visual.FlowDirection"] = value;
+        
+            return element;
+        }
+    }
+
     public class Visual_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

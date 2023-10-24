@@ -3,6 +3,40 @@ using BlazorBindings.AvaloniaBindings.Elements;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class TemplatedControlInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TemplatedControl.IsTemplateFocusTarget",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACP.TemplatedControl.IsTemplateFocusTargetProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)element, (bool)value);
+                    }
+                });
+        }
+    }
+
+    public static class TemplatedControlExtensions
+    {
+        /// <summary>
+        /// Defines the IsTemplateFocusTarget attached property.
+        /// </summary>
+        public static Control TemplatedControlIsTemplateFocusTarget(this Control element, bool value)
+        {
+            element.AttachedProperties["TemplatedControl.IsTemplateFocusTarget"] = value;
+        
+            return element;
+        }
+    }
+
     public class TemplatedControl_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

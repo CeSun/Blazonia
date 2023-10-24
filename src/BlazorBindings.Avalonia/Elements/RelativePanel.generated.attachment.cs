@@ -2,6 +2,355 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class RelativePanelInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.Above",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AboveProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAbove((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignBottomWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignBottomWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignBottomWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignBottomWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignBottomWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignBottomWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignHorizontalCenterWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignHorizontalCenterWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignHorizontalCenterWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignHorizontalCenterWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignLeftWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignLeftWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignLeftWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignLeftWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignLeftWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignLeftWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignRightWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignRightWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignRightWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignRightWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignRightWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignRightWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignTopWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignTopWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignTopWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignTopWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignTopWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignTopWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignVerticalCenterWithPanel",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignVerticalCenterWithPanelProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWithPanel((Avalonia.AvaloniaObject)element, (bool)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.AlignVerticalCenterWith",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.AlignVerticalCenterWithProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWith((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.Below",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.BelowProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetBelow((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.LeftOf",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.LeftOfProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetLeftOf((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("RelativePanel.RightOf",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.RelativePanel.RightOfProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.RelativePanel.SetRightOf((Avalonia.AvaloniaObject)element, (object)value);
+                    }
+                });
+        }
+    }
+
+    public static class RelativePanelExtensions
+    {
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AboveProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAbove(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.Above"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignBottomWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignBottomWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignBottomWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignBottomWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignBottomWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignHorizontalCenterWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignHorizontalCenterWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignHorizontalCenterWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignHorizontalCenterWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignLeftWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignLeftWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignLeftWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignLeftWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignLeftWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignRightWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignRightWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignRightWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignRightWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignRightWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignTopWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignTopWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignTopWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignTopWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignTopWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignVerticalCenterWithPanel(this BindableObject element, bool value)
+        {
+            element.AttachedProperties["RelativePanel.AlignVerticalCenterWithPanel"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelAlignVerticalCenterWith(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.AlignVerticalCenterWith"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.BelowProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelBelow(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.Below"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.LeftOfProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelLeftOf(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.LeftOf"] = value;
+        
+            return element;
+        }
+        /// <summary>
+        /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.RightOfProperty" /> XAML attached property.
+        /// </summary>
+        public static BindableObject RelativePanelRightOf(this BindableObject element, object value)
+        {
+            element.AttachedProperties["RelativePanel.RightOf"] = value;
+        
+            return element;
+        }
+    }
+
     public class RelativePanel_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>

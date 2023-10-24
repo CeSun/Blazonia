@@ -2,6 +2,40 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
+    
+    internal static class TopLevelInitializer
+    {
+        [System.Runtime.CompilerServices.ModuleInitializer]
+        internal static void RegisterAdditionalHandlers()
+        {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TopLevel.SystemBarColor",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TopLevel.SystemBarColorProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TopLevel.SetSystemBarColor((Avalonia.Controls.Control)element, (global::Avalonia.Media.SolidColorBrush)value);
+                    }
+                });
+        }
+    }
+
+    public static class TopLevelExtensions
+    {
+        /// <summary>
+        /// Defines the SystemBarColor attached property.
+        /// </summary>
+        public static Control TopLevelSystemBarColor(this Control element, global::Avalonia.Media.SolidColorBrush value)
+        {
+            element.AttachedProperties["TopLevel.SystemBarColor"] = value;
+        
+            return element;
+        }
+    }
+
     public class TopLevel_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
         /// <summary>
