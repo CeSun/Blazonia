@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public EventCallback<global::Avalonia.Input.VectorEventArgs> OnDragDelta { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Input.VectorEventArgs> OnDragCompleted { get; set; }
 
-        public new ACP.Thumb NativeControl => (ACP.Thumb)((BindableObject)this).NativeControl;
+        public new ACP.Thumb NativeControl => (ACP.Thumb)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.Thumb CreateNativeElement() => new();
 

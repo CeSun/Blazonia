@@ -75,7 +75,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.WindowState? WindowState { get; set; }
         [Parameter] public EventCallback<AC.WindowClosingEventArgs> OnClosing { get; set; }
 
-        public new AC.Window NativeControl => (AC.Window)((BindableObject)this).NativeControl;
+        public new AC.Window NativeControl => (AC.Window)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Window CreateNativeElement() => new();
 

@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         /// </summary>
         [Parameter] public global::Avalonia.RelativePoint? TransformOrigin { get; set; }
 
-        public new AM.Brush NativeControl => (AM.Brush)((BindableObject)this).NativeControl;
+        public new AM.Brush NativeControl => (AM.Brush)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

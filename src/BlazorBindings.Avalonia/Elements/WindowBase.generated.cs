@@ -30,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.PixelPointEventArgs> OnPositionChanged { get; set; }
         [Parameter] public EventCallback<AC.WindowResizedEventArgs> OnResized { get; set; }
 
-        public new AC.WindowBase NativeControl => (AC.WindowBase)((BindableObject)this).NativeControl;
+        public new AC.WindowBase NativeControl => (AC.WindowBase)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

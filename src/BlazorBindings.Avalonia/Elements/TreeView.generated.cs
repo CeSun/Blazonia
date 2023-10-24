@@ -39,7 +39,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.SelectionMode? SelectionMode { get; set; }
         [Parameter] public EventCallback<AC.SelectionChangedEventArgs> OnSelectionChanged { get; set; }
 
-        public new AC.TreeView NativeControl => (AC.TreeView)((BindableObject)this).NativeControl;
+        public new AC.TreeView NativeControl => (AC.TreeView)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TreeView CreateNativeElement() => new();
 

@@ -38,7 +38,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public RenderFragment ContentTemplate { get; set; }
 
-        public new AC.TabControl NativeControl => (AC.TabControl)((BindableObject)this).NativeControl;
+        public new AC.TabControl NativeControl => (AC.TabControl)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TabControl CreateNativeElement() => new();
 

@@ -183,7 +183,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.DataGridRowGroupHeaderEventArgs> OnUnloadingRowGroup { get; set; }
         [Parameter] public EventCallback<AC.DataGridRowClipboardEventArgs> OnCopyingRowClipboardContent { get; set; }
 
-        public new AC.DataGrid NativeControl => (AC.DataGrid)((BindableObject)this).NativeControl;
+        public new AC.DataGrid NativeControl => (AC.DataGrid)((AvaloniaObject)this).NativeControl;
 
         protected override AC.DataGrid CreateNativeElement() => new();
 

@@ -40,7 +40,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnHorizontalSnapPointsChanged { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnVerticalSnapPointsChanged { get; set; }
 
-        public new AC.StackPanel NativeControl => (AC.StackPanel)((BindableObject)this).NativeControl;
+        public new AC.StackPanel NativeControl => (AC.StackPanel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.StackPanel CreateNativeElement() => new();
 

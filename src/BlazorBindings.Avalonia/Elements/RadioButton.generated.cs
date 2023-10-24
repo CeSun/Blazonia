@@ -23,7 +23,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
 
         [Parameter] public string GroupName { get; set; }
 
-        public new AC.RadioButton NativeControl => (AC.RadioButton)((BindableObject)this).NativeControl;
+        public new AC.RadioButton NativeControl => (AC.RadioButton)((AvaloniaObject)this).NativeControl;
 
         protected override AC.RadioButton CreateNativeElement() => new();
 

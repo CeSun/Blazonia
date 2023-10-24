@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.CornerRadius? CornerRadius { get; set; }
 
-        public new AC.Border NativeControl => (AC.Border)((BindableObject)this).NativeControl;
+        public new AC.Border NativeControl => (AC.Border)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Border CreateNativeElement() => new();
 

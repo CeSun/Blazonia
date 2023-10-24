@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback OnScalingChanged { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnBackRequested { get; set; }
 
-        public new AC.TopLevel NativeControl => (AC.TopLevel)((BindableObject)this).NativeControl;
+        public new AC.TopLevel NativeControl => (AC.TopLevel)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

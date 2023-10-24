@@ -32,7 +32,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// </summary>
         [Parameter] public RenderFragment HeaderTemplate { get; set; }
 
-        public new ACP.HeaderedSelectingItemsControl NativeControl => (ACP.HeaderedSelectingItemsControl)((BindableObject)this).NativeControl;
+        public new ACP.HeaderedSelectingItemsControl NativeControl => (ACP.HeaderedSelectingItemsControl)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.HeaderedSelectingItemsControl CreateNativeElement() => new();
 

@@ -62,7 +62,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnPaneOpened { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.CancelRoutedEventArgs> OnPaneOpening { get; set; }
 
-        public new AC.SplitView NativeControl => (AC.SplitView)((BindableObject)this).NativeControl;
+        public new AC.SplitView NativeControl => (AC.SplitView)((AvaloniaObject)this).NativeControl;
 
         protected override AC.SplitView CreateNativeElement() => new();
 

@@ -31,7 +31,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         /// </summary>
         [Parameter] public global::Avalonia.RelativePoint? StartPoint { get; set; }
 
-        public new AM.LinearGradientBrush NativeControl => (AM.LinearGradientBrush)((BindableObject)this).NativeControl;
+        public new AM.LinearGradientBrush NativeControl => (AM.LinearGradientBrush)((AvaloniaObject)this).NativeControl;
 
         protected override AM.LinearGradientBrush CreateNativeElement() => new();
 

@@ -43,7 +43,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.IResourceDictionary> ResourcesChanged { get; set; }
         [Parameter] public EventCallback OnActualThemeVariantChanged { get; set; }
 
-        public new A.StyledElement NativeControl => (A.StyledElement)((BindableObject)this).NativeControl;
+        public new A.StyledElement NativeControl => (A.StyledElement)((AvaloniaObject)this).NativeControl;
 
         protected override A.StyledElement CreateNativeElement() => new();
 

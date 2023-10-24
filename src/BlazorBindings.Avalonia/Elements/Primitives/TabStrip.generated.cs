@@ -19,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
             RegisterAdditionalHandlers();
         }
 
-        public new ACP.TabStrip NativeControl => (ACP.TabStrip)((BindableObject)this).NativeControl;
+        public new ACP.TabStrip NativeControl => (ACP.TabStrip)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.TabStrip CreateNativeElement() => new();
 

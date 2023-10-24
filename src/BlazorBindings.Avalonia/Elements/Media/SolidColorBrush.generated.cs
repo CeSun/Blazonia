@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         /// </summary>
         [Parameter] public AM.Color? Color { get; set; }
 
-        public new AM.SolidColorBrush NativeControl => (AM.SolidColorBrush)((BindableObject)this).NativeControl;
+        public new AM.SolidColorBrush NativeControl => (AM.SolidColorBrush)((AvaloniaObject)this).NativeControl;
 
         protected override AM.SolidColorBrush CreateNativeElement() => new();
 

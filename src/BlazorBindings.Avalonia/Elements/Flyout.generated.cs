@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Styling.ControlTheme FlyoutPresenterTheme { get; set; }
 
-        public new AC.Flyout NativeControl => (AC.Flyout)((BindableObject)this).NativeControl;
+        public new AC.Flyout NativeControl => (AC.Flyout)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Flyout CreateNativeElement() => new();
 

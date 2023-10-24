@@ -70,7 +70,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.Primitives.SnapPointsType? VerticalSnapPointsType { get; set; }
         [Parameter] public EventCallback<AC.ScrollChangedEventArgs> OnScrollChanged { get; set; }
 
-        public new AC.ScrollViewer NativeControl => (AC.ScrollViewer)((BindableObject)this).NativeControl;
+        public new AC.ScrollViewer NativeControl => (AC.ScrollViewer)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ScrollViewer CreateNativeElement() => new();
 

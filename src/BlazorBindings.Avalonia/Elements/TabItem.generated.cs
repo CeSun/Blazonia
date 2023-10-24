@@ -26,7 +26,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? IsSelected { get; set; }
 
-        public new AC.TabItem NativeControl => (AC.TabItem)((BindableObject)this).NativeControl;
+        public new AC.TabItem NativeControl => (AC.TabItem)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TabItem CreateNativeElement() => new();
 

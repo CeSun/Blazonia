@@ -55,7 +55,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
         /// </summary>
         [Parameter] public double? StrokeThickness { get; set; }
 
-        public new ACS.Shape NativeControl => (ACS.Shape)((BindableObject)this).NativeControl;
+        public new ACS.Shape NativeControl => (ACS.Shape)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

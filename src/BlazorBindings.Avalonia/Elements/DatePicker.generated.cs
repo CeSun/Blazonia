@@ -56,7 +56,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public bool? YearVisible { get; set; }
         [Parameter] public EventCallback<Nullable<DateTimeOffset>> SelectedDateChanged { get; set; }
 
-        public new AC.DatePicker NativeControl => (AC.DatePicker)((BindableObject)this).NativeControl;
+        public new AC.DatePicker NativeControl => (AC.DatePicker)((AvaloniaObject)this).NativeControl;
 
         protected override AC.DatePicker CreateNativeElement() => new();
 

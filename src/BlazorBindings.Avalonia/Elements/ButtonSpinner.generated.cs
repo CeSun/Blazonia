@@ -34,7 +34,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? ShowButtonSpinner { get; set; }
 
-        public new AC.ButtonSpinner NativeControl => (AC.ButtonSpinner)((BindableObject)this).NativeControl;
+        public new AC.ButtonSpinner NativeControl => (AC.ButtonSpinner)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ButtonSpinner CreateNativeElement() => new();
 

@@ -26,7 +26,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Input.IInputElement Target { get; set; }
 
-        public new AC.Label NativeControl => (AC.Label)((BindableObject)this).NativeControl;
+        public new AC.Label NativeControl => (AC.Label)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Label CreateNativeElement() => new();
 

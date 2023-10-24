@@ -26,7 +26,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Animation.IPageTransition PageTransition { get; set; }
 
-        public new AC.Carousel NativeControl => (AC.Carousel)((BindableObject)this).NativeControl;
+        public new AC.Carousel NativeControl => (AC.Carousel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Carousel CreateNativeElement() => new();
 

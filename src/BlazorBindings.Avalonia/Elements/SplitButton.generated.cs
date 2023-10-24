@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.Primitives.FlyoutBase Flyout { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClick { get; set; }
 
-        public new AC.SplitButton NativeControl => (AC.SplitButton)((BindableObject)this).NativeControl;
+        public new AC.SplitButton NativeControl => (AC.SplitButton)((AvaloniaObject)this).NativeControl;
 
         protected override AC.SplitButton CreateNativeElement() => new();
 

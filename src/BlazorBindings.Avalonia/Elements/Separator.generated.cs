@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.Separator NativeControl => (AC.Separator)((BindableObject)this).NativeControl;
+        public new AC.Separator NativeControl => (AC.Separator)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Separator CreateNativeElement() => new();
 

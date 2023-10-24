@@ -12,7 +12,7 @@ using BlazorBindings.AvaloniaBindings.Elements;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
 {
-    public abstract partial class FlyoutBase : BlazorBindings.AvaloniaBindings.Elements.BindableObject
+    public abstract partial class FlyoutBase : BlazorBindings.AvaloniaBindings.Elements.AvaloniaObject
     {
         static FlyoutBase()
         {
@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public EventCallback OnOpened { get; set; }
         [Parameter] public EventCallback OnClosed { get; set; }
 
-        public new ACP.FlyoutBase NativeControl => (ACP.FlyoutBase)((BindableObject)this).NativeControl;
+        public new ACP.FlyoutBase NativeControl => (ACP.FlyoutBase)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

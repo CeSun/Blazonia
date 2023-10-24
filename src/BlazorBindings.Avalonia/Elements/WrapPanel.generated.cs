@@ -34,7 +34,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Layout.Orientation? Orientation { get; set; }
 
-        public new AC.WrapPanel NativeControl => (AC.WrapPanel)((BindableObject)this).NativeControl;
+        public new AC.WrapPanel NativeControl => (AC.WrapPanel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.WrapPanel CreateNativeElement() => new();
 

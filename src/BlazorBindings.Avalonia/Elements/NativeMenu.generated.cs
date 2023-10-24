@@ -11,7 +11,7 @@
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
-    public partial class NativeMenu : BindableObject
+    public partial class NativeMenu : AvaloniaObject
     {
         static NativeMenu()
         {
@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback OnOpening { get; set; }
         [Parameter] public EventCallback OnClosed { get; set; }
 
-        public new AC.NativeMenu NativeControl => (AC.NativeMenu)((BindableObject)this).NativeControl;
+        public new AC.NativeMenu NativeControl => (AC.NativeMenu)((AvaloniaObject)this).NativeControl;
 
         protected override AC.NativeMenu CreateNativeElement() => new();
 

@@ -48,7 +48,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback OnDropDownClosed { get; set; }
         [Parameter] public EventCallback OnDropDownOpened { get; set; }
 
-        public new AC.ComboBox NativeControl => (AC.ComboBox)((BindableObject)this).NativeControl;
+        public new AC.ComboBox NativeControl => (AC.ComboBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ComboBox CreateNativeElement() => new();
 

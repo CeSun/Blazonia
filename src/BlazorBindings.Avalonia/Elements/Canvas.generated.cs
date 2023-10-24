@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.Canvas NativeControl => (AC.Canvas)((BindableObject)this).NativeControl;
+        public new AC.Canvas NativeControl => (AC.Canvas)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Canvas CreateNativeElement() => new();
 

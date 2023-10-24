@@ -38,7 +38,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Layout
         /// </summary>
         [Parameter] public double? Spacing { get; set; }
 
-        public new AL.StackLayout NativeControl => (AL.StackLayout)((BindableObject)this).NativeControl;
+        public new AL.StackLayout NativeControl => (AL.StackLayout)((AvaloniaObject)this).NativeControl;
 
         protected override AL.StackLayout CreateNativeElement() => new();
 

@@ -34,11 +34,6 @@ public partial class ComponentWrapperGenerator
         if (componentNamespace != GetComponentNamespace(baseType))
             componentBaseName = $"{GetComponentNamespace(baseType)}.{componentBaseName}";
 
-        if (baseType.Name == "AvaloniaObject")
-        {
-            componentBaseName = componentBaseName.Replace("AvaloniaObject", "BindableObject");
-        }
-        //var semanticModel =compilation.GetSemanticModel(compilation.SyntaxTrees.Where(x => x.);
         // header
         var headerText = generatedInfo.FileHeader;
 
@@ -143,7 +138,7 @@ namespace {componentNamespace}
             {staticConstructorBody.Trim()}
         }}
 {propertyDeclarations}
-        public new {avaloniaTypeName} NativeControl => ({avaloniaTypeName})((BindableObject)this).NativeControl;
+        public new {avaloniaTypeName} NativeControl => ({avaloniaTypeName})((AvaloniaObject)this).NativeControl;
 {createNativeElement}
 {handleParameter}{renderAdditionalElementContent}
 
@@ -177,11 +172,6 @@ namespace {componentNamespace}
         if (componentNamespace != GetComponentNamespace(baseType))
             componentBaseName = $"{GetComponentNamespace(baseType)}.{componentBaseName}";
 
-        if (baseType.Name == "AvaloniaObject")
-        {
-            componentBaseName = componentBaseName.Replace("AvaloniaObject", "BindableObject");
-        }
-        //var semanticModel =compilation.GetSemanticModel(compilation.SyntaxTrees.Where(x => x.);
         // header
         var headerText = generatedInfo.FileHeader;
 

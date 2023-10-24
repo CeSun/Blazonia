@@ -26,7 +26,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? LastChildFill { get; set; }
 
-        public new AC.DockPanel NativeControl => (AC.DockPanel)((BindableObject)this).NativeControl;
+        public new AC.DockPanel NativeControl => (AC.DockPanel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.DockPanel CreateNativeElement() => new();
 

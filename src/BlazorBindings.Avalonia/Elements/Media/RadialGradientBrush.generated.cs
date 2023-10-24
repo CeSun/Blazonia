@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         /// </summary>
         [Parameter] public double? Radius { get; set; }
 
-        public new AM.RadialGradientBrush NativeControl => (AM.RadialGradientBrush)((BindableObject)this).NativeControl;
+        public new AM.RadialGradientBrush NativeControl => (AM.RadialGradientBrush)((AvaloniaObject)this).NativeControl;
 
         protected override AM.RadialGradientBrush CreateNativeElement() => new();
 

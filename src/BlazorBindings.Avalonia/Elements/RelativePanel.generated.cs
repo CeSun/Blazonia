@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.RelativePanel NativeControl => (AC.RelativePanel)((BindableObject)this).NativeControl;
+        public new AC.RelativePanel NativeControl => (AC.RelativePanel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.RelativePanel CreateNativeElement() => new();
 

@@ -65,7 +65,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Layout
         [Parameter] public EventCallback<AL.EffectiveViewportChangedEventArgs> OnEffectiveViewportChanged { get; set; }
         [Parameter] public EventCallback OnLayoutUpdated { get; set; }
 
-        public new AL.Layoutable NativeControl => (AL.Layoutable)((BindableObject)this).NativeControl;
+        public new AL.Layoutable NativeControl => (AL.Layoutable)((AvaloniaObject)this).NativeControl;
 
         protected override AL.Layoutable CreateNativeElement() => new();
 

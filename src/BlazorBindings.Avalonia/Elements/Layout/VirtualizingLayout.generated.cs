@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Layout
             RegisterAdditionalHandlers();
         }
 
-        public new AL.VirtualizingLayout NativeControl => (AL.VirtualizingLayout)((BindableObject)this).NativeControl;
+        public new AL.VirtualizingLayout NativeControl => (AL.VirtualizingLayout)((AvaloniaObject)this).NativeControl;
 
 
 

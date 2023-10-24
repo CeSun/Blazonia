@@ -139,7 +139,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<string> TextChanged { get; set; }
         [Parameter] public EventCallback<AC.TextChangingEventArgs> OnTextChanging { get; set; }
 
-        public new AC.TextBox NativeControl => (AC.TextBox)((BindableObject)this).NativeControl;
+        public new AC.TextBox NativeControl => (AC.TextBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TextBox CreateNativeElement() => new();
 

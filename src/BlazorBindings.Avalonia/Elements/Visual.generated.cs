@@ -62,7 +62,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public int? ZIndex { get; set; }
 
-        public new A.Visual NativeControl => (A.Visual)((BindableObject)this).NativeControl;
+        public new A.Visual NativeControl => (A.Visual)((AvaloniaObject)this).NativeControl;
 
         protected override A.Visual CreateNativeElement() => new();
 

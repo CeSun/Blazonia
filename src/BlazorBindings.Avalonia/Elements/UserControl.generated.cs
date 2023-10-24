@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.UserControl NativeControl => (AC.UserControl)((BindableObject)this).NativeControl;
+        public new AC.UserControl NativeControl => (AC.UserControl)((AvaloniaObject)this).NativeControl;
 
         protected override AC.UserControl CreateNativeElement() => new();
 

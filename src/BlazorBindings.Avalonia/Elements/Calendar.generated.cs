@@ -82,7 +82,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<DateTime> DisplayDateChanged { get; set; }
         [Parameter] public EventCallback<AC.CalendarMode> DisplayModeChanged { get; set; }
 
-        public new AC.Calendar NativeControl => (AC.Calendar)((BindableObject)this).NativeControl;
+        public new AC.Calendar NativeControl => (AC.Calendar)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Calendar CreateNativeElement() => new();
 

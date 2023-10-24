@@ -162,10 +162,6 @@ public partial class GeneratedFieldInfo
         var xmlDocContents = _fieldInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_fieldInfo, indent);
 
         var effectiveBindingHostType = HostType.Name;
-        if (effectiveBindingHostType == "AvaloniaObject")
-        {
-            effectiveBindingHostType = "BindableObject";
-        }
 
         return $$"""
             {{xmlDocContents}}{{indent}}public static {{effectiveBindingHostType}} {{ComponentName}}{{ComponentFieldName}}(this {{effectiveBindingHostType}} element, {{GetAttachedPropertyType()}} value)

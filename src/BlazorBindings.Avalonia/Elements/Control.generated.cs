@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnUnloaded { get; set; }
         [Parameter] public EventCallback<AC.SizeChangedEventArgs> OnSizeChanged { get; set; }
 
-        public new AC.Control NativeControl => (AC.Control)((BindableObject)this).NativeControl;
+        public new AC.Control NativeControl => (AC.Control)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Control CreateNativeElement() => new();
 

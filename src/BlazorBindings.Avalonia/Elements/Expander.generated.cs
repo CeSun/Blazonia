@@ -38,7 +38,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.CancelRoutedEventArgs> OnExpanding { get; set; }
 
-        public new AC.Expander NativeControl => (AC.Expander)((BindableObject)this).NativeControl;
+        public new AC.Expander NativeControl => (AC.Expander)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Expander CreateNativeElement() => new();
 

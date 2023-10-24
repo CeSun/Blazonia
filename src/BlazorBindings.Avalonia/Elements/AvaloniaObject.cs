@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 namespace BlazorBindings.AvaloniaBindings.Elements;
 
-public abstract class BindableObject : NativeControlComponentBase, IElementHandler
+public abstract class AvaloniaObject : NativeControlComponentBase, IElementHandler
 {
     [Parameter] public Delegate Attached { get; set; }
 

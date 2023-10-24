@@ -45,7 +45,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.ContainerIndexChangedEventArgs> OnContainerIndexChanged { get; set; }
         [Parameter] public EventCallback<AC.ContainerClearingEventArgs> OnContainerClearing { get; set; }
 
-        public new AC.ItemsControl NativeControl => (AC.ItemsControl)((BindableObject)this).NativeControl;
+        public new AC.ItemsControl NativeControl => (AC.ItemsControl)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ItemsControl CreateNativeElement() => new();
 

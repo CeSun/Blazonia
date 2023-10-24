@@ -15,7 +15,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Animation
     /// <summary>
     /// Base class for all animatable objects.
     /// </summary>
-    public partial class Animatable : BlazorBindings.AvaloniaBindings.Elements.BindableObject
+    public partial class Animatable : BlazorBindings.AvaloniaBindings.Elements.AvaloniaObject
     {
         static Animatable()
         {
@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Animation
         /// </summary>
         [Parameter] public AA.Transitions Transitions { get; set; }
 
-        public new AA.Animatable NativeControl => (AA.Animatable)((BindableObject)this).NativeControl;
+        public new AA.Animatable NativeControl => (AA.Animatable)((AvaloniaObject)this).NativeControl;
 
         protected override AA.Animatable CreateNativeElement() => new();
 

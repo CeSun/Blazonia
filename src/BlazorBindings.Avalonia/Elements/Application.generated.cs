@@ -14,7 +14,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     /// <summary>
     /// Encapsulates a Avalonia application.
     /// </summary>
-    public partial class Application : BindableObject
+    public partial class Application : AvaloniaObject
     {
         static Application()
         {
@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<A.UrlOpenedEventArgs> OnUrlsOpened { get; set; }
         [Parameter] public EventCallback OnActualThemeVariantChanged { get; set; }
 
-        public new A.Application NativeControl => (A.Application)((BindableObject)this).NativeControl;
+        public new A.Application NativeControl => (A.Application)((AvaloniaObject)this).NativeControl;
 
         protected override A.Application CreateNativeElement() => new();
 

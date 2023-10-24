@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public bool? IsChecked { get; set; }
         [Parameter] public EventCallback<bool> IsCheckedChanged { get; set; }
 
-        public new AC.ToggleSplitButton NativeControl => (AC.ToggleSplitButton)((BindableObject)this).NativeControl;
+        public new AC.ToggleSplitButton NativeControl => (AC.ToggleSplitButton)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ToggleSplitButton CreateNativeElement() => new();
 

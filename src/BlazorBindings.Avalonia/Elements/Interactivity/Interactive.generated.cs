@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Interactivity
             RegisterAdditionalHandlers();
         }
 
-        public new AI.Interactive NativeControl => (AI.Interactive)((BindableObject)this).NativeControl;
+        public new AI.Interactive NativeControl => (AI.Interactive)((AvaloniaObject)this).NativeControl;
 
         protected override AI.Interactive CreateNativeElement() => new();
 

@@ -33,7 +33,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<CancelEventArgs> OnOpening { get; set; }
         [Parameter] public EventCallback<CancelEventArgs> OnClosing { get; set; }
 
-        public new AC.ContextMenu NativeControl => (AC.ContextMenu)((BindableObject)this).NativeControl;
+        public new AC.ContextMenu NativeControl => (AC.ContextMenu)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ContextMenu CreateNativeElement() => new();
 

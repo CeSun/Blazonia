@@ -64,7 +64,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Defines the Bottom attached property.
         /// </summary>
-        public static BindableObject CanvasBottom(this BindableObject element, double value)
+        public static AvaloniaObject CanvasBottom(this AvaloniaObject element, double value)
         {
             element.AttachedProperties["Canvas.Bottom"] = value;
         
@@ -73,7 +73,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Defines the Left attached property.
         /// </summary>
-        public static BindableObject CanvasLeft(this BindableObject element, double value)
+        public static AvaloniaObject CanvasLeft(this AvaloniaObject element, double value)
         {
             element.AttachedProperties["Canvas.Left"] = value;
         
@@ -82,7 +82,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Defines the Right attached property.
         /// </summary>
-        public static BindableObject CanvasRight(this BindableObject element, double value)
+        public static AvaloniaObject CanvasRight(this AvaloniaObject element, double value)
         {
             element.AttachedProperties["Canvas.Right"] = value;
         
@@ -91,7 +91,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Defines the Top attached property.
         /// </summary>
-        public static BindableObject CanvasTop(this BindableObject element, double value)
+        public static AvaloniaObject CanvasTop(this AvaloniaObject element, double value)
         {
             element.AttachedProperties["Canvas.Top"] = value;
         

@@ -51,7 +51,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public bool? IsDefault { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClick { get; set; }
 
-        public new AC.Button NativeControl => (AC.Button)((BindableObject)this).NativeControl;
+        public new AC.Button NativeControl => (AC.Button)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Button CreateNativeElement() => new();
 

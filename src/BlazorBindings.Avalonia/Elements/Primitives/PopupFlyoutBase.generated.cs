@@ -36,7 +36,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public EventCallback<CancelEventArgs> OnClosing { get; set; }
         [Parameter] public EventCallback OnOpening { get; set; }
 
-        public new ACP.PopupFlyoutBase NativeControl => (ACP.PopupFlyoutBase)((BindableObject)this).NativeControl;
+        public new ACP.PopupFlyoutBase NativeControl => (ACP.PopupFlyoutBase)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

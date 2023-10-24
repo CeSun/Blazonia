@@ -48,7 +48,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public ACP.ScrollBarVisibility? Visibility { get; set; }
         [Parameter] public EventCallback<ACP.ScrollEventArgs> OnScroll { get; set; }
 
-        public new ACP.ScrollBar NativeControl => (ACP.ScrollBar)((BindableObject)this).NativeControl;
+        public new ACP.ScrollBar NativeControl => (ACP.ScrollBar)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.ScrollBar CreateNativeElement() => new();
 

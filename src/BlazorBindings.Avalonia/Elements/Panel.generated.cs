@@ -30,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public RenderFragment ChildContent { get; set; }
 
-        public new AC.Panel NativeControl => (AC.Panel)((BindableObject)this).NativeControl;
+        public new AC.Panel NativeControl => (AC.Panel)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Panel CreateNativeElement() => new();
 

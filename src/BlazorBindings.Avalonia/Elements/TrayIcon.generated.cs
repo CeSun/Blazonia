@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace BlazorBindings.AvaloniaBindings.Elements
 {
-    public partial class TrayIcon : BindableObject
+    public partial class TrayIcon : AvaloniaObject
     {
         static TrayIcon()
         {
@@ -44,7 +44,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public string ToolTipText { get; set; }
         [Parameter] public EventCallback OnClick { get; set; }
 
-        public new AC.TrayIcon NativeControl => (AC.TrayIcon)((BindableObject)this).NativeControl;
+        public new AC.TrayIcon NativeControl => (AC.TrayIcon)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TrayIcon CreateNativeElement() => new();
 

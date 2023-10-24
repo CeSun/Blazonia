@@ -38,7 +38,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public RenderFragment ContentTemplate { get; set; }
 
-        public new AC.ContentControl NativeControl => (AC.ContentControl)((BindableObject)this).NativeControl;
+        public new AC.ContentControl NativeControl => (AC.ContentControl)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ContentControl CreateNativeElement() => new();
 

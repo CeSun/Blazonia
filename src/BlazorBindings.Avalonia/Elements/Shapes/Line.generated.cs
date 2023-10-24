@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
         [Parameter] public global::Avalonia.Point? EndPoint { get; set; }
         [Parameter] public global::Avalonia.Point? StartPoint { get; set; }
 
-        public new ACS.Line NativeControl => (ACS.Line)((BindableObject)this).NativeControl;
+        public new ACS.Line NativeControl => (ACS.Line)((AvaloniaObject)this).NativeControl;
 
         protected override ACS.Line CreateNativeElement() => new();
 

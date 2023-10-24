@@ -15,7 +15,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Layout
     /// <summary>
     /// Represents the base class for an object that sizes and arranges child elements for a host.
     /// </summary>
-    public abstract partial class AttachedLayout : BlazorBindings.AvaloniaBindings.Elements.BindableObject
+    public abstract partial class AttachedLayout : BlazorBindings.AvaloniaBindings.Elements.AvaloniaObject
     {
         static AttachedLayout()
         {
@@ -26,7 +26,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Layout
         [Parameter] public EventCallback OnMeasureInvalidated { get; set; }
         [Parameter] public EventCallback OnArrangeInvalidated { get; set; }
 
-        public new AL.AttachedLayout NativeControl => (AL.AttachedLayout)((BindableObject)this).NativeControl;
+        public new AL.AttachedLayout NativeControl => (AL.AttachedLayout)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

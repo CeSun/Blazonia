@@ -96,7 +96,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.SpinEventArgs> OnSpinned { get; set; }
         [Parameter] public EventCallback<Nullable<decimal>> ValueChanged { get; set; }
 
-        public new AC.NumericUpDown NativeControl => (AC.NumericUpDown)((BindableObject)this).NativeControl;
+        public new AC.NumericUpDown NativeControl => (AC.NumericUpDown)((AvaloniaObject)this).NativeControl;
 
         protected override AC.NumericUpDown CreateNativeElement() => new();
 

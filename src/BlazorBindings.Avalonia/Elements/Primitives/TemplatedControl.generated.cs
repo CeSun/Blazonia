@@ -73,7 +73,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public RenderFragment Template { get; set; }
         [Parameter] public EventCallback<ACP.TemplateAppliedEventArgs> OnTemplateApplied { get; set; }
 
-        public new ACP.TemplatedControl NativeControl => (ACP.TemplatedControl)((BindableObject)this).NativeControl;
+        public new ACP.TemplatedControl NativeControl => (ACP.TemplatedControl)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.TemplatedControl CreateNativeElement() => new();
 

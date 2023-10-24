@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
         /// </summary>
         [Parameter] public AC.Control Child { get; set; }
 
-        public new ACD.InlineUIContainer NativeControl => (ACD.InlineUIContainer)((BindableObject)this).NativeControl;
+        public new ACD.InlineUIContainer NativeControl => (ACD.InlineUIContainer)((AvaloniaObject)this).NativeControl;
 
         protected override ACD.InlineUIContainer CreateNativeElement() => new();
 

@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.ToolTip NativeControl => (AC.ToolTip)((BindableObject)this).NativeControl;
+        public new AC.ToolTip NativeControl => (AC.ToolTip)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ToolTip CreateNativeElement() => new();
 

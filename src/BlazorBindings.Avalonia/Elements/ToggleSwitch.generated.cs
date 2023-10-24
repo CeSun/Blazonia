@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public RenderFragment OnContentTemplate { get; set; }
 
-        public new AC.ToggleSwitch NativeControl => (AC.ToggleSwitch)((BindableObject)this).NativeControl;
+        public new AC.ToggleSwitch NativeControl => (AC.ToggleSwitch)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ToggleSwitch CreateNativeElement() => new();
 

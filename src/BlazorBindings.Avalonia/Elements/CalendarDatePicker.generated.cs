@@ -100,7 +100,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.CalendarDatePickerDateValidationErrorEventArgs> OnDateValidationError { get; set; }
         [Parameter] public EventCallback<Nullable<DateTime>> SelectedDateChanged { get; set; }
 
-        public new AC.CalendarDatePicker NativeControl => (AC.CalendarDatePicker)((BindableObject)this).NativeControl;
+        public new AC.CalendarDatePicker NativeControl => (AC.CalendarDatePicker)((AvaloniaObject)this).NativeControl;
 
         protected override AC.CalendarDatePicker CreateNativeElement() => new();
 

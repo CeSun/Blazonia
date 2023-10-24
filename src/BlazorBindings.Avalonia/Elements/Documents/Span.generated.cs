@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
         /// </summary>
         [Parameter] public ACD.InlineCollection Inlines { get; set; }
 
-        public new ACD.Span NativeControl => (ACD.Span)((BindableObject)this).NativeControl;
+        public new ACD.Span NativeControl => (ACD.Span)((AvaloniaObject)this).NativeControl;
 
         protected override ACD.Span CreateNativeElement() => new();
 

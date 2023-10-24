@@ -47,7 +47,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? ResetOnSpace { get; set; }
 
-        public new AC.MaskedTextBox NativeControl => (AC.MaskedTextBox)((BindableObject)this).NativeControl;
+        public new AC.MaskedTextBox NativeControl => (AC.MaskedTextBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.MaskedTextBox CreateNativeElement() => new();
 

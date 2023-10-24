@@ -19,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
             RegisterAdditionalHandlers();
         }
 
-        public new ACS.Ellipse NativeControl => (ACS.Ellipse)((BindableObject)this).NativeControl;
+        public new ACS.Ellipse NativeControl => (ACS.Ellipse)((AvaloniaObject)this).NativeControl;
 
         protected override ACS.Ellipse CreateNativeElement() => new();
 

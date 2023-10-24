@@ -38,7 +38,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? ShowProgressText { get; set; }
 
-        public new AC.ProgressBar NativeControl => (AC.ProgressBar)((BindableObject)this).NativeControl;
+        public new AC.ProgressBar NativeControl => (AC.ProgressBar)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ProgressBar CreateNativeElement() => new();
 

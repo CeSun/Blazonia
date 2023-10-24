@@ -52,7 +52,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public bool? WrapSelection { get; set; }
         [Parameter] public EventCallback<AC.SelectionChangedEventArgs> OnSelectionChanged { get; set; }
 
-        public new ACP.SelectingItemsControl NativeControl => (ACP.SelectingItemsControl)((BindableObject)this).NativeControl;
+        public new ACP.SelectingItemsControl NativeControl => (ACP.SelectingItemsControl)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.SelectingItemsControl CreateNativeElement() => new();
 

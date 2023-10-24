@@ -25,7 +25,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         [Parameter] public AM.GradientStops GradientStops { get; set; }
         [Parameter] public AM.GradientSpreadMethod? SpreadMethod { get; set; }
 
-        public new AM.GradientBrush NativeControl => (AM.GradientBrush)((BindableObject)this).NativeControl;
+        public new AM.GradientBrush NativeControl => (AM.GradientBrush)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

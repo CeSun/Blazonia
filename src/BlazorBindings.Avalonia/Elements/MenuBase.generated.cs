@@ -24,7 +24,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnOpened { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClosed { get; set; }
 
-        public new AC.MenuBase NativeControl => (AC.MenuBase)((BindableObject)this).NativeControl;
+        public new AC.MenuBase NativeControl => (AC.MenuBase)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

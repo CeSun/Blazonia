@@ -34,7 +34,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Media.StretchDirection? StretchDirection { get; set; }
 
-        public new AC.Viewbox NativeControl => (AC.Viewbox)((BindableObject)this).NativeControl;
+        public new AC.Viewbox NativeControl => (AC.Viewbox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Viewbox CreateNativeElement() => new();
 

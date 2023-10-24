@@ -31,7 +31,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
         /// </summary>
         [Parameter] public global::Avalonia.Media.TextDecorationCollection TextDecorations { get; set; }
 
-        public new ACD.Inline NativeControl => (ACD.Inline)((BindableObject)this).NativeControl;
+        public new ACD.Inline NativeControl => (ACD.Inline)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

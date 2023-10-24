@@ -58,7 +58,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnPointerExitedItem { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnSubmenuOpened { get; set; }
 
-        public new AC.MenuItem NativeControl => (AC.MenuItem)((BindableObject)this).NativeControl;
+        public new AC.MenuItem NativeControl => (AC.MenuItem)((AvaloniaObject)this).NativeControl;
 
         protected override AC.MenuItem CreateNativeElement() => new();
 

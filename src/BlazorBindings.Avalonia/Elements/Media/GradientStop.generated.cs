@@ -15,7 +15,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
     /// <summary>
     /// Describes the location and color of a transition point in a gradient.
     /// </summary>
-    public partial class GradientStop : BlazorBindings.AvaloniaBindings.Elements.BindableObject
+    public partial class GradientStop : BlazorBindings.AvaloniaBindings.Elements.AvaloniaObject
     {
         static GradientStop()
         {
@@ -25,7 +25,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         [Parameter] public AM.Color? Color { get; set; }
         [Parameter] public double? Offset { get; set; }
 
-        public new AM.GradientStop NativeControl => (AM.GradientStop)((BindableObject)this).NativeControl;
+        public new AM.GradientStop NativeControl => (AM.GradientStop)((AvaloniaObject)this).NativeControl;
 
         protected override AM.GradientStop CreateNativeElement() => new();
 

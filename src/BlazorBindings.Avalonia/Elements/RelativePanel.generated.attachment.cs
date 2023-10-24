@@ -208,7 +208,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AboveProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAbove(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAbove(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.Above"] = value;
         
@@ -217,7 +217,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignBottomWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignBottomWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignBottomWithPanel"] = value;
         
@@ -226,7 +226,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignBottomWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignBottomWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignBottomWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignBottomWith"] = value;
         
@@ -235,7 +235,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignHorizontalCenterWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignHorizontalCenterWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignHorizontalCenterWithPanel"] = value;
         
@@ -244,7 +244,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignHorizontalCenterWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignHorizontalCenterWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignHorizontalCenterWith"] = value;
         
@@ -253,7 +253,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignLeftWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignLeftWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignLeftWithPanel"] = value;
         
@@ -262,7 +262,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignLeftWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignLeftWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignLeftWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignLeftWith"] = value;
         
@@ -271,7 +271,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignRightWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignRightWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignRightWithPanel"] = value;
         
@@ -280,7 +280,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignRightWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignRightWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignRightWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignRightWith"] = value;
         
@@ -289,7 +289,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignTopWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignTopWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignTopWithPanel"] = value;
         
@@ -298,7 +298,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignTopWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignTopWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignTopWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignTopWith"] = value;
         
@@ -307,7 +307,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignVerticalCenterWithPanel(this BindableObject element, bool value)
+        public static AvaloniaObject RelativePanelAlignVerticalCenterWithPanel(this AvaloniaObject element, bool value)
         {
             element.AttachedProperties["RelativePanel.AlignVerticalCenterWithPanel"] = value;
         
@@ -316,7 +316,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelAlignVerticalCenterWith(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelAlignVerticalCenterWith(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.AlignVerticalCenterWith"] = value;
         
@@ -325,7 +325,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.BelowProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelBelow(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelBelow(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.Below"] = value;
         
@@ -334,7 +334,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.LeftOfProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelLeftOf(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelLeftOf(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.LeftOf"] = value;
         
@@ -343,7 +343,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Identifies the <see cref="F:Avalonia.Controls.RelativePanel.RightOfProperty" /> XAML attached property.
         /// </summary>
-        public static BindableObject RelativePanelRightOf(this BindableObject element, object value)
+        public static AvaloniaObject RelativePanelRightOf(this AvaloniaObject element, object value)
         {
             element.AttachedProperties["RelativePanel.RightOf"] = value;
         

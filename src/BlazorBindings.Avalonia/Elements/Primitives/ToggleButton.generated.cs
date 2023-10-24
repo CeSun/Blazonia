@@ -32,7 +32,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public bool? IsThreeState { get; set; }
         [Parameter] public EventCallback<Nullable<bool>> IsCheckedChanged { get; set; }
 
-        public new ACP.ToggleButton NativeControl => (ACP.ToggleButton)((BindableObject)this).NativeControl;
+        public new ACP.ToggleButton NativeControl => (ACP.ToggleButton)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.ToggleButton CreateNativeElement() => new();
 

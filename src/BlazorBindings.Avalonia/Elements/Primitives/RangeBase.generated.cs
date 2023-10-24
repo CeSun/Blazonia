@@ -44,7 +44,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public double? Value { get; set; }
         [Parameter] public EventCallback<double> ValueChanged { get; set; }
 
-        public new ACP.RangeBase NativeControl => (ACP.RangeBase)((BindableObject)this).NativeControl;
+        public new ACP.RangeBase NativeControl => (ACP.RangeBase)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

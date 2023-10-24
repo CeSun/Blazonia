@@ -49,7 +49,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback<AC.ItemsRepeaterElementIndexChangedEventArgs> OnElementIndexChanged { get; set; }
         [Parameter] public EventCallback<AC.ItemsRepeaterElementPreparedEventArgs> OnElementPrepared { get; set; }
 
-        public new AC.ItemsRepeater NativeControl => (AC.ItemsRepeater)((BindableObject)this).NativeControl;
+        public new AC.ItemsRepeater NativeControl => (AC.ItemsRepeater)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ItemsRepeater CreateNativeElement() => new();
 

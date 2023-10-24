@@ -49,7 +49,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Collections.AvaloniaList<double> Ticks { get; set; }
 
-        public new AC.Slider NativeControl => (AC.Slider)((BindableObject)this).NativeControl;
+        public new AC.Slider NativeControl => (AC.Slider)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Slider CreateNativeElement() => new();
 

@@ -63,7 +63,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Input
         [Parameter] public EventCallback<AI.HoldingRoutedEventArgs> OnHolding { get; set; }
         [Parameter] public EventCallback<AI.TappedEventArgs> OnDoubleTapped { get; set; }
 
-        public new AI.InputElement NativeControl => (AI.InputElement)((BindableObject)this).NativeControl;
+        public new AI.InputElement NativeControl => (AI.InputElement)((AvaloniaObject)this).NativeControl;
 
         protected override AI.InputElement CreateNativeElement() => new();
 

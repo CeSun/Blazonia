@@ -27,7 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.ValidSpinDirections? ValidSpinDirection { get; set; }
         [Parameter] public EventCallback<AC.SpinEventArgs> OnSpin { get; set; }
 
-        public new AC.Spinner NativeControl => (AC.Spinner)((BindableObject)this).NativeControl;
+        public new AC.Spinner NativeControl => (AC.Spinner)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

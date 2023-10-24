@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.CheckBox NativeControl => (AC.CheckBox)((BindableObject)this).NativeControl;
+        public new AC.CheckBox NativeControl => (AC.CheckBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.CheckBox CreateNativeElement() => new();
 

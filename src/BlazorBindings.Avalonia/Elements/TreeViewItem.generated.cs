@@ -30,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? IsSelected { get; set; }
 
-        public new AC.TreeViewItem NativeControl => (AC.TreeViewItem)((BindableObject)this).NativeControl;
+        public new AC.TreeViewItem NativeControl => (AC.TreeViewItem)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TreeViewItem CreateNativeElement() => new();
 

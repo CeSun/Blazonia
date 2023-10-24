@@ -32,7 +32,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// </summary>
         [Parameter] public RenderFragment HeaderTemplate { get; set; }
 
-        public new ACP.HeaderedContentControl NativeControl => (ACP.HeaderedContentControl)((BindableObject)this).NativeControl;
+        public new ACP.HeaderedContentControl NativeControl => (ACP.HeaderedContentControl)((AvaloniaObject)this).NativeControl;
 
         protected override ACP.HeaderedContentControl CreateNativeElement() => new();
 

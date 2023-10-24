@@ -28,7 +28,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public AC.SelectionMode? SelectionMode { get; set; }
 
-        public new AC.ListBox NativeControl => (AC.ListBox)((BindableObject)this).NativeControl;
+        public new AC.ListBox NativeControl => (AC.ListBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.ListBox CreateNativeElement() => new();
 

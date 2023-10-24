@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public Nullable<TimeSpan> SelectedTime { get; set; }
         [Parameter] public EventCallback<Nullable<TimeSpan>> SelectedTimeChanged { get; set; }
 
-        public new AC.TimePicker NativeControl => (AC.TimePicker)((BindableObject)this).NativeControl;
+        public new AC.TimePicker NativeControl => (AC.TimePicker)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TimePicker CreateNativeElement() => new();
 

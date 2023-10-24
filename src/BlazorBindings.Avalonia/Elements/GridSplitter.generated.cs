@@ -46,7 +46,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public RenderFragment PreviewContent { get; set; }
 
-        public new AC.GridSplitter NativeControl => (AC.GridSplitter)((BindableObject)this).NativeControl;
+        public new AC.GridSplitter NativeControl => (AC.GridSplitter)((AvaloniaObject)this).NativeControl;
 
         protected override AC.GridSplitter CreateNativeElement() => new();
 

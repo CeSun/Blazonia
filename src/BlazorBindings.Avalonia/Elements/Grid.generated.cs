@@ -34,7 +34,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? ShowGridLines { get; set; }
 
-        public new AC.Grid NativeControl => (AC.Grid)((BindableObject)this).NativeControl;
+        public new AC.Grid NativeControl => (AC.Grid)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Grid CreateNativeElement() => new();
 

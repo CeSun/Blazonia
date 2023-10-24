@@ -141,7 +141,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public EventCallback OnDropDownClosed { get; set; }
         [Parameter] public EventCallback<AC.SelectionChangedEventArgs> OnSelectionChanged { get; set; }
 
-        public new AC.AutoCompleteBox NativeControl => (AC.AutoCompleteBox)((BindableObject)this).NativeControl;
+        public new AC.AutoCompleteBox NativeControl => (AC.AutoCompleteBox)((AvaloniaObject)this).NativeControl;
 
         protected override AC.AutoCompleteBox CreateNativeElement() => new();
 

@@ -51,7 +51,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush Foreground { get; set; }
 
-        public new ACD.TextElement NativeControl => (ACD.TextElement)((BindableObject)this).NativeControl;
+        public new ACD.TextElement NativeControl => (ACD.TextElement)((AvaloniaObject)this).NativeControl;
 
 
         protected override void HandleParameter(string name, object value)

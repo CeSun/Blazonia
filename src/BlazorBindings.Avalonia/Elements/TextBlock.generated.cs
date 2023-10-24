@@ -94,7 +94,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Media.TextWrapping? TextWrapping { get; set; }
 
-        public new AC.TextBlock NativeControl => (AC.TextBlock)((BindableObject)this).NativeControl;
+        public new AC.TextBlock NativeControl => (AC.TextBlock)((AvaloniaObject)this).NativeControl;
 
         protected override AC.TextBlock CreateNativeElement() => new();
 

@@ -21,7 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
-        public new AC.Menu NativeControl => (AC.Menu)((BindableObject)this).NativeControl;
+        public new AC.Menu NativeControl => (AC.Menu)((AvaloniaObject)this).NativeControl;
 
         protected override AC.Menu CreateNativeElement() => new();
 

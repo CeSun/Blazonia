@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
 
         [Parameter] public IList<global::Avalonia.Point> Points { get; set; }
 
-        public new ACS.Polyline NativeControl => (ACS.Polyline)((BindableObject)this).NativeControl;
+        public new ACS.Polyline NativeControl => (ACS.Polyline)((AvaloniaObject)this).NativeControl;
 
         protected override ACS.Polyline CreateNativeElement() => new();
 

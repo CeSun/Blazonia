@@ -30,7 +30,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? UseRenderTransform { get; set; }
 
-        public new AC.LayoutTransformControl NativeControl => (AC.LayoutTransformControl)((BindableObject)this).NativeControl;
+        public new AC.LayoutTransformControl NativeControl => (AC.LayoutTransformControl)((AvaloniaObject)this).NativeControl;
 
         protected override AC.LayoutTransformControl CreateNativeElement() => new();
 

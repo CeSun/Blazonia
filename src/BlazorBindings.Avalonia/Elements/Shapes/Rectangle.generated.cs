@@ -31,7 +31,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
         /// </summary>
         [Parameter] public double? RadiusY { get; set; }
 
-        public new ACS.Rectangle NativeControl => (ACS.Rectangle)((BindableObject)this).NativeControl;
+        public new ACS.Rectangle NativeControl => (ACS.Rectangle)((AvaloniaObject)this).NativeControl;
 
         protected override ACS.Rectangle CreateNativeElement() => new();
 
