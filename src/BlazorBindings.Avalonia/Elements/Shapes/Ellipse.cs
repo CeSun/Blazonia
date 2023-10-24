@@ -19,7 +19,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
 
         protected override bool HandleAdditionalParameter(string name, object value)
         {
-            if(name == "ChildContent")
+            if (name == "ChildContent")
             {
                 ChildContent = value as RenderFragment;
                 return true;

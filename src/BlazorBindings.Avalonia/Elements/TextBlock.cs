@@ -34,6 +34,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 ChildContent = (RenderFragment)value;
                 return true;
             }
+
             return base.HandleAdditionalParameter(name, value);
         }
 
@@ -49,7 +50,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
 
-            
+
         }
 
         public void HandleText(int index, string text)

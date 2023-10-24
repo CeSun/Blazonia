@@ -12,11 +12,10 @@ using Avalonia.Animation;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml.Templates;
 
 [assembly: InternalsVisibleTo("BlazorBindings.UnitTests")]
 
-
+[assembly: GenerateComponent(typeof(Application))]
 [assembly: GenerateComponent(typeof(Animatable))]
 [assembly: GenerateComponent(typeof(AttachedLayout))]
 [assembly: GenerateComponent(typeof(AutoCompleteBox),

@@ -28,12 +28,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// <summary>
         /// Defines the <see cref="T:Avalonia.Controls.TrayIcons" /> attached property.
         /// </summary>
-        //public static Application TrayIconIcons(this Application element, AC.TrayIcons value)
-        //{
-        //    element.AttachedProperties["TrayIcon.Icons"] = value;
+        public static Application TrayIconIcons(this Application element, AC.TrayIcons value)
+        {
+            element.AttachedProperties["TrayIcon.Icons"] = value;
         
-        //    return element;
-        //}
+            return element;
+        }
     }
 
     public class TrayIcon_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler

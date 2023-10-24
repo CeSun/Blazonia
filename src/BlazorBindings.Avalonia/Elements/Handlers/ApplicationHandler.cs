@@ -1,13 +1,12 @@
 ﻿using Avalonia.Controls.ApplicationLifetimes;
-using BlazorBindings.AvaloniaBindings.Extensions;
 
 namespace BlazorBindings.AvaloniaBindings.Elements.Handlers;
 
 internal class ApplicationHandler : IContainerElementHandler
 {
-    private readonly Application _application;
+    private readonly global::Avalonia.Application _application;
 
-    public ApplicationHandler(Application application)
+    public ApplicationHandler(global::Avalonia.Application application)
     {
         _application = application;
     }
