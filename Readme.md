@@ -1,23 +1,18 @@
-# BlazorBindings.Maui
+# BlazorBindings.Avalonia
 
-[![Nuget](https://img.shields.io/nuget/v/BlazorBindings.Maui)](https://www.nuget.org/packages/BlazorBindings.Maui/)
-[![Join Discord](https://img.shields.io/badge/discord-join%20chat-46BC99)](https://discord.com/channels/732297728826277939/734865521400610856)
-
-## Getting Started
-
-Check out the documentation for how to build your first app: https://dreamescaper.github.io/MobileBlazorBindingsDocs
+[![Nuget](https://img.shields.io/nuget/v/BlazorBindings.Avalonia)](https://www.nuget.org/packages/BlazorBindings.Avalonia/)
 
 ## What is it?
 
-Maui Blazor Bindings enable developers to build native and hybrid mobile apps using C# and .NET for Android, iOS, Windows, macOS, and Tizen using familiar web programming patterns. This means you can use the Blazor programming model and Razor syntax to define UI components and behaviors of an application. The UI components that are included are based on MAUI native UI controls, which results in beautiful native mobile apps.
+Avalonia Blazor Bindings enable developers to build Avalonia apps using C# and .NET for Android, iOS, Windows, macOS, and Tizen using familiar web programming patterns. This means you can use the Blazor programming model and Razor syntax to define UI components and behaviors of an application. The UI components that are included are based on Avalonia UI controls, which results in beautiful mobile apps.
 
 Here is a sample Counter component that renders native UI, which may look familiar to Blazor developers, that increments a value on each button press:
 
 ```xml
-<StackLayout>
+<StackPanel>
     <Label FontSize="30">You pressed @count times </Label>
     <Button Text="+1" OnClick="@HandleClick" />
-</StackLayout>
+</StackPanel>
 
 @code {
     int count;
@@ -29,15 +24,16 @@ Here is a sample Counter component that renders native UI, which may look fa
 }
 ```
 
-Notice that the Blazor model is present with code sitting side by side the user interface markup that leverages Razor syntax with mobile specific components. This will feel very natural for any web developer that has ever used Razor syntax in the past. Now with the Experimental Mobile Blazor Bindings you can leverage your existing web skills and knowledge to build native and hybrid mobile apps using C# and .NET for Android, iOS, Windows, macOS, and Tizen.
+Notice that the Blazor model is present with code sitting side by side the user interface markup that leverages Razor syntax with mobile specific components. This will feel very natural for any web developer that has ever used Razor syntax in the past. Now with the Experimental Avalonia Blazor Bindings you can leverage your existing web skills and knowledge to build Avalonia apps using C# and .NET for Android, iOS, Windows, macOS, and Tizen.
 
-Here is the code above running in the Android Emulator:
+<!--Here is the code above running in the Android Emulator:
 
 <img src="https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/01/blazor-android-counter-2.gif" alt="Clicking increment button in Android emulator" width="300" height="533" class="aligncenter size-full wp-image-23061" />
+-->
 
 ## About this repository
 
-This repository is a fork of Microsoft's [Experimental MobileBlazorBindings](https://github.com/dotnet/MobileBlazorBindings), which I decided to fork and maintain separately. If at any point of time Microsoft developers decide to push that repository moving forward, I'll gladly contribute all of my changes to the original repository. 
+This repository is a fork of Deamescapers's [Experimental MobileBlazorBindings](https://github.com/DreamEscaper/MobileBlazorBindings), which I decided to fork and maintain separately. If at any point of time Avalonia developers decide to push that repository moving forward, I'll gladly contribute all of my changes to the original repository. 
 
 # Code of Conduct
 
