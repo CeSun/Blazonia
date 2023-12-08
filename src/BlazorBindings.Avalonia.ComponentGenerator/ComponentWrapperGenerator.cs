@@ -238,12 +238,12 @@ namespace {componentNamespace}
                      }
                  """);
 
-            if (generatedInfo.AttachedPropertyGeneration == AttachedPropertyGeneration.ExtensionMethods)
+            if (generatedInfo.AttachedPropertyGeneration.HasFlag(AttachedPropertyGeneration.ExtensionMethods))
             {
                 GenerateAttachedPropertyExtensionMethods(typeToGenerate, attachedProperties, handleAttachedPopertiesBuilder);
             }
 
-            if (generatedInfo.AttachedPropertyGeneration == AttachedPropertyGeneration.Elements)
+            if (generatedInfo.AttachedPropertyGeneration.HasFlag(AttachedPropertyGeneration.Elements))
             {
                 GenerateAttachedPropertyElements(attachedProperties, handleAttachedPopertiesBuilder, lowestHostType, fullTypeName, containsContent, typeToGenerate);
             }
