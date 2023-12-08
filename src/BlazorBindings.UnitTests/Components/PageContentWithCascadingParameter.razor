@@ -13,11 +13,11 @@
 public static void ValidateContent(MC.Element content, string par1)
 {
     var contentPage = content as MC.ContentPage;
-    Assert.IsNotNull(contentPage);
+    Assert.That(contentPage, Is.Not.Null);
     Assert.That(contentPage.Title, Is.EqualTo("Test"));
 
     var stack = contentPage.Content as MC.VerticalStackLayout;
-    Assert.IsNotNull(stack);
+    Assert.That(stack, Is.Not.Null);
 
     var label1 = (stack.Children[0] as MC.Label)?.Text;
     Assert.That(label1, Is.EqualTo(par1));
