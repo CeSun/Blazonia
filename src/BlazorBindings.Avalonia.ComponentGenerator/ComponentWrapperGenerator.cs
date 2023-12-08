@@ -362,9 +362,10 @@ namespace {componentNamespace}
 
 
             handleAttachedPopertiesBuilder.AppendLine($$"""
+
+                                TryUpdateParent(parentElement);
                             }
 
-                            TryUpdateParent(parentElement);
                             _parent = ({{lowestHostType}})parentElement;
                         }
                         
@@ -402,6 +403,26 @@ namespace {componentNamespace}
             }
 
             handleAttachedPopertiesBuilder.AppendLine($$"""
+                            var parentType = parentElement?.GetType();
+                            if (parentType is not null)
+                            {
+                """);
+
+            foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
+            {
+                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                        {{attached.ComponentFieldName}} = {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
+                        """);
+            }
+
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
+
+                                TryUpdateParent(parentElement);
+                            }
+
                             _parent = null;
                         }
 
