@@ -95,6 +95,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? IsReadOnly { get; set; }
         /// <summary>
+        /// Gets or sets whether scroll gestures should include inertia in their behavior and value.
+        /// </summary>
+        [Parameter] public bool? IsScrollInertiaEnabled { get; set; }
+        /// <summary>
         /// Gets or sets a collection that is used to generate the content of the control.
         /// </summary>
         [Parameter] public IEnumerable<T> ItemsSource { get; set; }
@@ -315,6 +319,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         IsReadOnly = (bool?)value;
                         NativeControl.IsReadOnly = IsReadOnly ?? (bool)AC.DataGrid.IsReadOnlyProperty.GetDefaultValue(AC.DataGrid.IsReadOnlyProperty.OwnerType);
+                    }
+                    break;
+                case nameof(IsScrollInertiaEnabled):
+                    if (!Equals(IsScrollInertiaEnabled, value))
+                    {
+                        IsScrollInertiaEnabled = (bool?)value;
+                        NativeControl.IsScrollInertiaEnabled = IsScrollInertiaEnabled ?? (bool)AC.DataGrid.IsScrollInertiaEnabledProperty.GetDefaultValue(AC.DataGrid.IsScrollInertiaEnabledProperty.OwnerType);
                     }
                     break;
                 case nameof(ItemsSource):

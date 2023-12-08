@@ -375,14 +375,12 @@ namespace {componentNamespace}
             handleAttachedPopertiesBuilder.AppendLine($$"""
                         public void RemoveFromParent(object parentElement)
                         {
-                            //_children.Clear();
                 """);
 
             var renderFragmentProperties = attachedProperties.Where(x => x.IsRenderFragmentProperty);
             if (renderFragmentProperties.Any())
             {
                 handleAttachedPopertiesBuilder.AppendLine($$"""
-
                                 if (_parent is not null)
                                 {
                     """);
@@ -391,7 +389,7 @@ namespace {componentNamespace}
             foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
             {
                 handleAttachedPopertiesBuilder.AppendLine($$"""
-                                {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, default);
+                                    {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, default);
                     """);
             }
 
@@ -409,14 +407,10 @@ namespace {componentNamespace}
 
                         public void AddChild(object child, int physicalSiblingIndex)
                         {
-                            var childView = child.Cast<AC.Control>();
-
-                            //_children.Add(childView);
                         }
 
                         public void RemoveChild(object child, int physicalSiblingIndex)
                         {
-                            //_children.Remove((AC.Control)child);
                         }
 
                         protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)

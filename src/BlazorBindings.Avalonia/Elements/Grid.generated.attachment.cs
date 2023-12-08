@@ -276,23 +276,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         
         public void RemoveFromParent(object parentElement)
         {
-            //_children.Clear();
-
-            //Avalonia.Controls.Grid.SetTip(_parent, null);
-
             _parent = null;
         }
 
         public void AddChild(object child, int physicalSiblingIndex)
         {
-            var childView = child.Cast<AC.Control>();
-
-            //_children.Add(childView);
         }
 
         public void RemoveChild(object child, int physicalSiblingIndex)
         {
-            //_children.Remove((AC.Control)child);
         }
 
         protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)

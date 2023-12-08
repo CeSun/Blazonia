@@ -27,6 +27,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         [Parameter] public global::Avalonia.Input.IInputElement OverlayInputPassThroughElement { get; set; }
         [Parameter] public AC.PlacementMode? Placement { get; set; }
         [Parameter] public AC.Primitives.PopupPositioning.PopupAnchor? PlacementAnchor { get; set; }
+        [Parameter] public AC.Primitives.PopupPositioning.PopupPositionerConstraintAdjustment? PlacementConstraintAdjustment { get; set; }
         [Parameter] public AC.Primitives.PopupPositioning.PopupGravity? PlacementGravity { get; set; }
         /// <summary>
         /// Gets or sets the desired ShowMode
@@ -69,6 +70,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     {
                         PlacementAnchor = (AC.Primitives.PopupPositioning.PopupAnchor?)value;
                         NativeControl.PlacementAnchor = PlacementAnchor ?? (AC.Primitives.PopupPositioning.PopupAnchor)ACP.PopupFlyoutBase.PlacementAnchorProperty.GetDefaultValue(ACP.PopupFlyoutBase.PlacementAnchorProperty.OwnerType);
+                    }
+                    break;
+                case nameof(PlacementConstraintAdjustment):
+                    if (!Equals(PlacementConstraintAdjustment, value))
+                    {
+                        PlacementConstraintAdjustment = (AC.Primitives.PopupPositioning.PopupPositionerConstraintAdjustment?)value;
+                        NativeControl.PlacementConstraintAdjustment = PlacementConstraintAdjustment ?? (AC.Primitives.PopupPositioning.PopupPositionerConstraintAdjustment)ACP.PopupFlyoutBase.PlacementConstraintAdjustmentProperty.GetDefaultValue(ACP.PopupFlyoutBase.PlacementConstraintAdjustmentProperty.OwnerType);
                     }
                     break;
                 case nameof(PlacementGravity):

@@ -313,30 +313,33 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         
         public void RemoveFromParent(object parentElement)
         {
-            //_children.Clear();
-
-            //Avalonia.Controls.ToolTip.SetTip(_parent, null);
+            if (_parent is not null)
+            {
+                Avalonia.Controls.ToolTip.SetTip(_parent, default);
+            }
 
             _parent = null;
         }
 
         public void AddChild(object child, int physicalSiblingIndex)
         {
-            var childView = child.Cast<AC.Control>();
-
-            //_children.Add(childView);
         }
 
         public void RemoveChild(object child, int physicalSiblingIndex)
         {
-            //_children.Remove((AC.Control)child);
         }
 
         protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)
         {
             base.RenderAdditionalElementContent(builder, ref sequence);
             RenderTreeBuilderHelper.AddContentProperty<Avalonia.Controls.Control>(builder, sequence++, ChildContent,
-                (nativeControl, value) => Avalonia.Controls.ToolTip.SetTip(_parent, value));
+                (nativeControl, value) =>
+                {
+                    if (_parent is not null)
+                    {
+                        Avalonia.Controls.ToolTip.SetTip(_parent, value);
+                    }
+                });
         }
     }
 }

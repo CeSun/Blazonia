@@ -45,6 +45,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public AC.Primitives.SnapPointsType? HorizontalSnapPointsType { get; set; }
         /// <summary>
+        /// Gets or sets whether dragging of <see cref="T:Avalonia.Controls.Primitives.Thumb" /> elements should update the <see cref="T:Avalonia.Controls.ScrollViewer" /> only when the user releases the mouse.
+        /// </summary>
+        [Parameter] public bool? IsDeferredScrollingEnabled { get; set; }
+        /// <summary>
         /// Gets or sets if scroll chaining is enabled. The default value is true.
         /// </summary>
         [Parameter] public bool? IsScrollChainingEnabled { get; set; }
@@ -111,6 +115,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         HorizontalSnapPointsType = (AC.Primitives.SnapPointsType?)value;
                         NativeControl.HorizontalSnapPointsType = HorizontalSnapPointsType ?? (AC.Primitives.SnapPointsType)AC.ScrollViewer.HorizontalSnapPointsTypeProperty.GetDefaultValue(AC.ScrollViewer.HorizontalSnapPointsTypeProperty.OwnerType);
+                    }
+                    break;
+                case nameof(IsDeferredScrollingEnabled):
+                    if (!Equals(IsDeferredScrollingEnabled, value))
+                    {
+                        IsDeferredScrollingEnabled = (bool?)value;
+                        NativeControl.IsDeferredScrollingEnabled = IsDeferredScrollingEnabled ?? (bool)AC.ScrollViewer.IsDeferredScrollingEnabledProperty.GetDefaultValue(AC.ScrollViewer.IsDeferredScrollingEnabledProperty.OwnerType);
                     }
                     break;
                 case nameof(IsScrollChainingEnabled):

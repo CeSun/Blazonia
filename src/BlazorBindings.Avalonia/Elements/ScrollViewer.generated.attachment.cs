@@ -68,6 +68,18 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsType((Avalonia.Controls.Control)element, (AC.Primitives.SnapPointsType)value);
                     }
                 });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.IsDeferredScrollingEnabled",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.ScrollViewer.IsDeferredScrollingEnabledProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.ScrollViewer.SetIsDeferredScrollingEnabled((Avalonia.Controls.Control)element, (bool)value);
+                    }
+                });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("ScrollViewer.IsScrollChainingEnabled",
                 (element, value) => 
                 {
@@ -179,6 +191,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             return element;
         }
         /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabled" /> property.
+        /// </summary>
+        public static Control ScrollViewerIsDeferredScrollingEnabled(this Control element, bool value)
+        {
+            element.AttachedProperties["ScrollViewer.IsDeferredScrollingEnabled"] = value;
+        
+            return element;
+        }
+        /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.IsScrollChainingEnabled" /> property.
         /// </summary>
         public static Control ScrollViewerIsScrollChainingEnabled(this Control element, bool value)
@@ -253,6 +274,11 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public AC.Primitives.SnapPointsType HorizontalSnapPointsType { get; set; }
 
         /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabled" /> property.
+        /// </summary>
+        [Parameter] public bool IsDeferredScrollingEnabled { get; set; }
+
+        /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.ScrollViewer.IsScrollChainingEnabled" /> property.
         /// </summary>
         [Parameter] public bool IsScrollChainingEnabled { get; set; }
@@ -325,6 +351,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         HorizontalSnapPointsType = (AC.Primitives.SnapPointsType)value;
                         //NativeControl.HorizontalSnapPointsTypeProperty = HorizontalSnapPointsType;
+                    }
+                    break;
+
+                    case nameof(IsDeferredScrollingEnabled):
+                    if (!Equals(IsDeferredScrollingEnabled, value))
+                    {
+                        IsDeferredScrollingEnabled = (bool)value;
+                        //NativeControl.IsDeferredScrollingEnabledProperty = IsDeferredScrollingEnabled;
                     }
                     break;
 
@@ -424,6 +458,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     Avalonia.Controls.ScrollViewer.SetHorizontalSnapPointsType((Avalonia.Controls.Control)parentElement, HorizontalSnapPointsType);
                 }
                 
+                if (IsDeferredScrollingEnabled == Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabledProperty.GetDefaultValue(parentElement.GetType()))
+                {
+                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabledProperty);
+                }
+                else
+                {
+                    Avalonia.Controls.ScrollViewer.SetIsDeferredScrollingEnabled((Avalonia.Controls.Control)parentElement, IsDeferredScrollingEnabled);
+                }
+                
                 if (IsScrollChainingEnabled == Avalonia.Controls.ScrollViewer.IsScrollChainingEnabledProperty.GetDefaultValue(parentElement.GetType()))
                 {
                     ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ScrollViewer.IsScrollChainingEnabledProperty);
@@ -482,6 +525,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 HorizontalScrollBarVisibility = HorizontalScrollBarVisibility != default ? HorizontalScrollBarVisibility : Avalonia.Controls.ScrollViewer.HorizontalScrollBarVisibilityProperty.GetDefaultValue(parentType);
                 HorizontalSnapPointsAlignment = HorizontalSnapPointsAlignment != default ? HorizontalSnapPointsAlignment : Avalonia.Controls.ScrollViewer.HorizontalSnapPointsAlignmentProperty.GetDefaultValue(parentType);
                 HorizontalSnapPointsType = HorizontalSnapPointsType != default ? HorizontalSnapPointsType : Avalonia.Controls.ScrollViewer.HorizontalSnapPointsTypeProperty.GetDefaultValue(parentType);
+                IsDeferredScrollingEnabled = IsDeferredScrollingEnabled != default ? IsDeferredScrollingEnabled : Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabledProperty.GetDefaultValue(parentType);
                 IsScrollChainingEnabled = IsScrollChainingEnabled != default ? IsScrollChainingEnabled : Avalonia.Controls.ScrollViewer.IsScrollChainingEnabledProperty.GetDefaultValue(parentType);
                 IsScrollInertiaEnabled = IsScrollInertiaEnabled != default ? IsScrollInertiaEnabled : Avalonia.Controls.ScrollViewer.IsScrollInertiaEnabledProperty.GetDefaultValue(parentType);
                 VerticalScrollBarVisibility = VerticalScrollBarVisibility != default ? VerticalScrollBarVisibility : Avalonia.Controls.ScrollViewer.VerticalScrollBarVisibilityProperty.GetDefaultValue(parentType);
@@ -496,23 +540,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         
         public void RemoveFromParent(object parentElement)
         {
-            //_children.Clear();
-
-            //Avalonia.Controls.ScrollViewer.SetTip(_parent, null);
-
             _parent = null;
         }
 
         public void AddChild(object child, int physicalSiblingIndex)
         {
-            var childView = child.Cast<AC.Control>();
-
-            //_children.Add(childView);
         }
 
         public void RemoveChild(object child, int physicalSiblingIndex)
         {
-            //_children.Remove((AC.Control)child);
         }
 
         protected override void RenderAdditionalElementContent(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder builder, ref int sequence)

@@ -66,6 +66,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public double? LineHeight { get; set; }
         /// <summary>
+        /// Gets or sets the extra distance of each line to the next line.
+        /// </summary>
+        [Parameter] public double? LineSpacing { get; set; }
+        /// <summary>
         /// Gets or sets the maximum number of text lines.
         /// </summary>
         [Parameter] public int? MaxLines { get; set; }
@@ -177,6 +181,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         LineHeight = (double?)value;
                         NativeControl.LineHeight = LineHeight ?? (double)AC.TextBlock.LineHeightProperty.GetDefaultValue(AC.TextBlock.LineHeightProperty.OwnerType);
+                    }
+                    break;
+                case nameof(LineSpacing):
+                    if (!Equals(LineSpacing, value))
+                    {
+                        LineSpacing = (double?)value;
+                        NativeControl.LineSpacing = LineSpacing ?? (double)AC.TextBlock.LineSpacingProperty.GetDefaultValue(AC.TextBlock.LineSpacingProperty.OwnerType);
                     }
                     break;
                 case nameof(MaxLines):
