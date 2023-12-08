@@ -483,8 +483,17 @@ namespace {componentNamespace}
         }
 
         var xmlDoc = new XmlDocument();
-        // Returned XML doc string has no root element, which does not allow to parse it.
-        xmlDoc.LoadXml($"<member>{xmlDocString}</member>");
+
+        if (xmlDocString.StartsWith("<member ", StringComparison.Ordinal))
+        {
+            xmlDoc.LoadXml(xmlDocString);
+        }
+        else
+        {
+            // Returned XML doc string has no root element, which does not allow to parse it.
+            xmlDoc.LoadXml($"<member>{xmlDocString}</member>");
+        }
+
         var xmlDocNode = xmlDoc.FirstChild;
 
         var xmlDocContents = string.Empty;
