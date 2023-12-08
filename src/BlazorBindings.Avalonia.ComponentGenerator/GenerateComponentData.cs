@@ -26,4 +26,6 @@ public class GenerateComponentSettings
         get => _isForcedGeneric || GenericProperties.Any(p => p.Value == null) || IsBaseTypeGeneric;
         set => _isForcedGeneric = value;
     }
+
+    public AttachedPropertyGeneration AttachedPropertyGeneration { get; set; } = AttachedPropertyGeneration.ExtensionMethods;
 }

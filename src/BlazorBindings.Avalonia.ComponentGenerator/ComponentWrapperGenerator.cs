@@ -157,11 +157,6 @@ namespace {componentNamespace}
 
     public (string GroupName, string Name, string Source) GenerateAttachmentFile(Compilation compilation, GenerateComponentSettings generatedInfo)
     {
-        //if (!System.Diagnostics.Debugger.IsAttached)
-        //{
-        //    System.Diagnostics.Debugger.Launch();
-        //}
-
         var typeToGenerate = generatedInfo.TypeSymbol;
         var componentName = generatedInfo.TypeAlias ?? typeToGenerate.Name;
         var componentNamespace = GetComponentNamespace(typeToGenerate);
@@ -215,6 +210,7 @@ namespace {componentNamespace}
 
             }
 
+
             handleAttachedPopertiesBuilder.AppendLine($$"""
             {{usingsText}}
 
@@ -238,51 +234,60 @@ namespace {componentNamespace}
             }
 
             handleAttachedPopertiesBuilder.AppendLine($$"""
-                    }
-                }
+                         }
+                     }
+                 """);
 
-                public static class {{typeToGenerate.Name}}Extensions
-                {
-            """);
-
-            foreach (var attached in attachedProperties)
+            if (generatedInfo.AttachedPropertyGeneration == AttachedPropertyGeneration.ExtensionMethods)
             {
-                var declaration = attached.GetExtensionMethodDeclaration();
-                if (!string.IsNullOrEmpty(declaration))
-                {
-                    handleAttachedPopertiesBuilder.AppendLine(declaration);
-                }
+                GenerateAttachedPropertyExtensionMethods(typeToGenerate, attachedProperties, handleAttachedPopertiesBuilder);
+            }
+
+            if (generatedInfo.AttachedPropertyGeneration == AttachedPropertyGeneration.Elements)
+            {
+                GenerateAttachedPropertyElements(attachedProperties, handleAttachedPopertiesBuilder, lowestHostType, fullTypeName, containsContent, typeToGenerate);
             }
 
             handleAttachedPopertiesBuilder.AppendLine($$"""
                 }
+                """);
+        }
+
+        var handleAttachedPoperties = handleAttachedPopertiesBuilder.ToString();
+
+        return (GetComponentGroup(typeToGenerate), componentName, handleAttachedPoperties);
+    }
+
+    private static void GenerateAttachedPropertyElements(GeneratedFieldInfo[] attachedProperties, StringBuilder handleAttachedPopertiesBuilder, ITypeSymbol lowestHostType, string fullTypeName, bool containsContent, INamedTypeSymbol typeToGenerate)
+    {
+        handleAttachedPopertiesBuilder.AppendLine($$"""
 
                 public class {{typeToGenerate.Name}}_Attachment : NativeControlComponentBase{{(true ? ", INonPhysicalChild, IContainerElementHandler" : "")}}
                 {
             """);
 
-            foreach (var attached in attachedProperties)
-            {
-                handleAttachedPopertiesBuilder.AppendLine(attached.GetFieldDeclaration());
-            }
+        foreach (var attached in attachedProperties)
+        {
+            handleAttachedPopertiesBuilder.AppendLine(attached.GetFieldDeclaration());
+        }
 
-            if (containsContent)
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+        if (containsContent)
+        {
+            handleAttachedPopertiesBuilder.AppendLine($$"""
 
                             protected override RenderFragment GetChildContent() => ChildContent;
 
                     """);
-            }
+        }
 
-            handleAttachedPopertiesBuilder.AppendLine($$"""
+        handleAttachedPopertiesBuilder.AppendLine($$"""
                         private {{lowestHostType}} _parent;
 
                         public object TargetElement => _parent;
 
                 """);
 
-            handleAttachedPopertiesBuilder.AppendLine("""
+        handleAttachedPopertiesBuilder.AppendLine("""
                         public override Task SetParametersAsync(ParameterView parameters)
                         {
                             foreach (var parameterValue in parameters)
@@ -292,14 +297,14 @@ namespace {componentNamespace}
                                 {
                 """);
 
-            foreach (var attached in attachedProperties)
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+        foreach (var attached in attachedProperties)
+        {
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                                         {{attached.GetHandleValueField()}}
                     """);
-            }
+        }
 
-            handleAttachedPopertiesBuilder.AppendLine("""
+        handleAttachedPopertiesBuilder.AppendLine("""
                                 }
                             }
                         
@@ -313,11 +318,11 @@ namespace {componentNamespace}
                             {
                 """);
 
-            foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
-            {
-                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+        foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
+        {
+            var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
 
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                                     if ({{attached.ComponentFieldName}} == {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentElement.GetType()))
                                     {
                                         (({{attached.HostType}})parentElement).ClearValue({{avaloniaAttachedPropertyName}});
@@ -328,16 +333,16 @@ namespace {componentNamespace}
                                     }
                                     
                     """);
-            }
+        }
 
-            handleAttachedPopertiesBuilder.AppendLine($$"""
+        handleAttachedPopertiesBuilder.AppendLine($$"""
                             }
                         }
                 """);
 
-            if (true)
-            {
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+        if (true)
+        {
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                     
                         void INonPhysicalChild.SetParent(object parentElement)
                         {
@@ -346,17 +351,17 @@ namespace {componentNamespace}
                             {
                 """);
 
-                foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
-                {
-                    var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
-
-                    handleAttachedPopertiesBuilder.AppendLine($$"""
-                                        {{attached.ComponentFieldName}} = {{attached.ComponentFieldName}} != default ? {{attached.ComponentFieldName}} : {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
-                        """);
-                }
-
+            foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
+            {
+                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
 
                 handleAttachedPopertiesBuilder.AppendLine($$"""
+                                        {{attached.ComponentFieldName}} = {{attached.ComponentFieldName}} != default ? {{attached.ComponentFieldName}} : {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
+                        """);
+            }
+
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                             }
 
                             TryUpdateParent(parentElement);
@@ -367,7 +372,7 @@ namespace {componentNamespace}
                 """);
 
 
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                         public void RemoveFromParent(object parentElement)
                         {
                             //_children.Clear();
@@ -394,29 +399,45 @@ namespace {componentNamespace}
                             base.RenderAdditionalElementContent(builder, ref sequence);
                 """);
 
-                foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
-                {
-                    handleAttachedPopertiesBuilder.AppendLine($$"""
+            foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
                                 RenderTreeBuilderHelper.AddContentProperty<{{lowestHostType}}>(builder, sequence++, {{contentProperty.ComponentFieldName}},
                                     (nativeControl, value) => {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value));
                     """);
 
-                }
-
-                handleAttachedPopertiesBuilder.AppendLine($$"""
-                            }
-                    """);
             }
-
             handleAttachedPopertiesBuilder.AppendLine($$"""
-                        }
-                    }
-                    """);
+                                }
+                        """);
         }
 
-        var handleAttachedPoperties = handleAttachedPopertiesBuilder.ToString();
+        handleAttachedPopertiesBuilder.AppendLine($$"""
+                }
+            """);
+    }
 
-        return (GetComponentGroup(typeToGenerate), componentName, handleAttachedPoperties);
+    private static void GenerateAttachedPropertyExtensionMethods(INamedTypeSymbol typeToGenerate, GeneratedFieldInfo[] attachedProperties, StringBuilder handleAttachedPopertiesBuilder)
+    {
+        handleAttachedPopertiesBuilder.Append($$"""
+
+                public static class {{typeToGenerate.Name}}Extensions
+                {
+
+            """);
+
+        foreach (var attached in attachedProperties)
+        {
+            var declaration = attached.GetExtensionMethodDeclaration();
+            if (!string.IsNullOrEmpty(declaration))
+            {
+                handleAttachedPopertiesBuilder.AppendLine(declaration);
+            }
+        }
+
+        handleAttachedPopertiesBuilder.AppendLine($$"""
+                    }
+                """);
     }
 
     private static List<UsingStatement> GetDefaultUsings(INamedTypeSymbol typeToGenerate, string componentNamespace)
