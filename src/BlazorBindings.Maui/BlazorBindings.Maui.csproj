@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
@@ -15,17 +15,18 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<ProjectReference Include="..\BlazorBindings.Core\BlazorBindings.Core.csproj" />
 
-		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+		<PackageReference Include="DotNet.ReproducibleBuilds">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" IncludeAssets="compile;runtime" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.0-rc.1.9171" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.0-rc.1.9171" />
+		<ProjectReference Include="..\BlazorBindings.Core\BlazorBindings.Core.csproj" />
 	</ItemGroup>
 	
 </Project>

@@ -25,6 +25,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+
+		<AndroidManifest>Platforms/Android/AndroidManifest.xml</AndroidManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -46,7 +48,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="UraniumUI.Icons.FontAwesome" Version="2.5.5" />
+	  <PackageReference Include="Microsoft.Maui.Controls" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" />
+	  <PackageReference Include="UraniumUI.Icons.FontAwesome" />
 	</ItemGroup>
 
 	<ItemGroup>

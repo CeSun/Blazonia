@@ -37,6 +37,9 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<ContentTargetFolders>content</ContentTargetFolders>
 
+
+		<ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+
 		<!--
       Disable C# default compilation features/warnings because this project doesn't use C#.
     -->

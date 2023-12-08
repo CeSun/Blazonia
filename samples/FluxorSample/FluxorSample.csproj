@@ -26,6 +26,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">23.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+
+		<AndroidManifest>Platforms/Android/AndroidManifest.xml</AndroidManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -37,6 +39,8 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<!-- Adding/commenting fixes error described in https://github.com/dotnet/maui/issues/5652 -->
+		<!--<MauiImage Include="Resources\*.svg" />-->
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -46,8 +50,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Fluxor.Blazor.Web" Version="5.9.1" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+		<PackageReference Include="Fluxor.Blazor.Web" />
+		<PackageReference Include="Microsoft.Extensions.Http" />
+		<PackageReference Include="Microsoft.Maui.Controls" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" />
 	</ItemGroup>
 
 	<ItemGroup>

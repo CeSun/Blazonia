@@ -40,6 +40,9 @@
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
+		<!-- Adding/commenting fixes error described in https://github.com/dotnet/maui/issues/5652 -->
+		<!--<MauiImage Include="Resources\AppIcon\*.svg" />-->
+
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
@@ -48,11 +51,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="AlohaKit" Version="1.0.74" />
-	  <PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-	  <PackageReference Include="Material.Components.Maui" Version="0.1.2-beta" />
-	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.5" />
-	  <PackageReference Include="XCalendar.Maui" Version="4.5.1" />
+	  <PackageReference Include="AlohaKit" />
+	  <PackageReference Include="CommunityToolkit.Maui" />
+	  <PackageReference Include="Material.Components.Maui" />
+	  <PackageReference Include="Microsoft.Maui.Controls" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
+      <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" />
+	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" />
+	  <PackageReference Include="XCalendar.Maui" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -36,7 +36,7 @@ public static class RenderTreeBuilderHelper
         RenderTreeBuilder builder,
         int sequence,
         RenderFragment content,
-        Func<TControl, IList> listPropertyAccessor)
+        Func<TControl, IList<TItem>> listPropertyAccessor)
         where TItem : class
     {
         if (content != null)
