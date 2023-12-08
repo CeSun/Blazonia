@@ -27,5 +27,5 @@ public class GenerateComponentSettings
         set => _isForcedGeneric = value;
     }
 
-    public AttachedPropertyGeneration AttachedPropertyGeneration { get; set; } = AttachedPropertyGeneration.ExtensionMethods;
+    public AttachedPropertyGeneration AttachedPropertyGeneration { get; set; } = AttachedPropertyGeneration.ExtensionMethods | AttachedPropertyGeneration.Elements;
 }
