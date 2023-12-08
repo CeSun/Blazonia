@@ -259,7 +259,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                 {
                     if (_targetElement is IHandleChildContentText handleChildContentText)
                     {
-                        handleChildContentText.HandleText(siblingIndex, frame.MarkupContent);
+                        handleChildContentText.HandleText(0, frame.MarkupContent);
                     }
                     else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                     {
