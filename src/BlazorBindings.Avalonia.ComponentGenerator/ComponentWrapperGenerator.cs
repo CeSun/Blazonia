@@ -376,9 +376,34 @@ namespace {componentNamespace}
                         public void RemoveFromParent(object parentElement)
                         {
                             //_children.Clear();
+                """);
 
-                            //{{fullTypeName}}.SetTip(_parent, null);
+            var renderFragmentProperties = attachedProperties.Where(x => x.IsRenderFragmentProperty);
+            if (renderFragmentProperties.Any())
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
 
+                                if (_parent is not null)
+                                {
+                    """);
+            }
+
+            foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, default);
+                    """);
+            }
+
+            if (renderFragmentProperties.Any())
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                }
+
+                    """);
+            }
+
+            handleAttachedPopertiesBuilder.AppendLine($$"""
                             _parent = null;
                         }
 
@@ -403,7 +428,13 @@ namespace {componentNamespace}
             {
                 handleAttachedPopertiesBuilder.AppendLine($$"""
                                 RenderTreeBuilderHelper.AddContentProperty<{{lowestHostType}}>(builder, sequence++, {{contentProperty.ComponentFieldName}},
-                                    (nativeControl, value) => {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value));
+                                    (nativeControl, value) =>
+                                    {
+                                        if (_parent is not null)
+                                        {
+                                            {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value);
+                                        }
+                                    });
                     """);
 
             }
