@@ -531,15 +531,34 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 VerticalScrollBarVisibility = VerticalScrollBarVisibility != default ? VerticalScrollBarVisibility : Avalonia.Controls.ScrollViewer.VerticalScrollBarVisibilityProperty.GetDefaultValue(parentType);
                 VerticalSnapPointsAlignment = VerticalSnapPointsAlignment != default ? VerticalSnapPointsAlignment : Avalonia.Controls.ScrollViewer.VerticalSnapPointsAlignmentProperty.GetDefaultValue(parentType);
                 VerticalSnapPointsType = VerticalSnapPointsType != default ? VerticalSnapPointsType : Avalonia.Controls.ScrollViewer.VerticalSnapPointsTypeProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                AllowAutoHide = Avalonia.Controls.ScrollViewer.AllowAutoHideProperty.GetDefaultValue(parentType);
+                BringIntoViewOnFocusChange = Avalonia.Controls.ScrollViewer.BringIntoViewOnFocusChangeProperty.GetDefaultValue(parentType);
+                HorizontalScrollBarVisibility = Avalonia.Controls.ScrollViewer.HorizontalScrollBarVisibilityProperty.GetDefaultValue(parentType);
+                HorizontalSnapPointsAlignment = Avalonia.Controls.ScrollViewer.HorizontalSnapPointsAlignmentProperty.GetDefaultValue(parentType);
+                HorizontalSnapPointsType = Avalonia.Controls.ScrollViewer.HorizontalSnapPointsTypeProperty.GetDefaultValue(parentType);
+                IsDeferredScrollingEnabled = Avalonia.Controls.ScrollViewer.IsDeferredScrollingEnabledProperty.GetDefaultValue(parentType);
+                IsScrollChainingEnabled = Avalonia.Controls.ScrollViewer.IsScrollChainingEnabledProperty.GetDefaultValue(parentType);
+                IsScrollInertiaEnabled = Avalonia.Controls.ScrollViewer.IsScrollInertiaEnabledProperty.GetDefaultValue(parentType);
+                VerticalScrollBarVisibility = Avalonia.Controls.ScrollViewer.VerticalScrollBarVisibilityProperty.GetDefaultValue(parentType);
+                VerticalSnapPointsAlignment = Avalonia.Controls.ScrollViewer.VerticalSnapPointsAlignmentProperty.GetDefaultValue(parentType);
+                VerticalSnapPointsType = Avalonia.Controls.ScrollViewer.VerticalSnapPointsTypeProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

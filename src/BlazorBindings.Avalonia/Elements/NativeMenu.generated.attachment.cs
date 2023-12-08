@@ -85,15 +85,24 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (parentType is not null)
             {
                 Menu = Menu != default ? Menu : Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.AvaloniaObject)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                Menu = Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

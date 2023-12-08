@@ -267,15 +267,28 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 IsSharedSizeScope = IsSharedSizeScope != default ? IsSharedSizeScope : Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
                 Row = Row != default ? Row : Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
                 RowSpan = RowSpan != default ? RowSpan : Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                Column = Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentType);
+                ColumnSpan = Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentType);
+                IsSharedSizeScope = Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
+                Row = Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
+                RowSpan = Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

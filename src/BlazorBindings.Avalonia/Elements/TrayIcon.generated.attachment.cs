@@ -91,15 +91,24 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (parentType is not null)
             {
                 Icons = Icons != default ? Icons : Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Application)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                Icons = Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

@@ -92,15 +92,24 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (parentType is not null)
             {
                 IsTemplateFocusTarget = IsTemplateFocusTarget != default ? IsTemplateFocusTarget : Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                IsTemplateFocusTarget = Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

@@ -312,15 +312,29 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 FontStyle = FontStyle != default ? FontStyle : Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
                 FontWeight = FontWeight != default ? FontWeight : Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
                 Foreground = Foreground != default ? Foreground : Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                FontFamily = Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
+                FontSize = Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
+                FontStretch = Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
+                FontStyle = Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
+                FontWeight = Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
+                Foreground = Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

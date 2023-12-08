@@ -304,9 +304,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 Placement = Placement != default ? Placement : Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
                 ShowDelay = ShowDelay != default ? ShowDelay : Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
                 VerticalOffset = VerticalOffset != default ? VerticalOffset : Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
@@ -316,6 +317,18 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (_parent is not null)
             {
                 Avalonia.Controls.ToolTip.SetTip(_parent, default);
+            }
+
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                HorizontalOffset = Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentType);
+                IsOpen = Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentType);
+                Placement = Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
+                ShowDelay = Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
+                VerticalOffset = Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
             _parent = null;

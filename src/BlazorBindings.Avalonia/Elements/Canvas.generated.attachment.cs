@@ -223,15 +223,27 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 Left = Left != default ? Left : Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
                 Right = Right != default ? Right : Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
                 Top = Top != default ? Top : Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.AvaloniaObject)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                Bottom = Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentType);
+                Left = Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
+                Right = Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
+                Top = Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 

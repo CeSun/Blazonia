@@ -355,15 +355,30 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 TextAlignment = TextAlignment != default ? TextAlignment : Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
                 TextTrimming = TextTrimming != default ? TextTrimming : Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
                 TextWrapping = TextWrapping != default ? TextWrapping : Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
             }
 
-            TryUpdateParent(parentElement);
             _parent = (Avalonia.Controls.Control)parentElement;
         }
         
         
         public void RemoveFromParent(object parentElement)
         {
+            var parentType = parentElement?.GetType();
+            if (parentType is not null)
+            {
+                BaselineOffset = Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentType);
+                LetterSpacing = Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentType);
+                LineHeight = Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentType);
+                MaxLines = Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentType);
+                TextAlignment = Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
+                TextTrimming = Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
+                TextWrapping = Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
+
+                TryUpdateParent(parentElement);
+            }
+
             _parent = null;
         }
 
