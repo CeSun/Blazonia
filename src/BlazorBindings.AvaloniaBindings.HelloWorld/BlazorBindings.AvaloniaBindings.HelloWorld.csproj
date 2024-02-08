@@ -5,8 +5,6 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-
-	<RootNamespace>BlazorBindings.AvaloniaBindings.HelloWorld</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorBindings.Avalonia\BlazorBindings.Avalonia.csproj" />
+    <ProjectReference Include="..\BlazorBindings.AvaloniaBindings\BlazorBindings.AvaloniaBindings.csproj" />
   </ItemGroup>
 
   <ItemGroup>

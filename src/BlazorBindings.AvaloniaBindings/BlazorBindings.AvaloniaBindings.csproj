@@ -5,7 +5,6 @@
 		<Title>Avalonia binding for Blazor</Title>
 		<Description>Avalonia Blazor Bindings enables using Blazor syntax in .razor files to build native apps for iOS and Android.</Description>
 		<PackageTags>blazor;blazorbindings</PackageTags>
-		<RootNamespace>BlazorBindings.AvaloniaBindings</RootNamespace>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">10.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>

@@ -47,13 +47,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationsSample", "sample
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Avalonia", "Avalonia", "{9F4F3F1F-228A-4896-BB23-DE6CFE64A63A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.Avalonia", "src\BlazorBindings.Avalonia\BlazorBindings.Avalonia.csproj", "{CC3F59CD-EFD5-4926-B042-7EB098EC90C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.AvaloniaBindings", "src\BlazorBindings.AvaloniaBindings\BlazorBindings.AvaloniaBindings.csproj", "{CC3F59CD-EFD5-4926-B042-7EB098EC90C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.Avalonia.ComponentGenerator", "src\BlazorBindings.Avalonia.ComponentGenerator\BlazorBindings.Avalonia.ComponentGenerator.csproj", "{7E1C80F8-8F74-41F5-9D20-D8510821C1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.AvaloniaBindings.ComponentGenerator", "src\BlazorBindings.AvaloniaBindings.ComponentGenerator\BlazorBindings.AvaloniaBindings.ComponentGenerator.csproj", "{7E1C80F8-8F74-41F5-9D20-D8510821C1B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{9A81174C-6F1B-4BCC-85C6-1A780622EEAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.Avalonia.HelloWorld", "src\BlazorBindings.Avalonia.HelloWorld\BlazorBindings.Avalonia.HelloWorld.csproj", "{F2E6A53B-6FAC-41B6-9B49-29388D0BFD05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBindings.AvaloniaBindings.HelloWorld", "src\BlazorBindings.AvaloniaBindings.HelloWorld\BlazorBindings.AvaloniaBindings.HelloWorld.csproj", "{F2E6A53B-6FAC-41B6-9B49-29388D0BFD05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maui", "Maui", "{439C70C0-FAAA-4896-9665-A03631C162C3}"
 EndProject
