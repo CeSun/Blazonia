@@ -492,7 +492,7 @@ namespace {componentNamespace}
             {
                 new UsingStatement { Namespace = "System", IsGlobalUsing = true },
                 new UsingStatement { Namespace = "Microsoft.AspNetCore.Components", IsUsed = true, IsGlobalUsing = true },
-                new UsingStatement { Namespace = "BlazorBindings.Core", IsUsed = true, IsGlobalUsing = true },
+                new UsingStatement { Namespace = "BlazorBindings.AvaloniaBindings.Core", IsUsed = true, IsGlobalUsing = true },
                 new UsingStatement { Namespace = "System.Threading.Tasks", IsUsed = true, IsGlobalUsing = true },
                 new UsingStatement { Namespace = "Avalonia.Controls", Alias = "AC", IsUsed = true, IsGlobalUsing = true },
                 //new UsingStatement { Namespace = "Avalonia.Templ", Alias = "MMP" }

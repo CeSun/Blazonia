@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0</TargetFrameworks>
 		<Title>Avalonia binding for Blazor</Title>
-		<Description>Avalonia Blazor Bindings enables using Blazor syntax in .razor files to build native apps for iOS and Android.</Description>
+		<Description>Avalonia Blazor Bindings enables using Blazor syntax in .razor files to build native Avalonia apps.</Description>
 		<PackageTags>blazor;blazorbindings</PackageTags>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">10.0</SupportedOSPlatformVersion>
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\BlazorBindings.Core\BlazorBindings.Core.csproj" />
+		<ProjectReference Include="..\BlazorBindings.AvaloniaBindings.Core\BlazorBindings.AvaloniaBindings.Core.csproj" />
 	</ItemGroup>
 	
 	<ItemGroup>
