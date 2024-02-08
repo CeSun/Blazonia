@@ -22,7 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
 
         /// <summary>
-        /// Application lifetime, use it for things like setting the main window and exiting the app from code Currently supported lifetimes are: - <see cref="T:Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime" /> - <see cref="T:Avalonia.Controls.ApplicationLifetimes.ISingleViewApplicationLifetime" /> - <see cref="T:Avalonia.Controls.ApplicationLifetimes.IControlledApplicationLifetime" />
+        /// Application lifetime, use it for things like setting the main window and exiting the app from code Currently supported lifetimes are: - <see cref="T:Avalonia.Controls.ApplicationLifetimes.IClassicDesktopStyleApplicationLifetime" /> - <see cref="T:Avalonia.Controls.ApplicationLifetimes.ISingleViewApplicationLifetime" /> - <see cref="T:Avalonia.Controls.ApplicationLifetimes.IControlledApplicationLifetime" /> - <see cref="T:Avalonia.Controls.ApplicationLifetimes.IActivatableApplicationLifetime" />
         /// </summary>
         [Parameter] public AC.ApplicationLifetimes.IApplicationLifetime ApplicationLifetime { get; set; }
         /// <summary>

@@ -22,6 +22,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the control will be animated in the reverse direction.
+        /// </summary>
+        [Parameter] public bool? IsTransitionReversed { get; set; }
+        /// <summary>
         /// Gets or sets the animation played when content appears and disappears.
         /// </summary>
         [Parameter] public global::Avalonia.Animation.IPageTransition PageTransition { get; set; }
@@ -34,6 +38,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
+                case nameof(IsTransitionReversed):
+                    if (!Equals(IsTransitionReversed, value))
+                    {
+                        IsTransitionReversed = (bool?)value;
+                        NativeControl.IsTransitionReversed = IsTransitionReversed ?? (bool)AC.TransitioningContentControl.IsTransitionReversedProperty.GetDefaultValue(AC.TransitioningContentControl.IsTransitionReversedProperty.OwnerType);
+                    }
+                    break;
                 case nameof(PageTransition):
                     if (!Equals(PageTransition, value))
                     {
