@@ -22,22 +22,41 @@ public class TextSpanContainer
     /// Updates the text spans with the new text at the new index and returns the new
     /// string represented by the contained text spans.
     /// </summary>
-    /// <param name="index"></param>
-    /// <param name="text"></param>
+    /// <param name="isAdd">If text should be added or replaced</param>
+    /// <param name="index">the index of the string within a group of text strings.</param>
+    /// <param name="text">The text to handle. This text may contain whitespace at the start and end of the string.</param>
     /// <returns></returns>
-    public string GetUpdatedText(int index, string text)
+    public string GetUpdatedText(bool isAdd, int index, string text)
     {
         if (index < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(index));
         }
 
-        if (index >= _textSpans.Count)
+        if ((isAdd && index > _textSpans.Count) ||
+            (!isAdd && index >= _textSpans.Count))
         {
             // Expand the list to allow for the new text's index to exist
-            _textSpans.AddRange(new string[index - _textSpans.Count + 1]);
+            _textSpans.AddRange(new string[index - _textSpans.Count]);
         }
-        _textSpans[index] = text;
+
+        if (text is not null)
+        {
+            if (isAdd)
+            {
+                _textSpans.Insert(index, text);
+            }
+            else
+            {
+                _textSpans[index] = text;
+            }
+        }
+        else
+        {
+            // null means "remove text"
+
+            _textSpans.RemoveAt(index);
+        }
 
         var allText = string.Concat(_textSpans);
         return TrimWhitespace

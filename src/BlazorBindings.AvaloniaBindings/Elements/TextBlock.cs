@@ -53,9 +53,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
 
         }
 
-        public void HandleText(int index, string text)
+        public void HandleText(bool isAdd, int index, string text)
         {
-            NativeControl.Text = (_textSpanContainer ??= new()).GetUpdatedText(index, text);
+            NativeControl.Text = (_textSpanContainer ??= new()).GetUpdatedText(isAdd, index, text);
         }
     }
 }

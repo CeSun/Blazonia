@@ -79,7 +79,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                         var frame = referenceFrames[edit.ReferenceFrameIndex];
                         if (_targetElement is IHandleChildContentText handleChildContentText)
                         {
-                            handleChildContentText.HandleText(edit.SiblingIndex, frame.TextContent);
+                            handleChildContentText.HandleText(false, edit.SiblingIndex, frame.TextContent);
                         }
                         else if (!string.IsNullOrWhiteSpace(frame.TextContent))
                         {
@@ -98,7 +98,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                         var frame = referenceFrames[edit.ReferenceFrameIndex];
                         if (_targetElement is IHandleChildContentText handleChildContentText)
                         {
-                            handleChildContentText.HandleText(edit.SiblingIndex, frame.MarkupContent);
+                            handleChildContentText.HandleText(false, edit.SiblingIndex, frame.MarkupContent);
                         }
                         else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                             throw new NotImplementedException($"Not supported edit type: {edit.Type}");
@@ -206,6 +206,11 @@ internal sealed class NativeComponentAdapter : IDisposable
         var childToRemove = Children[siblingIndex];
         RemoveChildElementAndDescendants(childToRemove, adaptersWithPendingEdits);
         Children.RemoveAt(siblingIndex);
+
+        if (_targetElement is IHandleChildContentText handleChildContentText)
+        {
+            handleChildContentText.HandleText(false, siblingIndex, null);
+        }
     }
 
     private void RemoveChildElementAndDescendants(NativeComponentAdapter childToRemove, HashSet<NativeComponentAdapter> adaptersWithPendingEdits)
@@ -259,7 +264,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                 {
                     if (_targetElement is IHandleChildContentText handleChildContentText)
                     {
-                        handleChildContentText.HandleText(0, frame.MarkupContent);
+                        handleChildContentText.HandleText(true, siblingIndex, frame.MarkupContent);
                     }
                     else if (!string.IsNullOrWhiteSpace(frame.MarkupContent))
                     {
@@ -273,7 +278,7 @@ internal sealed class NativeComponentAdapter : IDisposable
                 {
                     if (_targetElement is IHandleChildContentText handleChildContentText)
                     {
-                        handleChildContentText.HandleText(siblingIndex, frame.TextContent);
+                        handleChildContentText.HandleText(true, siblingIndex, frame.TextContent);
                     }
                     else if (!string.IsNullOrWhiteSpace(frame.TextContent))
                     {

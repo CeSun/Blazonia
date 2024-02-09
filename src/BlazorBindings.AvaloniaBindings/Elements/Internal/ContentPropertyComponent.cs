@@ -37,11 +37,11 @@ internal class ContentPropertyComponent<TControl> : NativeControlComponentBase, 
         SetPropertyAction(_parent, newChild);
     }
 
-    public void HandleText(int index, string text)
+    public void HandleText(bool isAdd, int index, string text)
     {
         if (_parent is AvaloniaContentView handle)
         {
-            handle.Content = (_textSpanContainer ??= new()).GetUpdatedText(index, text);
+            handle.Content = (_textSpanContainer ??= new()).GetUpdatedText(isAdd, index, text);
         }
     }
 
