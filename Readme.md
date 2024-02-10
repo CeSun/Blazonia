@@ -33,7 +33,7 @@ This component
 - shows a `Label` stating how often the `Button` was pressed, and
 - the `Button` increments the value on each button press.
 
-```xml
+```razor
 <StackPanel>
     <Label FontSize="30">You pressed @count times </Label>
     <Button Text="+1" OnClick="@HandleClick" />
