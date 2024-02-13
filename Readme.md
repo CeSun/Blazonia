@@ -30,17 +30,23 @@ This is an example on how you use the Blazor UI model to create a **component** 
 
 This is `Counter.razor`, a **Counter** Blazor UI component that **renders native Avalonia UI controls**.  
 This component
-- shows a `Label` stating how often the `Button` was pressed, and
-- the `Button` increments the value on each button press.
+- shows a `Label` stating how often the `Button` beneath was pressed,
+- shows a `CheckBox` to toggle the visibility of the `Button`, and
+- the `Button` that increments the value on each button press.
 
 ```razor
 <StackPanel>
     <Label FontSize="30">You pressed @count times </Label>
-    <Button Text="+1" OnClick="@HandleClick" />
+    <CheckBox @bind-IsChecked="showButton">Button visible</CheckBox>
+    @if (showButton)
+    {
+        <Button Text="+1" OnClick="@HandleClick" />
+    }
 </StackPanel>
 
 @code {
     int count;
+    bool showButton = true;
 
     void HandleClick()
     {
@@ -49,10 +55,21 @@ This component
 }
 ```
 
-The UI markup uses the **Blazor/Razor syntax** with **Avalonia specific wrapper components** `StackPanel`, `Label` and `Button`. This is followed by **C# code** in the **`@code` section** which defines the click-handler method that increments the counter [^1].  
+The UI markup uses the **Blazor/Razor syntax** with **Avalonia specific wrapper components** `StackPanel`, `Label`, `CheckBox` and `Button`. This is followed by **C# code** in the **`@code` section** which defines the variables and the click-handler method that increments the counter [^1].  
 
-Please note:  
-Unlike `XAML`, there is ***no* verbose and complex data-binding syntax** but just a **straight-forward use of variables and methods**. And magically, it still automatically updates `Label`'s text on every counter update.
+### ↔️ Binding
+ For ➡️ **1-way binding**, Blazor only requires the `@<variable-name>` expression that automatically updates - here the `Label`'s text on every counter update.  
+ The **`@bind-` prefix** is used only if ↔️ **2-way binding** is required like on the `CheckBox` here.
+
+ For more advanced bindings and a more complete picture please have a look at the <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/data-binding?view=aspnetcore-8.0">official Blazor documents</a>.
+
+### ⤵️ Conditionals
+This code also showcases the use of a regualar `if` statement that adds or removes the Button from the UI tree.
+ 
+
+> [!NOTE]
+> Unlike **XAML**, there is ***no* verbose and complex data-binding syntax** but just a **straight-forward use of variables and methods**.
+> Also, Blazor supports real conditionals that allows you to actually add and remove parts of the UI from the UI tree, while XAML only supports hiding.
 
 ## 🔬 Example: MainPage View
 This is an example on how you use the Blazor UI model to create a **page**.
