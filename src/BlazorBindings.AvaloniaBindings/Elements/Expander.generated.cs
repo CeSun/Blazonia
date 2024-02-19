@@ -35,7 +35,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public bool? IsExpanded { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnCollapsed { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.CancelRoutedEventArgs> OnCollapsing { get; set; }
-        [Parameter] public EventCallback<bool> IsExpandedChanged { get; set; }
+        [Parameter] public EventCallback<bool?> IsExpandedChanged { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.CancelRoutedEventArgs> OnExpanding { get; set; }
 
         public new AC.Expander NativeControl => (AC.Expander)((AvaloniaObject)this).NativeControl;
@@ -92,12 +92,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         void NativeControlExpanded(object sender, global::Avalonia.Interactivity.RoutedEventArgs e)
                         {
-                            var value = NativeControl.IsExpanded;
+                            var value = NativeControl.IsExpanded is bool item ? item : default(bool?);
                             IsExpanded = value;
                             InvokeEventCallback(IsExpandedChanged, value);
                         }
 
-                        IsExpandedChanged = (EventCallback<bool>)value;
+                        IsExpandedChanged = (EventCallback<bool?>)value;
                         NativeControl.Expanded -= NativeControlExpanded;
                         NativeControl.Expanded += NativeControlExpanded;
                     }

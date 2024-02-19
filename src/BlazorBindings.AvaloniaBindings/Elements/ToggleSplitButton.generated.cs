@@ -25,7 +25,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets a value indicating whether the <see cref="T:Avalonia.Controls.ToggleSplitButton" /> is checked.
         /// </summary>
         [Parameter] public bool? IsChecked { get; set; }
-        [Parameter] public EventCallback<bool> IsCheckedChanged { get; set; }
+        [Parameter] public EventCallback<bool?> IsCheckedChanged { get; set; }
 
         public new AC.ToggleSplitButton NativeControl => (AC.ToggleSplitButton)((AvaloniaObject)this).NativeControl;
 
@@ -47,12 +47,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         void NativeControlIsCheckedChanged(object sender, global::Avalonia.Interactivity.RoutedEventArgs e)
                         {
-                            var value = NativeControl.IsChecked;
+                            var value = NativeControl.IsChecked is bool item ? item : default(bool?);
                             IsChecked = value;
                             InvokeEventCallback(IsCheckedChanged, value);
                         }
 
-                        IsCheckedChanged = (EventCallback<bool>)value;
+                        IsCheckedChanged = (EventCallback<bool?>)value;
                         NativeControl.IsCheckedChanged -= NativeControlIsCheckedChanged;
                         NativeControl.IsCheckedChanged += NativeControlIsCheckedChanged;
                     }

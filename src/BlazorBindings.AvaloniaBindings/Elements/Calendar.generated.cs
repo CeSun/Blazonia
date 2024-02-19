@@ -79,8 +79,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </value>
         [Parameter] public AC.CalendarSelectionMode? SelectionMode { get; set; }
         [Parameter] public EventCallback<AC.SelectionChangedEventArgs> OnSelectedDatesChanged { get; set; }
-        [Parameter] public EventCallback<DateTime> DisplayDateChanged { get; set; }
-        [Parameter] public EventCallback<AC.CalendarMode> DisplayModeChanged { get; set; }
+        [Parameter] public EventCallback<DateTime?> DisplayDateChanged { get; set; }
+        [Parameter] public EventCallback<AC.CalendarMode?> DisplayModeChanged { get; set; }
 
         public new AC.Calendar NativeControl => (AC.Calendar)((AvaloniaObject)this).NativeControl;
 
@@ -168,12 +168,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         void NativeControlDisplayDateChanged(object sender, AC.CalendarDateChangedEventArgs e)
                         {
-                            var value = NativeControl.DisplayDate;
+                            var value = NativeControl.DisplayDate is DateTime item ? item : default(DateTime?);
                             DisplayDate = value;
                             InvokeEventCallback(DisplayDateChanged, value);
                         }
 
-                        DisplayDateChanged = (EventCallback<DateTime>)value;
+                        DisplayDateChanged = (EventCallback<DateTime?>)value;
                         NativeControl.DisplayDateChanged -= NativeControlDisplayDateChanged;
                         NativeControl.DisplayDateChanged += NativeControlDisplayDateChanged;
                     }
@@ -183,12 +183,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         void NativeControlDisplayModeChanged(object sender, AC.CalendarModeChangedEventArgs e)
                         {
-                            var value = NativeControl.DisplayMode;
+                            var value = NativeControl.DisplayMode is AC.CalendarMode item ? item : default(AC.CalendarMode?);
                             DisplayMode = value;
                             InvokeEventCallback(DisplayModeChanged, value);
                         }
 
-                        DisplayModeChanged = (EventCallback<AC.CalendarMode>)value;
+                        DisplayModeChanged = (EventCallback<AC.CalendarMode?>)value;
                         NativeControl.DisplayModeChanged -= NativeControlDisplayModeChanged;
                         NativeControl.DisplayModeChanged += NativeControlDisplayModeChanged;
                     }

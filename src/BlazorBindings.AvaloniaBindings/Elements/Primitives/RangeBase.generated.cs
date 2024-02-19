@@ -42,7 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// Gets or sets the current value.
         /// </summary>
         [Parameter] public double? Value { get; set; }
-        [Parameter] public EventCallback<double> ValueChanged { get; set; }
+        [Parameter] public EventCallback<double?> ValueChanged { get; set; }
 
         public new ACP.RangeBase NativeControl => (ACP.RangeBase)((AvaloniaObject)this).NativeControl;
 
@@ -91,12 +91,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     {
                         void NativeControlValueChanged(object sender, ACP.RangeBaseValueChangedEventArgs e)
                         {
-                            var value = NativeControl.Value;
+                            var value = NativeControl.Value is double item ? item : default(double?);
                             Value = value;
                             InvokeEventCallback(ValueChanged, value);
                         }
 
-                        ValueChanged = (EventCallback<double>)value;
+                        ValueChanged = (EventCallback<double?>)value;
                         NativeControl.ValueChanged -= NativeControlValueChanged;
                         NativeControl.ValueChanged += NativeControlValueChanged;
                     }

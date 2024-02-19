@@ -54,12 +54,13 @@ public partial class GeneratedPropertyInfo
 
         if (_bindedProperty != null)
         {
-            var componentPropertyType = GetComponentPropertyTypeName(_bindedProperty, ContainingType);
+            var componentPropertyTypeNullable = GetComponentPropertyTypeName(_bindedProperty, ContainingType, makeNullable: true);
+            var componentPropertyType = GetComponentPropertyTypeName(_bindedProperty, ContainingType, makeNullable: false);
             var mauiPropertyType = GetTypeNameAndAddNamespace(_bindedProperty.Type);
 
-            argument = componentPropertyType == mauiPropertyType
+            argument = componentPropertyTypeNullable == mauiPropertyType
                 ? $"NativeControl.{_bindedProperty.Name}"
-                : $"NativeControl.{_bindedProperty.Name} is {componentPropertyType} item ? item : default({componentPropertyType})";
+                : $"NativeControl.{_bindedProperty.Name} is {componentPropertyType} item ? item : default({componentPropertyTypeNullable})";
         }
         else
         {
@@ -155,7 +156,7 @@ public partial class GeneratedPropertyInfo
     {
         if (bindedProperty != null)
         {
-            var typeName = GetComponentPropertyTypeName(bindedProperty, containingType);
+            var typeName = GetComponentPropertyTypeName(bindedProperty, containingType, makeNullable: true);
             return $"EventCallback<{typeName}>";
         }
 
