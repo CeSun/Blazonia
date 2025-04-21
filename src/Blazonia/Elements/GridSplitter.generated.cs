@@ -48,7 +48,7 @@ namespace Blazonia.Components
 
         public new AC.GridSplitter NativeControl => (AC.GridSplitter)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.GridSplitter CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.GridSplitter();
 
         protected override void HandleParameter(string name, object value)
         {

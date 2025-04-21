@@ -102,7 +102,7 @@ namespace Blazonia.Components
 
         public new AC.CalendarDatePicker NativeControl => (AC.CalendarDatePicker)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.CalendarDatePicker CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.CalendarDatePicker();
 
         protected override void HandleParameter(string name, object value)
         {

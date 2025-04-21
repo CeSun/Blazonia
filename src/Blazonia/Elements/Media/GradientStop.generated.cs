@@ -27,7 +27,7 @@ namespace Blazonia.Components.Media
 
         public new AM.GradientStop NativeControl => (AM.GradientStop)((AvaloniaObject)this).NativeControl;
 
-        protected override AM.GradientStop CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AM.GradientStop();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -48,7 +48,7 @@ namespace Blazonia.Components
 
         public new AC.Border NativeControl => (AC.Border)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Border CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Border();
 
         protected override void HandleParameter(string name, object value)
         {

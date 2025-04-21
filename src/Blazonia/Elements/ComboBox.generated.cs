@@ -54,7 +54,7 @@ namespace Blazonia.Components
 
         public new AC.ComboBox NativeControl => (AC.ComboBox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ComboBox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ComboBox();
 
         protected override void HandleParameter(string name, object value)
         {

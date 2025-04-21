@@ -40,7 +40,7 @@ namespace Blazonia.Components
 
         public new AC.TabControl NativeControl => (AC.TabControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TabControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TabControl();
 
         protected override void HandleParameter(string name, object value)
         {

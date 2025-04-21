@@ -41,7 +41,7 @@ namespace Blazonia.Components
 
         public new AC.SplitButton NativeControl => (AC.SplitButton)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.SplitButton CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.SplitButton();
 
         protected override void HandleParameter(string name, object value)
         {

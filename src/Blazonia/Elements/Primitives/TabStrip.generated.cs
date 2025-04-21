@@ -21,7 +21,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.TabStrip NativeControl => (ACP.TabStrip)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.TabStrip CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.TabStrip();
 
 
         static partial void RegisterAdditionalHandlers();

@@ -83,7 +83,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.TemplatedControl NativeControl => (ACP.TemplatedControl)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.TemplatedControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.TemplatedControl();
 
         protected override void HandleParameter(string name, object value)
         {

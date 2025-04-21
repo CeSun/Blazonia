@@ -32,7 +32,7 @@ namespace Blazonia.Components
 
         public new AC.Panel NativeControl => (AC.Panel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Panel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Panel();
 
         protected override void HandleParameter(string name, object value)
         {

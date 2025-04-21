@@ -45,7 +45,7 @@ namespace Blazonia.Components
 
         public new AC.TimePicker NativeControl => (AC.TimePicker)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TimePicker CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TimePicker();
 
         protected override void HandleParameter(string name, object value)
         {

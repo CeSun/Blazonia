@@ -24,7 +24,7 @@ namespace Blazonia.Components.Shapes
 
         public new ACS.Line NativeControl => (ACS.Line)((AvaloniaObject)this).NativeControl;
 
-        protected override ACS.Line CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACS.Line();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -36,7 +36,7 @@ namespace Blazonia.Components
 
         public new AC.Viewbox NativeControl => (AC.Viewbox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Viewbox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Viewbox();
 
         protected override void HandleParameter(string name, object value)
         {

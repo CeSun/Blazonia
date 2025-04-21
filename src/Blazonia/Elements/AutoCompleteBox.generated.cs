@@ -159,7 +159,7 @@ namespace Blazonia.Components
 
         public new AC.AutoCompleteBox NativeControl => (AC.AutoCompleteBox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.AutoCompleteBox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.AutoCompleteBox();
 
         protected override void HandleParameter(string name, object value)
         {

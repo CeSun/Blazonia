@@ -34,7 +34,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.HeaderedContentControl NativeControl => (ACP.HeaderedContentControl)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.HeaderedContentControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.HeaderedContentControl();
 
         protected override void HandleParameter(string name, object value)
         {

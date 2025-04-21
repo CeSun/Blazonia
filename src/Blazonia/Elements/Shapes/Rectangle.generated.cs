@@ -27,7 +27,7 @@ namespace Blazonia.Components.Shapes
 
         public new ACS.Rectangle NativeControl => (ACS.Rectangle)((AvaloniaObject)this).NativeControl;
 
-        protected override ACS.Rectangle CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACS.Rectangle();
 
         protected override void HandleParameter(string name, object value)
         {

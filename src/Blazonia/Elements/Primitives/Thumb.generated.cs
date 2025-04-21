@@ -25,7 +25,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.Thumb NativeControl => (ACP.Thumb)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.Thumb CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.Thumb();
 
         protected override void HandleParameter(string name, object value)
         {

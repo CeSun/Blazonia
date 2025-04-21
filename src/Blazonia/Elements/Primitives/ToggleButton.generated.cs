@@ -34,7 +34,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.ToggleButton NativeControl => (ACP.ToggleButton)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.ToggleButton CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.ToggleButton();
 
         protected override void HandleParameter(string name, object value)
         {

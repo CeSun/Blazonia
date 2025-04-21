@@ -29,7 +29,7 @@ namespace Blazonia.Components.Documents
 
         public new ACD.InlineUIContainer NativeControl => (ACD.InlineUIContainer)((AvaloniaObject)this).NativeControl;
 
-        protected override ACD.InlineUIContainer CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACD.InlineUIContainer();
 
         protected override void HandleParameter(string name, object value)
         {

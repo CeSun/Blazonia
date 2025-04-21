@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.UserControl NativeControl => (AC.UserControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.UserControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.UserControl();
 
 
         static partial void RegisterAdditionalHandlers();

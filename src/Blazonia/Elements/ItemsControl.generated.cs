@@ -47,7 +47,7 @@ namespace Blazonia.Components
 
         public new AC.ItemsControl NativeControl => (AC.ItemsControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ItemsControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ItemsControl();
 
         protected override void HandleParameter(string name, object value)
         {

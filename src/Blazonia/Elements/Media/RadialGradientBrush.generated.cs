@@ -41,7 +41,7 @@ namespace Blazonia.Components.Media
 
         public new AM.RadialGradientBrush NativeControl => (AM.RadialGradientBrush)((AvaloniaObject)this).NativeControl;
 
-        protected override AM.RadialGradientBrush CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AM.RadialGradientBrush();
 
         protected override void HandleParameter(string name, object value)
         {

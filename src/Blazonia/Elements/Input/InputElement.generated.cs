@@ -65,7 +65,7 @@ namespace Blazonia.Components.Input
 
         public new AI.InputElement NativeControl => (AI.InputElement)((AvaloniaObject)this).NativeControl;
 
-        protected override AI.InputElement CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AI.InputElement();
 
         protected override void HandleParameter(string name, object value)
         {

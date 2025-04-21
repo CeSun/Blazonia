@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.Separator NativeControl => (AC.Separator)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Separator CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Separator();
 
 
         static partial void RegisterAdditionalHandlers();

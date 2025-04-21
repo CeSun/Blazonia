@@ -33,7 +33,7 @@ namespace Blazonia.Components.Media
 
         public new AM.LinearGradientBrush NativeControl => (AM.LinearGradientBrush)((AvaloniaObject)this).NativeControl;
 
-        protected override AM.LinearGradientBrush CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AM.LinearGradientBrush();
 
         protected override void HandleParameter(string name, object value)
         {

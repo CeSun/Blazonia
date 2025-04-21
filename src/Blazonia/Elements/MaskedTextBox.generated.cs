@@ -49,7 +49,7 @@ namespace Blazonia.Components
 
         public new AC.MaskedTextBox NativeControl => (AC.MaskedTextBox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.MaskedTextBox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.MaskedTextBox();
 
         protected override void HandleParameter(string name, object value)
         {

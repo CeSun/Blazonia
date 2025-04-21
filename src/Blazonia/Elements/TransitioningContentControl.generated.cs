@@ -33,7 +33,7 @@ namespace Blazonia.Components
 
         public new AC.TransitioningContentControl NativeControl => (AC.TransitioningContentControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TransitioningContentControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TransitioningContentControl();
 
         protected override void HandleParameter(string name, object value)
         {

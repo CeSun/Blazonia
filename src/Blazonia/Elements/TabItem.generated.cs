@@ -28,7 +28,7 @@ namespace Blazonia.Components
 
         public new AC.TabItem NativeControl => (AC.TabItem)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TabItem CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TabItem();
 
         protected override void HandleParameter(string name, object value)
         {

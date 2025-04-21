@@ -58,7 +58,7 @@ namespace Blazonia.Components
 
         public new AC.DatePicker NativeControl => (AC.DatePicker)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.DatePicker CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.DatePicker();
 
         protected override void HandleParameter(string name, object value)
         {

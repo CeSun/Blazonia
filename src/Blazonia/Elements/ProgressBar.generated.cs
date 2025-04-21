@@ -40,7 +40,7 @@ namespace Blazonia.Components
 
         public new AC.ProgressBar NativeControl => (AC.ProgressBar)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ProgressBar CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ProgressBar();
 
         protected override void HandleParameter(string name, object value)
         {

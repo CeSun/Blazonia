@@ -44,7 +44,7 @@ namespace Blazonia.Components
 
         public new AC.ToggleSwitch NativeControl => (AC.ToggleSwitch)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ToggleSwitch CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ToggleSwitch();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -40,7 +40,7 @@ namespace Blazonia.Components.Layout
 
         public new AL.StackLayout NativeControl => (AL.StackLayout)((AvaloniaObject)this).NativeControl;
 
-        protected override AL.StackLayout CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AL.StackLayout();
 
         protected override void HandleParameter(string name, object value)
         {

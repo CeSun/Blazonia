@@ -28,7 +28,7 @@ namespace Blazonia.Components
 
         public new AC.Carousel NativeControl => (AC.Carousel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Carousel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Carousel();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -154,7 +154,7 @@ namespace Blazonia.Components
 
         public new AC.TextBox NativeControl => (AC.TextBox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TextBox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TextBox();
 
         protected override void HandleParameter(string name, object value)
         {
