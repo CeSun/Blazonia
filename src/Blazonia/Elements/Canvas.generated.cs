@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.Canvas NativeControl => (AC.Canvas)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Canvas CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Canvas();
 
 
         static partial void RegisterAdditionalHandlers();

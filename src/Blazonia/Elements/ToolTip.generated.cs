@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.ToolTip NativeControl => (AC.ToolTip)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ToolTip CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ToolTip();
 
 
         static partial void RegisterAdditionalHandlers();

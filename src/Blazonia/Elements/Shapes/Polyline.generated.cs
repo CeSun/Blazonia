@@ -24,7 +24,7 @@ namespace Blazonia.Components.Shapes
 
         public new ACS.Polyline NativeControl => (ACS.Polyline)((AvaloniaObject)this).NativeControl;
 
-        protected override ACS.Polyline CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACS.Polyline();
 
         protected override void HandleParameter(string name, object value)
         {

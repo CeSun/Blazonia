@@ -50,7 +50,7 @@ namespace Blazonia.Components.Primitives
 
         public new ACP.ScrollBar NativeControl => (ACP.ScrollBar)((AvaloniaObject)this).NativeControl;
 
-        protected override ACP.ScrollBar CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACP.ScrollBar();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -86,7 +86,7 @@ public partial class ComponentWrapperGenerator
         var staticConstructorBody = "\r\n            RegisterAdditionalHandlers();";
 
         var createNativeElement = isComponentAbstract ? "" : $@"
-        protected override {generatedType.GetTypeNameAndAddNamespace(typeToGenerate)} CreateNativeElement() => new();";
+        protected override AvaloniaBindableObject CreateNativeElement() => new {generatedType.GetTypeNameAndAddNamespace(typeToGenerate)}();";
 
         var handleParameter = !allProperties.Any() ? "" : $@"
         protected override void HandleParameter(string name, object value)

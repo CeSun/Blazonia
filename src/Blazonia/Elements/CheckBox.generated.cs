@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.CheckBox NativeControl => (AC.CheckBox)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.CheckBox CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.CheckBox();
 
 
         static partial void RegisterAdditionalHandlers();

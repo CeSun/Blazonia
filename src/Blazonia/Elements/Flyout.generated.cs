@@ -29,7 +29,7 @@ namespace Blazonia.Components
 
         public new AC.Flyout NativeControl => (AC.Flyout)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Flyout CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Flyout();
 
         protected override void HandleParameter(string name, object value)
         {

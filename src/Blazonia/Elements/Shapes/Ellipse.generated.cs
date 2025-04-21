@@ -21,7 +21,7 @@ namespace Blazonia.Components.Shapes
 
         public new ACS.Ellipse NativeControl => (ACS.Ellipse)((AvaloniaObject)this).NativeControl;
 
-        protected override ACS.Ellipse CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACS.Ellipse();
 
 
         static partial void RegisterAdditionalHandlers();

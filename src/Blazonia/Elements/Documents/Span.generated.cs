@@ -29,7 +29,7 @@ namespace Blazonia.Components.Documents
 
         public new ACD.Span NativeControl => (ACD.Span)((AvaloniaObject)this).NativeControl;
 
-        protected override ACD.Span CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACD.Span();
 
         protected override void HandleParameter(string name, object value)
         {

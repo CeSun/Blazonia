@@ -67,7 +67,7 @@ namespace Blazonia.Components.Layout
 
         public new AL.Layoutable NativeControl => (AL.Layoutable)((AvaloniaObject)this).NativeControl;
 
-        protected override AL.Layoutable CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AL.Layoutable();
 
         protected override void HandleParameter(string name, object value)
         {

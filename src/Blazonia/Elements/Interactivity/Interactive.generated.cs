@@ -24,7 +24,7 @@ namespace Blazonia.Components.Interactivity
 
         public new AI.Interactive NativeControl => (AI.Interactive)((AvaloniaObject)this).NativeControl;
 
-        protected override AI.Interactive CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AI.Interactive();
 
 
         static partial void RegisterAdditionalHandlers();

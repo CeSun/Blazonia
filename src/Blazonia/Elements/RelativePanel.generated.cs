@@ -23,7 +23,7 @@ namespace Blazonia.Components
 
         public new AC.RelativePanel NativeControl => (AC.RelativePanel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.RelativePanel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.RelativePanel();
 
 
         static partial void RegisterAdditionalHandlers();

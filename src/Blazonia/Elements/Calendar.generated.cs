@@ -84,7 +84,7 @@ namespace Blazonia.Components
 
         public new AC.Calendar NativeControl => (AC.Calendar)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Calendar CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Calendar();
 
         protected override void HandleParameter(string name, object value)
         {

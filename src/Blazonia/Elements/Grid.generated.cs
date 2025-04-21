@@ -36,7 +36,7 @@ namespace Blazonia.Components
 
         public new AC.Grid NativeControl => (AC.Grid)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Grid CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Grid();
 
         protected override void HandleParameter(string name, object value)
         {

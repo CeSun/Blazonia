@@ -40,7 +40,7 @@ namespace Blazonia.Components
 
         public new AC.ContentControl NativeControl => (AC.ContentControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ContentControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ContentControl();
 
         protected override void HandleParameter(string name, object value)
         {

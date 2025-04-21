@@ -41,7 +41,7 @@ namespace Blazonia.Components
 
         public new AC.SelectableTextBlock NativeControl => (AC.SelectableTextBlock)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.SelectableTextBlock CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.SelectableTextBlock();
 
         protected override void HandleParameter(string name, object value)
         {

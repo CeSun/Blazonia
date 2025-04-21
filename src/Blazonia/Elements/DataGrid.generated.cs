@@ -189,7 +189,7 @@ namespace Blazonia.Components
 
         public new AC.DataGrid NativeControl => (AC.DataGrid)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.DataGrid CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.DataGrid();
 
         protected override void HandleParameter(string name, object value)
         {

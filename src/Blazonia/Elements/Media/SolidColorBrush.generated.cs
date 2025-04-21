@@ -29,7 +29,7 @@ namespace Blazonia.Components.Media
 
         public new AM.SolidColorBrush NativeControl => (AM.SolidColorBrush)((AvaloniaObject)this).NativeControl;
 
-        protected override AM.SolidColorBrush CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AM.SolidColorBrush();
 
         protected override void HandleParameter(string name, object value)
         {

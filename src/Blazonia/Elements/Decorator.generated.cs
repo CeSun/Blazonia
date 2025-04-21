@@ -32,7 +32,7 @@ namespace Blazonia.Components
 
         public new AC.Decorator NativeControl => (AC.Decorator)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Decorator CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Decorator();
 
         protected override void HandleParameter(string name, object value)
         {

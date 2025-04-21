@@ -63,7 +63,7 @@ namespace Blazonia.Components
 
         public new AC.MenuItem NativeControl => (AC.MenuItem)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.MenuItem CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.MenuItem();
 
         protected override void HandleParameter(string name, object value)
         {

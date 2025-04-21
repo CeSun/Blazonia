@@ -29,7 +29,7 @@ namespace Blazonia.Components.Animation
 
         public new AA.Animatable NativeControl => (AA.Animatable)((AvaloniaObject)this).NativeControl;
 
-        protected override AA.Animatable CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AA.Animatable();
 
         protected override void HandleParameter(string name, object value)
         {

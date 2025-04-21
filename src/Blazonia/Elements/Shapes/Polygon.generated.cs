@@ -24,7 +24,7 @@ namespace Blazonia.Components.Shapes
 
         public new ACS.Polygon NativeControl => (ACS.Polygon)((AvaloniaObject)this).NativeControl;
 
-        protected override ACS.Polygon CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new ACS.Polygon();
 
         protected override void HandleParameter(string name, object value)
         {

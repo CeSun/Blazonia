@@ -81,7 +81,7 @@ namespace Blazonia.Components
 
         public new AC.Window NativeControl => (AC.Window)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Window CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Window();
 
         protected override void HandleParameter(string name, object value)
         {

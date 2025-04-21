@@ -34,7 +34,7 @@ namespace Blazonia.Components
 
         public new AC.TreeViewItem NativeControl => (AC.TreeViewItem)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TreeViewItem CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TreeViewItem();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -32,7 +32,7 @@ namespace Blazonia.Components
 
         public new AC.LayoutTransformControl NativeControl => (AC.LayoutTransformControl)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.LayoutTransformControl CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.LayoutTransformControl();
 
         protected override void HandleParameter(string name, object value)
         {

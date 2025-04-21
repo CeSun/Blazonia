@@ -28,7 +28,7 @@ namespace Blazonia.Components
 
         public new AC.RadioButton NativeControl => (AC.RadioButton)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.RadioButton CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.RadioButton();
 
         protected override void HandleParameter(string name, object value)
         {

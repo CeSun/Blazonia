@@ -36,7 +36,7 @@ namespace Blazonia.Components
 
         public new AC.Image NativeControl => (AC.Image)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Image CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Image();
 
         protected override void HandleParameter(string name, object value)
         {

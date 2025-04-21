@@ -28,7 +28,7 @@ namespace Blazonia.Components
 
         public new AC.Label NativeControl => (AC.Label)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Label CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Label();
 
         protected override void HandleParameter(string name, object value)
         {

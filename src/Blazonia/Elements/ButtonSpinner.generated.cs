@@ -36,7 +36,7 @@ namespace Blazonia.Components
 
         public new AC.ButtonSpinner NativeControl => (AC.ButtonSpinner)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ButtonSpinner CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ButtonSpinner();
 
         protected override void HandleParameter(string name, object value)
         {

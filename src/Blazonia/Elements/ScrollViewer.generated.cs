@@ -76,7 +76,7 @@ namespace Blazonia.Components
 
         public new AC.ScrollViewer NativeControl => (AC.ScrollViewer)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ScrollViewer CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ScrollViewer();
 
         protected override void HandleParameter(string name, object value)
         {

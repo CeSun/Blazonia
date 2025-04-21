@@ -42,7 +42,7 @@ namespace Blazonia.Components
 
         public new AC.StackPanel NativeControl => (AC.StackPanel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.StackPanel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.StackPanel();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -51,7 +51,7 @@ namespace Blazonia.Components
 
         public new AC.Slider NativeControl => (AC.Slider)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Slider CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Slider();
 
         protected override void HandleParameter(string name, object value)
         {

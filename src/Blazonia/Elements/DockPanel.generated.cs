@@ -28,7 +28,7 @@ namespace Blazonia.Components
 
         public new AC.DockPanel NativeControl => (AC.DockPanel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.DockPanel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.DockPanel();
 
         protected override void HandleParameter(string name, object value)
         {

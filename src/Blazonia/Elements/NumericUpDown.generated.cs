@@ -106,7 +106,7 @@ namespace Blazonia.Components
 
         public new AC.NumericUpDown NativeControl => (AC.NumericUpDown)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.NumericUpDown CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.NumericUpDown();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -36,7 +36,7 @@ namespace Blazonia.Components
 
         public new AC.WrapPanel NativeControl => (AC.WrapPanel)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.WrapPanel CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.WrapPanel();
 
         protected override void HandleParameter(string name, object value)
         {

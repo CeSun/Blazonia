@@ -46,7 +46,7 @@ namespace Blazonia.Components
 
         public new AC.TrayIcon NativeControl => (AC.TrayIcon)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.TrayIcon CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.TrayIcon();
 
         protected override void HandleParameter(string name, object value)
         {

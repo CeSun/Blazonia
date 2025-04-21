@@ -51,7 +51,7 @@ namespace Blazonia.Components
 
         public new AC.ItemsRepeater NativeControl => (AC.ItemsRepeater)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.ItemsRepeater CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.ItemsRepeater();
 
         protected override void HandleParameter(string name, object value)
         {

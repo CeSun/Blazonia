@@ -44,7 +44,7 @@ namespace Blazonia.Components
 
         public new A.Application NativeControl => (A.Application)((AvaloniaObject)this).NativeControl;
 
-        protected override A.Application CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new A.Application();
 
         protected override void HandleParameter(string name, object value)
         {

@@ -45,7 +45,7 @@ namespace Blazonia.Components
 
         public new A.StyledElement NativeControl => (A.StyledElement)((AvaloniaObject)this).NativeControl;
 
-        protected override A.StyledElement CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new A.StyledElement();
 
         protected override void HandleParameter(string name, object value)
         {

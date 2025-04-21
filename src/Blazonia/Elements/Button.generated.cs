@@ -53,7 +53,7 @@ namespace Blazonia.Components
 
         public new AC.Button NativeControl => (AC.Button)((AvaloniaObject)this).NativeControl;
 
-        protected override AC.Button CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new AC.Button();
 
         protected override void HandleParameter(string name, object value)
         {

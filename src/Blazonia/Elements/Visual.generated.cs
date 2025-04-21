@@ -64,7 +64,7 @@ namespace Blazonia.Components
 
         public new A.Visual NativeControl => (A.Visual)((AvaloniaObject)this).NativeControl;
 
-        protected override A.Visual CreateNativeElement() => new();
+        protected override AvaloniaBindableObject CreateNativeElement() => new A.Visual();
 
         protected override void HandleParameter(string name, object value)
         {
