@@ -1,0 +1,15 @@
+﻿@using Avalonia.Headless.XUnit
+@using Blazonia
+@using Blazonia.Components
+@inherits ElementTestBase;
+
+@code {
+    [AvaloniaFact]
+    public async Task StackPanel_Orientation()
+    {
+        var panel = await Render<AC.StackPanel>(
+            @<StackPanel Orientation="Orientation.Vertical" />);
+
+        Assert.Equal(Avalonia.Layout.Orientation.Vertical, panel.Orientation);
+    }
+}
