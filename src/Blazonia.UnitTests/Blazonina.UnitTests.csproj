@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+<PropertyGroup>
+        <EnableDefaultContentItems>false</EnableDefaultContentItems>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+        <RootNamespace>Blazonina.UnitTests</RootNamespace>
+        <TargetFramework>net9.0</TargetFramework>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+<!--    <EnableDefaultContentItems>false</EnableDefaultContentItems>-->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="MainAppPage.razor" />
+        <Content Include="MainAppPage.razor" />
+        <None Remove="Test.razor" />
+        <Content Include="Test.razor" />
+        <None Remove="Elements\BorderTests.razor" />
+        <Content Include="Elements\BorderTests.razor" />
+        <None Remove="Elements\ElementTestBase.razor" />
+        <Content Include="Elements\ElementTestBase.razor" />
+        <None Remove="_Imports.razor" />
+        <Content Include="_Imports.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="Avalonia.Headless.XUnit"/>
+
+        <ProjectReference Include="..\Blazonia\Blazonia.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="App.axaml.cs">
+        <DependentUpon>App.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\" />
+    </ItemGroup>
+
+</Project>
