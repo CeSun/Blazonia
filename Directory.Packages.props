@@ -29,5 +29,6 @@
 		<PackageVersion Include="OneOf" Version="3.0.271" />
 		<PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1" />
 		<PackageVersion Include="Semi.Avalonia" Version="11.2.1.6" />
+		<PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
 	</ItemGroup>
 </Project>
