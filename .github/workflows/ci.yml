@@ -38,3 +38,4 @@ jobs:
           comment-title: 'Unit Test Results'
           results-path: src/Blazonia.UnitTests/TestResults/*.trx
           coverage-path: src/Blazonia.UnitTests/TestResults/coverage/coverage.cobertura.xml
+          coverage-type: cobertura
