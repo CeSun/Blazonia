@@ -8,7 +8,7 @@
     public async Task Image_With_Source_Is_Set()
     {
         var image = await Render<AC.Image>(
-            @<Image Source="test.png" />);
+            @<Image SSource="@("test.png")" />);
 
         Assert.Equal("test.png", image.Source?.ToString());
     }
@@ -17,7 +17,7 @@
     public async Task Image_With_Width_And_Height_Is_Set()
     {
         var image = await Render<AC.Image>(
-            @<Image Source="test.png" Width="100" Height="50" />);
+            @<Image Source="@("test.png")" Width="100" Height="50" />);
 
         Assert.Equal(100, image.Width);
         Assert.Equal(50, image.Height);
