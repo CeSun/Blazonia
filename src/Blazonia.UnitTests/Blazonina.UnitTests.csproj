@@ -39,6 +39,12 @@
         <Content Include="Elements\SeparatorTests.razor" />
         <None Remove="Elements\ScrollViewerTests.razor" />
         <Content Include="Elements\ScrollViewerTests.razor" />
+        <None Remove="Elements\LabelTests.razor" />
+        <Content Include="Elements\LabelTests.razor" />
+        <None Remove="Elements\ImageTests.razor" />
+        <Content Include="Elements\ImageTests.razor" />
+        <None Remove="Elements\TextBoxTests.razor" />
+        <Content Include="Elements\TextBoxTests.razor" />
         <None Remove="_Imports.razor" />
         <Content Include="_Imports.razor" />
     </ItemGroup>
