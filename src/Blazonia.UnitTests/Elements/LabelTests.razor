@@ -17,7 +17,7 @@
     public async Task Label_With_Custom_Class_Is_Applied()
     {
         var label = await Render<AC.Label>(
-            @<Label Class="custom-label">Test</Label>);
+            @<Label Classes="custom-label">Test</Label>);
 
         Assert.Contains("custom-label", label.Classes);
     }

@@ -77,4 +77,9 @@
       <Folder Include="Components\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Empty.png" />
+      <AvaloniaResource Include="Empty.png" />
+    </ItemGroup>
+
 </Project>

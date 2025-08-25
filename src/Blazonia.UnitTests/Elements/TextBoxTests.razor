@@ -14,10 +14,10 @@
     }
 
     [AvaloniaFact]
-    public async Task TextBox_With_Placeholder_Is_Set()
+    public async Task TextBox_With_Watermark_Is_Set()
     {
         var textBox = await Render<AC.TextBox>(
-            @<TextBox Placeholder="Enter text here" />);
+            @<TextBox Watermark="Enter text here" />);
 
         Assert.Equal("Enter text here", textBox.Watermark);
     }
